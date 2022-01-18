@@ -1,11 +1,11 @@
-# prediction-using-ml
-Different machine learning algorithms implemented to predict the outcomes of different datasets.
+# Python and Artificial Intelligence programs
+Different Python, Machine Learning and Deep Learning programs.
 
-## Supervised learning
-1. Naïve Bayes Classifier
-2. Linear Regression
-3. Logistic Regression
-4. Decision Tree
+## Machine Learning
+<img src=".resources\ML.png" width=600>
 
-## Unsupervised learning
-1. K Means
+## Deep Learning
+Coming Soon
+
+## References
+To learn more about Artificial Intelligence, see [Artificial Intelligence, Machine Learning, and Deep Learning.](https://medium.com/@ishani-kathuria/artificial-intelligence-machine-learning-and-deep-learning-52122881ddf7).
