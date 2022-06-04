@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Everything from python to artificial intelligence.">
+		<meta name="author" content="Ishani Kathuria">
+
+		<!-- favicon and title -->
+		<link rel="icon" href="">
+		<title>
+			Python to AI
+		</title>
+
+		<!-- Google fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet">
+
+		<!-- Bootstrap core CSS -->
+		<link href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+		<!-- Additional CSS Files -->
+		<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.css') }}"></link>
+
+	</head>
+
+	<body>
+		<!-- nav -->
+		<nav class="navbar navbar-expand-lg">
+			<a class="navbar-brand" href="{{ url_for('home') }}"><i class="fa-solid fa-signature fa-2x"></i></a>
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="nav nav-pills">
+					<li class="nav-item">
+						<a href="{{ url_for('home') }}" class="nav-link {{ 'active' if page == 'home' else '' }}">Home</a>
+					</li>
+					<li class="nav-item">
+						<a href="{{ url_for('machine_learning') }}" class="nav-link {{ 'active' if page == 'machine_learning' else '' }}">Machine Learning</a>
+					</li>
+					<li class="nav-item">
+						<a href="{{ url_for('about') }}" class="nav-link {{ 'active' if page == 'about' else '' }}">About</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<!-- main content -->
+		<div style="min-height: 100vh;">
+			<div class="jumbotron">
+				<h1 class="display-2 text-center">
+					{{ self.title() }}
+				</h1>
+			</div>
+
+			<div class="container my-5">
+				{% block content %}{% endblock %}
+			</div>
+		</div>
+
+		<footer class="container text-center">
+			<p>Author: Ishani Kathuria</p>
+			<p><a href="https://github.com/ikathuria">GitHub</a></p>
+		</footer>
+
+		{% block scripts %}{% endblock %}
+
+		<!-- Bootstrap core JavaScript -->
+		<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+	</body>
+
+</html>
