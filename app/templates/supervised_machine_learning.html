@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+
+{% block title %} Supervised Machine Learning {% endblock %}
+
+{% block content %}
+
+<div>
+	{% if prediction == None %}
+	<!-- FORM -->
+	<form method="POST" action="/supervised-machine-learning" autocomplete="on">
+		<div class="form-group" id="modelchoice">
+			<label for="model-select">Choose your model</label>
+			<select
+				name="model"
+				class="form-control"
+				id="model-select"
+				onChange="handleSelection(value)">
+				<option value="classification">Classification</option>
+				<option value="regression">Regression</option>
+			</select>
+		</div>
+
+		<div id="classification">
+			<div class="form-group">
+				<label for="cat-select">Choose your model</label>
+				<select name="category" class="form-control" id="cat-select">
+					<option value="none" selected disabled hidden>Select a ML algorithm</option>
+					<option>Naive Bayes Classifier</option>
+					<option>K Nearest Neighbour</option>
+					<option>Logistic Regression</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="class-age">Age</label>
+				<input class="form-control" id="class-age" name="class-age" rows="1" value="18"></input>
+			</div>
+
+			<div class="form-group">
+				<label for="class-gender">Gender</label>
+				<select class="form-control" id="class-gender" name="class-gender">
+					<option>Male</option>
+					<option>Female</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="class-workclass">Workclass</label>
+				<select class="form-control" id="class-workclass" name="class-workclass">
+					<option>Private</option>
+					<option>Local-gov</option>
+					<option>Self-emp-not-inc</option>
+					<option>Federal-gov</option>
+					<option>State-gov</option>
+					<option>Self-emp-inc</option>
+					<option>Without-pay</option>
+					<option>Never-worked</option>
+					<option>?</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="class-edu">Education</label>
+				<select class="form-control" id="class-edu" name="class-edu">
+					<option>Preschool</option>
+					<option>1st-4th</option>
+					<option>5th-6th</option>
+					<option>7th-8th</option>
+					<option>9th</option>
+					<option>10th</option>
+					<option>11th</option>
+					<option>12th</option>
+					<option>HS-grad</option>
+					<option>Some-college</option>
+					<option>Assoc-acdm</option>
+					<option>Assoc-voc</option>
+					<option>Prof-school</option>
+					<option>Bachelors</option>
+					<option>Masters</option>
+					<option>Doctorate</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="class-marital">Marital Status</label>
+				<select class="form-control" id="class-marital" name="class-marital">
+					<option>Never-married</option>
+					<option>Married-civ-spouse</option>
+					<option>Widowed</option>
+					<option>Divorced</option>
+					<option>Separated</option>
+					<option>Married-spouse-absent</option>
+					<option>Married-AF-spouse</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="class-occ">Occupation</label>
+				<select class="form-control" id="class-occ" name="class-occ">
+					<option>Machine-op-inspct</option>
+					<option>Farming-fishing</option>
+					<option>Protective-serv</option>
+					<option>Prof-specialty</option>
+					<option>Craft-repair</option>
+					<option>Adm-clerical</option>
+					<option>Exec-managerial</option>
+					<option>Tech-support</option>
+					<option>Sales</option>
+					<option>Priv-house-serv</option>
+					<option>Transport-moving</option>
+					<option>Handlers-cleaners</option>
+					<option>Armed-Forces</option>
+					<option>Other-service</option>
+					<option>?</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="class-rel">Relationship</label>
+				<select class="form-control" id="class-rel" name="class-rel">
+					<option>Own-child</option>
+					<option>Husband</option>
+					<option>Wife</option>
+					<option>Unmarried</option>
+					<option>Other-relative</option>
+					<option>Not-in-family</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="class-race">Race</label>
+				<select class="form-control" id="class-race" name="class-race">
+					<option>Black</option>
+					<option>White</option>
+					<option>Asian-Pac-Islander</option>
+					<option>Amer-Indian-Eskimo</option>
+					<option>Other</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="class-cg">Capital Gain</label>
+				<input class="form-control" id="class-cg" name="class-cg" rows="1" value="0"></input>
+			</div>
+
+			<div class="form-group">
+				<label for="class-cl">Capital Loss</label>
+				<input class="form-control" id="class-cl" name="class-cl" rows="1" value="0"></input>
+			</div>
+
+			<div class="form-group">
+				<label for="class-hpw">Hours per week</label>
+				<input class="form-control" id="class-hpw" name="class-hpw" value="40"></input>
+			</div>
+
+			<div class="form-group">
+				<label for="class-country">Native Country</label>
+				<select class="form-control" id="class-country" name="class-country">
+					<option>United-States</option>
+					<option>PeruGuatemala</option>
+					<option>Mexico</option>
+					<option>Dominican-Republic</option>
+					<option>Ireland</option>
+					<option>Germany</option>
+					<option>Philippines</option>
+					<option>Thailand</option>
+					<option>Haiti</option>
+					<option>El-Salvador</option>
+					<option>Puerto-Rico</option>
+					<option>Vietnam</option>
+					<option>South</option>
+					<option>Columbia</option>
+					<option>Japan</option>
+					<option>India</option>
+					<option>Cambodia</option>
+					<option>Poland</option>
+					<option>Laos</option>
+					<option>England</option>
+					<option>Cuba</option>
+					<option>Taiwan</option>
+					<option>Italy</option>
+					<option>Canada</option>
+					<option>Portugal</option>
+					<option>China</option>
+					<option>Nicaragua</option>
+					<option>Honduras</option>
+					<option>Iran</option>
+					<option>Scotland</option>
+					<option>Jamaica</option>
+					<option>Ecuador</option>
+					<option>Yugoslavia</option>
+					<option>Hungary</option>
+					<option>Hong</option>
+					<option>Greece</option>
+					<option>Trinadad&Tobago</option>
+					<option>Outlying-US(Guam-USVI-etc)</option>
+					<option>France</option>
+					<option>Holand-Netherlands</option>
+					<option>?</option>
+				</select>
+			</div>
+		</div>
+
+		<div id="regression" style="display: none;">
+			<div class="form-group">
+				<label for="cat-select">Choose your model</label>
+				<select name="category" class="form-control" id="cat-select">
+					<option value="none" selected disabled hidden>Select a ML algorithm</option>
+					<option>Linear Regression</option>
+					<option>Decision Tree</option>
+				</select>
+			</div>
+		</div>
+
+		<button type="submit" class="btn btn-primary" data-toggle="popover" data-content="Processing your request...">
+			Submit
+		</button>
+	</form>
+	{% endif %}
+
+	{% if prediction and classification %}
+	<!-- RESULTS -->
+	<h2>Your inputs</h2>
+	<table style="width: 50%;">
+		<tr>
+			<th>Feature</th>
+			<th>Value</th>
+		</tr>
+		<tr>
+			<td>Age</td>
+			<td>{{ inputs[0][0] }}</td>
+		</tr>
+		<tr>
+			<td>Gender</td>
+			<td>{{ classification.gender_dict[inputs[0][7]] }}</td>
+		</tr>
+		<tr>
+			<td>Workclass</td>
+			<td>{{ classification.workclass_dict[inputs[0][1]] }}</td>
+		</tr>
+		<tr>
+			<td>Education</td>
+			<td>{{ classification.education_dict[inputs[0][2]] }}</td>
+		</tr>
+		<tr>
+			<td>Marital Status</td>
+			<td>{{ classification.marital_status_dict[inputs[0][3]] }}</td>
+		</tr>
+		<tr>
+			<td>Occupation</td>
+			<td>{{ classification.occupation_dict[inputs[0][4]] }}</td>
+		</tr>
+		<tr>
+			<td>Relationship</td>
+			<td>{{ classification.relationship_dict[inputs[0][5]] }}</td>
+		</tr>
+		<tr>
+			<td>Race</td>
+			<td>{{ classification.race_dict[inputs[0][6]] }}</td>
+		</tr>
+		<tr>
+			<td>Capital Gain</td>
+			<td>{{ inputs[0][8] }}</td>
+		</tr>
+		<tr>
+			<td>Capital Loss</td>
+			<td>{{ inputs[0][9] }}</td>
+		</tr>
+		<tr>
+			<td>Hours per week</td>
+			<td>{{ inputs[0][10] }}</td>
+		</tr>
+		<tr>
+			<td>Native Country</td>
+			<td>{{ classification.native_country_dict[inputs[0][11]] }}</td>
+		</tr>
+	</table>
+
+	<h2 class="dislay-4">
+		Final prediction for your data is Income: {{ prediction }}
+	</h2>
+
+	{% endif %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+	function handleSelection(choice) {
+		document.getElementById("modelchoice").disabled=true;
+		var regdiv = document.getElementById("regression");
+		var classdiv = document.getElementById("classification");
+
+		if (choice == "regression") {
+			regdiv.style.display = "block";
+			classdiv.style.display = "none";
+		}
+		else if (choice == "classification") {
+			regdiv.style.display = "none";
+			classdiv.style.display = "block";
+		}
+		else {
+			regdiv.style.display = "none";
+			classdiv.style.display = "none";
+		}
+	};
+</script>
+{% endblock %}

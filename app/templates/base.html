@@ -23,7 +23,7 @@
 		<link href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
 		<!-- Additional CSS Files -->
-		<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 		<link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.css') }}"></link>
 
 	</head>
@@ -31,22 +31,46 @@
 	<body>
 		<!-- nav -->
 		<nav class="navbar navbar-expand-lg">
-			<a class="navbar-brand" href="{{ url_for('home') }}"><i class="fa-solid fa-signature fa-2x"></i></a>
+			<a class="navbar-brand" href="{{ url_for('home') }}">
+				<i class="fa-solid fa-code fa-2x"></i>
+			</a>
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
 			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="nav nav-pills">
+				<ul class="nav">
 					<li class="nav-item">
-						<a href="{{ url_for('home') }}" class="nav-link {{ 'active' if page == 'home' else '' }}">Home</a>
+						<a href="{{ url_for('home') }}" class="nav-link {{ 'active' if page == 'home' else '' }}">
+							Home
+						</a>
 					</li>
-					<li class="nav-item">
-						<a href="{{ url_for('machine_learning') }}" class="nav-link {{ 'active' if page == 'machine_learning' else '' }}">Machine Learning</a>
+
+					<li class="nav-item dropdown">
+						<a
+							class="nav-link dropdown-toggle {{ 'active' if page.endswith('machine_learning') else '' }}"
+							id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"
+						>
+							Machine Learning
+						</a>
+
+						<div class="dropdown-menu">
+							<a href="{{ url_for('supervised_machine_learning') }}" class="nav-link">
+								Supervised Machine Learning
+							</a>
+							<div class="dropdown-divider"></div>
+							<a href="{{ url_for('supervised_machine_learning') }}" class="nav-link">
+								Unsupervised Machine Learning
+							</a>
+						</div>
 					</li>
+
 					<li class="nav-item">
-						<a href="{{ url_for('about') }}" class="nav-link {{ 'active' if page == 'about' else '' }}">About</a>
+						<a href="{{ url_for('about') }}" class="nav-link {{ 'active' if page == 'about' else '' }}">
+							About
+						</a>
 					</li>
 				</ul>
 			</div>
@@ -67,7 +91,17 @@
 
 		<footer class="container text-center">
 			<p>Author: Ishani Kathuria</p>
-			<p><a href="https://github.com/ikathuria">GitHub</a></p>
+			<p>
+				||
+				<a href="https://linkedin.com/in/ishani-kathuria/" target="_blank">
+					LinkedIn
+				</a>
+				||
+				<a href="https://github.com/ikathuria" target="_blank">
+					GitHub
+				</a>
+				||
+			</p>
 		</footer>
 
 		{% block scripts %}{% endblock %}

@@ -53,16 +53,16 @@ def get_model_input():
     return redirect(request.url)
 
 
-@APP.route("/machine-learning")
-def machine_learning():
+@APP.route("/supervised-machine-learning")
+def supervised_machine_learning():
     return render_template(
-        'machine_learning.html', page='machine_learning',
+        'supervised_machine_learning.html', page='supervised_machine_learning',
         classification=None, regression=None,
         inputs=None, prediction=None
     )
 
 
-@APP.route('/machine-learning', methods=["POST"])
+@APP.route('/supervised-machine-learning', methods=["POST"])
 def get_classification_input():
     classification_dict = {
         "workclass_dict": [
@@ -153,13 +153,13 @@ def get_classification_input():
             pass
 
         return render_template(
-            "machine_learning.html", page='machine_learning',
+            "supervised_machine_learning.html", page='supervised_machine_learning',
             classification=classification_dict, regression=None,
             inputs=class_input, prediction=pred
         )
 
     return render_template(
-        "machine_learning.html", page='machine_learning',
+        "supervised_machine_learning.html", page='supervised_machine_learning',
         classification=None, regression=None,
         inputs=None, prediction=None
     )
