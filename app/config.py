@@ -4,7 +4,7 @@ class Config(object):
 
 
 class DevelopmentConfig(Config):
-    SECRET_KEY = "this-is-a-super-secret-key"
+    SECRET_KEY = "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"
 
 
 config = {
@@ -13,5 +13,4 @@ config = {
     'production': DevelopmentConfig
 }
 
-# Enter your Open API Key here
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = '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'
