@@ -5,12 +5,12 @@
 {% block content %}
 
 <div>
-	Start Learning:
+	<h2>Start Learning!</h2>
 	<ul>
 		<li>Machine Learning</li>
 		<ul>
 			<li>
-				<a class="underline-left-right" href="{{ url_for('supervised_machine_learning') }}">
+				<a class="underline-left-right" href="{{ url_for('supervised_learning') }}">
 					Supervised Learning
 				</a>
 			</li>
@@ -21,7 +21,11 @@
 			<li>Linear Regression (Regression)</li>
 			<li>Decision Tree (Classification & Regression)</li>
 		</ul>
-			<li>Unsupervised Learning</li>
+			<li>
+				<a class="underline-left-right" href="{{ url_for('unsupervised_learning') }}">
+					Unsupervised Learning
+				</a>
+			</li>
 		<ul>
 			<li>K-Means (Clustering)</li>
 			<li>Hidden Markov Model (Clustering)</li>
@@ -29,6 +33,7 @@
 			<li>PCA (Dimension Reduction)</li>
 		</ul>
 	</ul>
+
 	<li>Deep Learning</li>
 	<ul>
 		<li>Multilayer Perceptron</li>
@@ -36,6 +41,20 @@
 		<li>Recurrent Neural Networks</li>
 		<li>Generative Adversarial Networks</li>
 		<li>Autoencoders</li>
+	</ul>
+
+	<li>Applications</li>
+	<ul>
+		<li>
+			<a class="underline-left-right" href="{{ url_for('nlp_content_gen') }}">
+				GPT-3 Content Generator
+			</a>
+		</li>
+		<li>
+			<a class="underline-left-right" href="{{ url_for('nlp_content_gen') }}">
+				Hand Gesture Recognition
+			</a>
+		</li>
 	</ul>
 </div>
 

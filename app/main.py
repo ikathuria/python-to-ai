@@ -1,20 +1,22 @@
 """set FLASK_ENV=development"""
 
+from dataclasses import replace
 import os
 import pandas as pd
 import pickle
 
+from app import config, gpt3content
+
 from flask import Flask
 from flask import request, render_template, redirect, send_from_directory, url_for
 
-MODEL_DIR = "static/models/"
 MODEL_DICT = {
     "Naive Bayes Classifier": "naive_bayes",
     "K Nearest Neighbour": "knn",
     "Logistic Regression": "log_reg",
     "Linear Regression": "lin_reg",
     "Decision Tree": "decision_tree",
-    "K Means": "k_means",
+    "clustering-kmeans": "kmeans",
     "Hidden Markov Model": "hmm",
     "Principal Component Analysis": "pca",
     "Perceptron": "perceptron",
@@ -26,12 +28,22 @@ MODEL_DICT = {
 }
 
 
-APP = Flask(__name__, static_url_path='/app/static', static_folder='static')
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 
-def load_pickle_model(filename):
+APP = Flask(__name__)
+APP.config.from_object(config.config['development'])
+APP.register_error_handler(404, page_not_found)
+
+
+def load_pickle_model(name):
     """Loads the model from the disk."""
-    return pickle.load(open(filename, 'rb'))
+    filename = f"models/{name}.sav"
+    return pickle.load(open(
+        "app" + url_for("static", filename=filename),
+        'rb'
+    ))
 
 
 @APP.route("/")
@@ -42,28 +54,8 @@ def home():
     )
 
 
-@APP.route('/', methods=["POST"])
-def get_model_input():
-    if request.method == 'POST':
-        # User's chosen model
-        chosen_model = request.form['category']
-        print(chosen_model)
-
-        return redirect(url_for(MODEL_DICT[chosen_model]))
-    return redirect(request.url)
-
-
-@APP.route("/supervised-machine-learning")
-def supervised_machine_learning():
-    return render_template(
-        'supervised_machine_learning.html', page='supervised_machine_learning',
-        classification=None, regression=None,
-        inputs=None, prediction=None
-    )
-
-
-@APP.route('/supervised-machine-learning', methods=["POST"])
-def get_classification_input():
+@APP.route('/supervised-machine-learning', methods=["GET", "POST"])
+def supervised_learning():
     classification_dict = {
         "workclass_dict": [
             'Private', 'Local-gov', '?', 'Self-emp-not-inc', 'Federal-gov',
@@ -113,7 +105,7 @@ def get_classification_input():
         model_type = request.form['model']
         chosen_model = request.form['category']
         algo = MODEL_DICT[chosen_model]
-        model = load_pickle_model(f"app\\static\\models\\{algo}.sav")
+        model = load_pickle_model(algo)
 
         if model_type == 'classification':
             class_age = int(request.form['class-age'])
@@ -153,15 +145,69 @@ def get_classification_input():
             pass
 
         return render_template(
-            "supervised_machine_learning.html", page='supervised_machine_learning',
+            "supervised_ml.html", page='supervised_ml',
             classification=classification_dict, regression=None,
             inputs=class_input, prediction=pred
         )
 
     return render_template(
-        "supervised_machine_learning.html", page='supervised_machine_learning',
+        "supervised_ml.html", page='supervised_ml',
         classification=None, regression=None,
         inputs=None, prediction=None
+    )
+
+
+@APP.route('/unsupervised-machine-learning', methods=["GET", "POST"])
+def unsupervised_learning():
+    cluster_dict = {
+        'Species': ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
+    }
+
+    if request.method == 'POST':
+        # User's chosen model
+        model_type = request.form['model']
+        algo = MODEL_DICT[model_type]
+        model = load_pickle_model(algo)
+
+        if model_type == 'clustering-kmeans':
+            petal_len = float(request.form['cluster-petal-len'])
+            petal_wid = float(request.form['cluster-petal-wid'])
+
+            cluster_input = [[petal_len, petal_wid]]
+            print(cluster_input)
+
+            try:
+                pred = cluster_dict["Species"][model.predict(cluster_input)[
+                    0]]
+            except:
+                pred = None
+        else:
+            pass
+
+        return render_template(
+            "unsupervised_ml.html", page='unsupervised_ml',
+            inputs=cluster_input, prediction=pred
+        )
+
+    return render_template(
+        "unsupervised_ml.html", page='unsupervised_ml',
+        clustering=None, inputs=None, prediction=None
+    )
+
+
+@APP.route('/nlp-content-generator', methods=["GET", "POST"])
+def nlp_content_gen():
+    if request.method == 'POST':
+        prompt = request.form['blogContent']
+        blogT = gpt3content.generate_blog(prompt)
+        blog = blogT.replace("\n", "<br />")
+
+        return render_template(
+            'nlp_content_gen.html', page='nlp_content_gen', blog=blog
+        )
+
+    return render_template(
+        'nlp_content_gen.html', page='nlp_content_gen', blog=''
     )
 
 

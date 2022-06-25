@@ -9,6 +9,12 @@ a.active {
   color: #ffffff !important;
 }
 
+a.drop.active {
+  border-radius: 0px;
+  background-color: #3776ab;
+  color: #ffffff !important;
+}
+
 a.underline-left-right {
   display: inline-block;
   padding: 5px;

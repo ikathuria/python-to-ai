@@ -49,7 +49,7 @@
 
 					<li class="nav-item dropdown">
 						<a
-							class="nav-link dropdown-toggle {{ 'active' if page.endswith('machine_learning') else '' }}"
+							class="nav-link dropdown-toggle {{ 'active' if page.endswith('ml') else '' }}"
 							id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"
 						>
@@ -57,11 +57,11 @@
 						</a>
 
 						<div class="dropdown-menu">
-							<a href="{{ url_for('supervised_machine_learning') }}" class="nav-link">
+							<a href="{{ url_for('supervised_learning') }}" class="nav-link drop {{ 'active' if page=='supervised_ml' else '' }}">
 								Supervised Machine Learning
 							</a>
 							<div class="dropdown-divider"></div>
-							<a href="{{ url_for('supervised_machine_learning') }}" class="nav-link">
+							<a href="{{ url_for('unsupervised_learning') }}" class="nav-link drop {{ 'active' if page=='unsupervised_ml' else '' }}">
 								Unsupervised Machine Learning
 							</a>
 						</div>
@@ -99,6 +99,10 @@
 				||
 				<a href="https://github.com/ikathuria" target="_blank">
 					GitHub
+				</a>
+				||
+				<a href="https://medium.com/@ishani-kathuria" target="_blank">
+					Medium
 				</a>
 				||
 			</p>
