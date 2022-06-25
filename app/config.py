@@ -4,7 +4,7 @@ class Config(object):
 
 
 class DevelopmentConfig(Config):
-    SECRET_KEY = "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"
+    SECRET_KEY = "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"
 
 
 config = {
@@ -13,4 +13,4 @@ config = {
     'production': DevelopmentConfig
 }
 
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = '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'
