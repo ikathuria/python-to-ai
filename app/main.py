@@ -5,7 +5,7 @@ import os
 import pandas as pd
 import pickle
 
-from app import config, gpt3content
+from app import gpt3content
 
 from flask import Flask
 from flask import request, render_template, redirect, send_from_directory, url_for
@@ -33,7 +33,6 @@ def page_not_found(e):
 
 
 APP = Flask(__name__)
-APP.config.from_object(config.config['development'])
 APP.register_error_handler(404, page_not_found)
 
 
