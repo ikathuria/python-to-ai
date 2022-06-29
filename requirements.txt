@@ -4,3 +4,8 @@ flask
 openai
 sklearn
 python-dotenv
+mediapipe
+opencv-python
+tensorflow
+keras
+urllib3
