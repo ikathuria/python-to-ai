@@ -1,4 +1,3 @@
-import os
 import openai
 from app import config
 
@@ -46,6 +45,7 @@ def blog_section_expander(prompt):
     )
 
     return response["choices"][0]["text"]
+
 
 if __name__ == "__main__":
     prompt = input("Enter blog title to continue: ")

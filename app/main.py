@@ -3,7 +3,7 @@ import numpy as np
 import mediapipe as mp
 
 from app import gpt3content, handges1
-from app.utils.helper import *
+import app.utils.helper as helper
 import app.utils.constants as c
 import app.utils.classification_ml as classification_utils
 
@@ -15,7 +15,7 @@ switch = 0
 
 
 flask_app = Flask(__name__)
-logger = CustomLogger().get_logger()
+logger = helper.CustomLogger().get_logger()
 
 
 @flask_app.errorhandler(404)
@@ -118,7 +118,7 @@ def unsupervised_learning_model():
     Includes clustering machine learning models.
     """
     logger.debug("Rendering unsupervised ML demo page")
-    ml_input = None
+    # ml_input = None
     pred = None
 
     cluster_dict = {
@@ -129,7 +129,7 @@ def unsupervised_learning_model():
         # User"s chosen model
         model_type = request.form["model"]
         algo = c.MODEL_DICT[model_type]
-        model = load_pickle_model(algo)
+        model = helper.load_pickle_model(algo)
 
         if model_type == "clustering-kmeans":
             petal_len = float(request.form["cluster-petal-len"])
@@ -143,7 +143,10 @@ def unsupervised_learning_model():
             try:
                 pred = cluster_dict["Species"][model.predict(cluster_input)[
                     0]]
-            except:
+            except Exception as e:
+                logger.error(
+                    f"[Unsupervised ML] [Clustering] [K-means] Could not get prediction due to error: {e}"
+                )
                 pred = None
         else:
             pass
@@ -198,12 +201,12 @@ def gen_frames():
     accumWeight = 0.5
 
     # labels in order of training output
-    labels = {
-        0: "zero", 1: "one", 2: "two", 3: "three", 4: "four",
-        5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine",
-        10: "up", 11: "down", 12: "left", 13: "right", 14: "off",
-        15: "on", 16: "ok", 17: "blank"
-    }
+    # labels = {
+    #     0: "zero", 1: "one", 2: "two", 3: "three", 4: "four",
+    #     5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine",
+    #     10: "up", 11: "down", 12: "left", 13: "right", 14: "off",
+    #     15: "on", 16: "ok", 17: "blank"
+    # }
 
     hands = mp_hands.Hands(
         max_num_hands=1,
@@ -237,9 +240,9 @@ def gen_frames():
                     landmarks = hand_landmarks.landmark
                     coords_x = []
                     coords_y = []
-                    for l in landmarks:
-                        coords_x.append(int(l.x * width))
-                        coords_y.append(int(l.y * height))
+                    for mark in landmarks:
+                        coords_x.append(int(mark.x * width))
+                        coords_y.append(int(mark.y * height))
                     # bounded_hands = get_hands(clone, coords_x, coords_y)
                     # cv2.imshow("Hands", bounded_hands)
 
@@ -256,11 +259,11 @@ def gen_frames():
                 handges1.run_avg(gray, accumWeight)
                 if num_frames == 1:
                     logger.info(
-                        f"[Deep Learning] [Hand Gesture Recognition] Starting frame calibration"
+                        "[Deep Learning] [Hand Gesture Recognition] Starting frame calibration"
                     )
                 elif num_frames == 29:
                     logger.info(
-                        f"[Deep Learning] [Hand Gesture Recognition] Calibration successful"
+                        "[Deep Learning] [Hand Gesture Recognition] Calibration successful"
                     )
 
             else:
@@ -312,9 +315,9 @@ def gen_frames():
                 c = clone
                 thresholded = cv2.resize(thresholded, (640, 480))
                 t = np.zeros_like(c)
-                t[:,:,0] = thresholded
-                t[:,:,1] = thresholded
-                t[:,:,2] = thresholded
+                t[:, :, 0] = thresholded
+                t[:, :, 1] = thresholded
+                t[:, :, 2] = thresholded
 
                 frame = np.hstack((c, t))
                 ret, buffer = cv2.imencode(
@@ -335,9 +338,9 @@ def gen_frames():
                     c = clone
                     thresholded = cv2.resize(thresholded, (640, 480))
                     t = np.zeros_like(c)
-                    t[:,:,0] = thresholded
-                    t[:,:,1] = thresholded
-                    t[:,:,2] = thresholded
+                    t[:, :, 0] = thresholded
+                    t[:, :, 1] = thresholded
+                    t[:, :, 2] = thresholded
 
                     frame = np.hstack((c, t))
                     ret, buffer = cv2.imencode(
@@ -366,7 +369,7 @@ def hand_ges_1():
     hand_ges_model1 = handges1.load_weights(
         "app" + url_for(
             "static", filename="models/10Apr_model_12.h5"
-    ))
+        ))
 
     if request.method == "POST":
         if request.form.get("startCamera") == "startCamera":

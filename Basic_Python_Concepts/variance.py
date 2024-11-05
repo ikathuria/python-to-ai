@@ -32,7 +32,7 @@ def calc_variance(x, x_mean, use_package=True):
         variance = 0.0
         for i in x:
             variance += (i - x_mean)**2
-        return variance / (len(x)-1)
+        return variance / (len(x) - 1)
 
 
 def calc_covariance(x, x_mean, y, y_mean, use_package=True):
@@ -55,7 +55,7 @@ def calc_covariance(x, x_mean, y, y_mean, use_package=True):
         covariance = 0.0
         for i, j in zip(x, y):
             covariance += (i - x_mean) * (j - y_mean)
-        return covariance / (len(x)-1)
+        return covariance / (len(x) - 1)
 
 
 def calc_sd(var):

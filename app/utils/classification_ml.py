@@ -1,4 +1,4 @@
-from app.utils.helper import *
+import app.utils.helper as helper
 import app.utils.constants as c
 
 
@@ -13,7 +13,7 @@ class GenerateClassificationPredication:
     def __init__(self, algorithm, form_values):
         self.logger_prefix = "[Machine Learning][Classification]"
 
-        self.model = load_pickle_model(algorithm)
+        self.model = helper.load_pickle_model(algorithm)
         self.form_values = form_values
 
         # generate user input
@@ -42,37 +42,37 @@ class GenerateClassificationPredication:
         """Generate input for algoritm.
         """
         age = int(self.form_values["class-age"])
-        workclass = get_index_from_dictionary(
+        workclass = helper.get_index_from_dictionary(
             "workclass_dict",
             self.form_values["class-workclass"],
             c.CLASSIFICATION_DICT
         )
-        education = get_index_from_dictionary(
+        education = helper.get_index_from_dictionary(
             "education_dict",
             self.form_values["class-edu"],
             c.CLASSIFICATION_DICT
         )
-        marital = get_index_from_dictionary(
+        marital = helper.get_index_from_dictionary(
             "marital_status_dict",
             self.form_values["class-marital"],
             c.CLASSIFICATION_DICT
         )
-        occ = get_index_from_dictionary(
+        occ = helper.get_index_from_dictionary(
             "occupation_dict",
             self.form_values["class-occ"],
             c.CLASSIFICATION_DICT
         )
-        relationship = get_index_from_dictionary(
+        relationship = helper.get_index_from_dictionary(
             "relationship_dict",
             self.form_values["class-rel"],
             c.CLASSIFICATION_DICT
         )
-        race = get_index_from_dictionary(
+        race = helper.get_index_from_dictionary(
             "race_dict",
             self.form_values["class-race"],
             c.CLASSIFICATION_DICT
         )
-        gender = get_index_from_dictionary(
+        gender = helper.get_index_from_dictionary(
             "gender_dict",
             self.form_values["class-gender"],
             c.CLASSIFICATION_DICT
@@ -80,7 +80,7 @@ class GenerateClassificationPredication:
         cg = int(self.form_values["class-cg"])
         cl = int(self.form_values["class-cl"])
         hpw = int(self.form_values["class-hpw"])
-        country = get_index_from_dictionary(
+        country = helper.get_index_from_dictionary(
             "native_country_dict",
             self.form_values["class-country"],
             c.CLASSIFICATION_DICT

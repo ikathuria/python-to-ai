@@ -5,7 +5,7 @@
 {% block content %}
 
 <div>
-    {% if prediction == None %}
+    {% if prediction is None %}
     <!-- FORM -->
     <form method="POST" action="{{path}}" autocomplete="on">
         <div class="form-group" id="modelchoice">

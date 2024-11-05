@@ -1,6 +1,5 @@
-import re
 import pandas as pd
-from cosine_similarity import *
+import cosine_similarity
 
 
 movie_database = pd.DataFrame({
@@ -42,4 +41,3 @@ for m1 in movie_genres.columns:
         cos_sims.append([m1, m2, cosine_similarity(m1_g, m2_g)])
 
 print(cos_sims)
-

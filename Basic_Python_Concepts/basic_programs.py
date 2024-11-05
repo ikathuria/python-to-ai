@@ -7,7 +7,7 @@ def fibonnaci_series(n):
     a = 0
     b = 1
     print(a, b, end=' ')
-    for i in range(n-2):
+    for i in range(n - 2):
         c = a + b
         print(c, end=' ')
         a = b
@@ -42,10 +42,10 @@ def add_matrices(mat1, mat2):
     for i in range(len(mat1)):
         for j in range(len(mat1[i])):
             final[i][j] += mat2[i][j]
-    
+
     for i in range(len(mat1)):
         for j in range(len(mat1[i])):
-            print(f"%2d + %2d = %2d" %
+            print("%2d + %2d = %2d" %
                   (mat1[i][j], mat2[i][j], final[i][j]), end=" | ")
         print()
 

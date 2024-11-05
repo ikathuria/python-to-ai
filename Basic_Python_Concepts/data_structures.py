@@ -21,7 +21,7 @@ class SinglyLinkedinList:
         self.head = newNode
 
     def insert_after(self, data, node):
-        if node == None:
+        if node is None:
             return
         newNode = Node(data)
         newNode.next = node.next
@@ -30,12 +30,12 @@ class SinglyLinkedinList:
     def insert_last(self, data):
         newNode = Node(data)
 
-        if self.head == None:
+        if self.head is None:
             self.head = newNode
             return
 
         curr = self.head
-        while curr.next != None:
+        while curr.next is not None:
             curr = curr.next
 
         curr.next = newNode
@@ -47,13 +47,13 @@ class SinglyLinkedinList:
             return
 
     def delete_after(self, node):
-        if node == None:
+        if node is None:
             return
         node.next = node.next.next
 
     def delete_last(self):
         curr = self.head
-        while curr.next.next != None:
+        while curr.next.next is not None:
             curr = curr.next
         curr.next = None
 
@@ -65,5 +65,3 @@ sll.insert_last(3)
 sll.insert_last(4)
 sll.insert_last(5)
 sll.show()
-
-

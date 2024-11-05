@@ -13,7 +13,6 @@ Functions:
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-import sys
 import cv2
 import numpy as np
 import mediapipe as mp
@@ -21,7 +20,6 @@ import mediapipe as mp
 print("setting up, please wait...")
 
 from keras.models import load_model
-from flask import url_for
 
 
 def find_biggest_contour(image):
@@ -121,10 +119,10 @@ def detect_hands(image, draw_image):
             landmarks = hand_landmarks.landmark
             coords_x = []
             coords_y = []
-            for l in landmarks:
-                coords_x.append(int(l.x * width))
-                coords_y.append(int(l.y * height))
-        bounded_hands = get_hands(image, coords_x, coords_y)
+            for mark in landmarks:
+                coords_x.append(int(mark.x * width))
+                coords_y.append(int(mark.y * height))
+        # bounded_hands = get_hands(image, coords_x, coords_y)
         return draw_image
     return None
 
@@ -150,7 +148,7 @@ def get_hands(image, x, y):
 
 def load_weights(latest_model):
     """Load Model Weights.
-    
+
     Returns:
         the loaded model if available, otherwise None.
     """
@@ -159,15 +157,16 @@ def load_weights(latest_model):
         return model
 
     except Exception as e:
+        print(f"error: {e}")
         return None
 
 
 def get_predicted_class(model):
     """Get the predicted class.
-    
+
     Args:
         model: the loaded model.
-    
+
     Returns:
         the predicted class.
     """
@@ -244,9 +243,9 @@ if __name__ == "__main__":
                 landmarks = hand_landmarks.landmark
                 coords_x = []
                 coords_y = []
-                for l in landmarks:
-                    coords_x.append(int(l.x * width))
-                    coords_y.append(int(l.y * height))
+                for mark in landmarks:
+                    coords_x.append(int(mark.x * width))
+                    coords_y.append(int(mark.y * height))
                 # bounded_hands = get_hands(clone, coords_x, coords_y)
                 # cv2.imshow('Hands', bounded_hands)
 
@@ -284,8 +283,15 @@ if __name__ == "__main__":
                     color_contours = (0, 255, 0)  # green - color for contours
                     color = (255, 0, 0)  # blue - color for convex hull
                     # draw ith contour
-                    cv2.drawContours(thresholded, contours, i,
-                                    color_contours, 1, 8, hierarchy)
+                    cv2.drawContours(
+                        image=thresholded,
+                        contours=contours,
+                        contourIdx=i,
+                        color=color_contours,
+                        thickness=1,
+                        lineType=8,
+                        hierarchy=hierarchy
+                    )
                     # draw ith convex hull object
                     cv2.drawContours(thresholded, hull, i, color, 1, 8)
 

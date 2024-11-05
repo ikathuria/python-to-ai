@@ -4,7 +4,7 @@ from numpy.linalg import norm
 
 
 def year_similarity(x, y):
-    return math.exp(-(abs(x-y))/10.0)
+    return math.exp(-(abs(x - y)) / 10.0)
 
 
 def cosine_similarity(x, y):

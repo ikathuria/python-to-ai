@@ -1,4 +1,3 @@
-import numpy as np
 
 
 def display_matrix(mat):
@@ -21,7 +20,7 @@ def getMatrixMinor(m, i, j):
 
 
 def getMatrixDeternminant(m):
-    #base case for 2x2 matrix
+    # base case for 2x2 matrix
     if len(m) == 2:
         return (m[0][0] * m[1][1] - m[0][1] * m[1][0]) * 1.0
 
@@ -34,12 +33,12 @@ def getMatrixDeternminant(m):
 
 def getMatrixInverse(m):
     determinant = getMatrixDeternminant(m)
-    #special case for 2x2 matrix:
+    # special case for 2x2 matrix:
     if len(m) == 2:
         return [[m[1][1] / determinant, -1 * m[0][1] / determinant],
                 [-1 * m[1][0] / determinant, m[0][0] / determinant]]
 
-    #find matrix of cofactors
+    # find matrix of cofactors
     cofactors = []
     for r in range(len(m)):
         cofactorRow = []
@@ -67,4 +66,3 @@ if __name__ == "__main__":
     print()
 
     display_matrix(multip(i, matrix))
-
