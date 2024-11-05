@@ -7,9 +7,9 @@ openai.api_key = config.OPENAI_API_KEY
 
 def generate_blog(prompt):
     sections = generate_blog_sections(prompt)
-    secs = [i for i in sections.split('\n') if i != '']
+    secs = [i for i in sections.split("\n") if i != ""]
 
-    res = ''
+    res = ""
     for s in secs:
         res += "<h3>" + s.upper() + r"<\h3>"
         res += "<p>" + blog_section_expander(s) + r"<\p>"
@@ -30,7 +30,7 @@ def generate_blog_sections(prompt):
         presence_penalty=0
     )
 
-    return response['choices'][0]['text']
+    return response["choices"][0]["text"]
 
 
 def blog_section_expander(prompt):
@@ -45,7 +45,7 @@ def blog_section_expander(prompt):
         presence_penalty=0
     )
 
-    return response['choices'][0]['text']
+    return response["choices"][0]["text"]
 
 if __name__ == "__main__":
     prompt = input("Enter blog title to continue: ")

@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+
+{% block title %} Machine Learning {% endblock %}
+
+{% block content %}
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+    <li><a href="#ML-Key-Terms">ML Key Terms</a></li>
+    <li><a href="#Types-of-Machine-Learning">Types of Machine Learning</a></li>
+    <li><a href="#Supervised-Learning">Supervised Learning</a></li>
+    <li><a href="#Unsupervised-Learning">Unsupervised Learning</a></li>
+</ol>
+
+<h2 id="ml-key-terms">ML Key Terms</h2>
+<ul>
+    <li><strong>Labels</strong> are the thing we&#39;re predicting.</li>
+    <li><strong>Features</strong> are the input variable.</li>
+    <li><strong>Models</strong> define the relationship between features and
+        labels.</li>
+    <li>Two phases of a model&#39;s life:<ul>
+            <li><strong>Training</strong> means creating or learning the model.
+            </li>
+            <li><strong>Inference</strong> means applying the trained model to
+                unlabeled examples.</li>
+        </ul>
+    </li>
+</ul>
+
+<h2 id="types-of-machine-learning">Types of Machine Learning</h2>
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Supervised</th>
+            <th>Unsupervised</th>
+            <th>Semi-Supervised</th>
+            <th>Reinforcement</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Overview</td>
+            <td>Majority of algorithms. The machine is trained using
+                well-labeled data; inputs and outputs are matched.</td>
+            <td>Unlabeled data (inputs only) is analyzed. Learning happens
+                without supervision</td>
+            <td>Some data is labeled, some not. The goal is to get better
+                results than labeled data alone. Good for real-world data.</td>
+            <td>An agent interacts with its environment by performing an action
+                and learning from errors or rewards.</td>
+        </tr>
+        <tr>
+            <td>Process</td>
+            <td>Mapping function takes inputs and matches to outputs, creating a
+                target function.</td>
+            <td>Inputs are used to create a model of the data.</td>
+            <td>Combination of the supervised and unsupervised processes.</td>
+            <td>Follows trial-and-error method.</td>
+        </tr>
+        <tr>
+            <td>Subtypes</td>
+            <td>Classification, Regression</td>
+            <td>Clustering, Association, Dimension Reduction</td>
+            <td>Classification, Regression, Clustering, Association</td>
+            <td>Reward-based</td>
+        </tr>
+        <tr>
+            <td>Algorithms</td>
+            <td>Linear Regression, Random Forest, SVM</td>
+            <td>PCA, K-Means</td>
+            <td>Mixture models, Semi-supervised SVM</td>
+            <td>Q-Learning</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 id="supervised-learning">Supervised Learning</h2>
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Classification</th>
+            <th>Regression</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Overview</td>
+            <td>The task of predicting a discrete class label.</td>
+            <td>The task of predicting a continuous quantity.</td>
+        </tr>
+        <tr>
+            <td>Subtypes</td>
+            <td><em>Binary Classification:</em> The data is classified into two
+                classes/labels.<br><em>Multiclass Classification:</em> The data
+                is classified into more than 2 classes/labels.</td>
+            <td><em>Single Regression:</em> The data can have one dependent (y)
+                variable with one independent (x) variables.<br><em>Multivariate
+                    Regression:</em> The data can have one independent (y)
+                variable and two or more dependent (x) variables.</td>
+        </tr>
+        <tr>
+            <td>Algorithms</td>
+            <td>Naive Bayes, Logistic Regression</td>
+            <td>Linear Regression</td>
+        </tr>
+        <tr>
+            <td>Type of Output</td>
+            <td>Categorical</td>
+            <td>Continuous</td>
+        </tr>
+        <tr>
+            <td>Assessment of Model</td>
+            <td>Accuracy/Confusion Matrix</td>
+            <td>Root Mean Squared Error</td>
+        </tr>
+        <tr>
+            <td>Examples</td>
+            <td><em>Binary Classification:</em> detecting if given email is spam
+                or not (classes - yes/no)<br><em>Multiclass Classification:</em>
+                predicting what dog breed is presented to the model (classes -
+                pug, labrador, golden retriever, etc.)</td>
+            <td><em>Single Regression:</em> predicting the price of a house (y)
+                given the feature of square feet (x).<br><em>Multivariate
+                    Regression:</em> predicting the price of a house (y) given
+                the features of square feet, number of rooms, schools in the
+                area, etc. (x).</td>
+        </tr>
+    </tbody>
+</table>
+
+<div align="center">
+    <img
+        src="https://static.javatpoint.com/tutorial/machine-learning/images/regression-vs-classification-in-machine-learning.png"
+        width=600>
+</div>
+
+<h2 id="unsupervised-learning">Unsupervised Learning</h2>
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Clustering</th>
+            <th>Association</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Overview</td>
+            <td>Grouping a set of objects in such a manner that objects in the
+                same group are more similar than to those object belonging to
+                other groups.</td>
+            <td>Finding associations amongst items within large commercial
+                databases.</td>
+        </tr>
+        <tr>
+            <td>Subtypes</td>
+            <td>There are 5 types of clustering methods: Partioning,
+                Heirarchical, Fuzzy, Density-Based, Model-Based</td>
+            <td>f</td>
+        </tr>
+        <tr>
+            <td>Algorithms</td>
+            <td>K-Means, Agglomerative</td>
+            <td>Apiori</td>
+        </tr>
+        <tr>
+            <td>Examples</td>
+            <td>Split up similar clothing into stacks.</td>
+            <td>Find what clothes one often wears together.</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

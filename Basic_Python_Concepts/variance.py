@@ -70,10 +70,10 @@ def calc_sd(var):
 if __name__ == "__main__":
     # x = [float(f) for f in input("Enter space separated list for x: ")]
     # y = [float(f) for f in input("Enter space separated list for y: ")]
-    x = [0, 2, 0, -2]
+    x = [0, 1, 1, 1]
     x_mean = mean(x)
 
-    y = [1, 1, -1, -1]
+    y = [1, 1, 0, 1]
     y_mean = mean(y)
 
     # print(x.cov(y))
@@ -84,7 +84,10 @@ if __name__ == "__main__":
     var2 = calc_variance(y, y_mean, use_package)
     covar = calc_covariance(x, x_mean, y, y_mean, use_package)
 
-    print("Mean of x: %f\nMean of y: %f" % (x_mean, y_mean))
-    print("Variance:\n%f\n%f" % (var1, var2))
-    print("Covariance:", covar)
+    print("Mean of x: %f \nMean of y: %f" % (x_mean, y_mean))
+    print("Variance of x: %f \nVariance of y: %f" % (var1, var2))
+    if use_package:
+        print("Covariance of `statistics`: %f \nCovariance of `pandas`: %f" % covar)
+    else:
+        print("Covariance:", covar)
     # print("Standard Deviation: %f" % calc_sd(var))

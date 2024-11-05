@@ -1,12 +1,13 @@
 Flask
 inflect
-mediapipe
-nltk
+urllib3
 numpy
+pandas
 openai
 opencv_python
-pandas
-urllib3
 scikit-learn
+nltk
+mediapipe
 tensorflow
 keras
+seaborn

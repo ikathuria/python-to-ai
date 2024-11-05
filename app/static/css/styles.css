@@ -1,5 +1,5 @@
 a {
-  color: #CF1259 !important;
+  color: #000000 !important;
   font-weight: bold;
 }
 
@@ -49,9 +49,9 @@ a.underline-left-right:hover::before {
 }
 
 /* JUMBOTRON */
-.jumbotron {
+/* .jumbotron {
   background: linear-gradient(
     100deg, #3776ab 0%,
     #ffd343 35%, #ffffff 75%
   );
-}
+} */

@@ -55,15 +55,15 @@ def add_matrices(mat1, mat2):
 # fibb = int(input("Enter the number of terms in fibonnaci series: "))
 fibonnaci_series(10)
 
-print("\n\n")
+print("\n")
 # arr = list(map(int, input("Enter the elements of array: ").split()))
 max_min_array([1, 2, 3, -1, -248, 1948, 1, 0, 2, -3])
 
-print("\n\n")
+print("\n")
 pos_neg_array([1, 2, 3, -1, -248, 1948, 1, 0, 2, -3])
 
 
-print("\n\n")
+print("\n")
 mat1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 mat2 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 add_matrices(mat1, mat2)
