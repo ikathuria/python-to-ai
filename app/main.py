@@ -18,26 +18,9 @@ flask_app = Flask(__name__)
 logger = helper.CustomLogger().get_logger()
 
 
-@flask_app.errorhandler(404)
-def not_found(error):
-    """Page not found.
-
-    Args:
-        error: Page error
-
-    Returns:
-        404 response
-    """
-    logger.error(f"Returning 404 due to error: {error}")
-    return make_response(
-        render_template("404.html", error=error),
-        404
-    )
-
-
 @flask_app.route("/")
 def home():
-    logger.debug("Rendering home page")
+    logger.info("Rendering home page")
     return render_template(
         "index.html",
         page="home"
