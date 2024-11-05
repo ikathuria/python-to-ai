@@ -5,38 +5,37 @@ name: Python application
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 permissions:
   contents: read
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out code
-      uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
+        uses: actions/setup-python@v3
+        with:
           python-version: "3.10"
 
       - name: Install dependencies
-      run: |
+        run: |
           python -m pip install --upgrade pip
           pip install flake8 pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Lint with flake8
-      run: |
+        run: |
           # stop the build if there are Python syntax errors or undefined names
           flake8 . --count --ignore=E501,E402 --show-source --statistics --verbose
 
       - name: Test with pytest
-      run: |
+        run: |
           pytest
