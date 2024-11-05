@@ -11,3 +11,4 @@ mediapipe
 tensorflow
 keras
 seaborn
+gunicorn
