@@ -5,11 +5,11 @@
 {% block content %}
 
 <div>
-    {% if prediction is None %}
+    {% if prediction is none %}
     <!-- FORM -->
     <form method="POST" action="{{path}}" autocomplete="on">
         <div class="form-group" id="modelchoice">
-            <label for="model-select">Choose your model</label>
+            <label for="model-select">Choose your type of Supervised ML</label>
             <select
                 name="model"
                 class="form-control"
@@ -22,9 +22,8 @@
 
         <div id="classification">
             <div class="form-group">
-                <label for="cat-select">Choose your model</label>
+                <label for="cat-select">Choose your algorithm</label>
                 <select name="category" class="form-control" id="cat-select">
-                    <option value="none" selected disabled hidden>Select a ML algorithm</option>
                     <option>Naive Bayes Classifier</option>
                     <option>K Nearest Neighbour</option>
                     <option>Logistic Regression</option>
