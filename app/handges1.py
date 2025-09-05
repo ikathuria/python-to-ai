@@ -17,9 +17,18 @@ import cv2
 import numpy as np
 import mediapipe as mp
 
-print("setting up, please wait...")
+import tensorflow as tf
 
-from keras.models import load_model
+mp_drawing = mp.solutions.drawing_utils
+mp_hands = mp.solutions.hands
+
+# mp hands
+hands = mp_hands.Hands(
+    max_num_hands=1, min_detection_confidence=0.4, min_tracking_confidence=0.4
+)
+
+# background
+bg = None
 
 
 def find_biggest_contour(image):
@@ -190,16 +199,8 @@ def get_predicted_class(model):
     return labels[predicted_class].upper()
 
 
-mp_drawing = mp.solutions.drawing_utils
-mp_hands = mp.solutions.hands
 
-# mp hands
-hands = mp_hands.Hands(
-    max_num_hands=1, min_detection_confidence=0.4, min_tracking_confidence=0.4
-)
 
-# background
-bg = None
 
 if __name__ == "__main__":
     # accumulated weight

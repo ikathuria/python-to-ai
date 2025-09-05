@@ -11,7 +11,9 @@ class GenerateClassificationPredication:
     """
 
     def __init__(self, algorithm, form_values):
-        self.logger_prefix = "[Machine Learning][Classification]"
+        self.logger = helper.CustomLogger(
+            prefix="[Machine Learning] [Classification]"
+        ).get_logger()
 
         self.model = helper.load_pickle_model(algorithm)
         self.form_values = form_values
@@ -21,21 +23,20 @@ class GenerateClassificationPredication:
             self.input = self.generate_input()
         except Exception as e:
             self.input = None
-            print(
-                f"{self.logger_prefix} Failed to get input because of error: {e}"
+            self.logger.error(
+                f"Failed to get input due to error: {e}"
             )
-            raise
 
         # generate prediction
         try:
             self.prediction = self.generate_prediction()
-            print(
-                f"{self.logger_prefix} Got prediction for {algorithm}: {self.prediction}"
+            self.logger.info(
+                f"Got prediction for {algorithm}: {self.prediction}"
             )
         except Exception as e:
             self.prediction = None
-            print(
-                f"{self.logger_prefix} Failed to generate prediction because of error: {e}"
+            self.logger.error(
+                f"Failed to generate prediction due to error: {e}"
             )
 
     def generate_input(self):

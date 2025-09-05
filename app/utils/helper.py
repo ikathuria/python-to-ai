@@ -1,6 +1,4 @@
 import os
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
-
 import logging
 import pickle
 from flask import url_for
@@ -35,25 +33,27 @@ def get_index_from_dictionary(key, value, dictionary):
 
 
 class CustomLogger:
-    def __init__(self, name="app_logger", log_level=logging.INFO):
-        self.logger = logging.getLogger(name)
+    def __init__(self, prefix="[Default]", log_level=logging.DEBUG):
+        self.prefix = prefix
+        self.logger = logging.getLogger(self.prefix)
         self.logger.setLevel(log_level)
         self.configure_console_handler()
 
         # Suppress noisy loggers
         logging.getLogger("tensorflow").setLevel(logging.ERROR)
+        os.environ
         logging.getLogger("tensorflow_lite").setLevel(logging.ERROR)
-        logging.getLogger("tensorflow_lite.experimental.XNNPACK").setLevel(logging.ERROR)
 
     def configure_console_handler(self):
         console_handler = logging.StreamHandler()
-        console_handler.setLevel(logging.INFO)
+        console_handler.setLevel(logging.DEBUG)
         console_format = logging.Formatter(
-            "[%(asctime)s] [%(levelname)s] [%(pathname)s] %(message)s",
+            f"[%(asctime)s] [%(levelname)s] {self.prefix} %(message)s",
             datefmt="%d/%b/%Y %H:%M:%S"
         )
         console_handler.setFormatter(console_format)
         self.logger.addHandler(console_handler)
 
     def get_logger(self):
+        self.logger.propagate = False
         return self.logger

@@ -10,17 +10,21 @@
     <p>
         This is a real time gesture recognition tool that will allow one to recognize some common gestures. Simply start the button to switch on the camera and start the model! For the complete project, check out the code at <a href="https://github.com/ikathuria/GestureRecognition">GitHub</a>.
         <br />
-        The gestures include:
     </p>
 
     <form action="/hand-gesture-recognition-1" method="post">
         <button type="submit" name="startCamera" value="startCamera" class="btn btn-primary">
-            Start/Stop Camera
+            Start Camera
+        </button>
+        <button type="submit" name="stopCamera" value="stopCamera" class="btn btn-primary">
+            Stop Camera
         </button>
         <button type="submit" name="recallCamera" value="recallCamera" class="btn btn-primary">
             Recallibrate Camera
         </button>
     </form>
+    <p>switch value is: {{ switch }}</p>
+    <img src="{{ url_for('video_feed') }}" height="80%" width="100%" class="mt-5">
 
     {% if switch %}
         <img src="{{ url_for('video_feed') }}" height="80%" width="100%" class="mt-5">
@@ -28,6 +32,7 @@
 </div>
 
 <div class="mt-3">
+    <p>The gestures include:</p>
     <div class="card-deck">
     <div class="card">
         <img class="card-img-top" src="https://raw.githubusercontent.com/ikathuria/GestureRecognition/e1ab1d0a03aece880f7e45b8015d9beb200e87db/data/zero/0.jpg" alt="Card image cap">

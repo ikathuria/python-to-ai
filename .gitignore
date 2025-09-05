@@ -317,6 +317,7 @@ paket-files/
 __pycache__/
 *.pyc
 */.ipynb_checkpoints/
+.venv
 venv
 
 # Cake - Uncomment if you are using it
