@@ -1,3 +1,6 @@
+# TODO: add scaler, vector, matrix, tensor
+# TODO: add list, tuple, set, dictionary
+
 class Node:
     def __init__(self, data=0, next=None):
         self.val = data
