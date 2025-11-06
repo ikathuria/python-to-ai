@@ -1,0 +1,462 @@
+pytorch2.8.0:ˆ€
+î/Constant_output_0	/Constant"Constant*D
+value*8J0+j8C≤ê?«≈'B <k@Ù≈‰@˛Î@˝jB5F™@eû?ŸâMAWŒãB†‘E†2¢C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\674795419.py(21): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1763): _slow_forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(129): wrapper
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(138): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(1504): _get_trace_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(871): _trace_and_get_graph_from_model
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(964): _create_jit_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1080): _model_to_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1457): _export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(522): export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\__init__.py(424): export
+C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\2543156490.py(6): <module>
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3699): run_code
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3639): run_ast_nodes
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3394): run_cell_async
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\async_helpers.py(128): _pseudo_sync_runner
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3171): _run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3116): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\zmqshell.py(577): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(455): do_execute
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(767): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(368): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(400): dispatch_shell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(508): process_one
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(519): dispatch_queue
+C:\Python312\Lib\asyncio\events.py(88): _run
+C:\Python312\Lib\asyncio\base_events.py(1986): _run_once
+C:\Python312\Lib\asyncio\base_events.py(641): run_forever
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\tornado\platform\asyncio.py(211): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelapp.py(739): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\traitlets\config\application.py(1075): launch_instance
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel_launcher.py(18): <module>
+<frozen runpy>(88): _run_code
+<frozen runpy>(198): _run_module_as_main
+
+€
+input1
+/Constant_output_0/Sub_output_0/Sub"Sub2¢C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\674795419.py(21): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1763): _slow_forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(129): wrapper
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(138): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(1504): _get_trace_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(871): _trace_and_get_graph_from_model
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(964): _create_jit_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1080): _model_to_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1457): _export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(522): export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\__init__.py(424): export
+C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\2543156490.py(6): <module>
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3699): run_code
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3639): run_ast_nodes
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3394): run_cell_async
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\async_helpers.py(128): _pseudo_sync_runner
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3171): _run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3116): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\zmqshell.py(577): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(455): do_execute
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(767): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(368): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(400): dispatch_shell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(508): process_one
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(519): dispatch_queue
+C:\Python312\Lib\asyncio\events.py(88): _run
+C:\Python312\Lib\asyncio\base_events.py(1986): _run_once
+C:\Python312\Lib\asyncio\base_events.py(641): run_forever
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\tornado\platform\asyncio.py(211): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelapp.py(739): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\traitlets\config\application.py(1075): launch_instance
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel_launcher.py(18): <module>
+<frozen runpy>(88): _run_code
+<frozen runpy>(198): _run_module_as_main
+
+ò/Constant_1_output_0/Constant_1"Constant*D
+value*8J0«»◊Bs ?@Ω
+AõhB@›⁄J?cõò?yT•Aí‡?Üw∑?G9ﬁ@)ny@í‰¡D†2¢C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\674795419.py(21): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1763): _slow_forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(129): wrapper
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(138): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(1504): _get_trace_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(871): _trace_and_get_graph_from_model
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(964): _create_jit_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1080): _model_to_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1457): _export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(522): export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\__init__.py(424): export
+C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\2543156490.py(6): <module>
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3699): run_code
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3639): run_ast_nodes
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3394): run_cell_async
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\async_helpers.py(128): _pseudo_sync_runner
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3171): _run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3116): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\zmqshell.py(577): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(455): do_execute
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(767): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(368): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(400): dispatch_shell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(508): process_one
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(519): dispatch_queue
+C:\Python312\Lib\asyncio\events.py(88): _run
+C:\Python312\Lib\asyncio\base_events.py(1986): _run_once
+C:\Python312\Lib\asyncio\base_events.py(641): run_forever
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\tornado\platform\asyncio.py(211): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelapp.py(739): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\traitlets\config\application.py(1075): launch_instance
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel_launcher.py(18): <module>
+<frozen runpy>(88): _run_code
+<frozen runpy>(198): _run_module_as_main
+
+‰
+/Sub_output_0
+/Constant_1_output_0/Div_output_0/Div"Div2¢C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\674795419.py(21): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1763): _slow_forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(129): wrapper
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(138): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(1504): _get_trace_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(871): _trace_and_get_graph_from_model
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(964): _create_jit_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1080): _model_to_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1457): _export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(522): export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\__init__.py(424): export
+C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\2543156490.py(6): <module>
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3699): run_code
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3639): run_ast_nodes
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3394): run_cell_async
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\async_helpers.py(128): _pseudo_sync_runner
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3171): _run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3116): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\zmqshell.py(577): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(455): do_execute
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(767): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(368): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(400): dispatch_shell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(508): process_one
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(519): dispatch_queue
+C:\Python312\Lib\asyncio\events.py(88): _run
+C:\Python312\Lib\asyncio\base_events.py(1986): _run_once
+C:\Python312\Lib\asyncio\base_events.py(641): run_forever
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\tornado\platform\asyncio.py(211): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelapp.py(739): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\traitlets\config\application.py(1075): launch_instance
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel_launcher.py(18): <module>
+<frozen runpy>(88): _run_code
+<frozen runpy>(198): _run_module_as_main
+
+˙"
+/Div_output_0
+linear1.weight
+linear1.bias/linear1/Gemm_output_0/linear1/Gemm"Gemm*
+alpha  Ä?†*
+beta  Ä?†*
+transB†2Ì!c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\linear.py(125): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1763): _slow_forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\674795419.py(23): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1763): _slow_forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(129): wrapper
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(138): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(1504): _get_trace_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(871): _trace_and_get_graph_from_model
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(964): _create_jit_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1080): _model_to_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1457): _export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(522): export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\__init__.py(424): export
+C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\2543156490.py(6): <module>
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3699): run_code
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3639): run_ast_nodes
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3394): run_cell_async
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\async_helpers.py(128): _pseudo_sync_runner
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3171): _run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3116): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\zmqshell.py(577): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(455): do_execute
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(767): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(368): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(400): dispatch_shell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(508): process_one
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(519): dispatch_queue
+C:\Python312\Lib\asyncio\events.py(88): _run
+C:\Python312\Lib\asyncio\base_events.py(1986): _run_once
+C:\Python312\Lib\asyncio\base_events.py(641): run_forever
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\tornado\platform\asyncio.py(211): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelapp.py(739): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\traitlets\config\application.py(1075): launch_instance
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel_launcher.py(18): <module>
+<frozen runpy>(88): _run_code
+<frozen runpy>(198): _run_module_as_main
+
+ö#
+/linear1/Gemm_output_0/act1/Relu_output_0
+/act1/Relu"Relu2ÿ"c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\functional.py(1701): relu
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\activation.py(135): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1763): _slow_forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\674795419.py(24): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1763): _slow_forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(129): wrapper
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(138): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(1504): _get_trace_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(871): _trace_and_get_graph_from_model
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(964): _create_jit_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1080): _model_to_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1457): _export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(522): export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\__init__.py(424): export
+C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\2543156490.py(6): <module>
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3699): run_code
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3639): run_ast_nodes
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3394): run_cell_async
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\async_helpers.py(128): _pseudo_sync_runner
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3171): _run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3116): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\zmqshell.py(577): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(455): do_execute
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(767): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(368): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(400): dispatch_shell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(508): process_one
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(519): dispatch_queue
+C:\Python312\Lib\asyncio\events.py(88): _run
+C:\Python312\Lib\asyncio\base_events.py(1986): _run_once
+C:\Python312\Lib\asyncio\base_events.py(641): run_forever
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\tornado\platform\asyncio.py(211): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelapp.py(739): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\traitlets\config\application.py(1075): launch_instance
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel_launcher.py(18): <module>
+<frozen runpy>(88): _run_code
+<frozen runpy>(198): _run_module_as_main
+
+Ä#
+/act1/Relu_output_0
+linear2.weight
+linear2.bias/linear2/Gemm_output_0/linear2/Gemm"Gemm*
+alpha  Ä?†*
+beta  Ä?†*
+transB†2Ì!c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\linear.py(125): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1763): _slow_forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\674795419.py(26): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1763): _slow_forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(129): wrapper
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(138): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(1504): _get_trace_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(871): _trace_and_get_graph_from_model
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(964): _create_jit_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1080): _model_to_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1457): _export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(522): export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\__init__.py(424): export
+C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\2543156490.py(6): <module>
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3699): run_code
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3639): run_ast_nodes
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3394): run_cell_async
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\async_helpers.py(128): _pseudo_sync_runner
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3171): _run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3116): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\zmqshell.py(577): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(455): do_execute
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(767): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(368): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(400): dispatch_shell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(508): process_one
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(519): dispatch_queue
+C:\Python312\Lib\asyncio\events.py(88): _run
+C:\Python312\Lib\asyncio\base_events.py(1986): _run_once
+C:\Python312\Lib\asyncio\base_events.py(641): run_forever
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\tornado\platform\asyncio.py(211): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelapp.py(739): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\traitlets\config\application.py(1075): launch_instance
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel_launcher.py(18): <module>
+<frozen runpy>(88): _run_code
+<frozen runpy>(198): _run_module_as_main
+
+ö#
+/linear2/Gemm_output_0/act2/Relu_output_0
+/act2/Relu"Relu2ÿ"c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\functional.py(1701): relu
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\activation.py(135): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1763): _slow_forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\674795419.py(27): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1763): _slow_forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(129): wrapper
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(138): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(1504): _get_trace_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(871): _trace_and_get_graph_from_model
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(964): _create_jit_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1080): _model_to_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1457): _export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(522): export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\__init__.py(424): export
+C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\2543156490.py(6): <module>
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3699): run_code
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3639): run_ast_nodes
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3394): run_cell_async
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\async_helpers.py(128): _pseudo_sync_runner
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3171): _run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3116): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\zmqshell.py(577): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(455): do_execute
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(767): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(368): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(400): dispatch_shell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(508): process_one
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(519): dispatch_queue
+C:\Python312\Lib\asyncio\events.py(88): _run
+C:\Python312\Lib\asyncio\base_events.py(1986): _run_once
+C:\Python312\Lib\asyncio\base_events.py(641): run_forever
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\tornado\platform\asyncio.py(211): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelapp.py(739): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\traitlets\config\application.py(1075): launch_instance
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel_launcher.py(18): <module>
+<frozen runpy>(88): _run_code
+<frozen runpy>(198): _run_module_as_main
+
+Ä#
+/act2/Relu_output_0
+linear3.weight
+linear3.bias/linear3/Gemm_output_0/linear3/Gemm"Gemm*
+alpha  Ä?†*
+beta  Ä?†*
+transB†2Ì!c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\linear.py(125): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1763): _slow_forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\674795419.py(29): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1763): _slow_forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(129): wrapper
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(138): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(1504): _get_trace_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(871): _trace_and_get_graph_from_model
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(964): _create_jit_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1080): _model_to_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1457): _export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(522): export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\__init__.py(424): export
+C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\2543156490.py(6): <module>
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3699): run_code
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3639): run_ast_nodes
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3394): run_cell_async
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\async_helpers.py(128): _pseudo_sync_runner
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3171): _run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3116): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\zmqshell.py(577): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(455): do_execute
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(767): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(368): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(400): dispatch_shell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(508): process_one
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(519): dispatch_queue
+C:\Python312\Lib\asyncio\events.py(88): _run
+C:\Python312\Lib\asyncio\base_events.py(1986): _run_once
+C:\Python312\Lib\asyncio\base_events.py(641): run_forever
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\tornado\platform\asyncio.py(211): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelapp.py(739): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\traitlets\config\application.py(1075): launch_instance
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel_launcher.py(18): <module>
+<frozen runpy>(88): _run_code
+<frozen runpy>(198): _run_module_as_main
+
+•#
+/linear3/Gemm_output_0output1/act3/Softmax"Softmax*
+axis†2‹"c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\functional.py(2137): softmax
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\activation.py(1679): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1763): _slow_forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\674795419.py(30): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1763): _slow_forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(129): wrapper
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(138): forward
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1784): _call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\nn\modules\module.py(1773): _wrapped_call_impl
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\jit\_trace.py(1504): _get_trace_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(871): _trace_and_get_graph_from_model
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(964): _create_jit_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1080): _model_to_graph
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(1457): _export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\utils.py(522): export
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\torch\onnx\__init__.py(424): export
+C:\Users\ikath\AppData\Local\Temp\ipykernel_27608\2543156490.py(6): <module>
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3699): run_code
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3639): run_ast_nodes
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3394): run_cell_async
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\async_helpers.py(128): _pseudo_sync_runner
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3171): _run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\IPython\core\interactiveshell.py(3116): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\zmqshell.py(577): run_cell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(455): do_execute
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(767): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\ipkernel.py(368): execute_request
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(400): dispatch_shell
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(508): process_one
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelbase.py(519): dispatch_queue
+C:\Python312\Lib\asyncio\events.py(88): _run
+C:\Python312\Lib\asyncio\base_events.py(1986): _run_once
+C:\Python312\Lib\asyncio\base_events.py(641): run_forever
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\tornado\platform\asyncio.py(211): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel\kernelapp.py(739): start
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\traitlets\config\application.py(1075): launch_instance
+c:\Users\ikath\OneDrive\GitHub\python-to-ai\.venv\Lib\site-packages\ipykernel_launcher.py(18): <module>
+<frozen runpy>(88): _run_code
+<frozen runpy>(198): _run_module_as_main
+
+main_graph*ÈBlinear1.weightJ–±L>Ö3‚æ5©>.W\>i·>˚GGæuã·>ì*˛º†öã>Ôn'?Æ"#?cœ>ˆüøöm˝æ‚)≠ΩO∫œ=d1íΩ≠¢æ&'?£∂˙<Ïπ>†âıæﬁ€?Yı‚>∂è<æ
+øs≤ƒ>¥r=>ƒÅ>æÔ'æpƒ1?‡–=⁄t†æÉe[?‰Æ‚>>=Ô>Ï(L>®H&æêåFΩõºÊæ1ø7>ÁÑƒΩÙèΩ‹ü.?πåøÇ£√æ(∞öæ™◊Ú=ˇÑÙ=ã,Ø>ø1=π|9?⁄{»>ﬂÜ?+*ø<Ô>køB>‚5ç>ü4æ°Ã»>ˆã„>≠~à>˚ì>døÿæF¡ÿΩπñæ:>£å^>&§'?<ï∫æJÇMΩpQ,øK>?öõ'øaŒ<Âáè>◊I<>–¶>—∞uæÏæ˝ÂæªÚæpo&>D∫˛æÿ>O?ˆÅÀΩèÜôΩ$+≥>∑èÔ>ÙºYæ˘UÄæ÷EÀæä\Wø¯“ÁæçIælø'iF?,	ømæ&7=, s>!]>ÇuΩÈhTæªÃ*ø±G∑æGw”>ŸR’æñ>=?∞R=˘/fø(òí>Ñÿ‚>Ω’_Ωÿ¢4>Gq%øJ´Vø±Àµæâ≠°=sx⁄Ωãµæ4êºæüBs=-èæAB⁄>9¸R>Cª∫æ;ù=	Í”øÊ<™“=ß´Ωâ[ø¯1K<¡O>U¥¸>W«K>B˜>8≠>†{ >B}d?áó?Î¬>S∫ ?‘)û>∆‡O>ÒÖÜ>¶,&=’ÈÇæ°7æyù˙>Ã@‡>-á?ßZæØ&>Ø,æµÖΩ7É∏ºûÒªÉiäæ=–.>«€Ä>ù_⁄æW8Ö∫ﬂı≠øÊ;ï;Ÿ[=36>”≈2>Å4<®4øì¥+?¯?ıõ>‘©Œæñßø≠õTΩóÈ øb;Ê>*PBlinear1.biasJ<à'ø *>∑„ÃæÁƒ>®Ã∂=∑«€Ωë€?Óu?…≤,?ÁSk?^Éù?EEÍæ™)SæÈÉ?˜›\?*µ	Blinear2.weightJúYÙ•?Í…5?¬™c?wº≥äË>˛åΩ∆ è>kåÁ>*<?z;¸>:z?Í´á?âóóºêê>á|>A√øFËæ@ ø∞·–?…Àuæ≈“>˝¸?π¡ß>ŸU?Ez?z•	?@≥øÔö«=^!>?D….æ¶gl?õº»<ÍÑ?´1ÓækDq>∞©=@ëÆæp'Ÿæÿ“ø<	 øCTø‹ﬁ7?}>4ºÑøx∑!ΩëÁΩn#˙='±.æmıç>=Ωk®—æπJ?Kp?8˝=?[E?á∏É?ΩèΩ7Ã¶æá˛?Ω*E>∏gøëøVø]ﬂHø∞–*?Õ«øë¯>ˇ)ø—)ø'ªø àæøÈ %ø∏ß>˝E•æ	√Vø¢ŒŸΩ˚≤ã>æ§ÍÖ>*«ª<∫”Ææ‡}6?ΩA?˜Ì ?ŸÎ0?ç6r?÷
+ÅΩ>îært?ÇF>ñ¶Nø©(Xø5µUø?„>Xü
+øK2ª>‚õÀæ±«øøôø*DÀæ £Xøf‹Eøˆlá>”ñüæ√E*ø€Q,æÚTÇ>ÖæΩÄ™>PxΩÑ⁄æt6?‰•?X∫4?C9?0¨]?_QıΩ«Ø•æªWu?YZñ>Y∫ΩÂŒq>Ô_ÿΩè.>íB÷º"/öæ/E?5?Ÿ!Í>@,#?ïl?óç∫ΩàÉæe%o?3∫É>*8	Blinear2.biasJ$É}'º1Èd?¨∆¶>‚Ωπ`?\àæ»[?g˜}æÚ“`æ*Ñ	Blinear3.weightJl¡‹øÕäG?ﬂõ">ı¡æalë?ÏíZøBg¥?∂%qø+Ãäø«qΩNrÑ>–Øèøßïí?x{1øsäí?X
+Lø3^?æ◊∆?•êç>“Ë–øÒ9??Pwøq^¨øf´bøB‘√ø¢‰ÖøP0ø* Blinear3.biasJLÖ"øø7ªøUÂ?Z
+input1
+
+
+b
+output1
+
+
+B
