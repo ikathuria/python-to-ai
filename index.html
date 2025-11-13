@@ -1,17 +1,369 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>ONNX Model Demo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crime Prediction Deployment</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .card { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    </style>
+    <!-- Load ONNX Runtime Web -->
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.17.3/dist/ort.min.js"></script>
 </head>
-<body>
-  <h1>ONNX Runtime Web Demo</h1>
-  <input id="input" type="number" placeholder="Enter a number">
-  <button id="run">Run Model</button>
-  <p>Output: <span id="output"></span></p>
+<body class="p-4 sm:p-8 min-h-screen flex items-center justify-center">
 
-  <!-- Load ONNX Runtime Web -->
-  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
-  <script src="app.js"></script>
+    <div class="w-full max-w-4xl card bg-white p-6 sm:p-10 rounded-xl">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Chicago Crime Predictive Model</h1>
+        <p class="text-gray-500 mb-8 text-center">
+            Select a task below to run a prediction using an exported ONNX model.
+        </p>
+
+        <!-- --- MODEL SELECTION CONTROLS --- -->
+        <div class="space-y-4 mb-8 p-4 bg-gray-50 rounded-lg">
+            
+            <!-- Prediction Type Dropdown -->
+            <div>
+                <label for="predictionTypeSelector" class="block text-sm font-semibold text-gray-700 mb-2">1. Select Prediction Task:</label>
+                <select id="predictionTypeSelector" onchange="updatePredictionType()"
+                        class="block w-full rounded-md border-gray-300 shadow-sm p-3 border text-gray-800 focus:border-indigo-500 focus:ring-indigo-500">
+                    <option value="CLASSIFICATION">Binary Classification (Predict Arrest)</option>
+                    <option value="REGRESSION">Regression (Forecast Crime Count)</option>
+                </select>
+            </div>
+
+            <!-- Model Selector Dropdown -->
+            <div>
+                <label for="modelSelector" class="block text-sm font-semibold text-gray-700 mb-2">2. Select Model Architecture:</label>
+                <select id="modelSelector" onchange="loadModel()"
+                        class="block w-full rounded-md border-gray-300 shadow-sm p-3 border text-gray-800 bg-white focus:border-indigo-500 focus:ring-indigo-500">
+                    <!-- Options populated by JavaScript -->
+                </select>
+            </div>
+        </div>
+
+        <!-- --- INPUT FORM --- -->
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">3. Enter Feature Values</h2>
+        <div id="inputFormContainer" class="space-y-4">
+            <!-- Inputs populated dynamically by JavaScript -->
+        </div>
+
+
+        <!-- Prediction Button -->
+        <button onclick="runPrediction()"
+            class="w-full py-3 px-6 bg-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-[1.01] mt-6 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50"
+            id="predictBtn" disabled>
+            Loading Model...
+        </button>
+
+        <!-- --- OUTPUT DISPLAYS --- -->
+        <div id="output" class="mt-8 p-6 bg-indigo-50 rounded-lg hidden">
+            <h2 class="text-xl font-semibold text-indigo-800 mb-3">Prediction Result</h2>
+            <div id="resultText" class="text-lg text-gray-700 font-medium"></div>
+            <div id="confidence" class="text-sm text-gray-600 mt-2"></div>
+        </div>
+        
+        <div id="loading" class="mt-8 p-6 bg-yellow-100 rounded-lg hidden text-yellow-800 font-medium">
+            Loading model and running prediction...
+        </div>
+
+    </div>
+
+    <script>
+        // --- CENTRAL CONFIGURATION AND CONSTANTS ---
+
+        // Normalization Constants (Mean and Std Dev) extracted from your notebooks
+        // Order MUST match feature order used in training
+        const NORM_CONSTANTS = {
+            // Target: Arrest (0 or 1) - 15 Features
+            CLASSIFICATION: {
+                INPUT_DIM: 15,
+                X_MEANS: new Float32Array([
+                    18435, 14.835, 115.36, 0.1966, 1148.9, 11.260, 23.228, 36.587, 11.047, 2021.0, 
+                    41.844, -87.670, 12.932, 2.972, 6.619
+                ]),
+                X_DEVIATIONS: new Float32Array([
+                    11375, 12.067, 59.395, 0.39753, 702.12, 7.016, 13.978, 21.535, 5.8643, 2.0642,
+                    0.0879, 0.0592, 6.0050, 2.0050, 3.3636
+                ]),
+            },
+            // Target: Crime_Count (Regression) - 55 Features
+            REGRESSION: {
+                INPUT_DIM: 55,
+                // First 5 features: Day, Month, Year, Latitude, Longitude
+                X_MEANS: new Float32Array([
+                    2.9716, 6.6190, 2021.0, 41.844, -87.670,
+                    // 50 Ward OHE means (only the first 5 are visible here, the rest are filled with 0s for simplicity)
+                    0.0179, 0.0187, 0.0280, 0.0267, 0.0243, /* ... 45 more OHE means ... */
+                    // The notebook only shows the means/std devs for the first 5 core features and the OHEs for Ward 1.0-50.0.
+                    // We must ensure the full 55-feature array is correctly populated, even if we zero-fill the rest.
+                    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+                ]),
+                X_DEVIATIONS: new Float32Array([
+                    2.0050, 3.3636, 2.0609, 0.0879, 0.0592,
+                    // 50 Ward OHE std devs (only the first 5 are visible here, the rest are filled with 1s for simplicity)
+                    0.1329, 0.1357, 0.1653, 0.1614, 0.1543, /* ... 45 more OHE std devs ... */
+                    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+                ]),
+                // NOTE: For the regression model, we will use simplified Ward OHE calculation in getRawInput.
+            }
+        };
+
+        const MODEL_OPTIONS = {
+            CLASSIFICATION: [
+                { value: "deployment/onnx_models/MLP_Model_Classification.onnx", text: "MLP Model (Shallow)" },
+                { value: "deployment/onnx_models/DL_Model_Classification.onnx", text: "DL Model (Deep Learning)" }
+            ],
+            REGRESSION: [
+                { value: "deployment/onnx_models/linreg_model_Regression.onnx", text: "LinRegNet Model" },
+                { value: "deployment/onnx_models/mlp_model_Regression.onnx", text: "MLPNet Model" },
+                { value: "deployment/onnx_models/dl_model_Regression.onnx", text: "DLNet Model" },
+                { value: "deployment/onnx_models/mix_model_Regression.onnx", text: "Linear+NonLinear Model" }
+            ]
+        };
+        
+        // --- FEATURE DEFINITIONS ---
+        // This is used to build the form inputs and define the required order for the model tensor.
+        const CLASSIFICATION_FEATURES = [
+            { id: 'block', name: 'Block (Code)', type: 'number', default: 18435 },
+            { id: 'primaryType', name: 'Primary Type (Code)', type: 'number', default: 14 },
+            { id: 'locationDesc', name: 'Location Desc. (Code)', type: 'number', default: 17 },
+            { id: 'domestic', name: 'Domestic (0/1)', type: 'number', default: 0, min: 0, max: 1 },
+            { id: 'beat', name: 'Beat', type: 'number', default: 1148 },
+            { id: 'district', name: 'District', type: 'number', default: 11 },
+            { id: 'ward', name: 'Ward', type: 'number', default: 23 },
+            { id: 'communityArea', name: 'Community Area', type: 'number', default: 36 },
+            { id: 'fbiCode', name: 'FBI Code (Code)', type: 'number', default: 10 },
+            { id: 'year', name: 'Year', type: 'number', default: 2025 },
+            { id: 'latitude', name: 'Latitude (Unscaled)', type: 'number', default: 41.8787, step: 'any' },
+            { id: 'longitude', name: 'Longitude (Unscaled)', type: 'number', default: -87.6508, step: 'any' },
+            { id: 'hour', name: 'Hour (0-23)', type: 'number', default: 0, min: 0, max: 23 },
+            { id: 'day', name: 'Day (Code 0-6)', type: 'number', default: 6, min: 0, max: 6 },
+            { id: 'month', name: 'Month (1-12)', type: 'number', default: 1, min: 1, max: 12 },
+        ]; // 15 features
+
+        const REGRESSION_CORE_FEATURES = [
+            { id: 'day', name: 'Day (Code 0-6)', type: 'number', default: 6, min: 0, max: 6 },
+            { id: 'month', name: 'Month (1-12)', type: 'number', default: 1, min: 1, max: 12 },
+            { id: 'year', name: 'Year', type: 'number', default: 2025 },
+            { id: 'latitude', name: 'Latitude (Unscaled)', type: 'number', default: 41.8787, step: 'any' },
+            { id: 'longitude', name: 'Longitude (Unscaled)', type: 'number', default: -87.6508, step: 'any' },
+            { id: 'ward', name: 'Ward (1-50)', type: 'number', default: 23, min: 1, max: 50 },
+        ]; // 6 inputs (used to derive 55 features)
+
+        // --- Dynamic Model Variables ---
+        let session = null;
+        let isModelLoaded = false;
+        let currentTask = 'CLASSIFICATION';
+        
+        const predictBtn = document.getElementById('predictBtn');
+        const modelSelector = document.getElementById('modelSelector');
+        const inputFormContainer = document.getElementById('inputFormContainer');
+        const loadingDiv = document.getElementById('loading');
+        const outputDiv = document.getElementById('output');
+
+        // --- HANDLER FUNCTIONS ---
+
+        function updatePredictionType() {
+            const typeSelector = document.getElementById('predictionTypeSelector');
+            currentTask = typeSelector.value;
+            
+            // 1. Update Model Options
+            const models = MODEL_OPTIONS[currentTask];
+            modelSelector.innerHTML = models.map(m => `<option value="${m.value}">${m.text}</option>`).join('');
+            
+            // 2. Update Input Form
+            updateInputForm();
+            
+            // 3. Load the default selected model for the new task
+            loadModel();
+        }
+
+        function updateInputForm() {
+            const features = currentTask === 'CLASSIFICATION' ? CLASSIFICATION_FEATURES : REGRESSION_CORE_FEATURES;
+            
+            let html = `<div class="feature-grid">`;
+            
+            features.forEach(f => {
+                html += `
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">${f.name}</label>
+                        <input type="${f.type}" id="${f.id}" value="${f.default}" 
+                            ${f.step ? `step="${f.step}"` : ''}
+                            ${f.min !== undefined ? `min="${f.min}"` : ''}
+                            ${f.max !== undefined ? `max="${f.max}"` : ''}
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2.5 border">
+                    </div>
+                `;
+            });
+            
+            html += `</div>`;
+            inputFormContainer.innerHTML = html;
+        }
+
+
+        async function loadModel() {
+            const modelPath = modelSelector.value;
+
+            isModelLoaded = false;
+            predictBtn.disabled = true;
+            loadingDiv.classList.remove('hidden');
+            loadingDiv.textContent = `Loading ${modelSelector.options[modelSelector.selectedIndex].text}...`;
+            outputDiv.classList.add('hidden');
+            
+            try {
+                if (session) {
+                    session.release();
+                    session = null;
+                }
+                
+                session = await ort.InferenceSession.create(modelPath);
+                isModelLoaded = true;
+                
+                predictBtn.disabled = false;
+                predictBtn.textContent = `Predict using ${modelSelector.options[modelSelector.selectedIndex].text.split(' ')[0]}`;
+                loadingDiv.classList.add('hidden');
+                console.log(`ONNX model loaded successfully: ${modelPath}`);
+
+            } catch (e) {
+                loadingDiv.innerHTML = `<span class="text-red-700 font-bold">Error loading model:</span> ${e.message}. Ensure '${modelPath}' is available.`;
+                predictBtn.textContent = "Model Load Failed";
+                console.error("Model Load Error:", e);
+            }
+        }
+
+        // --- Core Prediction Logic ---
+        async function runPrediction() {
+            if (!isModelLoaded) {
+                loadModel(); 
+                return;
+            }
+
+            outputDiv.classList.add('hidden');
+            loadingDiv.classList.remove('hidden');
+            loadingDiv.textContent = "Running prediction...";
+
+            try {
+                // 1. Gather raw inputs and process into the final 15 or 55 features
+                const rawInputTensor = getRawInput();
+                
+                // 2. Preprocess and scale the input data
+                const processedInput = preprocess(rawInputTensor);
+                
+                // Determine dimensions based on task
+                const { INPUT_DIM } = NORM_CONSTANTS[currentTask];
+                
+                // 3. Create the ONNX input tensor
+                const inputTensor = new ort.Tensor('float32', processedInput, [1, INPUT_DIM]);
+                const feeds = { input1: inputTensor };
+
+                // 4. Run inference
+                const results = await session.run(feeds);
+                const outputData = results.output1.data; 
+
+                // 5. Interpret the output based on task
+                displayResult(outputData);
+
+            } catch (e) {
+                console.error("Inference Error:", e);
+                loadingDiv.innerHTML = `<span class="text-red-700">Inference Error:</span> ${e.message}`;
+            }
+        }
+
+        function getRawInput() {
+            // Get current active features from the DOM
+            const featureDefs = currentTask === 'CLASSIFICATION' ? CLASSIFICATION_FEATURES : REGRESSION_CORE_FEATURES;
+            const rawInputs = {};
+            
+            featureDefs.forEach(f => {
+                const element = document.getElementById(f.id);
+                rawInputs[f.id] = parseFloat(element.value);
+            });
+            
+            if (currentTask === 'CLASSIFICATION') {
+                // For Classification (15 features), the order is fixed and we already have all 15
+                // [Block, Primary Type, Location Description, Domestic, Beat, District, Ward, Community Area, FBI Code, Year, Latitude, Longitude, Hour, Day, Month]
+                return new Float32Array([
+                    rawInputs.block, rawInputs.primaryType, rawInputs.locationDesc, rawInputs.domestic, rawInputs.beat,
+                    rawInputs.district, rawInputs.ward, rawInputs.communityArea, rawInputs.fbiCode, rawInputs.year,
+                    rawInputs.latitude, rawInputs.longitude, rawInputs.hour, rawInputs.day, rawInputs.month
+                ]);
+            } else {
+                // For Regression (55 features), we derive the 50 OHE Ward features
+                const fullInput = new Float32Array(55).fill(0); 
+
+                // Core 5 features for Regression (in order: Day, Month, Year, Latitude, Longitude)
+                fullInput[0] = rawInputs.day;
+                fullInput[1] = rawInputs.month;
+                fullInput[2] = rawInputs.year;
+                fullInput[3] = rawInputs.latitude;
+                fullInput[4] = rawInputs.longitude;
+                
+                // Ward OHE: Ward index starts at 1, mapping to index 5 through 54 (Ward 1.0 is index 5, Ward 50.0 is index 54)
+                const wardIndex = rawInputs.ward;
+                if (wardIndex >= 1 && wardIndex <= 50) {
+                    // Set the corresponding OHE position to 1.0 (float)
+                    fullInput[4 + wardIndex] = 1.0; 
+                }
+                
+                return fullInput;
+            }
+        }
+
+        function preprocess(rawInputTensor) {
+            const { INPUT_DIM, X_MEANS, X_DEVIATIONS } = NORM_CONSTANTS[currentTask];
+            const processed = new Float32Array(INPUT_DIM);
+            
+            for (let i = 0; i < INPUT_DIM; i++) {
+                // Apply Standardization: (x - mean) / std_dev
+                processed[i] = (rawInputTensor[i] - X_MEANS[i]) / X_DEVIATIONS[i];
+            }
+            return processed;
+        }
+
+        function displayResult(outputData) {
+            loadingDiv.classList.add('hidden');
+            outputDiv.classList.remove('hidden');
+
+            const resultText = document.getElementById('resultText');
+            const confidenceDiv = document.getElementById('confidence');
+            
+            if (currentTask === 'CLASSIFICATION') {
+                // Output is Softmax: [Prob_No_Arrest, Prob_Arrest]
+                const [probNoArrest, probArrest] = outputData;
+                const prediction = probArrest > probNoArrest ? 1 : 0; 
+                const confidenceScore = prediction === 1 ? probArrest : probNoArrest;
+                
+                const resultMessage = prediction === 1 
+                    ? `<span class="text-green-600 font-bold">ARREST LIKELY (Class 1)</span>`
+                    : `<span class="text-red-600 font-bold">ARREST UNLIKELY (Class 0)</span>`;
+
+                resultText.innerHTML = resultMessage;
+                confidenceDiv.textContent = 
+                    `Confidence: ${(confidenceScore * 100).toFixed(2)}% (P(Arrest=1): ${(probArrest * 100).toFixed(2)}%)`;
+
+            } else {
+                // Output is a single regression count
+                const crimeCount = Math.round(outputData[0]);
+                const rawPrediction = outputData[0].toFixed(2);
+                
+                resultText.innerHTML = `Forecasted Crime Count: <span class="text-indigo-600 font-bold">${crimeCount}</span>`;
+                confidenceDiv.textContent = `Raw Prediction: ${rawPrediction}`;
+            }
+        }
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+             if (typeof ort === 'undefined') {
+                predictBtn.textContent = "Error: ONNX Runtime not loaded.";
+                return;
+            }
+            // Initialize the UI and load the default selected model (Classification MLP)
+            updatePredictionType();
+        });
+    </script>
 </body>
 </html>
