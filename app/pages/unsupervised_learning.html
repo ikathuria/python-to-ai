@@ -6,7 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Unsupervised Learning - Python to AI</title>
 	<meta name="description" content="Unsupervised Machine Learning projects: K-Means Clustering on Iris Dataset.">
-	<meta name="author" content="Ishani Kathuria">
 
 	<!-- Tailwind CSS -->
 	<script src="https://cdn.tailwindcss.com"></script>
@@ -16,6 +15,12 @@
 
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+	<!-- Highlight.js -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+	<script>hljs.highlightAll();</script>
 
 	<!-- ONNX Runtime Web -->
 	<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.17.3/dist/ort.min.js"></script>
@@ -33,8 +38,37 @@
             @apply text-indigo-700 bg-indigo-50 font-bold;
         }
 
-        .section-container {
-            @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12;
+        /* Sidebar Styling */
+        .sidebar-link {
+            @apply block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-indigo-600 rounded-md transition-colors;
+        }
+        
+        .sidebar-link.active {
+            @apply bg-indigo-50 text-indigo-700 font-bold border-r-4 border-indigo-600;
+        }
+
+        .content-section {
+            @apply scroll-mt-24 mb-16 border-b border-gray-100 pb-12;
+        }
+
+        h2 {
+            @apply text-2xl font-bold text-gray-800 mb-4 flex items-center;
+        }
+        
+        h3 {
+             @apply text-xl font-semibold text-gray-700 mt-6 mb-3;
+        }
+
+        p {
+            @apply text-gray-600 leading-relaxed mb-4;
+        }
+
+        code:not(.hljs) {
+            @apply bg-gray-100 text-red-500 px-1 py-0.5 rounded text-sm font-mono;
+        }
+        
+        pre {
+            @apply rounded-lg shadow-sm overflow-hidden my-4 border border-gray-200;
         }
 
         .card {
@@ -51,94 +85,117 @@
 			<div class="flex justify-between h-16">
 				<div class="flex">
 					<div class="flex-shrink-0 flex items-center">
-						<i class="fa-solid fa-code fa-2x text-indigo-600"></i>
-						<span class="ml-2 font-bold text-xl text-gray-800">Python to AI</span>
+						<a href="../../index.html" class="flex items-center">
+							<i class="fa-solid fa-code fa-2x text-indigo-600"></i>
+							<span class="ml-2 font-bold text-xl text-gray-800">Python to AI</span>
+						</a>
 					</div>
-					<div class="hidden sm:ml-6 sm:flex sm:space-x-4 items-center">
-						<a href="../../index.html" class="nav-link">Home</a>
-						<a href="supervised_learning.html" class="nav-link">Supervised ML</a>
-						<a href="unsupervised_learning.html" class="nav-link active">Unsupervised ML</a>
-						<a href="deep_learning.html" class="nav-link">Deep Learning</a>
-					</div>
+				</div>
+				<div class="hidden md:flex items-center space-x-1">
+					<a href="../../index.html" class="nav-link">Home</a>
+					<a href="python.html" class="nav-link">Python Basics</a>
+                    <a href="ml_basics.html" class="nav-link">ML Basics</a>
+					<a href="supervised_learning.html" class="nav-link">Supervised ML</a>
+					<a href="unsupervised_learning.html" class="nav-link active">Unsupervised</a>
+					<a href="deep_learning.html" class="nav-link">Deep Learning</a>
 				</div>
 				<div class="flex items-center">
 					<a href="https://github.com/ikathuria" target="_blank" class="text-gray-400 hover:text-gray-600 mx-2"><i class="fa-brands fa-github fa-lg"></i></a>
-					<a href="https://linkedin.com/in/ishani-kathuria/" target="_blank" class="text-gray-400 hover:text-blue-600 mx-2"><i class="fa-brands fa-linkedin fa-lg"></i></a>
-					<a href="https://medium.com/@ishani-kathuria" target="_blank" class="text-gray-400 hover:text-black mx-2"><i class="fa-brands fa-medium fa-lg"></i></a>
 				</div>
-			</div>
-		</div>
-		<!-- Mobile Menu (Simple) -->
-		<div class="sm:hidden border-t border-gray-200 bg-gray-50">
-			<div class="flex flex-col space-y-1 px-4 py-2">
-				<a href="../../index.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Home</a>
-				<a href="supervised_learning.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Supervised</a>
-				<a href="unsupervised_learning.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600 font-bold bg-indigo-50 text-indigo-700">Unsupervised</a>
-				<a href="deep_learning.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Deep Learning</a>
 			</div>
 		</div>
 	</nav>
 
-	<!-- CONTENT SECTIONS -->
-	<main class="flex-grow">
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+		<div class="flex flex-col md:flex-row gap-8">
 
-		<!-- === UNSUPERVISED ML SECTION === -->
-		<section id="unsupervised-section" class="section-container">
-			<h2 class="text-3xl font-bold text-gray-900 mb-8 pb-2 border-b">Unsupervised Machine Learning</h2>
+			<!-- LEFT SIDEBAR -->
+			<aside class="md:w-64 flex-shrink-0">
+				<div class="sticky top-24 bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+					<h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Contents</h3>
+					<nav class="space-y-1">
+						<a href="#intro" class="sidebar-link active" onclick="setActive(this)">Overview</a>
+						<a href="#clustering" class="sidebar-link" onclick="setActive(this)">K-Means Clustering</a>
+						<a href="#pca" class="sidebar-link" onclick="setActive(this)">PCA</a>
+						<a href="#hmm" class="sidebar-link" onclick="setActive(this)">Hidden Markov Models</a>
+					</nav>
+				</div>
+			</aside>
 
-			<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-				<!-- Clustering Card -->
-				<div class="card p-6 hover:shadow-lg transition">
-					<div class="flex items-center justify-between mb-4">
-						<div class="bg-purple-100 p-3 rounded-full text-purple-600"><i class="fa-solid fa-shapes fa-xl"></i></div>
-						<span class="text-xs font-bold bg-green-100 text-green-800 px-2 py-1 rounded">ONNX Live</span>
-					</div>
-					<h3 class="text-xl font-bold mb-2">K-Means Clustering</h3>
-					<p class="text-gray-600 text-sm mb-4">Groups Iris flower data based on petal length and width.</p>
+			<!-- MAIN CONTENT -->
+			<main class="flex-grow min-w-0">
 
-					<!-- Mock UI -->
-					<div class="space-y-3 p-4 bg-gray-50 rounded border border-gray-200">
+				<!-- Introduction -->
+				<section id="intro" class="content-section">
+					<h1 class="text-4xl font-extrabold text-gray-900 mb-6">Unsupervised Machine Learning</h1>
+					<p class="text-lg text-gray-600 mb-4">
+						Unsupervised learning finds hidden patterns or intrinsic structures in input data. Unlike supervised learning, there are no labeled outputs. Common tasks include clustering and dimensionality reduction.
+					</p>
+				</section>
+
+				<!-- K-Means Clustering -->
+				<section id="clustering" class="content-section">
+					<h2><i class="fa-solid fa-shapes mr-3 text-indigo-500"></i> K-Means Clustering</h2>
+					<p>K-Means groups data into 'k' non-overlapping subgroups (clusters) distinct from each other. It tries to make the intra-cluster data points as similar as possible while keeping the clusters as different as possible.</p>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+						<!-- Code Snippet -->
 						<div>
-							<label class="text-xs font-bold text-gray-500">Petal Length (cm): <span id="val-len">1.4</span></label>
-							<input type="range" id="iris-length" class="w-full accent-purple-600" min="0" max="10" step="0.1" value="1.4" oninput="document.getElementById('val-len').innerText=this.value">
+							<h4 class="font-bold text-gray-700 mb-2">Python Implementation</h4>
+							<pre class="mt-0"><code class="language-python">from sklearn.cluster import KMeans
+kmeans = KMeans(n_clusters=3)
+kmeans.fit(X)
+labels = kmeans.predict(X)</code></pre>
 						</div>
-						<div>
-							<label class="text-xs font-bold text-gray-500">Petal Width (cm): <span id="val-wid">0.2</span></label>
-							<input type="range" id="iris-width" class="w-full accent-purple-600" min="0" max="5" step="0.1" value="0.2" oninput="document.getElementById('val-wid').innerText=this.value">
+
+						<!-- Interactive Demo -->
+						<div class="card p-6 border-l-4 border-indigo-600">
+							<div class="flex items-center justify-between mb-4">
+								<h3 class="text-lg font-bold text-gray-800 m-0">Live Demo: Iris Sort</h3>
+								<span class="text-xs font-bold bg-green-100 text-green-800 px-2 py-1 rounded">ONNX</span>
+							</div>
+							<p class="text-gray-600 text-sm mb-4">Sorts Iris flowers into clusters based on petal dimensions.</p>
+
+							<div class="space-y-3 p-4 bg-gray-50 rounded border border-gray-200">
+								<div>
+									<label class="text-xs font-bold text-gray-500">Petal Length (cm): <span id="val-len">1.4</span></label>
+									<input type="range" id="iris-length" class="w-full accent-indigo-600" min="0" max="10" step="0.1" value="1.4" oninput="document.getElementById('val-len').innerText=this.value">
+								</div>
+								<div>
+									<label class="text-xs font-bold text-gray-500">Petal Width (cm): <span id="val-wid">0.2</span></label>
+									<input type="range" id="iris-width" class="w-full accent-indigo-600" min="0" max="5" step="0.1" value="0.2" oninput="document.getElementById('val-wid').innerText=this.value">
+								</div>
+								<button onclick="runIrisClustering()" class="w-full text-xs bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded font-bold transition">Find Cluster</button>
+								<div id="iris-result" class="mt-2 text-center text-sm font-bold hidden"></div>
+							</div>
 						</div>
-						<button onclick="runIrisClustering()" class="w-full text-xs bg-purple-600 hover:bg-purple-700 text-white py-2 rounded font-bold">Cluster Data</button>
-						<div id="iris-result" class="mt-2 text-center text-sm font-bold hidden"></div>
 					</div>
-				</div>
+				</section>
 
-				<!-- Theory Cards -->
-				<div class="card p-6 border-l-4 border-l-blue-500">
-					<h3 class="text-lg font-bold mb-2">Hidden Markov Models</h3>
-					<p class="text-gray-600 text-sm">Statistical Markov model with unobserved (hidden) states. Used for temporal pattern recognition.</p>
-				</div>
-				<div class="card p-6 border-l-4 border-l-green-500">
-					<h3 class="text-lg font-bold mb-2">PCA</h3>
-					<p class="text-gray-600 text-sm">Principal Component Analysis. Dimensionality reduction technique to simplify complex data sets.</p>
-				</div>
-			</div>
-		</section>
+				<!-- PCA -->
+				<section id="pca" class="content-section">
+					<h2><i class="fa-solid fa-compress-arrows-alt mr-3 text-indigo-500"></i> Principal Component Analysis (PCA)</h2>
+					<p>PCA is a dimensionality reduction technique that transforms a large set of variables into a smaller one that still contains most of the information in the large set.</p>
+					<p>It reduces the number of variables of a data set, while preserving as much information as possible.</p>
+				</section>
 
-	</main>
+				<!-- HMM -->
+				<section id="hmm" class="content-section">
+					<h2><i class="fa-solid fa-link mr-3 text-indigo-500"></i> Hidden Markov Models</h2>
+					<p>A Hidden Markov Model (HMM) is a statistical model in which the system being modeled is assumed to be a Markov process with unobserved (hidden) states.</p>
+				</section>
 
-	<!-- FOOTER -->
-	<footer class="bg-gray-800 text-white py-8 mt-12">
-		<div class="max-w-7xl mx-auto px-4 text-center">
-			<p class="mb-4">Designed & Built by Ishani Kathuria</p>
-			<div class="flex justify-center space-x-6 text-2xl">
-				<a href="https://github.com/ikathuria" class="hover:text-indigo-400 transition"><i class="fa-brands fa-github"></i></a>
-				<a href="https://linkedin.com/in/ishani-kathuria/" class="hover:text-blue-400 transition"><i class="fa-brands fa-linkedin"></i></a>
-			</div>
-			<p class="text-gray-500 text-sm mt-4">&copy; 2025 Python to AI.</p>
+			</main>
 		</div>
-	</footer>
+	</div>
 
 	<!-- JAVASCRIPT LOGIC -->
 	<script>
+		function setActive(element) {
+			document.querySelectorAll('.sidebar-link').forEach(el => el.classList.remove('active'));
+			element.classList.add('active');
+		}
+
 		// --- IRIS MODEL LOGIC ---
 		async function runIrisClustering() {
 			const resultDiv = document.getElementById('iris-result');
@@ -148,7 +205,6 @@
 			const pWid = parseFloat(document.getElementById('iris-width').value);
 
 			try {
-				// FIXED PATH: ../static/models/kmeans.onnx
 				const session = await ort.InferenceSession.create('../static/models/kmeans.onnx');
 				const tensor = new ort.Tensor('float32', new Float32Array([pLen, pWid]), [1, 2]);
 				const results = await session.run({ float_input: tensor });

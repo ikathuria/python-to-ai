@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ML Basics - Python to AI</title>
+	<meta name="description" content="Learn the foundational concepts of Machine Learning: Numpy Matrices, Pandas DataFrames, and Tensor Operations.">
+
+	<!-- Tailwind CSS -->
+	<script src="https://cdn.tailwindcss.com"></script>
+
+	<!-- FontAwesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+	<!-- Highlight.js -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+	<script>hljs.highlightAll();</script>
+
+	<style type="text/tailwindcss">
+		body {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .nav-link {
+            @apply px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors cursor-pointer;
+        }
+
+        .nav-link.active {
+            @apply text-indigo-700 bg-indigo-50 font-bold;
+        }
+
+        /* Sidebar Styling */
+        .sidebar-link {
+            @apply block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-indigo-600 rounded-md transition-colors;
+        }
+        
+        .sidebar-link.active {
+            @apply bg-indigo-50 text-indigo-700 font-bold border-r-4 border-indigo-600;
+        }
+
+        .content-section {
+            @apply scroll-mt-24 mb-16 border-b border-gray-100 pb-12;
+        }
+
+        h2 {
+            @apply text-2xl font-bold text-gray-800 mb-4 flex items-center;
+        }
+        
+        h3 {
+             @apply text-xl font-semibold text-gray-700 mt-6 mb-3;
+        }
+
+        p {
+            @apply text-gray-600 leading-relaxed mb-4;
+        }
+
+        code:not(.hljs) {
+            @apply bg-gray-100 text-red-500 px-1 py-0.5 rounded text-sm font-mono;
+        }
+        
+        pre {
+            @apply rounded-lg shadow-sm overflow-hidden my-4 border border-gray-200;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+	<!-- NAVIGATION -->
+	<nav class="bg-white shadow-sm sticky top-0 z-50">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex justify-between h-16">
+				<div class="flex">
+					<div class="flex-shrink-0 flex items-center">
+						<a href="../../index.html" class="flex items-center">
+							<i class="fa-solid fa-code fa-2x text-indigo-600"></i>
+							<span class="ml-2 font-bold text-xl text-gray-800">Python to AI</span>
+						</a>
+					</div>
+				</div>
+				<div class="hidden md:flex items-center space-x-1">
+					<a href="../../index.html" class="nav-link">Home</a>
+					<a href="python.html" class="nav-link">Python Basics</a>
+					<a href="ml_basics.html" class="nav-link active">ML Basics</a>
+					<a href="supervised_learning.html" class="nav-link">Supervised ML</a>
+					<a href="unsupervised_learning.html" class="nav-link">Unsupervised</a>
+					<a href="deep_learning.html" class="nav-link">Deep Learning</a>
+				</div>
+				<div class="flex items-center">
+					<a href="https://github.com/ikathuria" target="_blank" class="text-gray-400 hover:text-gray-600 mx-2"><i class="fa-brands fa-github fa-lg"></i></a>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+		<div class="flex flex-col md:flex-row gap-8">
+
+			<!-- LEFT SIDEBAR -->
+			<aside class="md:w-64 flex-shrink-0">
+				<div class="sticky top-24 bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+					<h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Contents</h3>
+					<nav class="space-y-1">
+						<a href="#intro" class="sidebar-link active" onclick="setActive(this)">Overview</a>
+						<a href="#numpy" class="sidebar-link" onclick="setActive(this)">Numpy Matrices</a>
+						<a href="#ops" class="sidebar-link" onclick="setActive(this)">Matrix Operations</a>
+						<a href="#pandas" class="sidebar-link" onclick="setActive(this)">Pandas DataFrames</a>
+					</nav>
+				</div>
+			</aside>
+
+			<!-- MAIN CONTENT -->
+			<main class="flex-grow min-w-0">
+
+				<!-- Introduction -->
+				<section id="intro" class="content-section">
+					<h1 class="text-4xl font-extrabold text-gray-900 mb-6">Machine Learning Basics</h1>
+					<p class="text-lg text-gray-600 mb-4">
+						Before diving into algorithms, it's crucial to understand the mathematical foundations and data manipulation libraries that power standard ML pipelines in Python: <strong>Numpy</strong> and <strong>Pandas</strong>.
+					</p>
+				</section>
+
+				<!-- Numpy -->
+				<section id="numpy" class="content-section">
+					<h2><i class="fa-solid fa-cube mr-3 text-indigo-500"></i> Numpy Matrices</h2>
+					<p>Numpy provided support for large, multi-dimensional arrays and matrices.</p>
+
+					<pre><code class="language-python">import numpy as np
+
+# Define Matrix A
+A = np.array([[1, 2, 3], 
+              [4, 5, 6], 
+              [7, 8, 9]])
+
+# Define Matrix B
+B = np.array([[1, 2, 0], 
+              [3, 4, 2], 
+              [4, 7, 8]])</code></pre>
+
+				</section>
+
+				<!-- Operations -->
+				<section id="ops" class="content-section">
+					<h2><i class="fa-solid fa-calculator mr-3 text-indigo-500"></i> Matrix Operations</h2>
+					<p>Linear algebra operations are the backbone of neural networks.</p>
+
+					<h3>Addition</h3>
+					<pre><code class="language-python"># Element-wise Addition
+print(np.add(A, B))
+# Output:
+# [[ 2  4  3]
+#  [ 7  9  8]
+#  [11 15 17]]</code></pre>
+
+					<h3>Matrix Multiplication (Dot Product)</h3>
+					<pre><code class="language-python"># Dot Product
+print(np.dot(A, B))
+# Output:
+# [[ 19  31  28]
+#  [ 43  70  58]
+#  [ 67 109  88]]</code></pre>
+
+					<h3>Transpose</h3>
+					<pre><code class="language-python"># Transpose of A (Rows become columns)
+print(A.transpose())
+# Output:
+# [[1 4 7]
+#  [2 5 8]
+#  [3 6 9]]</code></pre>
+				</section>
+
+				<!-- Pandas -->
+				<section id="pandas" class="content-section">
+					<h2><i class="fa-solid fa-table mr-3 text-indigo-500"></i> Pandas DataFrames</h2>
+					<p>Pandas provides high-performance data structures like the DataFrame, which is essentially a programmable spreadsheet.</p>
+					<pre><code class="language-python">import pandas as pd
+
+# Loading a CSV file
+df = pd.read_csv('CarPrice_1.csv', index_col=0)
+
+# Display first 5 rows
+print(df.head())
+
+# Check data types
+print(df.info())</code></pre>
+				</section>
+
+			</main>
+		</div>
+	</div>
+
+	<!-- SCRIPT FOR SIDEBAR HIGHLIGHTING -->
+	<script>
+		function setActive(element) {
+			document.querySelectorAll('.sidebar-link').forEach(el => el.classList.remove('active'));
+			element.classList.add('active');
+		}
+	</script>
+</body>
+
+</html>

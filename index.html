@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python to AI - Portfolio</title>
-    <meta name="description" content="A comprehensive portfolio showcasing Python to AI projects ranging from Machine Learning to Deep Learning.">
+    <title>Python to AI - Tutorial Platform</title>
+    <meta name="description" content="A comprehensive tutorial platform taking you from Python basics to advanced AI implementations.">
     <meta name="author" content="Ishani Kathuria">
 
     <!-- Tailwind CSS -->
@@ -46,29 +46,38 @@
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
+                <!-- Branding -->
                 <div class="flex">
                     <div class="flex-shrink-0 flex items-center">
                         <i class="fa-solid fa-code fa-2x text-indigo-600"></i>
                         <span class="ml-2 font-bold text-xl text-gray-800">Python to AI</span>
                     </div>
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-4 items-center">
-                        <a href="index.html" class="nav-link active">Home</a>
-                        <a href="app/pages/supervised_learning.html" class="nav-link">Supervised ML</a>
-                        <a href="app/pages/unsupervised_learning.html" class="nav-link">Unsupervised ML</a>
-                        <a href="app/pages/deep_learning.html" class="nav-link">Deep Learning</a>
-                    </div>
                 </div>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="#" class="nav-link active">Home</a>
+                    <a href="app/pages/python.html" class="nav-link">Python Basics</a>
+                    <a href="app/pages/ml_basics.html" class="nav-link">ML Basics</a>
+                    <a href="app/pages/supervised_learning.html" class="nav-link">Supervised ML</a>
+                    <a href="app/pages/unsupervised_learning.html" class="nav-link">Unsupervised</a>
+                    <a href="app/pages/deep_learning.html" class="nav-link">Deep Learning</a>
+                </div>
+
+                <!-- Social Icons -->
                 <div class="flex items-center">
                     <a href="https://github.com/ikathuria" target="_blank" class="text-gray-400 hover:text-gray-600 mx-2"><i class="fa-brands fa-github fa-lg"></i></a>
                     <a href="https://linkedin.com/in/ishani-kathuria/" target="_blank" class="text-gray-400 hover:text-blue-600 mx-2"><i class="fa-brands fa-linkedin fa-lg"></i></a>
-                    <a href="https://medium.com/@ishani-kathuria" target="_blank" class="text-gray-400 hover:text-black mx-2"><i class="fa-brands fa-medium fa-lg"></i></a>
                 </div>
             </div>
         </div>
-        <!-- Mobile Menu (Simple) -->
-        <div class="sm:hidden border-t border-gray-200 bg-gray-50">
+
+        <!-- Mobile Menu (Simple Stack) -->
+        <div class="md:hidden border-t border-gray-200 bg-gray-50">
             <div class="flex flex-col space-y-1 px-4 py-2">
-                <a href="index.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600 font-bold bg-indigo-50 text-indigo-700">Home</a>
+                <a href="#" class="block py-2 text-base font-medium text-gray-700 font-bold bg-indigo-50 text-indigo-700">Home</a>
+                <a href="app/pages/python.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Python</a>
+                <a href="app/pages/ml_basics.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600">ML Basics</a>
                 <a href="app/pages/supervised_learning.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Supervised</a>
                 <a href="app/pages/unsupervised_learning.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Unsupervised</a>
                 <a href="app/pages/deep_learning.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Deep Learning</a>
@@ -79,38 +88,64 @@
     <!-- CONTENT SECTIONS -->
     <main class="flex-grow">
 
-        <!-- === HOME SECTION === -->
+        <!-- === HERO / LANDING ==== -->
         <section id="home-section" class="section-container">
-            <div class="text-center py-16">
-                <h1 class="text-5xl font-extrabold text-gray-900 tracking-tight mb-4">
-                    From Python to <span class="text-indigo-600">Artificial Intelligence</span>
+            <div class="text-center py-20">
+                <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 tracking-tight mb-6">
+                    Master <span class="text-indigo-600">Artificial Intelligence</span><br>
+                    <span class="text-4xl text-gray-500">One Algorithm at a Time</span>
                 </h1>
-                <p class="text-xl text-gray-500 max-w-2xl mx-auto mb-8">
-                    A portfolio of Machine Learning and Deep Learning projects, demonstrating the journey from data processing to model deployment.
+                <p class="text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
+                    A comprehensive tutorial platform taking you from basic Python concepts to deploying Deep Learning models. Explore interactive demos, read theory, and view implementation code.
                 </p>
                 <div class="flex justify-center space-x-4">
-                    <a href="app/pages/supervised_learning.html" class="px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:text-lg">
-                        Explore Demos
+                    <a href="app/pages/python.html" class="px-8 py-4 border border-transparent text-lg font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg transition transform hover:-translate-y-1">
+                        Start Learning
                     </a>
-                    <a href="https://github.com/ikathuria/python-to-ai" target="_blank" class="px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 md:text-lg">
-                        View Code
+                    <a href="https://github.com/ikathuria/python-to-ai" target="_blank" class="px-8 py-4 border border-gray-300 text-lg font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 shadow-sm transition">
+                        View on GitHub
                     </a>
                 </div>
             </div>
 
-            <!-- About Card -->
-            <div class="max-w-3xl mx-auto card p-8 text-center bg-gradient-to-br from-indigo-50 to-white border-none shadow-lg">
-                <div class="mb-4">
-                    <img src="https://avatars.githubusercontent.com/u/57997976?v=4" alt="Ishani Kathuria" class="h-24 w-24 rounded-full mx-auto border-4 border-white shadow-sm">
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                <div class="card p-8 text-center hover:shadow-lg transition">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600">
+                        <i class="fa-brands fa-python fa-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Python Fundamentals</h3>
+                    <p class="text-gray-500">Master the basics of effective Python programming for Data Science.</p>
+                </div>
+                <div class="card p-8 text-center hover:shadow-lg transition">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-green-600">
+                        <i class="fa-solid fa-chart-line fa-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Machine Learning</h3>
+                    <p class="text-gray-500">Understand core algorithms from regression to clustering with interactive visualizations.</p>
+                </div>
+                <div class="card p-8 text-center hover:shadow-lg transition">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-purple-600">
+                        <i class="fa-solid fa-brain fa-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Deep Learning</h3>
+                    <p class="text-gray-500">Dive into Neural Networks, Computer Vision, and NLP implementations.</p>
+                </div>
+            </div>
+
+            <!-- About / Profile -->
+            <div class="max-w-4xl mx-auto mt-24 border-t border-gray-200 pt-16 text-center">
+                <div class="inline-block p-1 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 mb-4">
+                    <img src="https://avatars.githubusercontent.com/u/57997976?v=4" alt="Ishani Kathuria" class="h-24 w-24 rounded-full border-4 border-white">
                 </div>
                 <h2 class="text-2xl font-bold text-gray-800">Ishani Kathuria</h2>
                 <p class="text-gray-600 mt-2">Data Science Enthusiast | AI Developer</p>
-                <div class="mt-6 flex justify-center space-x-6">
-                    <a href="https://linkedin.com/in/ishani-kathuria/" target="_blank" class="flex items-center text-gray-600 hover:text-blue-700 transition">
-                        <i class="fa-brands fa-linkedin text-2xl mr-2"></i> LinkedIn
+                <div class="mt-4 flex justify-center space-x-6">
+                    <a href="https://linkedin.com/in/ishani-kathuria/" target="_blank" class="flex items-center text-gray-500 hover:text-blue-700 transition">
+                        <i class="fa-brands fa-linkedin text-xl mr-2"></i> LinkedIn
                     </a>
-                    <a href="https://github.com/ikathuria/" target="_blank" class="flex items-center text-gray-600 hover:text-gray-900 transition">
-                        <i class="fa-brands fa-github text-2xl mr-2"></i> GitHub
+                    <a href="https://github.com/ikathuria/" target="_blank" class="flex items-center text-gray-500 hover:text-gray-900 transition">
+                        <i class="fa-brands fa-github text-xl mr-2"></i> GitHub
                     </a>
                 </div>
             </div>
@@ -122,10 +157,6 @@
     <footer class="bg-gray-800 text-white py-8 mt-12">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <p class="mb-4">Designed & Built by Ishani Kathuria</p>
-            <div class="flex justify-center space-x-6 text-2xl">
-                <a href="https://github.com/ikathuria" class="hover:text-indigo-400 transition"><i class="fa-brands fa-github"></i></a>
-                <a href="https://linkedin.com/in/ishani-kathuria/" class="hover:text-blue-400 transition"><i class="fa-brands fa-linkedin"></i></a>
-            </div>
             <p class="text-gray-500 text-sm mt-4">&copy; 2025 Python to AI.</p>
         </div>
     </footer>
