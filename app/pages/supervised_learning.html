@@ -135,36 +135,54 @@
 
 				<!-- Naive Bayes -->
 				<section id="naive-bayes" class="content-section">
-					<h2><i class="fa-solid fa-users mr-3 text-indigo-500"></i> Naive Bayes</h2>
-					<p>A probabilistic classifier based on Bayes' Theorem with independence assumptions between predictors. It is highly scalable and particularly good for high-dimensional datasets.</p>
+					<h2><i class="fa-solid fa-pills mr-3 text-indigo-500"></i> Naive Bayes</h2>
+					<p>A probabilistic classifier based on Bayes' Theorem. In this example, we predict the appropriate drug for a patient based on their health metrics.</p>
 
 					<div class="bg-gray-800 text-white p-6 rounded-xl shadow-lg relative overflow-hidden mb-6">
 						<div class="absolute top-2 right-2 text-xs bg-green-500 text-white font-bold px-2 py-1 rounded">ONNX Enabled</div>
-						<h3 class="text-2xl font-bold mb-2 text-white mt-0">Census Income Prediction</h3>
-						<p class="opacity-80 mb-0">Classifies whether income exceeds $50K/yr using Naive Bayes.</p>
+						<h3 class="text-2xl font-bold mb-2 text-white mt-0">Drug Classification</h3>
+						<p class="opacity-80 mb-0">Predicts drug type (Y, C, X, A, B) based on patient vitals.</p>
 					</div>
 
 					<div class="card p-6">
 						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-							<div><label class="block text-xs font-bold text-gray-500">Age</label><input type="number" id="census-age" value="39" class="w-full border p-2 rounded"></div>
-							<div><label class="block text-xs font-bold text-gray-500">Workclass</label><select id="census-workclass" class="w-full border p-2 rounded"></select></div>
-							<div><label class="block text-xs font-bold text-gray-500">Education</label><select id="census-education" class="w-full border p-2 rounded"></select></div>
-							<div><label class="block text-xs font-bold text-gray-500">Marital Status</label><select id="census-marital_status" class="w-full border p-2 rounded"></select></div>
-							<div><label class="block text-xs font-bold text-gray-500">Occupation</label><select id="census-occupation" class="w-full border p-2 rounded"></select></div>
-							<div><label class="block text-xs font-bold text-gray-500">Relationship</label><select id="census-relationship" class="w-full border p-2 rounded"></select></div>
-							<div><label class="block text-xs font-bold text-gray-500">Race</label><select id="census-race" class="w-full border p-2 rounded"></select></div>
-							<div><label class="block text-xs font-bold text-gray-500">Gender</label><select id="census-gender" class="w-full border p-2 rounded"></select></div>
-							<div><label class="block text-xs font-bold text-gray-500">Capital Gain</label><input type="number" id="census-capital_gain" value="0" class="w-full border p-2 rounded"></div>
-							<div><label class="block text-xs font-bold text-gray-500">Capital Loss</label><input type="number" id="census-capital_loss" value="0" class="w-full border p-2 rounded"></div>
-							<div><label class="block text-xs font-bold text-gray-500">Hours/Week</label><input type="number" id="census-hours" value="40" class="w-full border p-2 rounded"></div>
-							<div><label class="block text-xs font-bold text-gray-500">Native Country</label><select id="census-native_country" class="w-full border p-2 rounded"></select></div>
+							<div>
+								<label class="block text-xs font-bold text-gray-500 mb-1">Age</label>
+								<input type="number" id="drug-age" value="45" class="w-full border p-2 rounded focus:ring-indigo-500 focus:border-indigo-500">
+							</div>
+							<div>
+								<label class="block text-xs font-bold text-gray-500 mb-1">Sex</label>
+								<select id="drug-sex" class="w-full border p-2 rounded focus:ring-indigo-500 focus:border-indigo-500">
+									<option value="0">Female</option>
+									<option value="1">Male</option>
+								</select>
+							</div>
+							<div>
+								<label class="block text-xs font-bold text-gray-500 mb-1">Blood Pressure</label>
+								<select id="drug-bp" class="w-full border p-2 rounded focus:ring-indigo-500 focus:border-indigo-500">
+									<option value="0">HIGH</option>
+									<option value="1">LOW</option>
+									<option value="2">NORMAL</option>
+								</select>
+							</div>
+							<div>
+								<label class="block text-xs font-bold text-gray-500 mb-1">Cholesterol</label>
+								<select id="drug-cholestrol" class="w-full border p-2 rounded focus:ring-indigo-500 focus:border-indigo-500">
+									<option value="0">HIGH</option>
+									<option value="1">NORMAL</option>
+								</select>
+							</div>
+							<div>
+								<label class="block text-xs font-bold text-gray-500 mb-1">Na_to_K Ratio</label>
+								<input type="number" id="drug-na_to_k" value="15.5" step="0.1" class="w-full border p-2 rounded focus:ring-indigo-500 focus:border-indigo-500">
+							</div>
 						</div>
 
-						<button onclick="runCensusPrediction()" class="mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded transition">
-							Predict Income
+						<button onclick="runDrugPrediction()" class="mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded transition shadow-md">
+							Predict Drug
 						</button>
 
-						<div id="census-result" class="mt-4 p-4 bg-gray-100 rounded text-center text-xl hidden"></div>
+						<div id="drug-result" class="mt-4 p-4 bg-gray-100 rounded text-center text-xl hidden border border-gray-200"></div>
 					</div>
 				</section>
 
@@ -258,14 +276,14 @@ y_pred = knn.predict(X_test)</code></pre>
 
 		const MODEL_OPTIONS = {
 			CLASSIFICATION: [
-				{ value: "../.resources/onnx_models/MLP_Model_Classification.onnx", text: "MLP Model (Shallow)" },
-				{ value: "../.resources/onnx_models/DL_Model_Classification.onnx", text: "DL Model (Deep Learning)" }
+				{ value: "../onnx_models/MLP_Model_Classification.onnx", text: "MLP Model (Shallow)" },
+				{ value: "../onnx_models/DL_Model_Classification.onnx", text: "DL Model (Deep Learning)" }
 			],
 			REGRESSION: [
-				{ value: "../.resources/onnx_models/linreg_model_Regression.onnx", text: "LinRegNet Model" },
-				{ value: "../.resources/onnx_models/mlp_model_Regression.onnx", text: "MLPNet Model" },
-				{ value: "../.resources/onnx_models/dl_model_Regression.onnx", text: "DLNet Model" },
-				{ value: "../.resources/onnx_models/mix_model_Regression.onnx", text: "Linear+NonLinear Model" }
+				{ value: "../onnx_models/linreg_model_Regression.onnx", text: "LinRegNet Model" },
+				{ value: "../onnx_models/mlp_model_Regression.onnx", text: "MLPNet Model" },
+				{ value: "../onnx_models/dl_model_Regression.onnx", text: "DLNet Model" },
+				{ value: "../onnx_models/mix_model_Regression.onnx", text: "Linear+NonLinear Model" }
 			]
 		};
 
@@ -342,6 +360,7 @@ y_pred = knn.predict(X_test)</code></pre>
 			const outputDiv = document.getElementById('output');
 
 			let modelPath = modelSelector.value;
+			// Clean path just in case
 			if (modelPath.startsWith('app/')) {
 				modelPath = '../' + modelPath.substring(4);
 			}
@@ -441,53 +460,58 @@ y_pred = knn.predict(X_test)</code></pre>
 			}
 		}
 
-		// --- CENSUS MODEL LOGIC ---
-		const CENSUS_DICTS = {
-			workclass: ["Private", "Local-gov", "?", "Self-emp-not-inc", "Federal-gov", "State-gov", "Self-emp-inc", "Without-pay", "Never-worked"],
-			education: ["11th", "HS-grad", "Assoc-acdm", "Some-college", "10th", "Prof-school", "7th-8th", "Bachelors", "Masters", "Doctorate", "5th-6th", "Assoc-voc", "9th", "12th", "1st-4th", "Preschool"],
-			marital_status: ["Never-married", "Married-civ-spouse", "Widowed", "Divorced", "Separated", "Married-spouse-absent", "Married-AF-spouse"],
-			occupation: ["Machine-op-inspct", "Farming-fishing", "Protective-serv", "?", "Other-service", "Prof-specialty", "Craft-repair", "Adm-clerical", "Exec-managerial", "Tech-support", "Sales", "Priv-house-serv", "Transport-moving", "Handlers-cleaners", "Armed-Forces"],
-			relationship: ["Own-child", "Husband", "Not-in-family", "Unmarried", "Wife", "Other-relative"],
-			race: ["Black", "White", "Asian-Pac-Islander", "Other", "Amer-Indian-Eskimo"],
-			gender: ["Male", "Female"],
-			native_country: ["United-States", "?", "Peru", "Guatemala", "Mexico", "Dominican-Republic", "Ireland", "Germany", "Philippines", "Thailand", "Haiti", "El-Salvador", "Puerto-Rico", "Vietnam", "South", "Columbia", "Japan", "India", "Cambodia", "Poland", "Laos", "England", "Cuba", "Taiwan", "Italy", "Canada", "Portugal", "China", "Nicaragua", "Honduras", "Iran", "Scotland", "Jamaica", "Ecuador", "Yugoslavia", "Hungary", "Hong", "Greece", "Trinadad&Tobago", "Outlying-US(Guam-USVI-etc)", "France", "Holand-Netherlands"]
-		};
-
-		function populateCensusDropdowns() {
-			for (const [key, values] of Object.entries(CENSUS_DICTS)) {
-				const select = document.getElementById(`census-${key}`);
-				if (select) {
-					select.innerHTML = values.map((v, i) => `<option value="${i}">${v}</option>`).join('');
-				}
-			}
-		}
-
-		async function runCensusPrediction() {
-			const resultDiv = document.getElementById('census-result');
+		// --- DRUG PREDICTION MODEL LOGIC ---
+		async function runDrugPrediction() {
+			const resultDiv = document.getElementById('drug-result');
 			resultDiv.classList.add('hidden');
 
-			const inputData = new Float32Array(15).fill(0);
-			inputData[0] = parseFloat(document.getElementById('census-age').value);
-			inputData[1] = parseFloat(document.getElementById('census-workclass').value);
-			inputData[2] = parseFloat(document.getElementById('census-education').value);
-			inputData[3] = parseFloat(document.getElementById('census-marital_status').value);
-			inputData[4] = parseFloat(document.getElementById('census-occupation').value);
-			inputData[5] = parseFloat(document.getElementById('census-relationship').value);
-			inputData[6] = parseFloat(document.getElementById('census-race').value);
-			inputData[7] = parseFloat(document.getElementById('census-gender').value);
-			inputData[8] = parseFloat(document.getElementById('census-capital_gain').value);
-			inputData[9] = parseFloat(document.getElementById('census-capital_loss').value);
-			inputData[10] = parseFloat(document.getElementById('census-hours').value);
-			inputData[11] = parseFloat(document.getElementById('census-native_country').value);
+			// 1. Gather Inputs
+			const age = parseFloat(document.getElementById('drug-age').value);
+			const sex = parseFloat(document.getElementById('drug-sex').value); // 0 or 1
+			const bp = parseFloat(document.getElementById('drug-bp').value); // 0, 1, 2
+			const cholesterol = parseFloat(document.getElementById('drug-cholestrol').value); // 0, 1
+			const na_to_k = parseFloat(document.getElementById('drug-na_to_k').value);
+
+			const inputData = new Float32Array([age, sex, bp, cholesterol, na_to_k]);
 
 			try {
-				const session = await ort.InferenceSession.create('../static/models/naive_bayes.onnx');
-				const tensor = new ort.Tensor('float32', inputData, [1, 15]);
-				const results = await session.run({ float_input: tensor });
+				// 2. Load Model
+				const session = await ort.InferenceSession.create('../onnx_models/naive_bayes.onnx');
 
-				const label = results.output_label.data[0];
+				// DEBUG: Check input/output names
+				console.log("Model Input Names:", session.inputNames);
+				console.log("Model Output Names:", session.outputNames);
 
-				resultDiv.innerHTML = `Prediction: <span class="font-bold text-indigo-600">${label === 1 ? '>50K' : '<=50K'}</span>`;
+				const inputName = session.inputNames[0];
+				const outputName = session.outputNames[0];
+
+				// 3. Run Inference
+				const tensor = new ort.Tensor('float32', inputData, [1, 5]);
+
+				// Create feeds object dynamically
+				const feeds = {};
+				feeds[inputName] = tensor;
+
+				const results = await session.run(feeds, [outputName]);
+
+				// 4. Process Output
+				const labelIndex = Number(results[outputName].data[0]);
+
+				// Map index to label
+				// 0=DrugY, 1=drugC, 2=drugX, 3=drugA, 4=drugB
+				const drugLabels = ["DrugY", "DrugC", "DrugX", "DrugA", "DrugB"];
+				const drugName = drugLabels[labelIndex] || "Unknown";
+
+				const colors = {
+					"DrugY": "text-purple-600",
+					"DrugC": "text-red-600",
+					"DrugX": "text-blue-600",
+					"DrugA": "text-green-600",
+					"DrugB": "text-yellow-600"
+				};
+				const colorClass = colors[drugName] || "text-gray-800";
+
+				resultDiv.innerHTML = `Recommended Drug: <span class="font-bold ${colorClass}">${drugName}</span>`;
 				resultDiv.classList.remove('hidden');
 
 			} catch (e) {
@@ -503,8 +527,10 @@ y_pred = knn.predict(X_test)</code></pre>
 				console.error("ONNX Runtime not loaded");
 				return;
 			}
+			// Disable multi-threading to avoid Cross-Origin Isolation warnings on simple servers
+			ort.env.wasm.numThreads = 1;
+
 			updatePredictionType();
-			populateCensusDropdowns();
 		});
 
 	</script>

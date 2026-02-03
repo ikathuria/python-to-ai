@@ -94,7 +94,7 @@
 				<div class="hidden md:flex items-center space-x-1">
 					<a href="../../index.html" class="nav-link">Home</a>
 					<a href="python.html" class="nav-link">Python Basics</a>
-                    <a href="ml_basics.html" class="nav-link">ML Basics</a>
+					<a href="ml_basics.html" class="nav-link">ML Basics</a>
 					<a href="supervised_learning.html" class="nav-link">Supervised ML</a>
 					<a href="unsupervised_learning.html" class="nav-link active">Unsupervised</a>
 					<a href="deep_learning.html" class="nav-link">Deep Learning</a>
@@ -205,7 +205,7 @@ labels = kmeans.predict(X)</code></pre>
 			const pWid = parseFloat(document.getElementById('iris-width').value);
 
 			try {
-				const session = await ort.InferenceSession.create('../static/models/kmeans.onnx');
+				const session = await ort.InferenceSession.create('../onnx_models/kmeans.onnx');
 				const tensor = new ort.Tensor('float32', new Float32Array([pLen, pWid]), [1, 2]);
 				const results = await session.run({ float_input: tensor });
 
