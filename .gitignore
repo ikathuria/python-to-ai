@@ -14,6 +14,7 @@ temp_*
 .vscode
 
 # User-specific files
+.env
 *.rsuser
 *.suo
 *.user
