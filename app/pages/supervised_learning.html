@@ -249,11 +249,12 @@ y_pred = knn.predict(X_test)</code></pre>
 						</div>
 						<p class="text-sm text-gray-500 mb-4">Adjust the four Iris measurements and see the predicted species in real time.</p>
 						<div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="knn-inputs">
-							<div><label class="text-xs font-bold text-gray-500">Sepal Length (cm): <span id="knn-sl-val">5.1</span></label><input type="range" id="knn-sl" class="w-full accent-indigo-600" min="4.0" max="8.0" step="0.1" value="5.1" oninput="document.getElementById('knn-sl-val').textContent=this.value;runIrisKNN()"></div>
-							<div><label class="text-xs font-bold text-gray-500">Sepal Width (cm): <span id="knn-sw-val">3.5</span></label><input type="range" id="knn-sw" class="w-full accent-indigo-600" min="2.0" max="4.5" step="0.1" value="3.5" oninput="document.getElementById('knn-sw-val').textContent=this.value;runIrisKNN()"></div>
-							<div><label class="text-xs font-bold text-gray-500">Petal Length (cm): <span id="knn-pl-val">1.4</span></label><input type="range" id="knn-pl" class="w-full accent-indigo-600" min="1.0" max="7.0" step="0.1" value="1.4" oninput="document.getElementById('knn-pl-val').textContent=this.value;runIrisKNN()"></div>
-							<div><label class="text-xs font-bold text-gray-500">Petal Width (cm): <span id="knn-pw-val">0.2</span></label><input type="range" id="knn-pw" class="w-full accent-indigo-600" min="0.1" max="2.5" step="0.1" value="0.2" oninput="document.getElementById('knn-pw-val').textContent=this.value;runIrisKNN()"></div>
+							<div><label class="text-xs font-bold text-gray-500">Sepal Length (cm): <span id="knn-sl-val">5.1</span></label><input type="range" id="knn-sl" class="w-full accent-indigo-600" min="4.0" max="8.0" step="0.1" value="5.1" oninput="document.getElementById('knn-sl-val').textContent=this.value"></div>
+							<div><label class="text-xs font-bold text-gray-500">Sepal Width (cm): <span id="knn-sw-val">3.5</span></label><input type="range" id="knn-sw" class="w-full accent-indigo-600" min="2.0" max="4.5" step="0.1" value="3.5" oninput="document.getElementById('knn-sw-val').textContent=this.value"></div>
+							<div><label class="text-xs font-bold text-gray-500">Petal Length (cm): <span id="knn-pl-val">1.4</span></label><input type="range" id="knn-pl" class="w-full accent-indigo-600" min="1.0" max="7.0" step="0.1" value="1.4" oninput="document.getElementById('knn-pl-val').textContent=this.value"></div>
+							<div><label class="text-xs font-bold text-gray-500">Petal Width (cm): <span id="knn-pw-val">0.2</span></label><input type="range" id="knn-pw" class="w-full accent-indigo-600" min="0.1" max="2.5" step="0.1" value="0.2" oninput="document.getElementById('knn-pw-val').textContent=this.value"></div>
 						</div>
+						<button id="knn-run-btn" onclick="runIrisKNN()" class="mt-5 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition shadow-md disabled:opacity-50 disabled:cursor-not-allowed">Predict Species</button>
 						<div id="knn-result" class="mt-4 p-3 bg-indigo-50 border border-indigo-200 rounded-lg text-center font-bold text-indigo-800 hidden"></div>
 					</div>
 				</section>
@@ -359,11 +360,12 @@ y_pred = dt.predict(X_test)</code></pre>
 						</div>
 						<p class="text-sm text-gray-500 mb-4">Same inputs as KNN — compare how the two algorithms differ on edge cases.</p>
 						<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-							<div><label class="text-xs font-bold text-gray-500">Sepal Length (cm): <span id="dt-sl-val">5.1</span></label><input type="range" id="dt-sl" class="w-full accent-indigo-600" min="4.0" max="8.0" step="0.1" value="5.1" oninput="document.getElementById('dt-sl-val').textContent=this.value;runIrisDT()"></div>
-							<div><label class="text-xs font-bold text-gray-500">Sepal Width (cm): <span id="dt-sw-val">3.5</span></label><input type="range" id="dt-sw" class="w-full accent-indigo-600" min="2.0" max="4.5" step="0.1" value="3.5" oninput="document.getElementById('dt-sw-val').textContent=this.value;runIrisDT()"></div>
-							<div><label class="text-xs font-bold text-gray-500">Petal Length (cm): <span id="dt-pl-val">1.4</span></label><input type="range" id="dt-pl" class="w-full accent-indigo-600" min="1.0" max="7.0" step="0.1" value="1.4" oninput="document.getElementById('dt-pl-val').textContent=this.value;runIrisDT()"></div>
-							<div><label class="text-xs font-bold text-gray-500">Petal Width (cm): <span id="dt-pw-val">0.2</span></label><input type="range" id="dt-pw" class="w-full accent-indigo-600" min="0.1" max="2.5" step="0.1" value="0.2" oninput="document.getElementById('dt-pw-val').textContent=this.value;runIrisDT()"></div>
+							<div><label class="text-xs font-bold text-gray-500">Sepal Length (cm): <span id="dt-sl-val">5.1</span></label><input type="range" id="dt-sl" class="w-full accent-indigo-600" min="4.0" max="8.0" step="0.1" value="5.1" oninput="document.getElementById('dt-sl-val').textContent=this.value"></div>
+							<div><label class="text-xs font-bold text-gray-500">Sepal Width (cm): <span id="dt-sw-val">3.5</span></label><input type="range" id="dt-sw" class="w-full accent-indigo-600" min="2.0" max="4.5" step="0.1" value="3.5" oninput="document.getElementById('dt-sw-val').textContent=this.value"></div>
+							<div><label class="text-xs font-bold text-gray-500">Petal Length (cm): <span id="dt-pl-val">1.4</span></label><input type="range" id="dt-pl" class="w-full accent-indigo-600" min="1.0" max="7.0" step="0.1" value="1.4" oninput="document.getElementById('dt-pl-val').textContent=this.value"></div>
+							<div><label class="text-xs font-bold text-gray-500">Petal Width (cm): <span id="dt-pw-val">0.2</span></label><input type="range" id="dt-pw" class="w-full accent-indigo-600" min="0.1" max="2.5" step="0.1" value="0.2" oninput="document.getElementById('dt-pw-val').textContent=this.value"></div>
 						</div>
+						<button id="dt-run-btn" onclick="runIrisDT()" class="mt-5 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition shadow-md disabled:opacity-50 disabled:cursor-not-allowed">Predict Species</button>
 						<div id="dt-result" class="mt-4 p-3 bg-indigo-50 border border-indigo-200 rounded-lg text-center font-bold text-indigo-800 hidden"></div>
 					</div>
 				</section>
@@ -386,7 +388,7 @@ proba = lr.predict_proba(X_test)[:, 1]  # P(survived)</code></pre>
 						<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 							<div>
 								<label class="block text-xs font-bold text-gray-500 mb-1">Passenger Class</label>
-								<select id="lr-pclass" onchange="runTitanic()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+								<select id="lr-pclass" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 									<option value="1">1st Class</option>
 									<option value="2" selected>2nd Class</option>
 									<option value="3">3rd Class</option>
@@ -394,28 +396,29 @@ proba = lr.predict_proba(X_test)[:, 1]  # P(survived)</code></pre>
 							</div>
 							<div>
 								<label class="block text-xs font-bold text-gray-500 mb-1">Sex</label>
-								<select id="lr-sex" onchange="runTitanic()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+								<select id="lr-sex" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 									<option value="0">Female</option>
 									<option value="1">Male</option>
 								</select>
 							</div>
 							<div>
 								<label class="block text-xs font-bold text-gray-500 mb-1">Age</label>
-								<input type="number" id="lr-age" value="30" min="1" max="80" onchange="runTitanic()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+								<input type="number" id="lr-age" value="30" min="1" max="80" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 							</div>
 							<div>
 								<label class="block text-xs font-bold text-gray-500 mb-1">Siblings/Spouses aboard</label>
-								<input type="number" id="lr-sibsp" value="0" min="0" max="8" onchange="runTitanic()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+								<input type="number" id="lr-sibsp" value="0" min="0" max="8" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 							</div>
 							<div>
 								<label class="block text-xs font-bold text-gray-500 mb-1">Parents/Children aboard</label>
-								<input type="number" id="lr-parch" value="0" min="0" max="6" onchange="runTitanic()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+								<input type="number" id="lr-parch" value="0" min="0" max="6" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 							</div>
 							<div>
 								<label class="block text-xs font-bold text-gray-500 mb-1">Fare (£)</label>
-								<input type="number" id="lr-fare" value="30" min="3" max="512" onchange="runTitanic()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+								<input type="number" id="lr-fare" value="30" min="3" max="512" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 							</div>
 						</div>
+						<button id="lr-run-btn" onclick="runTitanic()" class="mt-5 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition shadow-md disabled:opacity-50 disabled:cursor-not-allowed">Predict Survival</button>
 						<div id="lr-result" class="mt-4 p-3 rounded-lg text-center font-bold text-lg hidden"></div>
 					</div>
 				</section>
@@ -439,24 +442,25 @@ print(lr.coef_, lr.intercept_)</code></pre>
 						<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 							<div>
 								<label class="block text-xs font-bold text-gray-500 mb-1">Age</label>
-								<input type="number" id="ins-age" value="35" min="18" max="64" onchange="runInsurance()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+								<input type="number" id="ins-age" value="35" min="18" max="64" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 							</div>
 							<div>
 								<label class="block text-xs font-bold text-gray-500 mb-1">BMI</label>
-								<input type="number" id="ins-bmi" value="28" min="15" max="55" step="0.1" onchange="runInsurance()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+								<input type="number" id="ins-bmi" value="28" min="15" max="55" step="0.1" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 							</div>
 							<div>
 								<label class="block text-xs font-bold text-gray-500 mb-1">Children</label>
-								<input type="number" id="ins-children" value="1" min="0" max="5" onchange="runInsurance()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+								<input type="number" id="ins-children" value="1" min="0" max="5" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 							</div>
 							<div>
 								<label class="block text-xs font-bold text-gray-500 mb-1">Smoker</label>
-								<select id="ins-smoker" onchange="runInsurance()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+								<select id="ins-smoker" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 									<option value="0">No</option>
 									<option value="1">Yes</option>
 								</select>
 							</div>
 						</div>
+						<button id="ins-run-btn" onclick="runInsurance()" class="mt-5 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition shadow-md disabled:opacity-50 disabled:cursor-not-allowed">Predict Cost</button>
 						<div id="ins-result" class="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg text-center font-bold text-green-800 hidden"></div>
 					</div>
 				</section>
@@ -842,19 +846,27 @@ for k in [1,3,5,7,9,11]:
 		const IRIS_LABELS = ['Iris Setosa', 'Iris Versicolor', 'Iris Virginica'];
 		const IRIS_COLORS = ['text-green-700', 'text-blue-700', 'text-purple-700'];
 
-		async function runIrisModel(modelPath, sl, sw, pl, pw, resultId) {
+		const _irisSessions = {};
+		async function runIrisModel(modelPath, sl, sw, pl, pw, resultId, btnId) {
 			const resultDiv = document.getElementById(resultId);
+			const btn = btnId ? document.getElementById(btnId) : null;
+			if (btn) { btn.disabled = true; btn.textContent = 'Loading…'; }
 			try {
-				const session = await ort.InferenceSession.create(modelPath);
+				if (!_irisSessions[modelPath]) {
+					_irisSessions[modelPath] = await ort.InferenceSession.create(modelPath);
+				}
+				const session = _irisSessions[modelPath];
 				const tensor = new ort.Tensor('float32', new Float32Array([sl, sw, pl, pw]), [1, 4]);
 				const out = await session.run({ [session.inputNames[0]]: tensor });
 				const label = (out.label ?? out.output_label).data[0];
 				const idx = Number(label);
-				resultDiv.innerHTML = `Predicted: <span class="${IRIS_COLORS[idx] || 'text-gray-800'}">${IRIS_LABELS[idx] || 'Unknown'}</span>`;
+				resultDiv.innerHTML = `Predicted: <span class="${IRIS_COLORS[idx] || 'text-gray-800'} font-bold">${IRIS_LABELS[idx] || 'Unknown'}</span>`;
 				resultDiv.classList.remove('hidden');
 			} catch (e) {
 				resultDiv.textContent = `Error: ${e.message}`;
 				resultDiv.classList.remove('hidden');
+			} finally {
+				if (btn) { btn.disabled = false; btn.textContent = 'Predict Species'; }
 			}
 		}
 
@@ -869,17 +881,20 @@ for k in [1,3,5,7,9,11]:
 
 		function runIrisKNN() {
 			const [sl, sw, pl, pw] = getIrisInputs('knn');
-			runIrisModel('../onnx_models/knn_iris.onnx', sl, sw, pl, pw, 'knn-result');
+			runIrisModel('../onnx_models/knn_iris.onnx', sl, sw, pl, pw, 'knn-result', 'knn-run-btn');
 		}
 
 		function runIrisDT() {
 			const [sl, sw, pl, pw] = getIrisInputs('dt');
-			runIrisModel('../onnx_models/decision_tree_iris.onnx', sl, sw, pl, pw, 'dt-result');
+			runIrisModel('../onnx_models/decision_tree_iris.onnx', sl, sw, pl, pw, 'dt-result', 'dt-run-btn');
 		}
 
 		// ── Titanic (Logistic Regression) ────────────────────────────────────
+		let _titanicSession = null;
 		async function runTitanic() {
 			const resultDiv = document.getElementById('lr-result');
+			const btn = document.getElementById('lr-run-btn');
+			if (btn) { btn.disabled = true; btn.textContent = 'Loading…'; }
 			const pclass   = parseFloat(document.getElementById('lr-pclass').value);
 			const sex      = parseFloat(document.getElementById('lr-sex').value);
 			const age      = parseFloat(document.getElementById('lr-age').value);
@@ -887,9 +902,11 @@ for k in [1,3,5,7,9,11]:
 			const parch    = parseFloat(document.getElementById('lr-parch').value);
 			const fare     = parseFloat(document.getElementById('lr-fare').value);
 			try {
-				const session = await ort.InferenceSession.create('../onnx_models/logistic_regression_titanic.onnx');
+				if (!_titanicSession) {
+					_titanicSession = await ort.InferenceSession.create('../onnx_models/logistic_regression_titanic.onnx');
+				}
 				const tensor = new ort.Tensor('float32', new Float32Array([pclass, sex, age, sibsp, parch, fare]), [1, 6]);
-				const out = await session.run({ [session.inputNames[0]]: tensor });
+				const out = await _titanicSession.run({ [_titanicSession.inputNames[0]]: tensor });
 				const label = Number((out.label ?? out.output_label).data[0]);
 				if (label === 1) {
 					resultDiv.className = 'mt-4 p-3 rounded-lg text-center font-bold text-lg bg-green-50 border border-green-200 text-green-800';
@@ -903,21 +920,28 @@ for k in [1,3,5,7,9,11]:
 				resultDiv.className = 'mt-4 p-3 rounded-lg text-center font-bold bg-yellow-50 border border-yellow-200 text-yellow-800';
 				resultDiv.textContent = `Error: ${e.message}`;
 				resultDiv.classList.remove('hidden');
+			} finally {
+				if (btn) { btn.disabled = false; btn.textContent = 'Predict Survival'; }
 			}
 		}
 
 		// ── Insurance (Linear Regression) ────────────────────────────────────
+		let _insuranceSession = null;
 		async function runInsurance() {
 			const resultDiv = document.getElementById('ins-result');
+			const btn = document.getElementById('ins-run-btn');
+			if (btn) { btn.disabled = true; btn.textContent = 'Loading…'; }
 			const age      = parseFloat(document.getElementById('ins-age').value);
 			const bmi      = parseFloat(document.getElementById('ins-bmi').value);
 			const children = parseFloat(document.getElementById('ins-children').value);
 			const smoker   = parseFloat(document.getElementById('ins-smoker').value);
 			try {
-				const session = await ort.InferenceSession.create('../onnx_models/linear_regression_insurance.onnx');
+				if (!_insuranceSession) {
+					_insuranceSession = await ort.InferenceSession.create('../onnx_models/linear_regression_insurance.onnx');
+				}
 				const tensor = new ort.Tensor('float32', new Float32Array([age, bmi, children, smoker]), [1, 4]);
-				const out = await session.run({ [session.inputNames[0]]: tensor });
-				const charge = out.variable ?? out.output_label ?? out[session.outputNames[0]];
+				const out = await _insuranceSession.run({ [_insuranceSession.inputNames[0]]: tensor });
+				const charge = out.variable ?? out.output_label ?? out[_insuranceSession.outputNames[0]];
 				const value = Math.max(0, Math.round(charge.data[0]));
 				resultDiv.textContent = `Estimated annual charge: $${value.toLocaleString()}`;
 				resultDiv.classList.remove('hidden');
@@ -925,6 +949,8 @@ for k in [1,3,5,7,9,11]:
 				resultDiv.className = 'mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-center font-bold text-yellow-800';
 				resultDiv.textContent = `Error: ${e.message}`;
 				resultDiv.classList.remove('hidden');
+			} finally {
+				if (btn) { btn.disabled = false; btn.textContent = 'Predict Cost'; }
 			}
 		}
 

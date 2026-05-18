@@ -324,11 +324,12 @@ print(pca.explained_variance_ratio_)  # % variance per component</code></pre>
 						</div>
 						<p class="text-sm text-gray-500 mb-4">Enter all four Iris measurements and see where they land in 2D principal component space.</p>
 						<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-							<div><label class="text-xs font-bold text-gray-500">Sepal Length (cm): <span id="pca-sl-val">5.1</span></label><input type="range" id="pca-sl" class="w-full accent-indigo-600" min="4.0" max="8.0" step="0.1" value="5.1" oninput="document.getElementById('pca-sl-val').textContent=this.value;runPCA()"></div>
-							<div><label class="text-xs font-bold text-gray-500">Sepal Width (cm): <span id="pca-sw-val">3.5</span></label><input type="range" id="pca-sw" class="w-full accent-indigo-600" min="2.0" max="4.5" step="0.1" value="3.5" oninput="document.getElementById('pca-sw-val').textContent=this.value;runPCA()"></div>
-							<div><label class="text-xs font-bold text-gray-500">Petal Length (cm): <span id="pca-pl-val">1.4</span></label><input type="range" id="pca-pl" class="w-full accent-indigo-600" min="1.0" max="7.0" step="0.1" value="1.4" oninput="document.getElementById('pca-pl-val').textContent=this.value;runPCA()"></div>
-							<div><label class="text-xs font-bold text-gray-500">Petal Width (cm): <span id="pca-pw-val">0.2</span></label><input type="range" id="pca-pw" class="w-full accent-indigo-600" min="0.1" max="2.5" step="0.1" value="0.2" oninput="document.getElementById('pca-pw-val').textContent=this.value;runPCA()"></div>
+							<div><label class="text-xs font-bold text-gray-500">Sepal Length (cm): <span id="pca-sl-val">5.1</span></label><input type="range" id="pca-sl" class="w-full accent-indigo-600" min="4.0" max="8.0" step="0.1" value="5.1" oninput="document.getElementById('pca-sl-val').textContent=this.value"></div>
+							<div><label class="text-xs font-bold text-gray-500">Sepal Width (cm): <span id="pca-sw-val">3.5</span></label><input type="range" id="pca-sw" class="w-full accent-indigo-600" min="2.0" max="4.5" step="0.1" value="3.5" oninput="document.getElementById('pca-sw-val').textContent=this.value"></div>
+							<div><label class="text-xs font-bold text-gray-500">Petal Length (cm): <span id="pca-pl-val">1.4</span></label><input type="range" id="pca-pl" class="w-full accent-indigo-600" min="1.0" max="7.0" step="0.1" value="1.4" oninput="document.getElementById('pca-pl-val').textContent=this.value"></div>
+							<div><label class="text-xs font-bold text-gray-500">Petal Width (cm): <span id="pca-pw-val">0.2</span></label><input type="range" id="pca-pw" class="w-full accent-indigo-600" min="0.1" max="2.5" step="0.1" value="0.2" oninput="document.getElementById('pca-pw-val').textContent=this.value"></div>
 						</div>
+						<button id="pca-run-btn" onclick="runPCA()" class="mt-5 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition shadow-md disabled:opacity-50 disabled:cursor-not-allowed">Run PCA Projection</button>
 						<div id="pca-result" class="mt-4 p-3 bg-indigo-50 border border-indigo-200 rounded-lg font-mono text-sm text-indigo-900 hidden"></div>
 					</div>
 				</section>
@@ -371,14 +372,18 @@ print(pca.explained_variance_ratio_)  # % variance per component</code></pre>
 		}
 
 		// --- PCA DEMO ---
+		let _pcaSession = null;
 		async function runPCA() {
 			const resultDiv = document.getElementById('pca-result');
+			const btn = document.getElementById('pca-run-btn');
+			if (btn) { btn.disabled = true; btn.textContent = 'Loading…'; }
 			const sl = parseFloat(document.getElementById('pca-sl').value);
 			const sw = parseFloat(document.getElementById('pca-sw').value);
 			const pl = parseFloat(document.getElementById('pca-pl').value);
 			const pw = parseFloat(document.getElementById('pca-pw').value);
 			try {
-				const session = await ort.InferenceSession.create('../onnx_models/pca_iris.onnx');
+				if (!_pcaSession) _pcaSession = await ort.InferenceSession.create('../onnx_models/pca_iris.onnx');
+				const session = _pcaSession;
 				const tensor = new ort.Tensor('float32', new Float32Array([sl, sw, pl, pw]), [1, 4]);
 				const out = await session.run({ [session.inputNames[0]]: tensor });
 				const data = out[session.outputNames[0]].data;
@@ -390,6 +395,8 @@ print(pca.explained_variance_ratio_)  # % variance per component</code></pre>
 			} catch (e) {
 				resultDiv.innerHTML = `<span class="text-red-600">Error: ${e.message}</span>`;
 				resultDiv.classList.remove('hidden');
+			} finally {
+				if (btn) { btn.disabled = false; btn.textContent = 'Run PCA Projection'; }
 			}
 		}
 
