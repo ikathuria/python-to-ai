@@ -309,9 +309,25 @@ history = model.fit(train_gen, validation_data=val_gen,
 		ort.env.wasm.numThreads = 1;
 
 		const COLOUR_CLASSES = ['black','blue','brown','green','grey','orange','red','violet','white','yellow'];
-		// ImageNet mean/std — same normalisation used in training
 		const MEAN = [0.485, 0.456, 0.406];
 		const STD  = [0.229, 0.224, 0.225];
+
+		let colourSession = null;
+
+		async function loadColourModel() {
+			const resultDiv = document.getElementById('colour-result');
+			const errorDiv  = document.getElementById('colour-error');
+			try {
+				resultDiv.textContent = 'Loading model…';
+				colourSession = await ort.InferenceSession.create('../onnx_models/colour_cnn.onnx');
+				errorDiv.classList.add('hidden');
+				runColourCNN();
+			} catch (e) {
+				resultDiv.textContent = '—';
+				errorDiv.textContent  = 'Failed to load model: ' + e.message;
+				errorDiv.classList.remove('hidden');
+			}
+		}
 
 		function hexToRgb01(hex) {
 			const r = parseInt(hex.slice(1,3),16) / 255;
@@ -321,59 +337,47 @@ history = model.fit(train_gen, validation_data=val_gen,
 		}
 
 		async function runColourCNN() {
+			if (!colourSession) return;
 			const hex = document.getElementById('colour-picker').value;
 			const [r, g, b] = hexToRgb01(hex);
-			const resultDiv  = document.getElementById('colour-result');
-			const scoresDiv  = document.getElementById('colour-scores');
-			const errorDiv   = document.getElementById('colour-error');
+			const resultDiv = document.getElementById('colour-result');
+			const scoresDiv = document.getElementById('colour-scores');
 
-			// Build a 1×3×64×64 tensor filled with the chosen colour (normalised)
 			const H = 64, W = 64;
 			const data = new Float32Array(3 * H * W);
 			const nr = (r - MEAN[0]) / STD[0];
 			const ng = (g - MEAN[1]) / STD[1];
 			const nb = (b - MEAN[2]) / STD[2];
 			for (let i = 0; i < H * W; i++) {
-				data[i]             = nr;   // R channel
-				data[H*W + i]       = ng;   // G channel
-				data[2*H*W + i]     = nb;   // B channel
+				data[i]         = nr;
+				data[H*W + i]   = ng;
+				data[2*H*W + i] = nb;
 			}
 
-			try {
-				const session = await ort.InferenceSession.create('../onnx_models/colour_cnn.onnx');
-				const tensor  = new ort.Tensor('float32', data, [1, 3, H, W]);
-				const out     = await session.run({ [session.inputNames[0]]: tensor });
-				const logits  = Array.from(out[session.outputNames[0]].data);
+			const tensor = new ort.Tensor('float32', data, [1, 3, H, W]);
+			const out    = await colourSession.run({ [colourSession.inputNames[0]]: tensor });
+			const logits = Array.from(out[colourSession.outputNames[0]].data);
 
-				// Softmax
-				const maxL  = Math.max(...logits);
-				const exps  = logits.map(v => Math.exp(v - maxL));
-				const sumE  = exps.reduce((a,b) => a+b, 0);
-				const probs = exps.map(v => v / sumE);
+			const maxL  = Math.max(...logits);
+			const exps  = logits.map(v => Math.exp(v - maxL));
+			const sumE  = exps.reduce((a,b) => a+b, 0);
+			const probs = exps.map(v => v / sumE);
 
-				const topIdx = probs.indexOf(Math.max(...probs));
-				resultDiv.textContent = COLOUR_CLASSES[topIdx].charAt(0).toUpperCase() + COLOUR_CLASSES[topIdx].slice(1);
-				errorDiv.classList.add('hidden');
+			const topIdx = probs.indexOf(Math.max(...probs));
+			resultDiv.textContent = COLOUR_CLASSES[topIdx].charAt(0).toUpperCase() + COLOUR_CLASSES[topIdx].slice(1);
 
-				// Show top-3 bars
-				const ranked = probs.map((p,i) => [i,p]).sort((a,b) => b[1]-a[1]).slice(0,3);
-				scoresDiv.innerHTML = ranked.map(([i,p]) => `
-					<div class="flex items-center gap-2 text-sm">
-						<span class="w-16 text-gray-500">${COLOUR_CLASSES[i]}</span>
-						<div class="flex-grow bg-gray-100 rounded h-2">
-							<div class="bg-indigo-500 h-2 rounded" style="width:${(p*100).toFixed(1)}%"></div>
-						</div>
-						<span class="text-gray-400 w-10 text-right">${(p*100).toFixed(1)}%</span>
-					</div>`).join('');
-			} catch (e) {
-				resultDiv.textContent = '—';
-				scoresDiv.innerHTML = '';
-				errorDiv.classList.remove('hidden');
-			}
+			const ranked = probs.map((p,i) => [i,p]).sort((a,b) => b[1]-a[1]).slice(0,3);
+			scoresDiv.innerHTML = ranked.map(([i,p]) => `
+				<div class="flex items-center gap-2 text-sm">
+					<span class="w-16 text-gray-500">${COLOUR_CLASSES[i]}</span>
+					<div class="flex-grow bg-gray-100 rounded h-2">
+						<div class="bg-indigo-500 h-2 rounded" style="width:${(p*100).toFixed(1)}%"></div>
+					</div>
+					<span class="text-gray-400 w-10 text-right">${(p*100).toFixed(1)}%</span>
+				</div>`).join('');
 		}
 
-		// Run on page load with the default colour
-		document.addEventListener('DOMContentLoaded', runColourCNN);
+		document.addEventListener('DOMContentLoaded', loadColourModel);
 	</script>
 
 	<footer class="bg-gray-800 text-white py-8 mt-12">
