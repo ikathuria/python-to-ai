@@ -1,45 +1,67 @@
-def test_public_html_routes(client):
-    assert client.get("/").status_code == 200
-    assert client.get("/index.html").status_code == 200
-    assert client.get("/app/pages/python.html").status_code == 200
+"""Static site validation tests."""
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+PAGES_DIR = ROOT / "app" / "pages"
+ONNX_DIR  = ROOT / "app" / "onnx_models"
 
 
-def test_repo_files_not_exposed(client):
-    assert client.get("/requirements.txt").status_code == 404
-    assert client.get("/wsgi.py").status_code == 404
+def test_root_html_files_exist():
+    assert (ROOT / "index.html").is_file()
+    assert (ROOT / "404.html").is_file()
 
 
-def test_pages_only_serve_html(client):
-    assert client.get("/app/pages/not-a-real-page.html").status_code == 404
+def test_all_pages_nonempty():
+    pages = list(PAGES_DIR.glob("*.html"))
+    assert len(pages) >= 9, f"Expected >=9 topic pages, found {len(pages)}"
+    for page in pages:
+        size = page.stat().st_size
+        assert size > 100, f"{page.name} is suspiciously small ({size} bytes)"
 
 
-def test_health_endpoints(client):
-    hz = client.get("/healthz")
-    assert hz.status_code == 200
-    assert hz.get_json() == {"status": "ok"}
-    rz = client.get("/readyz")
-    assert rz.status_code == 200
-    assert rz.get_json() == {"status": "ready"}
+def test_onnx_models_present():
+    models = list(ONNX_DIR.glob("*.onnx"))
+    assert len(models) >= 8, f"Expected >=8 ONNX models, found {len(models)}"
+    for m in models:
+        assert m.stat().st_size > 100, f"{m.name} looks empty"
 
 
-def test_security_headers(client):
-    r = client.get("/")
-    assert r.headers.get("X-Content-Type-Options") == "nosniff"
-    assert r.headers.get("X-Frame-Options") == "SAMEORIGIN"
-
-
-def test_onnx_route_rejects_non_onnx(client):
-    assert client.get("/app/onnx_models/not-a-model.txt").status_code == 404
-
-
-def test_onnx_models_served_when_present(client):
-    from pathlib import Path
-
-    onnx_path = (
-        Path(__file__).resolve().parents[1] / "app" / "onnx_models" / "kmeans.onnx"
+def test_export_script_runs(tmp_path):
+    """export_tutorial_onnx.py must exit 0 and produce all expected models."""
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "export_tutorial_onnx.py")],
+        capture_output=True, text=True,
     )
-    if not onnx_path.is_file():
-        return
-    r = client.get("/app/onnx_models/kmeans.onnx")
-    assert r.status_code == 200
-    assert len(r.data) > 32
+    assert result.returncode == 0, f"Export script failed:\n{result.stderr}"
+    expected = [
+        "kmeans.onnx",
+        "naive_bayes.onnx",
+        "decision_tree_iris.onnx",
+        "knn_iris.onnx",
+        "logistic_regression_titanic.onnx",
+        "linear_regression_insurance.onnx",
+        "pca_iris.onnx",
+    ]
+    for name in expected:
+        assert (ONNX_DIR / name).is_file(), f"Missing {name} after export"
+
+
+def test_nav_links_consistent():
+    """Every content page should link to all other topic pages."""
+    expected_links = [
+        "python.html", "ml_basics.html", "supervised_learning.html",
+        "unsupervised_learning.html", "deep_learning.html",
+        "computer_vision.html", "natural_language_processing.html",
+        "recommendation_system.html", "time_series.html",
+    ]
+    content_pages = [
+        PAGES_DIR / p for p in expected_links
+        if (PAGES_DIR / p).stat().st_size > 500
+    ]
+    for page in content_pages:
+        html = page.read_text(encoding="utf-8", errors="ignore")
+        for link in expected_links:
+            if link != page.name:
+                assert link in html, f"{page.name} is missing nav link to {link}"

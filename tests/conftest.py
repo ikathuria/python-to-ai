@@ -1,13 +1,9 @@
+from pathlib import Path
 import pytest
 
-from app.main import create_app
+ROOT = Path(__file__).resolve().parents[1]
 
 
 @pytest.fixture
-def app():
-    return create_app("testing")
-
-
-@pytest.fixture
-def client(app):
-    return app.test_client()
+def root():
+    return ROOT
