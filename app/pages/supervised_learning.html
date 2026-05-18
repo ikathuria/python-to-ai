@@ -129,7 +129,10 @@
 				<section id="intro" class="content-section">
 					<h1 class="text-4xl font-extrabold text-gray-900 mb-6">Supervised Machine Learning</h1>
 					<p class="text-lg text-gray-600 mb-4">
-						In supervised learning, the model learns from labeled training data, making predictions based on known input-output pairs. This section explores several key algorithms with interactive demos running directly in your browser.
+						In supervised learning, the model learns from labeled training data, making predictions based on known input-output pairs. This section explores several key algorithms with interactive demos running directly in your browser via <strong>ONNX Runtime Web</strong> (no backend, no API keys).
+					</p>
+					<p class="text-sm text-gray-500 mb-0">
+						The bundled <code class="text-red-500">.onnx</code> files are small tutorial models trained on synthetic data so the UI and math stay consistent with the lesson. Regenerate them anytime with <code class="text-red-500">python scripts/export_tutorial_onnx.py</code>.
 					</p>
 				</section>
 
@@ -401,8 +404,19 @@ y_pred = knn.predict(X_test)</code></pre>
 				const { INPUT_DIM } = NORM_CONSTANTS[currentTask];
 
 				const inputTensor = new ort.Tensor('float32', processedInput, [1, INPUT_DIM]);
-				const results = await session.run({ input1: inputTensor });
-				const outputData = results.output1.data;
+				const inName = session.inputNames[0];
+				const results = await session.run({ [inName]: inputTensor });
+				let outputData;
+				if (currentTask === 'CLASSIFICATION') {
+					const probKey = session.outputNames.find((n) => n === 'probabilities');
+					const key = probKey || session.outputNames[0];
+					outputData = results[key].data;
+				} else {
+					const regKey =
+						session.outputNames.find((n) => results[n].data.length === 1) ||
+						session.outputNames[0];
+					outputData = results[regKey].data;
+				}
 
 				displayResult(outputData);
 			} catch (e) {

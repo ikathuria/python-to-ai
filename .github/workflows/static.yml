@@ -1,4 +1,6 @@
-# Simple workflow for deploying static content to GitHub Pages
+# GitHub Pages serves static files only (no Python/Flask at runtime).
+# The full repo stays on GitHub as open source; this job publishes HTML for the tutorial site.
+# Optional: run `python wsgi.py` locally to preview with Flask.
 name: Deploy static content to Pages
 
 on:
@@ -33,11 +35,18 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Build static site bundle
+        run: |
+          mkdir -p _site/app/pages _site/app/onnx_models
+          cp index.html _site/
+          cp app/pages/*.html _site/app/pages/
+          mkdir -p app/onnx_models
+          find app/onnx_models -maxdepth 1 -name '*.onnx' -print0 | xargs -0 -r cp -t _site/app/onnx_models/
+          cp .nojekyll _site/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          path: _site
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

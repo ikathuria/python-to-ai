@@ -1,3 +1,9 @@
+"""
+Legacy converter for pickled models under app/static/models/.
+
+For browser demos on GitHub Pages, use scripts/export_tutorial_onnx.py instead
+(it trains small sklearn models and writes app/onnx_models/*.onnx).
+"""
 import pickle
 import numpy as np
 import onnx

@@ -131,6 +131,9 @@
 					<p class="text-lg text-gray-600 mb-4">
 						Unsupervised learning finds hidden patterns or intrinsic structures in input data. Unlike supervised learning, there are no labeled outputs. Common tasks include clustering and dimensionality reduction.
 					</p>
+					<p class="text-sm text-gray-500">
+						The K-Means demo loads a tiny ONNX model trained on real Iris petal measurements (see <code class="text-red-500">scripts/export_tutorial_onnx.py</code>).
+					</p>
 				</section>
 
 				<!-- K-Means Clustering -->
@@ -207,12 +210,11 @@ labels = kmeans.predict(X)</code></pre>
 			try {
 				const session = await ort.InferenceSession.create('../onnx_models/kmeans.onnx');
 				const tensor = new ort.Tensor('float32', new Float32Array([pLen, pWid]), [1, 2]);
-				const results = await session.run({ float_input: tensor });
-
-				const cluster = results.output_label.data[0];
-				const clusters = ["Setosa", "Versicolor", "Virginica"]; // Approx mapping
-
-				resultDiv.innerHTML = `Cluster: <span class="font-bold text-purple-600">${clusters[cluster] || cluster}</span>`;
+				const inName = session.inputNames[0];
+				const results = await session.run({ [inName]: tensor });
+				const labelOut = results.label ?? results.output_label;
+				const cluster = labelOut.data[0];
+				resultDiv.innerHTML = `K-Means cluster ID: <span class="font-bold text-purple-600">${cluster}</span> <span class="text-gray-500 font-normal">(0–2; not the same as Iris species labels)</span>`;
 				resultDiv.classList.remove('hidden');
 			} catch (e) {
 				console.error(e);
