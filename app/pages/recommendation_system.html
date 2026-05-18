@@ -158,7 +158,10 @@ print(get_recommendations('Toy Story (1995)'))</code></pre>
 				</section>
 
 				<section id="cosine-similarity" class="content-section">
-					<h2><i class="fa-solid fa-ruler mr-3 text-indigo-500"></i> Cosine Similarity</h2>
+					<div class="flex items-center justify-between mb-1">
+						<h2 class="mb-0"><i class="fa-solid fa-ruler mr-3 text-indigo-500"></i> Cosine Similarity</h2>
+						<a href="https://github.com/ikathuria/python-to-ai/blob/main/3%20Recommendation%20Systems/cosine_similarity.ipynb" target="_blank" class="text-xs text-gray-400 hover:text-indigo-600 transition flex items-center gap-1 flex-shrink-0"><i class="fa-brands fa-github text-xs"></i> Notebook</a>
+					</div>
 					<p>Cosine similarity measures the angle between two vectors. A value of <strong>1</strong> = identical, <strong>0</strong> = no overlap, <strong>-1</strong> = opposite.</p>
 
 					<div class="bg-gray-800 text-white rounded-xl p-6 my-4 font-mono">
@@ -223,7 +226,13 @@ print(similar_movies(1))  # Movies similar to Toy Story</code></pre>
 
 					<!-- Interactive Movie Recommender Demo -->
 					<section id="movie-rec-demo" class="content-section">
-						<h2><i class="fa-solid fa-wand-magic-sparkles mr-3 text-indigo-500"></i> Live Demo — Genre-Based Recommender</h2>
+						<div class="flex items-start justify-between mb-1 gap-4">
+							<h2 class="mb-0"><i class="fa-solid fa-wand-magic-sparkles mr-3 text-indigo-500"></i> Live Demo — Genre-Based Recommender</h2>
+							<div class="flex items-center gap-2 flex-shrink-0 mt-1">
+								<a href="https://github.com/ikathuria/python-to-ai/blob/main/3%20Recommendation%20Systems/movie_similarity.ipynb" target="_blank" class="text-xs text-gray-400 hover:text-indigo-600 transition flex items-center gap-1"><i class="fa-brands fa-github text-xs"></i> Notebook</a>
+								<span class="text-xs font-bold bg-green-100 text-green-800 px-2 py-1 rounded">ONNX</span>
+							</div>
+						</div>
 						<p>Select the genres you enjoy and click <strong>Find Movies</strong>. The recommender builds your preference vector and returns the top matches using cosine similarity — exactly like a real content-based system.</p>
 
 						<div class="bg-gray-900 text-white rounded-xl p-6 mt-4">
