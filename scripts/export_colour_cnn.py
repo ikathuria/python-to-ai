@@ -174,16 +174,20 @@ def export(model: "ColourCNN"):
     dummy = torch.zeros(1, 3, IMG_SIZE, IMG_SIZE)
     # opset 15: lowest opset the Shape op (used by Flatten) supports.
     # ORT Web WASM backend rejects opset 18 for this model.
+    # No dynamic_axes — browser always runs batch=1, and dynamic shape nodes
+    # (Shape+Concat+Reshape) are not supported by ORT Web's WASM backend.
     torch.onnx.export(
         model, dummy, str(OUT),
         input_names=["pixel_values"],
         output_names=["logits"],
-        dynamic_axes={"pixel_values": {0: "batch"}, "logits": {0: "batch"}},
         opset_version=15,
     )
-    # Ensure single-file ONNX (no external .data sidecar) for ORT Web compatibility
+    # Post-process: simplify graph, lower IR version, ensure single-file
     import onnx as _onnx
+    from onnxsim import simplify as _simplify
     _m = _onnx.load(str(OUT))
+    _m, _ = _simplify(_m)
+    _m.ir_version = 8   # ORT Web 1.17 ships with ONNX 1.15 (IR 9 max)
     _onnx.save(_m, str(OUT), save_as_external_data=False)
     size_kb = OUT.stat().st_size // 1024
     print(f"Exported → {OUT}  ({size_kb} KB)")
