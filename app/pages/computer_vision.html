@@ -337,9 +337,13 @@ history = model.fit(train_gen, validation_data=val_gen,
 				errorDiv.classList.add('hidden');
 				runColourCNN();
 			} catch (e) {
-				console.error('[ColourCNN] load error:', e);
+				// WASM exceptions surface as integer pointers — decode if possible
+				const msg = (typeof e === 'number' && typeof Module !== 'undefined')
+					? (Module.getExceptionMessage?.(e) ?? `WASM error code ${e}`)
+					: (e?.message ?? String(e));
+				console.error('[ColourCNN] load error:', msg);
 				resultDiv.textContent = '—';
-				errorDiv.textContent  = 'Failed to load model: ' + e.message;
+				errorDiv.textContent  = 'Failed to load model: ' + msg;
 				errorDiv.classList.remove('hidden');
 			}
 		}

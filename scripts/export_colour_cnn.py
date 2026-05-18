@@ -172,14 +172,19 @@ def train(epochs: int = 20, batch_size: int = 32):
 
 def export(model: "ColourCNN"):
     dummy = torch.zeros(1, 3, IMG_SIZE, IMG_SIZE)
-    # Use opset 18 — supported by onnxruntime-web >=1.17
+    # opset 15: lowest opset the Shape op (used by Flatten) supports.
+    # ORT Web WASM backend rejects opset 18 for this model.
     torch.onnx.export(
         model, dummy, str(OUT),
         input_names=["pixel_values"],
         output_names=["logits"],
         dynamic_axes={"pixel_values": {0: "batch"}, "logits": {0: "batch"}},
-        opset_version=18,
+        opset_version=15,
     )
+    # Ensure single-file ONNX (no external .data sidecar) for ORT Web compatibility
+    import onnx as _onnx
+    _m = _onnx.load(str(OUT))
+    _onnx.save(_m, str(OUT), save_as_external_data=False)
     size_kb = OUT.stat().st_size // 1024
     print(f"Exported → {OUT}  ({size_kb} KB)")
     print(f"Classes  : {CLASSES}")
