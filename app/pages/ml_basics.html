@@ -134,6 +134,8 @@
 						<a href="#numpy" class="sidebar-link" onclick="setActive(this)">Numpy Matrices</a>
 						<a href="#ops" class="sidebar-link" onclick="setActive(this)">Matrix Operations</a>
 						<a href="#pandas" class="sidebar-link" onclick="setActive(this)">Pandas DataFrames</a>
+						<a href="#matplotlib" class="sidebar-link" onclick="setActive(this)">Matplotlib</a>
+						<a href="#sklearn" class="sidebar-link" onclick="setActive(this)">Scikit-learn</a>
 					</nav>
 				</div>
 			</aside>
@@ -151,67 +153,295 @@
 
 				<!-- Numpy -->
 				<section id="numpy" class="content-section">
-					<h2><i class="fa-solid fa-cube mr-3 text-indigo-500"></i> Numpy Matrices</h2>
-					<p>Numpy provided support for large, multi-dimensional arrays and matrices.</p>
+					<h2><i class="fa-solid fa-cube mr-3 text-indigo-500"></i> NumPy Arrays</h2>
+					<p>NumPy is the foundation of the Python data science stack. Its <code>ndarray</code> stores homogeneous typed data in contiguous memory, making vectorised operations orders of magnitude faster than Python lists.</p>
 
 					<pre><code class="language-python">import numpy as np
 
-# Define Matrix A
-A = np.array([[1, 2, 3], 
-              [4, 5, 6], 
+# Creating arrays
+a = np.array([1, 2, 3, 4, 5])          # 1-D
+A = np.array([[1, 2, 3],
+              [4, 5, 6],
+              [7, 8, 9]])               # 2-D (3×3)
+
+print(A.shape)   # (3, 3)
+print(A.dtype)   # int64
+
+# Useful constructors
+np.zeros((3, 4))                        # all zeros
+np.ones((2, 2))                         # all ones
+np.eye(3)                               # identity matrix
+np.arange(0, 10, 2)                     # [0, 2, 4, 6, 8]
+np.linspace(0, 1, 5)                    # [0, .25, .5, .75, 1]</code></pre>
+
+					<h3>Indexing &amp; Slicing</h3>
+					<pre><code class="language-python">A = np.array([[1, 2, 3],
+              [4, 5, 6],
               [7, 8, 9]])
 
-# Define Matrix B
-B = np.array([[1, 2, 0], 
-              [3, 4, 2], 
-              [4, 7, 8]])</code></pre>
+print(A[0, 1])       # 2  — row 0, col 1
+print(A[:, 1])       # [2, 5, 8]  — entire column 1
+print(A[1:, :2])     # [[4, 5], [7, 8]]  — rows 1+, cols 0-1
 
+# Boolean masking
+print(A[A > 5])      # [6, 7, 8, 9]</code></pre>
+
+					<h3>Broadcasting</h3>
+					<p>NumPy can operate on arrays of different shapes by "stretching" the smaller array — no Python loop needed:</p>
+					<pre><code class="language-python">row = np.array([1, 2, 3])        # shape (3,)
+col = np.array([[10], [20], [30]])  # shape (3, 1)
+
+# Broadcasting adds them as if both were (3, 3)
+print(row + col)
+# [[11 12 13]
+#  [21 22 23]
+#  [31 32 33]]</code></pre>
+
+					<h3>Statistical Functions</h3>
+					<pre><code class="language-python">data = np.array([4, 7, 2, 9, 1, 5])
+
+print(data.mean())    # 4.67
+print(data.std())     # 2.62
+print(data.min(), data.max())   # 1  9
+print(np.median(data))          # 4.5
+print(np.percentile(data, 75))  # 6.5</code></pre>
 				</section>
 
 				<!-- Operations -->
 				<section id="ops" class="content-section">
 					<h2><i class="fa-solid fa-calculator mr-3 text-indigo-500"></i> Matrix Operations</h2>
-					<p>Linear algebra operations are the backbone of neural networks.</p>
+					<p>Linear algebra is the language of ML models. Every weight update, every dot-product attention score, every PCA decomposition is matrix arithmetic.</p>
 
-					<h3>Addition</h3>
-					<pre><code class="language-python"># Element-wise Addition
-print(np.add(A, B))
-# Output:
-# [[ 2  4  3]
-#  [ 7  9  8]
-#  [11 15 17]]</code></pre>
+					<pre><code class="language-python">import numpy as np
+
+A = np.array([[1, 2, 3],
+              [4, 5, 6],
+              [7, 8, 9]])
+
+B = np.array([[1, 2, 0],
+              [3, 4, 2],
+              [4, 7, 8]])</code></pre>
+
+					<h3>Element-wise Operations</h3>
+					<pre><code class="language-python">print(A + B)          # element-wise addition
+print(A * B)          # element-wise multiplication (NOT dot product)
+print(A ** 2)         # square every element</code></pre>
 
 					<h3>Matrix Multiplication (Dot Product)</h3>
-					<pre><code class="language-python"># Dot Product
-print(np.dot(A, B))
+					<pre><code class="language-python">print(A @ B)          # preferred: @ operator (Python 3.5+)
+print(np.dot(A, B))   # equivalent
+
 # Output:
 # [[ 19  31  28]
 #  [ 43  70  58]
 #  [ 67 109  88]]</code></pre>
 
-					<h3>Transpose</h3>
-					<pre><code class="language-python"># Transpose of A (Rows become columns)
-print(A.transpose())
-# Output:
-# [[1 4 7]
-#  [2 5 8]
-#  [3 6 9]]</code></pre>
+					<h3>Transpose &amp; Inverse</h3>
+					<pre><code class="language-python">print(A.T)            # transpose — rows become columns
+
+# Inverse (only for square, non-singular matrices)
+M = np.array([[2, 1], [5, 3]])
+print(np.linalg.inv(M))
+# [[ 3. -1.]
+#  [-5.  2.]]
+
+# Verify: M @ inv(M) ≈ identity
+print(M @ np.linalg.inv(M))   # [[1, 0], [0, 1]]</code></pre>
+
+					<h3>Norms &amp; Eigenvalues</h3>
+					<pre><code class="language-python">v = np.array([3, 4])
+print(np.linalg.norm(v))          # 5.0  (Euclidean / L2 norm)
+
+eigenvalues, eigenvectors = np.linalg.eig(A)
+print(eigenvalues)                # used in PCA</code></pre>
 				</section>
 
 				<!-- Pandas -->
 				<section id="pandas" class="content-section">
 					<h2><i class="fa-solid fa-table mr-3 text-indigo-500"></i> Pandas DataFrames</h2>
-					<p>Pandas provides high-performance data structures like the DataFrame, which is essentially a programmable spreadsheet.</p>
+					<p>A DataFrame is a labelled 2-D table — think a spreadsheet you can program. It's the standard container for tabular data before feeding it into an ML model.</p>
+
 					<pre><code class="language-python">import pandas as pd
 
-# Loading a CSV file
-df = pd.read_csv('CarPrice_1.csv', index_col=0)
+# Create from dict
+df = pd.DataFrame({
+    'name':  ['Alice', 'Bob', 'Carol', 'Dave'],
+    'age':   [25, 32, 28, 45],
+    'score': [88.5, 91.0, 76.3, 83.7],
+})
 
-# Display first 5 rows
-print(df.head())
+print(df.head(2))
+print(df.dtypes)
+print(df.describe())   # count, mean, std, min, quartiles, max</code></pre>
 
-# Check data types
-print(df.info())</code></pre>
+					<h3>Selecting &amp; Filtering</h3>
+					<pre><code class="language-python"># Select columns
+print(df['age'])                      # Series
+print(df[['name', 'score']])          # DataFrame
+
+# Filter rows
+print(df[df['age'] > 28])
+print(df.query('score >= 85 and age < 40'))
+
+# .loc (label-based) vs .iloc (integer-based)
+print(df.loc[0, 'name'])              # 'Alice'
+print(df.iloc[1, 2])                  # 91.0</code></pre>
+
+					<h3>Handling Missing Data</h3>
+					<pre><code class="language-python">df2 = pd.DataFrame({'a': [1, None, 3], 'b': [4, 5, None]})
+
+print(df2.isnull().sum())      # count NaNs per column
+df2.fillna(df2.mean(), inplace=True)   # fill with column mean
+df2.dropna(inplace=True)               # or drop rows with any NaN</code></pre>
+
+					<h3>GroupBy &amp; Aggregation</h3>
+					<pre><code class="language-python">sales = pd.DataFrame({
+    'region': ['North', 'South', 'North', 'South', 'North'],
+    'sales':  [200, 150, 300, 250, 180],
+})
+
+summary = sales.groupby('region')['sales'].agg(['mean', 'sum', 'count'])
+print(summary)
+#         mean  sum  count
+# North  226.7  680      3
+# South  200.0  400      2</code></pre>
+				</section>
+
+				<!-- Matplotlib -->
+				<section id="matplotlib" class="content-section">
+					<h2><i class="fa-solid fa-chart-bar mr-3 text-indigo-500"></i> Matplotlib</h2>
+					<p>Matplotlib is Python's core plotting library. For ML workflows it's used to inspect data distributions, visualise training curves, and sanity-check model outputs.</p>
+
+					<h3>Line &amp; Scatter Plots</h3>
+					<pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 2 * np.pi, 100)
+
+fig, axes = plt.subplots(1, 2, figsize=(10, 4))
+
+# Line plot
+axes[0].plot(x, np.sin(x), label='sin(x)', color='steelblue')
+axes[0].plot(x, np.cos(x), label='cos(x)', color='coral', linestyle='--')
+axes[0].set_title('Line Plot')
+axes[0].legend()
+
+# Scatter plot
+np.random.seed(42)
+axes[1].scatter(np.random.randn(50), np.random.randn(50),
+                c='indigo', alpha=0.6, edgecolors='white')
+axes[1].set_title('Scatter Plot')
+
+plt.tight_layout()
+plt.show()</code></pre>
+
+					<h3>Histograms &amp; Box Plots</h3>
+					<pre><code class="language-python">data = np.random.normal(loc=60, scale=15, size=500)
+
+fig, axes = plt.subplots(1, 2, figsize=(10, 4))
+
+# Histogram — check distribution shape
+axes[0].hist(data, bins=30, color='steelblue', edgecolor='white')
+axes[0].set_title('Distribution of Scores')
+axes[0].set_xlabel('Score')
+
+# Box plot — spot outliers and IQR
+axes[1].boxplot(data, vert=True, patch_artist=True,
+                boxprops=dict(facecolor='lightblue'))
+axes[1].set_title('Box Plot')
+
+plt.tight_layout()
+plt.show()</code></pre>
+
+					<h3>Training Curve</h3>
+					<pre><code class="language-python"># Visualising model training — the most common ML plot
+epochs = range(1, 51)
+train_loss = [1.0 * 0.92**e for e in epochs]
+val_loss   = [1.0 * 0.93**e + 0.05 for e in epochs]
+
+plt.figure(figsize=(8, 4))
+plt.plot(epochs, train_loss, label='Train loss')
+plt.plot(epochs, val_loss,   label='Val loss', linestyle='--')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.title('Training vs Validation Loss')
+plt.legend()
+plt.grid(alpha=0.3)
+plt.show()</code></pre>
+				</section>
+
+				<!-- Scikit-learn -->
+				<section id="sklearn" class="content-section">
+					<h2><i class="fa-solid fa-gear mr-3 text-indigo-500"></i> Scikit-learn Essentials</h2>
+					<p>Scikit-learn provides a consistent API for the full ML workflow: split → preprocess → fit → evaluate. Every estimator exposes <code>fit()</code>, <code>predict()</code>, and <code>score()</code>.</p>
+
+					<h3>Train / Test Split</h3>
+					<pre><code class="language-python">from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_iris
+
+X, y = load_iris(return_X_y=True)
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=0.2,     # 20% held out
+    random_state=42,   # reproducible
+    stratify=y,        # preserve class proportions
+)
+print(X_train.shape, X_test.shape)  # (120, 4) (30, 4)</code></pre>
+
+					<h3>Preprocessing</h3>
+					<pre><code class="language-python">from sklearn.preprocessing import StandardScaler, LabelEncoder
+
+# Standardise features: subtract mean, divide by std
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)   # fit on train only
+X_test_scaled  = scaler.transform(X_test)        # apply same transform to test
+
+# Encode string labels to integers
+le = LabelEncoder()
+y_encoded = le.fit_transform(['cat', 'dog', 'cat', 'bird'])
+# [1, 2, 1, 0]</code></pre>
+
+					<h3>Pipelines</h3>
+					<p>A <code>Pipeline</code> chains steps so that preprocessing never leaks test data into training:</p>
+					<pre><code class="language-python">from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report
+
+pipe = Pipeline([
+    ('scaler', StandardScaler()),
+    ('clf',    LogisticRegression(max_iter=200)),
+])
+
+pipe.fit(X_train, y_train)
+y_pred = pipe.predict(X_test)
+
+print(classification_report(y_test, y_pred,
+      target_names=load_iris().target_names))</code></pre>
+
+					<h3>Evaluation Metrics</h3>
+					<pre><code class="language-python">from sklearn.metrics import (
+    accuracy_score, precision_score, recall_score, f1_score,
+    confusion_matrix, mean_squared_error, r2_score
+)
+
+# Classification
+print("Accuracy: ", accuracy_score(y_test, y_pred))
+print("F1 macro:", f1_score(y_test, y_pred, average='macro'))
+print(confusion_matrix(y_test, y_pred))
+
+# Regression
+from sklearn.linear_model import LinearRegression
+reg = LinearRegression().fit(X_train, y_train)
+y_reg = reg.predict(X_test)
+print("RMSE:", mean_squared_error(y_test, y_reg, squared=False))
+print("R²:  ", r2_score(y_test, y_reg))</code></pre>
+
+					<div class="bg-green-50 border border-green-200 rounded-lg p-4 mt-4 flex gap-3">
+						<i class="fa-solid fa-circle-info text-green-500 mt-1 flex-shrink-0"></i>
+						<p class="text-green-800 text-sm mb-0">Always <strong>fit your scaler on training data only</strong>, then <code>transform</code> both train and test sets. Fitting on the full dataset leaks test statistics into training — a subtle but common mistake that inflates evaluation scores.</p>
+					</div>
 				</section>
 
 			</main>

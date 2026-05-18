@@ -136,6 +136,10 @@
 					<nav class="space-y-1">
 						<a href="#intro" class="sidebar-link active" onclick="setActive(this)">Overview</a>
 						<a href="#neural-nets" class="sidebar-link" onclick="setActive(this)">Neural Networks</a>
+						<a href="#activations" class="sidebar-link" onclick="setActive(this)">Activation Functions</a>
+						<a href="#training" class="sidebar-link" onclick="setActive(this)">Training</a>
+						<a href="#regularisation" class="sidebar-link" onclick="setActive(this)">Regularisation</a>
+						<a href="#pytorch" class="sidebar-link" onclick="setActive(this)">PyTorch Example</a>
 						<a href="#projects" class="sidebar-link" onclick="setActive(this)">Projects</a>
 					</nav>
 				</div>
@@ -155,12 +159,244 @@
 				<!-- Neural Nets -->
 				<section id="neural-nets" class="content-section">
 					<h2><i class="fa-solid fa-network-wired mr-3 text-indigo-500"></i> Neural Networks</h2>
-					<p>A simple feed-forward neural network consists of an input layer, one or more hidden layers, and an output layer.</p>
-					<pre><code class="language-python">import tensorflow as tf
-model = tf.keras.Sequential([
-    tf.keras.layers.Dense(128, activation='relu'),
-    tf.keras.layers.Dense(10, activation='softmax')
-])</code></pre>
+					<p>
+						A neural network is a chain of <strong>layers</strong>, each containing neurons. Every neuron computes a weighted sum of its inputs, adds a bias, then passes the result through a non-linear <em>activation function</em>:
+					</p>
+					<div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 my-4 font-mono text-sm text-center text-indigo-800">
+						output = activation( W · x + b )
+					</div>
+					<p>
+						Stacking many such layers allows the network to learn increasingly abstract representations — edges → shapes → objects in a vision model, or tokens → phrases → semantics in a language model.
+					</p>
+
+					<h3>The Perceptron</h3>
+					<p>The simplest unit: a single neuron with a step activation. Not learnable for non-linear problems, but the building block for everything else.</p>
+					<pre><code class="language-python">import numpy as np
+
+def perceptron(x, w, b):
+    return 1 if np.dot(w, x) + b >= 0 else 0
+
+# XOR is NOT linearly separable — a single perceptron fails here
+x = np.array([1, 0])
+w = np.array([1, 1])
+b = -1.5
+print(perceptron(x, w, b))  # 0</code></pre>
+
+					<h3>Feed-Forward Network (NumPy)</h3>
+					<p>A two-layer network doing a forward pass manually — this is exactly what frameworks do under the hood:</p>
+					<pre><code class="language-python">import numpy as np
+
+def relu(z):
+    return np.maximum(0, z)
+
+def softmax(z):
+    e = np.exp(z - z.max())
+    return e / e.sum()
+
+# Random weights for a 3 → 4 → 2 network
+np.random.seed(0)
+W1 = np.random.randn(4, 3) * 0.1   # hidden layer weights
+b1 = np.zeros(4)
+W2 = np.random.randn(2, 4) * 0.1   # output layer weights
+b2 = np.zeros(2)
+
+x = np.array([0.5, -0.3, 0.8])     # one input sample
+
+# Forward pass
+h = relu(W1 @ x + b1)              # hidden activations
+y = softmax(W2 @ h + b2)           # class probabilities
+print("Probabilities:", y)          # e.g. [0.52, 0.48]</code></pre>
+				</section>
+
+				<!-- Activation Functions -->
+				<section id="activations" class="content-section">
+					<h2><i class="fa-solid fa-bolt mr-3 text-indigo-500"></i> Activation Functions</h2>
+					<p>Without non-linearity, stacking layers is equivalent to a single linear transformation. Activations introduce the non-linearity that lets deep networks approximate any function.</p>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+						<div class="bg-white border border-gray-200 rounded-lg p-4">
+							<h3 class="mt-0">ReLU</h3>
+							<p class="text-sm">Most common hidden-layer activation. Fast, avoids vanishing gradients for positive values.</p>
+							<div class="font-mono text-sm bg-gray-50 rounded p-2 text-indigo-700">f(x) = max(0, x)</div>
+						</div>
+						<div class="bg-white border border-gray-200 rounded-lg p-4">
+							<h3 class="mt-0">Sigmoid</h3>
+							<p class="text-sm">Squashes output to (0, 1). Used in binary classification output layers.</p>
+							<div class="font-mono text-sm bg-gray-50 rounded p-2 text-indigo-700">f(x) = 1 / (1 + e<sup>−x</sup>)</div>
+						</div>
+						<div class="bg-white border border-gray-200 rounded-lg p-4">
+							<h3 class="mt-0">Tanh</h3>
+							<p class="text-sm">Zero-centred version of sigmoid, range (−1, 1). Better gradient flow than sigmoid.</p>
+							<div class="font-mono text-sm bg-gray-50 rounded p-2 text-indigo-700">f(x) = (eˣ − e<sup>−x</sup>) / (eˣ + e<sup>−x</sup>)</div>
+						</div>
+						<div class="bg-white border border-gray-200 rounded-lg p-4">
+							<h3 class="mt-0">Softmax</h3>
+							<p class="text-sm">Converts raw scores to a probability distribution. Always used for multi-class output layers.</p>
+							<div class="font-mono text-sm bg-gray-50 rounded p-2 text-indigo-700">f(xᵢ) = eˣⁱ / Σ eˣʲ</div>
+						</div>
+					</div>
+
+					<pre><code class="language-python">import torch
+import torch.nn.functional as F
+
+x = torch.tensor([-2.0, 0.0, 1.5, 3.0])
+
+print("ReLU:   ", F.relu(x))
+print("Sigmoid:", torch.sigmoid(x))
+print("Tanh:   ", torch.tanh(x))
+print("Softmax:", F.softmax(x, dim=0))</code></pre>
+				</section>
+
+				<!-- Training -->
+				<section id="training" class="content-section">
+					<h2><i class="fa-solid fa-chart-line mr-3 text-indigo-500"></i> Training: Loss &amp; Optimisers</h2>
+					<p>Training a neural network is an optimisation problem: minimise a <strong>loss function</strong> that measures how wrong the predictions are, by adjusting weights via <strong>backpropagation</strong> and an <strong>optimiser</strong>.</p>
+
+					<h3>Common Loss Functions</h3>
+					<div class="overflow-x-auto my-4">
+						<table class="w-full text-sm border-collapse border border-gray-200 rounded-lg">
+							<thead class="bg-gray-50">
+								<tr>
+									<th class="border border-gray-200 px-4 py-2 text-left">Task</th>
+									<th class="border border-gray-200 px-4 py-2 text-left">Loss Function</th>
+									<th class="border border-gray-200 px-4 py-2 text-left">PyTorch</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr><td class="border border-gray-200 px-4 py-2">Binary classification</td><td class="border border-gray-200 px-4 py-2">Binary Cross-Entropy</td><td class="border border-gray-200 px-4 py-2 font-mono text-red-500">nn.BCELoss()</td></tr>
+								<tr class="bg-gray-50"><td class="border border-gray-200 px-4 py-2">Multi-class classification</td><td class="border border-gray-200 px-4 py-2">Cross-Entropy</td><td class="border border-gray-200 px-4 py-2 font-mono text-red-500">nn.CrossEntropyLoss()</td></tr>
+								<tr><td class="border border-gray-200 px-4 py-2">Regression</td><td class="border border-gray-200 px-4 py-2">Mean Squared Error</td><td class="border border-gray-200 px-4 py-2 font-mono text-red-500">nn.MSELoss()</td></tr>
+							</tbody>
+						</table>
+					</div>
+
+					<h3>Backpropagation in One Sentence</h3>
+					<p>The chain rule of calculus applied from the loss backwards through each layer — computing <code>∂Loss/∂w</code> for every weight so the optimiser knows which direction to nudge each parameter.</p>
+
+					<h3>Optimisers</h3>
+					<pre><code class="language-python">import torch.optim as optim
+
+# SGD with momentum — simple, effective, widely used
+optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
+
+# Adam — adaptive learning rates per parameter, default choice for most problems
+optimizer = optim.Adam(model.parameters(), lr=1e-3)
+
+# One training step
+optimizer.zero_grad()   # clear accumulated gradients
+loss.backward()         # compute gradients via backprop
+optimizer.step()        # update weights: w = w - lr * grad</code></pre>
+				</section>
+
+				<!-- Regularisation -->
+				<section id="regularisation" class="content-section">
+					<h2><i class="fa-solid fa-shield-halved mr-3 text-indigo-500"></i> Regularisation</h2>
+					<p>Deep networks easily memorise training data. Regularisation techniques force the model to generalise.</p>
+
+					<h3>Dropout</h3>
+					<p>Randomly zeroes a fraction of neurons during each training step. Forces redundant representations — the network can't rely on any single neuron.</p>
+					<pre><code class="language-python">import torch.nn as nn
+
+model = nn.Sequential(
+    nn.Linear(128, 64),
+    nn.ReLU(),
+    nn.Dropout(p=0.5),   # 50% of neurons zeroed each forward pass during training
+    nn.Linear(64, 10),
+)</code></pre>
+
+					<h3>Batch Normalisation</h3>
+					<p>Normalises each mini-batch's activations to zero mean and unit variance, then learns a scale and shift. Stabilises training and allows higher learning rates.</p>
+					<pre><code class="language-python">model = nn.Sequential(
+    nn.Linear(128, 64),
+    nn.BatchNorm1d(64),  # normalise activations across the batch
+    nn.ReLU(),
+    nn.Linear(64, 10),
+)</code></pre>
+
+					<h3>Early Stopping</h3>
+					<p>Monitor validation loss during training and stop when it stops improving — the simplest and often most effective regulariser.</p>
+					<pre><code class="language-python">best_val_loss = float('inf')
+patience, wait = 5, 0
+
+for epoch in range(100):
+    train(model)
+    val_loss = evaluate(model)
+    if val_loss < best_val_loss:
+        best_val_loss = val_loss
+        wait = 0
+        torch.save(model.state_dict(), 'best_model.pt')
+    else:
+        wait += 1
+        if wait >= patience:
+            print(f"Early stopping at epoch {epoch}")
+            break</code></pre>
+				</section>
+
+				<!-- PyTorch Full Example -->
+				<section id="pytorch" class="content-section">
+					<h2><i class="fa-solid fa-fire mr-3 text-indigo-500"></i> Full PyTorch Training Loop</h2>
+					<p>Putting it all together — a complete classifier on the Iris dataset using PyTorch:</p>
+					<pre><code class="language-python">import torch
+import torch.nn as nn
+import torch.optim as optim
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+# Data
+X, y = load_iris(return_X_y=True)
+X = StandardScaler().fit_transform(X)
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+
+X_train = torch.tensor(X_train, dtype=torch.float32)
+X_val   = torch.tensor(X_val,   dtype=torch.float32)
+y_train = torch.tensor(y_train, dtype=torch.long)
+y_val   = torch.tensor(y_val,   dtype=torch.long)
+
+# Model
+class IrisNet(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(4, 32),
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(32, 16),
+            nn.ReLU(),
+            nn.Linear(16, 3),
+        )
+    def forward(self, x):
+        return self.net(x)
+
+model     = IrisNet()
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(), lr=1e-3)
+
+# Training loop
+for epoch in range(100):
+    model.train()
+    optimizer.zero_grad()
+    loss = criterion(model(X_train), y_train)
+    loss.backward()
+    optimizer.step()
+
+    if (epoch + 1) % 20 == 0:
+        model.eval()
+        with torch.no_grad():
+            preds = model(X_val).argmax(dim=1)
+            acc = (preds == y_val).float().mean()
+        print(f"Epoch {epoch+1:3d} | loss {loss:.4f} | val acc {acc:.2%}")
+
+# Epoch  20 | loss 0.6234 | val acc 93.33%
+# Epoch  40 | loss 0.3891 | val acc 96.67%
+# Epoch  60 | loss 0.2754 | val acc 96.67%
+# Epoch  80 | loss 0.2103 | val acc 96.67%
+# Epoch 100 | loss 0.1782 | val acc 100.00%</code></pre>
+
+					<div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4 flex gap-3">
+						<i class="fa-solid fa-circle-info text-blue-500 mt-1 flex-shrink-0"></i>
+						<p class="text-blue-800 text-sm mb-0">The <strong>train/eval mode toggle</strong> matters: <code>model.train()</code> enables Dropout and BatchNorm training behaviour; <code>model.eval()</code> disables them for inference. Always switch before evaluating.</p>
+					</div>
 				</section>
 
 				<!-- Projects -->
