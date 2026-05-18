@@ -55,8 +55,27 @@
 					<a href="natural_language_processing.html" class="nav-link">NLP</a>
 				</div>
 				<div class="flex items-center">
+					<!-- Mobile hamburger -->
+					<button id="mobile-menu-btn" class="md:hidden text-gray-500 hover:text-gray-700 focus:outline-none mr-2" aria-label="Toggle menu">
+						<i class="fa-solid fa-bars fa-lg" id="menu-icon"></i>
+					</button>
 					<a href="https://github.com/ikathuria" target="_blank" class="text-gray-400 hover:text-gray-600 mx-2"><i class="fa-brands fa-github fa-lg"></i></a>
 				</div>
+			</div>
+		</div>
+		<!-- Mobile Menu -->
+		<div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-gray-50">
+			<div class="flex flex-col space-y-1 px-4 py-2">
+			<a href="../../index.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Home</a>
+			<a href="python.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Python Basics</a>
+			<a href="ml_basics.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">ML Basics</a>
+			<a href="supervised_learning.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Supervised ML</a>
+			<a href="unsupervised_learning.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Unsupervised</a>
+			<a href="deep_learning.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Deep Learning</a>
+			<a href="computer_vision.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">CV</a>
+			<a href="time_series.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Time Series</a>
+			<a href="natural_language_processing.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">NLP</a>
+			<a href="recommendation_system.html" class="block py-2 px-2 text-base font-bold bg-indigo-50 text-indigo-700 rounded">Recommenders</a>
 			</div>
 		</div>
 	</nav>
@@ -215,5 +234,26 @@ print(similar_movies(1))  # Movies similar to Toy Story</code></pre>
 		});
 	</script>
 
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="mb-4">Designed &amp; Built by Ishani Kathuria</p>
+            <div class="flex justify-center space-x-6 mt-3">
+                <a href="https://linkedin.com/in/ishani-kathuria/" target="_blank" class="text-gray-400 hover:text-blue-400 transition"><i class="fa-brands fa-linkedin text-xl mr-1"></i> LinkedIn</a>
+                <a href="https://github.com/ikathuria/" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-github text-xl mr-1"></i> GitHub</a>
+            </div>
+            <p class="text-gray-500 text-sm mt-4">&copy; 2025 Python to AI.</p>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            menu.classList.toggle('hidden');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-xmark');
+        });
+    </script>
 </body>
 </html>

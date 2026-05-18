@@ -68,27 +68,30 @@
                     <a href="app/pages/natural_language_processing.html" class="nav-link">NLP</a>
                 </div>
 
-                <!-- Social Icons -->
+                <!-- Social Icons + hamburger -->
                 <div class="flex items-center">
-                    <a href="https://github.com/ikathuria" target="_blank" class="text-gray-400 hover:text-gray-600 mx-2"><i class="fa-brands fa-github fa-lg"></i></a>
-                    <a href="https://linkedin.com/in/ishani-kathuria/" target="_blank" class="text-gray-400 hover:text-blue-600 mx-2"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                    <a href="https://github.com/ikathuria" target="_blank" class="text-gray-400 hover:text-gray-600 mx-2 hidden sm:inline"><i class="fa-brands fa-github fa-lg"></i></a>
+                    <a href="https://linkedin.com/in/ishani-kathuria/" target="_blank" class="text-gray-400 hover:text-blue-600 mx-2 hidden sm:inline"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                    <button id="mobile-menu-btn" class="md:hidden text-gray-500 hover:text-gray-700 focus:outline-none ml-2" aria-label="Toggle menu">
+                        <i class="fa-solid fa-bars fa-lg" id="menu-icon"></i>
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- Mobile Menu (Simple Stack) -->
-        <div class="md:hidden border-t border-gray-200 bg-gray-50">
+        <!-- Mobile Menu (hamburger toggle) -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-gray-50">
             <div class="flex flex-col space-y-1 px-4 py-2">
-                <a href="#" class="block py-2 text-base font-medium font-bold bg-indigo-50 text-indigo-700">Home</a>
-                <a href="app/pages/python.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Python Basics</a>
-                <a href="app/pages/ml_basics.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600">ML Basics</a>
-                <a href="app/pages/supervised_learning.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Supervised ML</a>
-                <a href="app/pages/unsupervised_learning.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Unsupervised ML</a>
-                <a href="app/pages/recommendation_system.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Recommendation Systems</a>
-                <a href="app/pages/deep_learning.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Deep Learning</a>
-                <a href="app/pages/computer_vision.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Computer Vision</a>
-                <a href="app/pages/time_series.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Time Series</a>
-                <a href="app/pages/natural_language_processing.html" class="block py-2 text-base font-medium text-gray-700 hover:text-indigo-600">NLP</a>
+                <a href="#" class="block py-2 px-2 text-base font-bold bg-indigo-50 text-indigo-700 rounded">Home</a>
+                <a href="app/pages/python.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">Python Basics</a>
+                <a href="app/pages/ml_basics.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">ML Basics</a>
+                <a href="app/pages/supervised_learning.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">Supervised ML</a>
+                <a href="app/pages/unsupervised_learning.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">Unsupervised ML</a>
+                <a href="app/pages/deep_learning.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">Deep Learning</a>
+                <a href="app/pages/computer_vision.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">Computer Vision</a>
+                <a href="app/pages/time_series.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">Time Series</a>
+                <a href="app/pages/natural_language_processing.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">NLP</a>
+                <a href="app/pages/recommendation_system.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">Recommenders</a>
             </div>
         </div>
     </nav>
@@ -141,6 +144,122 @@
                 </div>
             </div>
 
+            <!-- Learning Path Roadmap -->
+            <div class="mt-24">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-extrabold text-gray-900">Your Learning Path</h2>
+                    <p class="text-gray-500 mt-2">Nine modules, zero to AI — follow the path or jump to any topic.</p>
+                </div>
+                <div class="relative">
+                    <!-- Vertical connector line (desktop) -->
+                    <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-indigo-100 -translate-x-1/2"></div>
+                    <div class="space-y-6">
+
+                        <!-- Row helper: odd rows left-align card, even rows right-align -->
+                        <!-- 1 Python -->
+                        <div class="flex md:justify-start justify-center">
+                            <a href="app/pages/python.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">1</div>
+                                <div>
+                                    <p class="font-bold text-gray-800">Python Basics</p>
+                                    <p class="text-sm text-gray-500">Variables, functions, OOP &amp; data structures</p>
+                                </div>
+                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
+                            </a>
+                        </div>
+                        <!-- 2 ML Basics -->
+                        <div class="flex md:justify-end justify-center">
+                            <a href="app/pages/ml_basics.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                                <div class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">2</div>
+                                <div>
+                                    <p class="font-bold text-gray-800">ML Basics</p>
+                                    <p class="text-sm text-gray-500">NumPy, Pandas, Matplotlib &amp; Scikit-learn</p>
+                                </div>
+                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
+                            </a>
+                        </div>
+                        <!-- 3 Supervised -->
+                        <div class="flex md:justify-start justify-center">
+                            <a href="app/pages/supervised_learning.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                                <div class="w-10 h-10 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">3</div>
+                                <div>
+                                    <p class="font-bold text-gray-800">Supervised Learning</p>
+                                    <p class="text-sm text-gray-500">KNN, Decision Trees, Regression — live demos</p>
+                                </div>
+                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
+                            </a>
+                        </div>
+                        <!-- 4 Unsupervised -->
+                        <div class="flex md:justify-end justify-center">
+                            <a href="app/pages/unsupervised_learning.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                                <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">4</div>
+                                <div>
+                                    <p class="font-bold text-gray-800">Unsupervised Learning</p>
+                                    <p class="text-sm text-gray-500">K-Means clustering &amp; PCA dimensionality reduction</p>
+                                </div>
+                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
+                            </a>
+                        </div>
+                        <!-- 5 Deep Learning -->
+                        <div class="flex md:justify-start justify-center">
+                            <a href="app/pages/deep_learning.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                                <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">5</div>
+                                <div>
+                                    <p class="font-bold text-gray-800">Deep Learning</p>
+                                    <p class="text-sm text-gray-500">Neural networks, backpropagation &amp; PyTorch</p>
+                                </div>
+                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
+                            </a>
+                        </div>
+                        <!-- 6 CV -->
+                        <div class="flex md:justify-end justify-center">
+                            <a href="app/pages/computer_vision.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                                <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">6</div>
+                                <div>
+                                    <p class="font-bold text-gray-800">Computer Vision</p>
+                                    <p class="text-sm text-gray-500">CNNs, convolution &amp; colour classifier demo</p>
+                                </div>
+                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
+                            </a>
+                        </div>
+                        <!-- 7 NLP -->
+                        <div class="flex md:justify-start justify-center">
+                            <a href="app/pages/natural_language_processing.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                                <div class="w-10 h-10 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">7</div>
+                                <div>
+                                    <p class="font-bold text-gray-800">Natural Language Processing</p>
+                                    <p class="text-sm text-gray-500">Word2Vec, n-gram models &amp; Gensim</p>
+                                </div>
+                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
+                            </a>
+                        </div>
+                        <!-- 8 Time Series -->
+                        <div class="flex md:justify-end justify-center">
+                            <a href="app/pages/time_series.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                                <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">8</div>
+                                <div>
+                                    <p class="font-bold text-gray-800">Time Series</p>
+                                    <p class="text-sm text-gray-500">Stationarity, ARIMA &amp; LSTM forecasting</p>
+                                </div>
+                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
+                            </a>
+                        </div>
+                        <!-- 9 Recommenders -->
+                        <div class="flex md:justify-start justify-center">
+                            <a href="app/pages/recommendation_system.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                                <div class="w-10 h-10 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">9</div>
+                                <div>
+                                    <p class="font-bold text-gray-800">Recommendation Systems</p>
+                                    <p class="text-sm text-gray-500">Content-based filtering &amp; collaborative KNN</p>
+                                </div>
+                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
             <!-- About / Profile -->
             <div class="max-w-4xl mx-auto mt-24 border-t border-gray-200 pt-16 text-center">
                 <div class="inline-block p-1 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 mb-4">
@@ -169,6 +288,15 @@
         </div>
     </footer>
 
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            menu.classList.toggle('hidden');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-xmark');
+        });
+    </script>
 </body>
 
 </html>
