@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ikathuria.github.io/python-to-ai/sitemap.xml

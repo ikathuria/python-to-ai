@@ -40,6 +40,8 @@ jobs:
           mkdir -p _site/app/pages _site/app/onnx_models
           cp index.html _site/
           cp 404.html _site/
+          cp robots.txt _site/
+          cp sitemap.xml _site/
           cp app/pages/*.html _site/app/pages/
           find app/onnx_models -maxdepth 1 -name '*.onnx' -print0 | xargs -0 -r cp -t _site/app/onnx_models/
           cp .nojekyll _site/

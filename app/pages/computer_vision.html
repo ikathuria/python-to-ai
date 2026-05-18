@@ -6,6 +6,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Computer Vision - Python to AI</title>
 	<meta name="description" content="Learn Computer Vision fundamentals: CNNs, image classification, and convolutional operations.">
+    <meta property="og:title" content="Computer Vision - Python to AI">
+    <meta property="og:description" content="Learn Computer Vision fundamentals: CNNs, image classification, and convolutional operations.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ikathuria.github.io/python-to-ai/app/pages/computer_vision.html">
 
 	<script src="https://cdn.tailwindcss.com"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -417,7 +421,13 @@ history = model.fit(train_gen, validation_data=val_gen,
 				</div>`).join('');
 		}
 
-		document.addEventListener('DOMContentLoaded', loadColourModel);
+		document.addEventListener('DOMContentLoaded', () => {
+			const picker = document.getElementById('colour-picker');
+			if (picker) {
+				picker.addEventListener('focus', loadColourModel, { once: true });
+				picker.addEventListener('click', loadColourModel, { once: true });
+			}
+		});
 	</script>
 
 	<footer class="bg-gray-800 text-white py-8 mt-12">

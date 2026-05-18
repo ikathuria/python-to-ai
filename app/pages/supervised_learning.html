@@ -6,6 +6,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Supervised Learning - Python to AI</title>
 	<meta name="description" content="Supervised Machine Learning projects: Crime Prediction and Census Income Classification.">
+    <meta property="og:title" content="Supervised Learning - Python to AI">
+    <meta property="og:description" content="Supervised Machine Learning projects: Crime Prediction and Census Income Classification.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ikathuria.github.io/python-to-ai/app/pages/supervised_learning.html">
 
 	<!-- Tailwind CSS -->
 	<script src="https://cdn.tailwindcss.com"></script>
@@ -534,7 +538,9 @@ for k in [1,3,5,7,9,11]:
 			// Update Inputs
 			updateInputForm();
 
-			loadModel();
+			// Reset model state so it loads lazily on next predict click
+			isModelLoaded = false;
+			if (session) { session.release(); session = null; }
 		}
 
 		function updateInputForm() {
