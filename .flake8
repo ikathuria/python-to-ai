@@ -2,3 +2,12 @@
 exclude =
     __pycache__
     venv
+# Style choices used intentionally across the codebase:
+# E121/E122: dict/list continuation indentation
+# E221/E241: aligned assignments and argument lists in numeric/ML code
+# E226: no space around * in math expressions
+# E402: module-level import not at top of file
+# E501: line length
+# E731: lambda assignment
+# W503: line break before binary operator (preferred over W504)
+ignore = E121,E122,E221,E226,E241,E402,E501,E731,W503

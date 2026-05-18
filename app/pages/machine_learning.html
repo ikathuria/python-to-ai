@@ -7,5 +7,27 @@
 </head>
 <body>
   <p>Redirecting to <a href="supervised_learning.html">Supervised Learning</a>…</p>
+    <script>
+    (function () {
+        var sections = Array.from(document.querySelectorAll('section[id]'));
+        var links    = Array.from(document.querySelectorAll('#sidebar-nav a[href^="#"]'));
+        if (!sections.length || !links.length) return;
+
+        function activate(id) {
+            links.forEach(function (a) {
+                var matches = a.getAttribute('href') === '#' + id;
+                a.classList.toggle('active', matches);
+            });
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) activate(entry.target.id);
+            });
+        }, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
+
+        sections.forEach(function (s) { observer.observe(s); });
+    })();
+    </script>
 </body>
 </html>

@@ -263,10 +263,12 @@ def patch(page: Path):
     if 'href="#quiz"' not in text and page.name in QUIZZES:
         # Find last sidebar-link anchor and append after it
         pattern = r'(<a href="#[^"]*" class="sidebar-link[^"]*"[^>]*>[^<]*</a>\n)(\s*</nav>)'
-        repl = lambda m: m.group(1) + m.group(2).replace(
-            '</nav>',
-            '\t\t\t\t\t\t<a href="#quiz" class="sidebar-link" onclick="setActive(this)">Knowledge Check</a>\n\t\t\t\t\t</nav>'
-        )
+
+        def repl(m):
+            return m.group(1) + m.group(2).replace(
+                '</nav>',
+                '\t\t\t\t\t\t<a href="#quiz" class="sidebar-link" onclick="setActive(this)">Knowledge Check</a>\n\t\t\t\t\t</nav>'
+            )
         new = re.sub(pattern, repl, text)
         if new != text:
             text = new
