@@ -95,6 +95,7 @@
 						<a href="#components" class="sidebar-link">Components</a>
 						<a href="#stationarity" class="sidebar-link">Stationarity</a>
 						<a href="#arima" class="sidebar-link">ARIMA</a>
+						<a href="#moving-avg" class="sidebar-link">📈 Moving Average</a>
 						<a href="#lstm" class="sidebar-link">LSTM Forecasting</a>
 											<a href="#quiz" class="sidebar-link" onclick="setActive(this)">Knowledge Check</a>
 					</nav>
@@ -214,7 +215,63 @@ plot_pacf(df['value'].diff().dropna(), ax=axes[1])  # guides p
 plt.show()</code></pre>
 				</section>
 
-				<section id="lstm" class="content-section">
+
+				<section id="moving-avg" class="content-section">
+					<h2><i class="fa-solid fa-chart-line mr-3 text-indigo-500"></i> Moving Average Explorer</h2>
+					<p>Adjust the window size to see how <strong>SMA</strong> (Simple Moving Average) and <strong>EMA</strong> (Exponential Moving Average) smooth a noisy signal. Switch signal presets to explore different patterns.</p>
+					<div class="card p-6">
+						<!-- Controls row -->
+						<div class="flex flex-wrap items-center gap-4 mb-4">
+							<div class="flex items-center gap-2">
+								<label class="text-sm font-semibold text-gray-600">Signal:</label>
+								<select id="ma-preset" onchange="maLoadPreset(this.value)" class="text-sm border border-gray-300 rounded-lg px-3 py-1.5 bg-white focus:outline-none focus:border-indigo-400">
+									<option value="seasonal">Seasonal</option>
+									<option value="random_walk">Random Walk</option>
+									<option value="step">Step Function</option>
+								</select>
+							</div>
+							<div class="flex items-center gap-2 flex-1 min-w-40">
+								<label class="text-sm font-semibold text-gray-600 whitespace-nowrap">Window W =</label>
+								<input type="range" id="ma-window" min="1" max="20" value="5" class="flex-1 accent-indigo-600"
+									oninput="document.getElementById('ma-w-val').textContent=this.value; maUpdate()">
+								<span id="ma-w-val" class="text-sm font-mono text-indigo-700 w-6">5</span>
+							</div>
+						</div>
+						<!-- Checkboxes -->
+						<div class="flex flex-wrap gap-4 mb-3">
+							<label class="flex items-center gap-1.5 text-sm cursor-pointer">
+								<input type="checkbox" id="ma-show-raw" checked onchange="maUpdate()" class="accent-indigo-400"> <span class="text-gray-500">Raw signal</span>
+							</label>
+							<label class="flex items-center gap-1.5 text-sm cursor-pointer">
+								<input type="checkbox" id="ma-show-sma" checked onchange="maUpdate()" class="accent-indigo-600"> <span class="font-medium text-indigo-700">SMA</span>
+							</label>
+							<label class="flex items-center gap-1.5 text-sm cursor-pointer">
+								<input type="checkbox" id="ma-show-ema" checked onchange="maUpdate()" class="accent-rose-500"> <span class="font-medium text-rose-600">EMA</span>
+							</label>
+						</div>
+						<!-- Alpha display -->
+						<p id="ma-alpha-disp" class="text-xs text-gray-500 font-mono mb-3"></p>
+						<!-- Canvas -->
+						<canvas id="ma-canvas" width="600" height="260" class="rounded-lg border border-gray-200 bg-gray-50 w-full" style="max-width:600px; display:block;"></canvas>
+						<!-- Stats -->
+						<div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+							<div class="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm">
+								<p class="font-bold text-gray-500 text-xs mb-1">Raw Signal</p>
+								<p id="ma-stat-raw" class="font-mono text-gray-700 text-xs mb-0"></p>
+							</div>
+							<div class="bg-indigo-50 border border-indigo-100 rounded-lg p-3 text-sm">
+								<p class="font-bold text-indigo-500 text-xs mb-1">After SMA</p>
+								<p id="ma-stat-sma" class="font-mono text-indigo-700 text-xs mb-0"></p>
+							</div>
+							<div class="bg-rose-50 border border-rose-100 rounded-lg p-3 text-sm">
+								<p class="font-bold text-rose-500 text-xs mb-1">Noise Reduction</p>
+								<p id="ma-stat-noise" class="font-mono text-rose-700 text-xs mb-0"></p>
+							</div>
+						</div>
+					</div>
+				</section>
+
+									<section id="lstm" class="content-section">
 					<h2><i class="fa-solid fa-brain mr-3 text-indigo-500"></i> LSTM Forecasting</h2>
 					<p>Long Short-Term Memory (LSTM) networks are a type of RNN that can learn long-range dependencies in sequential data — making them powerful for time series forecasting when patterns are complex or non-linear.</p>
 
@@ -334,5 +391,212 @@ preds = scaler.inverse_transform(model.predict(X_test))</code></pre>
             });
         });
     </script>
+
+	<script>
+		// ============================================================
+		// Moving Average Explorer
+		// ============================================================
+		(function() {
+			var NOISE = [2.1,-1.3,0.8,-2.4,1.7,-0.5,3.1,-1.8,0.4,-2.9,
+			             1.2,-0.7,2.8,-1.1,0.3,-2.2,1.6,-0.9,3.4,-1.5,
+			             0.6,-2.1,1.9,-0.4,2.5,-1.7,0.2,-3.1,1.3,-0.8,
+			             2.7,-1.4,0.5,-2.6,1.8,-0.6,3.0,-1.2,0.7,-2.3,
+			             1.4,-0.3,2.2,-1.9,0.9,-2.7,1.1,-0.2,3.3,-1.6];
+
+			function buildSeasonal() {
+				var s = [];
+				for (var i = 0; i < 50; i++) {
+					s.push(10 * Math.sin(i * 0.3) + 0.1*i + NOISE[i]);
+				}
+				return s;
+			}
+
+			function buildRandomWalk() {
+				var s = [0], sum = 0;
+				for (var i = 0; i < 49; i++) {
+					sum += NOISE[i] * 0.8;
+					s.push(sum);
+				}
+				return s;
+			}
+
+			function buildStep() {
+				var s = [];
+				for (var i = 0; i < 50; i++) {
+					s.push((i < 25 ? 0 : 10) + NOISE[i] * 0.7);
+				}
+				return s;
+			}
+
+			var SIGNALS = {
+				seasonal: buildSeasonal(),
+				random_walk: buildRandomWalk(),
+				step: buildStep()
+			};
+
+			var MA = {
+				data: SIGNALS.seasonal.slice(),
+				preset: 'seasonal'
+			};
+
+			function computeSMA(data, w) {
+				var result = [];
+				for (var i = 0; i < data.length; i++) {
+					if (i < w - 1) { result.push(null); continue; }
+					var sum = 0;
+					for (var j = i - w + 1; j <= i; j++) sum += data[j];
+					result.push(sum / w);
+				}
+				return result;
+			}
+
+			function computeEMA(data, w) {
+				var alpha = 2 / (w + 1);
+				var result = [];
+				var ema = null;
+				for (var i = 0; i < data.length; i++) {
+					if (ema === null) { ema = data[i]; result.push(ema); continue; }
+					ema = alpha * data[i] + (1 - alpha) * ema;
+					result.push(ema);
+				}
+				return result;
+			}
+
+			function mean(arr) {
+				var valid = arr.filter(function(v){return v!==null;});
+				return valid.reduce(function(s,v){return s+v;},0)/valid.length;
+			}
+
+			function std(arr) {
+				var valid = arr.filter(function(v){return v!==null;});
+				var m = mean(valid);
+				return Math.sqrt(valid.reduce(function(s,v){return s+(v-m)*(v-m);},0)/valid.length);
+			}
+
+			function maDrawCanvas(data, sma, ema, showRaw, showSMA, showEMA) {
+				var c = document.getElementById('ma-canvas');
+				if (!c) return;
+				var ctx = c.getContext('2d');
+				var W = c.width, H = c.height;
+				ctx.clearRect(0, 0, W, H);
+				ctx.fillStyle = '#f9fafb';
+				ctx.fillRect(0, 0, W, H);
+
+				var padL = 36, padR = 10, padT = 14, padB = 30;
+				var allVals = data.concat(sma.filter(function(v){return v!==null;})).concat(ema);
+				var minV = Math.min.apply(null, allVals);
+				var maxV = Math.max.apply(null, allVals);
+				var rng = (maxV - minV) || 1;
+				var margin = rng * 0.12;
+				minV -= margin; maxV += margin; rng = maxV - minV;
+
+				function px(i) { return padL + i * (W - padL - padR) / (data.length - 1); }
+				function py(v) { return padT + (1 - (v - minV)/rng) * (H - padT - padB); }
+
+				// Grid lines and Y axis ticks
+				var yTicks = 5;
+				ctx.font = '9px Nunito, sans-serif';
+				ctx.fillStyle = '#94a3b8';
+				ctx.textAlign = 'right';
+				for (var t = 0; t <= yTicks; t++) {
+					var yv = minV + t * rng / yTicks;
+					var ypx = py(yv);
+					ctx.beginPath();
+					ctx.strokeStyle = '#e2e8f0';
+					ctx.lineWidth = 1;
+					ctx.moveTo(padL, ypx);
+					ctx.lineTo(W - padR, ypx);
+					ctx.stroke();
+					ctx.fillText(yv.toFixed(1), padL - 3, ypx + 3);
+				}
+
+				// X axis
+				ctx.beginPath();
+				ctx.strokeStyle = '#94a3b8';
+				ctx.lineWidth = 1.5;
+				ctx.moveTo(padL, H - padB);
+				ctx.lineTo(W - padR, H - padB);
+				ctx.stroke();
+
+				// X labels
+				ctx.fillStyle = '#64748b';
+				ctx.textAlign = 'center';
+				[0, 10, 20, 30, 40, 49].forEach(function(i) {
+					var x = px(i);
+					ctx.beginPath();
+					ctx.strokeStyle = '#94a3b8';
+					ctx.lineWidth = 1;
+					ctx.moveTo(x, H - padB);
+					ctx.lineTo(x, H - padB + 4);
+					ctx.stroke();
+					ctx.fillText('t=' + i, x, H - padB + 13);
+				});
+
+				function drawLine(vals, color, lineWidth, dash) {
+					ctx.beginPath();
+					ctx.strokeStyle = color;
+					ctx.lineWidth = lineWidth;
+					if (dash) ctx.setLineDash(dash); else ctx.setLineDash([]);
+					var started = false;
+					vals.forEach(function(v, i) {
+						if (v === null) { started = false; return; }
+						if (!started) { ctx.moveTo(px(i), py(v)); started = true; }
+						else { ctx.lineTo(px(i), py(v)); }
+					});
+					ctx.stroke();
+					ctx.setLineDash([]);
+				}
+
+				if (showRaw)  drawLine(data, '#d1d5db', 1.2, []);
+				if (showSMA)  drawLine(sma,  '#4f46e5', 2.5, []);
+				if (showEMA)  drawLine(ema,  '#e11d48', 2,   [5, 4]);
+
+				// Legend
+				var lx = padL + 8, ly = padT + 8;
+				ctx.font = '10px Nunito, sans-serif';
+				if (showRaw)  { ctx.strokeStyle='#d1d5db'; ctx.lineWidth=1.5; ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(lx+18,ly); ctx.stroke(); ctx.fillStyle='#6b7280'; ctx.textAlign='left'; ctx.fillText('Raw',lx+22,ly+3); lx+=60; }
+				if (showSMA)  { ctx.strokeStyle='#4f46e5'; ctx.lineWidth=2.5; ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(lx+18,ly); ctx.stroke(); ctx.fillStyle='#4f46e5'; ctx.fillText('SMA',lx+22,ly+3); lx+=60; }
+				if (showEMA)  { ctx.strokeStyle='#e11d48'; ctx.lineWidth=2; ctx.setLineDash([4,3]); ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(lx+18,ly); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle='#e11d48'; ctx.fillText('EMA',lx+22,ly+3); }
+			}
+
+			window.maUpdate = function() {
+				var w = parseInt(document.getElementById('ma-window').value) || 5;
+				var alpha = (2/(w+1));
+				var alphaEl = document.getElementById('ma-alpha-disp');
+				if (alphaEl) alphaEl.textContent = 'α = ' + alpha.toFixed(3) + ' (window=' + w + ')';
+
+				var sma = computeSMA(MA.data, w);
+				var ema = computeEMA(MA.data, w);
+
+				var showRaw = document.getElementById('ma-show-raw') ? document.getElementById('ma-show-raw').checked : true;
+				var showSMA = document.getElementById('ma-show-sma') ? document.getElementById('ma-show-sma').checked : true;
+				var showEMA = document.getElementById('ma-show-ema') ? document.getElementById('ma-show-ema').checked : true;
+
+				maDrawCanvas(MA.data, sma, ema, showRaw, showSMA, showEMA);
+
+				// Stats
+				var rawMean = mean(MA.data), rawStd = std(MA.data);
+				var validSma = sma.filter(function(v){return v!==null;});
+				var smaMean = mean(validSma), smaStd = std(validSma);
+				var noiseRed = rawStd > 0 ? Math.round((1 - smaStd/rawStd)*100) : 0;
+
+				var rawEl = document.getElementById('ma-stat-raw');
+				var smaEl = document.getElementById('ma-stat-sma');
+				var noiseEl = document.getElementById('ma-stat-noise');
+				if (rawEl) rawEl.textContent = 'mean=' + rawMean.toFixed(2) + '  std=' + rawStd.toFixed(2);
+				if (smaEl) smaEl.textContent = 'mean=' + smaMean.toFixed(2) + '  std=' + smaStd.toFixed(2);
+				if (noiseEl) noiseEl.textContent = 'Noise reduction: ' + noiseRed + '%';
+			};
+
+			window.maLoadPreset = function(key) {
+				MA.data = (SIGNALS[key] || SIGNALS.seasonal).slice();
+				MA.preset = key;
+				maUpdate();
+			};
+
+			// Init
+			maUpdate();
+		})();
+	</script>
 </body>
 </html>

@@ -156,6 +156,7 @@
 						<a href="#intro" class="sidebar-link active" onclick="setActive(this)">Overview</a>
 						<a href="#naive-bayes" class="sidebar-link" onclick="setActive(this)">Naive Bayes</a>
 						<a href="#knn" class="sidebar-link" onclick="setActive(this)">K-Nearest Neighbors</a>
+							<a href="#knn-viz" class="sidebar-link" onclick="setActive(this)">🔵 KNN Explorer</a>
 						<a href="#decision-tree" class="sidebar-link" onclick="setActive(this)">Decision Tree</a>
 						<a href="#logistic-regression" class="sidebar-link" onclick="setActive(this)">Logistic Regression</a>
 						<a href="#linear-regression" class="sidebar-link" onclick="setActive(this)">Linear Regression</a>
@@ -254,6 +255,91 @@ y_pred = knn.predict(X_test)</code></pre>
 							<div><label class="text-xs font-bold text-gray-500">Petal Width (cm): <span id="knn-pw-val">0.2</span></label><input type="range" id="knn-pw" class="w-full accent-indigo-600" min="0.1" max="2.5" step="0.1" value="0.2" oninput="document.getElementById('knn-pw-val').textContent=this.value;runIrisKNN()"></div>
 						</div>
 						<div id="knn-result" class="mt-4 p-3 bg-indigo-50 border border-indigo-200 rounded-lg text-center font-bold text-indigo-800 hidden"></div>
+					</div>
+				</section>
+
+				<!-- KNN Visualizer -->
+				<section id="knn-viz" class="content-section">
+					<h2><i class="fa-solid fa-circle-dot mr-3 text-indigo-500"></i> KNN Explorer</h2>
+					<p>Click anywhere on the canvas to test a query point. The model finds the <strong>K closest training points</strong> and takes a majority vote. Watch the decision boundary update as you change K.</p>
+
+					<div class="card p-6">
+						<!-- Header row: title + K slider -->
+						<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+							<div>
+								<h3 class="text-lg font-bold text-gray-800 mt-0 mb-1">Interactive Decision Boundary</h3>
+								<p class="text-sm text-gray-500 mb-0">Click anywhere to test a point. The model finds the K closest training points and takes a majority vote.</p>
+							</div>
+							<div class="flex items-center gap-3 flex-shrink-0">
+								<label class="text-sm font-bold text-gray-600 whitespace-nowrap">K = <span id="knn-viz-k-val" class="text-indigo-600">3</span></label>
+								<input type="range" id="knn-viz-k" min="1" max="9" step="1" value="3"
+									class="w-28 accent-indigo-600"
+									oninput="document.getElementById('knn-viz-k-val').textContent=this.value; knnViz.onKChange();">
+							</div>
+						</div>
+
+						<!-- Canvas + Prediction panel -->
+						<div class="flex flex-col lg:flex-row gap-6">
+							<!-- Canvas -->
+							<div class="flex-shrink-0">
+								<canvas id="knn-viz-canvas" width="500" height="400"
+									class="rounded-lg border border-gray-200 cursor-crosshair block"
+									style="max-width:100%; touch-action:none;">
+								</canvas>
+							</div>
+
+							<!-- Prediction panel -->
+							<div class="flex flex-col gap-3 min-w-[160px]">
+								<div id="knn-viz-votes" class="bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm font-mono text-gray-500 italic">
+									Click the canvas to see a prediction.
+								</div>
+								<!-- Legend -->
+								<div class="bg-gray-50 border border-gray-200 rounded-xl p-4 text-xs space-y-2">
+									<p class="font-bold text-gray-600 mb-2 text-sm not-italic">Legend</p>
+									<div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded-full bg-rose-500"></span><span class="text-gray-600">Class A</span></div>
+									<div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded-full bg-blue-500"></span><span class="text-gray-600">Class B</span></div>
+									<div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded-full bg-green-500"></span><span class="text-gray-600">Class C</span></div>
+									<div class="flex items-center gap-2"><span class="text-lg leading-none">★</span><span class="text-gray-600">Query point</span></div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Controls row -->
+						<div class="mt-5 flex flex-wrap items-center gap-3">
+							<!-- Mode buttons -->
+							<button id="knn-viz-mode-query" onclick="knnViz.setMode('query')"
+								class="px-4 py-2 rounded-lg text-sm font-semibold bg-indigo-600 text-white shadow transition">
+								🔵 Query mode
+							</button>
+							<button id="knn-viz-mode-add" onclick="knnViz.setMode('add')"
+								class="px-4 py-2 rounded-lg text-sm font-semibold bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 transition">
+								➕ Add point
+							</button>
+
+							<!-- Class buttons (shown in add mode) -->
+							<div id="knn-viz-class-btns" class="hidden flex gap-2 flex-wrap">
+								<button onclick="knnViz.setAddClass(0)"
+									id="knn-viz-cls-0"
+									class="px-3 py-1.5 rounded-lg text-sm font-semibold border-2 border-rose-500 text-rose-600 bg-rose-50 hover:bg-rose-100 transition">
+									● Class A
+								</button>
+								<button onclick="knnViz.setAddClass(1)"
+									id="knn-viz-cls-1"
+									class="px-3 py-1.5 rounded-lg text-sm font-semibold border border-blue-300 text-blue-600 bg-white hover:bg-blue-50 transition">
+									● Class B
+								</button>
+								<button onclick="knnViz.setAddClass(2)"
+									id="knn-viz-cls-2"
+									class="px-3 py-1.5 rounded-lg text-sm font-semibold border border-green-300 text-green-600 bg-white hover:bg-green-50 transition">
+									● Class C
+								</button>
+							</div>
+
+							<button onclick="knnViz.reset()"
+								class="ml-auto px-4 py-2 rounded-lg text-sm font-semibold border border-gray-300 text-gray-600 hover:bg-gray-50 transition">
+								↺ Reset
+							</button>
+						</div>
 					</div>
 				</section>
 
@@ -841,6 +927,248 @@ for k in [1,3,5,7,9,11]:
 				resultDiv.classList.remove('hidden');
 			}
 		}
+
+	// ── KNN Visualizer ───────────────────────────────────────────────────────
+	const knnViz = (() => {
+		const CLASS_COLORS   = ['#f43f5e', '#3b82f6', '#22c55e'];  // rose-500, blue-500, green-500
+		const CLASS_FADED    = ['rgba(244,63,94,0.15)', 'rgba(59,130,246,0.15)', 'rgba(34,197,94,0.15)'];
+		const CLASS_NAMES    = ['A', 'B', 'C'];
+		const GRID_STEP      = 8;
+
+		// Fixed default training points (reproducible)
+		const DEFAULT_POINTS = [
+			// Class A – rose  (clustered bottom-left area)
+			{x:110,y:270,c:0},{x:125,y:295,c:0},{x:145,y:310,c:0},{x:160,y:330,c:0},
+			{x:175,y:315,c:0},{x:190,y:340,c:0},{x:105,y:345,c:0},{x:130,y:360,c:0},
+			{x:155,y:350,c:0},{x:115,y:320,c:0},{x:170,y:295,c:0},{x:200,y:355,c:0},
+			{x:90, y:305,c:0},{x:140,y:280,c:0},{x:185,y:370,c:0},
+			// Class B – blue  (clustered top-right area)
+			{x:370,y:110,c:1},{x:395,y:95, c:1},{x:415,y:130,c:1},{x:440,y:115,c:1},
+			{x:425,y:155,c:1},{x:460,y:100,c:1},{x:350,y:135,c:1},{x:380,y:160,c:1},
+			{x:410,y:80, c:1},{x:445,y:145,c:1},{x:465,y:75, c:1},{x:355,y:90, c:1},
+			{x:430,y:175,c:1},{x:395,y:60, c:1},{x:470,y:135,c:1},
+			// Class C – green (clustered centre)
+			{x:245,y:195,c:2},{x:265,y:215,c:2},{x:230,y:230,c:2},{x:255,y:250,c:2},
+			{x:280,y:185,c:2},{x:300,y:210,c:2},{x:215,y:210,c:2},{x:270,y:170,c:2},
+			{x:290,y:240,c:2},{x:240,y:255,c:2},{x:310,y:190,c:2},{x:225,y:175,c:2},
+			{x:285,y:265,c:2},{x:305,y:155,c:2},{x:260,y:285,c:2},
+		];
+
+		let points    = DEFAULT_POINTS.map(p => ({...p}));
+		let queryPt   = null;   // {x, y}
+		let currentK  = 3;
+		let mode      = 'query';   // 'query' | 'add'
+		let addCls    = 0;
+		let boundaryTimer = null;
+
+		const canvas  = document.getElementById('knn-viz-canvas');
+		const ctx     = canvas.getContext('2d');
+
+		// ── distance ──────────────────────────────────────────────────────
+		function dist(a, b) {
+			return Math.hypot(a.x - b.x, a.y - b.y);
+		}
+
+		// ── KNN classify ─────────────────────────────────────────────────
+		function classify(qx, qy, k, trainingPts) {
+			const sorted = trainingPts
+				.map(p => ({...p, d: Math.hypot(p.x - qx, p.y - qy)}))
+				.sort((a, b) => a.d - b.d);
+			const neighbors = sorted.slice(0, k);
+			const votes = [0, 0, 0];
+			neighbors.forEach(n => votes[n.c]++);
+			const maxVotes = Math.max(...votes);
+			const winner = votes.indexOf(maxVotes);
+			return { winner, votes, neighbors };
+		}
+
+		// ── draw star shape ───────────────────────────────────────────────
+		function drawStar(cx, cy, r, color) {
+			ctx.save();
+			ctx.fillStyle = color;
+			ctx.beginPath();
+			for (let i = 0; i < 5; i++) {
+				const outerAngle = (i * 4 * Math.PI / 5) - Math.PI / 2;
+				const innerAngle = outerAngle + 2 * Math.PI / 10;
+				if (i === 0) ctx.moveTo(cx + r * Math.cos(outerAngle), cy + r * Math.sin(outerAngle));
+				else         ctx.lineTo(cx + r * Math.cos(outerAngle), cy + r * Math.sin(outerAngle));
+				ctx.lineTo(cx + (r * 0.45) * Math.cos(innerAngle), cy + (r * 0.45) * Math.sin(innerAngle));
+			}
+			ctx.closePath();
+			ctx.fill();
+			ctx.restore();
+		}
+
+		// ── decision boundary (grid) ─────────────────────────────────────
+		function drawBoundary() {
+			const k = currentK;
+			for (let gx = 0; gx < canvas.width; gx += GRID_STEP) {
+				for (let gy = 0; gy < canvas.height; gy += GRID_STEP) {
+					const { winner } = classify(gx + GRID_STEP / 2, gy + GRID_STEP / 2, k, points);
+					ctx.fillStyle = CLASS_FADED[winner];
+					ctx.fillRect(gx, gy, GRID_STEP, GRID_STEP);
+				}
+			}
+		}
+
+		// ── full redraw ───────────────────────────────────────────────────
+		function render() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+			// Background
+			ctx.fillStyle = '#f9fafb';
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+			// Decision boundary
+			drawBoundary();
+
+			// Training points
+			points.forEach(p => {
+				ctx.beginPath();
+				ctx.arc(p.x, p.y, 6, 0, 2 * Math.PI);
+				ctx.fillStyle = CLASS_COLORS[p.c];
+				ctx.fill();
+				ctx.strokeStyle = 'white';
+				ctx.lineWidth = 1.5;
+				ctx.stroke();
+			});
+
+			// Query point + neighbors
+			if (queryPt) {
+				const { winner, votes, neighbors } = classify(queryPt.x, queryPt.y, currentK, points);
+
+				// Dashed lines to neighbors
+				neighbors.forEach(n => {
+					ctx.save();
+					ctx.setLineDash([4, 4]);
+					ctx.strokeStyle = CLASS_COLORS[n.c];
+					ctx.lineWidth = 1;
+					ctx.beginPath();
+					ctx.moveTo(queryPt.x, queryPt.y);
+					ctx.lineTo(n.x, n.y);
+					ctx.stroke();
+					ctx.restore();
+				});
+
+				// Highlight rings around neighbors
+				neighbors.forEach(n => {
+					ctx.beginPath();
+					ctx.arc(n.x, n.y, 11, 0, 2 * Math.PI);
+					ctx.strokeStyle = CLASS_COLORS[n.c];
+					ctx.lineWidth = 2.5;
+					ctx.setLineDash([]);
+					ctx.stroke();
+				});
+
+				// Star for query point
+				drawStar(queryPt.x, queryPt.y, 12, '#111827');
+
+				// Update vote panel
+				const voteEl = document.getElementById('knn-viz-votes');
+				const rows = CLASS_NAMES.map((name, i) =>
+					`<div class="flex justify-between gap-4">
+						<span style="color:${CLASS_COLORS[i]}" class="font-bold">Class ${name}</span>
+						<span class="font-mono">${votes[i]}</span>
+					</div>`
+				).join('');
+				voteEl.innerHTML = `
+					<p class="font-bold text-gray-700 mb-2 not-italic text-sm">Vote tally (K=${currentK})</p>
+					${rows}
+					<div class="mt-3 pt-3 border-t border-gray-200 font-bold text-gray-800 not-italic">
+						→ Predicted: <span style="color:${CLASS_COLORS[winner]}">Class ${CLASS_NAMES[winner]}</span>
+					</div>`;
+			}
+		}
+
+		// ── schedule boundary recompute ───────────────────────────────────
+		function scheduleRender() {
+			if (boundaryTimer) clearTimeout(boundaryTimer);
+			boundaryTimer = setTimeout(() => render(), 50);
+		}
+
+		// ── canvas click ─────────────────────────────────────────────────
+		function getCanvasPos(e) {
+			const rect = canvas.getBoundingClientRect();
+			const scaleX = canvas.width  / rect.width;
+			const scaleY = canvas.height / rect.height;
+			const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+			const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+			return {
+				x: (clientX - rect.left) * scaleX,
+				y: (clientY - rect.top)  * scaleY,
+			};
+		}
+
+		canvas.addEventListener('click', e => {
+			const pos = getCanvasPos(e);
+			if (mode === 'query') {
+				queryPt = pos;
+				render();
+			} else {
+				points.push({x: pos.x, y: pos.y, c: addCls});
+				scheduleRender();
+			}
+		});
+
+		canvas.addEventListener('touchend', e => {
+			e.preventDefault();
+			const pos = getCanvasPos(e.changedTouches[0] || e);
+			if (mode === 'query') {
+				queryPt = pos;
+				render();
+			} else {
+				points.push({x: pos.x, y: pos.y, c: addCls});
+				scheduleRender();
+			}
+		});
+
+		// ── public API ────────────────────────────────────────────────────
+		function onKChange() {
+			currentK = parseInt(document.getElementById('knn-viz-k').value, 10);
+			scheduleRender();
+		}
+
+		function setMode(m) {
+			mode = m;
+			const classDiv = document.getElementById('knn-viz-class-btns');
+			const qBtn = document.getElementById('knn-viz-mode-query');
+			const aBtn = document.getElementById('knn-viz-mode-add');
+			if (m === 'query') {
+				classDiv.classList.add('hidden');
+				qBtn.className = 'px-4 py-2 rounded-lg text-sm font-semibold bg-indigo-600 text-white shadow transition';
+				aBtn.className = 'px-4 py-2 rounded-lg text-sm font-semibold bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 transition';
+			} else {
+				classDiv.classList.remove('hidden');
+				aBtn.className = 'px-4 py-2 rounded-lg text-sm font-semibold bg-indigo-600 text-white shadow transition';
+				qBtn.className = 'px-4 py-2 rounded-lg text-sm font-semibold bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 transition';
+			}
+		}
+
+		function setAddClass(cls) {
+			addCls = cls;
+			[0, 1, 2].forEach(i => {
+				const btn = document.getElementById(`knn-viz-cls-${i}`);
+				const color = ['rose', 'blue', 'green'][i];
+				if (i === cls) {
+					btn.className = `px-3 py-1.5 rounded-lg text-sm font-semibold border-2 border-${color}-500 text-${color}-600 bg-${color}-50 hover:bg-${color}-100 transition`;
+				} else {
+					btn.className = `px-3 py-1.5 rounded-lg text-sm font-semibold border border-${color}-300 text-${color}-600 bg-white hover:bg-${color}-50 transition`;
+				}
+			});
+		}
+
+		function reset() {
+			points  = DEFAULT_POINTS.map(p => ({...p}));
+			queryPt = null;
+			document.getElementById('knn-viz-votes').innerHTML = '<span class="italic text-gray-500">Click the canvas to see a prediction.</span>';
+			render();
+		}
+
+		// Initial render
+		render();
+
+		return { onKChange, setMode, setAddClass, reset };
+	})();
 
 	</script>
 

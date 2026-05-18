@@ -152,6 +152,7 @@
 						<a href="#pandas" class="sidebar-link" onclick="setActive(this)">Pandas DataFrames</a>
 						<a href="#matplotlib" class="sidebar-link" onclick="setActive(this)">Matplotlib</a>
 						<a href="#sklearn" class="sidebar-link" onclick="setActive(this)">Scikit-learn</a>
+						<a href="#scaling-viz" class="sidebar-link" onclick="setActive(this)">📊 Scaling Visualizer</a>
 											<a href="#quiz" class="sidebar-link" onclick="setActive(this)">Knowledge Check</a>
 					</nav>
 				</div>
@@ -461,6 +462,40 @@ print("R²:  ", r2_score(y_test, y_reg))</code></pre>
 					</div>
 				</section>
 
+					<!-- Feature Scaling Visualizer -->
+					<section id="scaling-viz" class="content-section">
+						<h2><i class="fa-solid fa-chart-column mr-3 text-indigo-500"></i> Feature Scaling Visualizer</h2>
+						<p>See exactly how <strong>StandardScaler</strong> (z-score) and <strong>MinMaxScaler</strong> transform the same raw values. Add an outlier to watch how each scaler reacts.</p>
+						<div class="card p-6">
+							<!-- Scaler toggle -->
+							<div class="flex flex-wrap items-center gap-3 mb-4">
+								<span class="text-sm font-semibold text-gray-600">Scaler:</span>
+								<button id="sv-btn-standard" onclick="svSetScaler('standard')" class="px-4 py-1.5 rounded-full text-sm font-semibold bg-indigo-600 text-white transition">Standard (z-score)</button>
+								<button id="sv-btn-minmax" onclick="svSetScaler('minmax')" class="px-4 py-1.5 rounded-full text-sm font-semibold bg-white border border-gray-300 text-gray-600 hover:bg-gray-50 transition">Min-Max</button>
+								<button onclick="svAddOutlier()" class="ml-auto px-4 py-1.5 rounded-full text-sm font-semibold bg-rose-50 border border-rose-200 text-rose-600 hover:bg-rose-100 transition"><i class="fa-solid fa-plus mr-1"></i>Add Outlier (300)</button>
+								<button onclick="svReset()" class="px-4 py-1.5 rounded-full text-sm font-semibold bg-gray-100 text-gray-600 hover:bg-gray-200 transition">Reset</button>
+							</div>
+							<!-- Formula display -->
+							<div id="sv-formula" class="bg-indigo-50 border border-indigo-100 rounded-lg px-4 py-3 mb-4 font-mono text-sm text-indigo-800"></div>
+							<!-- Canvases -->
+							<div class="flex flex-col sm:flex-row gap-6 justify-center items-start mb-4">
+								<div class="flex flex-col items-center">
+									<p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Original Values</p>
+									<canvas id="sv-canvas-orig" width="300" height="200" class="border border-gray-200 rounded-lg bg-gray-50"></canvas>
+									<!-- Editable inputs -->
+									<div id="sv-inputs" class="flex flex-wrap gap-1 mt-2 justify-center max-w-xs"></div>
+								</div>
+								<div class="flex flex-col items-center">
+									<p id="sv-scaled-label" class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Scaled Values</p>
+									<canvas id="sv-canvas-scaled" width="300" height="200" class="border border-gray-200 rounded-lg bg-gray-50"></canvas>
+									<!-- Info box -->
+									<div id="sv-info" class="mt-2 text-xs text-center text-indigo-600 font-medium max-w-xs"></div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+
 					<!-- Try it yourself -->
 					<details class="try-it bg-white border border-indigo-100 rounded-xl overflow-hidden mt-4">
 						<summary class="px-5 py-3 cursor-pointer font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition flex items-center gap-2 select-none"><i class="fa-solid fa-laptop-code mr-1"></i> Try it yourself &mdash; Row-normalise a matrix</summary>
@@ -541,6 +576,217 @@ print("R²:  ", r2_score(y_test, y_reg))</code></pre>
             });
         });
     </script>
+
+	<script>
+		// ============================================================
+		// Feature Scaling Visualizer
+		// ============================================================
+		(function() {
+			var SV = {
+				defaultData: [12, 45, 7, 103, 28, 67, 15, 89, 3, 52],
+				data: [12, 45, 7, 103, 28, 67, 15, 89, 3, 52],
+				scaler: 'standard',
+				animFrom: null,
+				animTo: null,
+				animRAF: null
+			};
+
+			function svComputeScaled(data, scaler) {
+				var n = data.length;
+				if (scaler === 'standard') {
+					var mean = data.reduce(function(s,v){return s+v;},0)/n;
+					var std = Math.sqrt(data.reduce(function(s,v){return s+(v-mean)*(v-mean);},0)/n);
+					if (std === 0) std = 1;
+					return {scaled: data.map(function(v){return (v-mean)/std;}), mean: mean, std: std, min: null, max: null};
+				} else {
+					var mn = Math.min.apply(null,data), mx = Math.max.apply(null,data);
+					var rng = mx - mn || 1;
+					return {scaled: data.map(function(v){return (v-mn)/rng;}), mean: null, std: null, min: mn, max: mx};
+				}
+			}
+
+			function svDrawCanvas(canvasId, values, xMin, xMax) {
+				var c = document.getElementById(canvasId);
+				if (!c) return;
+				var ctx = c.getContext('2d');
+				var W = c.width, H = c.height;
+				ctx.clearRect(0, 0, W, H);
+				ctx.fillStyle = '#f8f8ff';
+				ctx.fillRect(0, 0, W, H);
+
+				var padL = 30, padR = 14, axisY = H - 36;
+
+				// Axis line
+				ctx.beginPath();
+				ctx.strokeStyle = '#94a3b8';
+				ctx.lineWidth = 1.5;
+				ctx.moveTo(padL, axisY);
+				ctx.lineTo(W - padR, axisY);
+				ctx.stroke();
+
+				// Tick marks & labels
+				var tickCount = 4;
+				ctx.fillStyle = '#64748b';
+				ctx.font = '9px Nunito, sans-serif';
+				ctx.textAlign = 'center';
+				for (var i = 0; i <= tickCount; i++) {
+					var frac = i / tickCount;
+					var tx = padL + frac * (W - padL - padR);
+					ctx.beginPath();
+					ctx.strokeStyle = '#cbd5e1';
+					ctx.lineWidth = 1;
+					ctx.moveTo(tx, 10);
+					ctx.lineTo(tx, axisY);
+					ctx.stroke();
+					ctx.beginPath();
+					ctx.strokeStyle = '#94a3b8';
+					ctx.lineWidth = 1.5;
+					ctx.moveTo(tx, axisY);
+					ctx.lineTo(tx, axisY + 5);
+					ctx.stroke();
+					var tickVal = xMin + frac * (xMax - xMin);
+					ctx.fillStyle = '#64748b';
+					ctx.fillText(tickVal.toFixed(xMax > 10 ? 0 : 2), tx, axisY + 16);
+				}
+
+				// Dots
+				values.forEach(function(v, i) {
+					var frac = (v - xMin) / (xMax - xMin);
+					frac = Math.max(0.01, Math.min(0.99, frac));
+					var dx = padL + frac * (W - padL - padR);
+					var row = Math.floor(i / 5);
+					var dy = axisY - 22 - row * 28;
+					ctx.beginPath();
+					ctx.arc(dx, dy, 6, 0, 2*Math.PI);
+					ctx.fillStyle = 'rgba(79,70,229,0.85)';
+					ctx.fill();
+					ctx.strokeStyle = '#fff';
+					ctx.lineWidth = 1.5;
+					ctx.stroke();
+				});
+			}
+
+			function svUpdateFormula() {
+				var el = document.getElementById('sv-formula');
+				var info = document.getElementById('sv-info');
+				var lbl = document.getElementById('sv-scaled-label');
+				var res = svComputeScaled(SV.data, SV.scaler);
+				if (!el) return;
+				if (SV.scaler === 'standard') {
+					el.innerHTML = '<strong>z = (x &minus; &mu;) / &sigma;</strong> &nbsp;&nbsp;&nbsp; &mu; = ' + res.mean.toFixed(2) + ' &nbsp; &sigma; = ' + res.std.toFixed(2);
+					if (info) info.textContent = 'After scaling: mean ≈ 0, std ≈ 1';
+					if (lbl) lbl.textContent = 'Standard Scaled (z-score)';
+				} else {
+					el.innerHTML = "<strong>x’ = (x − min) / (max − min)</strong> &nbsp;&nbsp;&nbsp; min = " + res.min.toFixed(1) + ' &nbsp; max = ' + res.max.toFixed(1);
+					if (info) info.textContent = 'After scaling: range is [0, 1]';
+					if (lbl) lbl.textContent = 'Min-Max Scaled';
+				}
+			}
+
+			function svGetXRange(scaler) {
+				return scaler === 'standard' ? {min: -3, max: 3} : {min: 0, max: 1};
+			}
+
+			function svDraw(animFrac) {
+				var origMax = Math.max(120, Math.max.apply(null, SV.data) * 1.1);
+				svDrawCanvas('sv-canvas-orig', SV.data, 0, origMax);
+
+				var res = svComputeScaled(SV.data, SV.scaler);
+				var range = svGetXRange(SV.scaler);
+				var displayVals;
+				if (animFrac !== undefined && animFrac < 1 && SV.animFrom && SV.animTo) {
+					displayVals = SV.animFrom.map(function(v, i) {
+						var to = SV.animTo[i] !== undefined ? SV.animTo[i] : v;
+						return v + (to - v) * animFrac;
+					});
+				} else {
+					displayVals = res.scaled;
+				}
+				svDrawCanvas('sv-canvas-scaled', displayVals, range.min, range.max);
+			}
+
+			function svAnimate(from, to) {
+				if (SV.animRAF) cancelAnimationFrame(SV.animRAF);
+				SV.animFrom = from.slice();
+				SV.animTo = to.slice();
+				var start = null;
+				var dur = 400;
+				function step(ts) {
+					if (!start) start = ts;
+					var t = Math.min(1, (ts - start) / dur);
+					// ease out
+					var e = 1 - Math.pow(1 - t, 2);
+					svDraw(e);
+					if (t < 1) SV.animRAF = requestAnimationFrame(step);
+					else { SV.animFrom = SV.animTo.slice(); }
+				}
+				SV.animRAF = requestAnimationFrame(step);
+			}
+
+			function svUpdateInputs() {
+				var container = document.getElementById('sv-inputs');
+				if (!container) return;
+				container.innerHTML = '';
+				SV.data.forEach(function(v, i) {
+					var inp = document.createElement('input');
+					inp.type = 'number';
+					inp.value = v;
+					inp.className = 'w-14 text-center text-xs border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-indigo-400';
+					(function(idx){ inp.oninput = function() {
+						var val = parseFloat(this.value);
+						if (!isNaN(val)) {
+							var oldScaled = svComputeScaled(SV.data, SV.scaler).scaled;
+							SV.data[idx] = val;
+							var newScaled = svComputeScaled(SV.data, SV.scaler).scaled;
+							svUpdateFormula();
+							svAnimate(oldScaled, newScaled);
+							var origMax = Math.max(120, Math.max.apply(null, SV.data)*1.1);
+							svDrawCanvas('sv-canvas-orig', SV.data, 0, origMax);
+						}
+					}; })(i);
+					container.appendChild(inp);
+				});
+			}
+
+			window.svSetScaler = function(s) {
+				var oldScaled = svComputeScaled(SV.data, SV.scaler).scaled;
+				SV.scaler = s;
+				var newScaled = svComputeScaled(SV.data, SV.scaler).scaled;
+				document.getElementById('sv-btn-standard').className = 'px-4 py-1.5 rounded-full text-sm font-semibold transition ' + (s==='standard' ? 'bg-indigo-600 text-white' : 'bg-white border border-gray-300 text-gray-600 hover:bg-gray-50');
+				document.getElementById('sv-btn-minmax').className = 'px-4 py-1.5 rounded-full text-sm font-semibold transition ' + (s==='minmax' ? 'bg-indigo-600 text-white' : 'bg-white border border-gray-300 text-gray-600 hover:bg-gray-50');
+				svUpdateFormula();
+				svAnimate(oldScaled, newScaled);
+			};
+
+			window.svAddOutlier = function() {
+				var oldScaled = svComputeScaled(SV.data, SV.scaler).scaled;
+				SV.data.push(300);
+				var newScaled = svComputeScaled(SV.data, SV.scaler).scaled;
+				var fromPadded = oldScaled.concat([newScaled[newScaled.length-1]]);
+				svUpdateFormula();
+				svAnimate(fromPadded, newScaled);
+				var origMax = Math.max(120, Math.max.apply(null, SV.data)*1.1);
+				svDrawCanvas('sv-canvas-orig', SV.data, 0, origMax);
+				svUpdateInputs();
+			};
+
+			window.svReset = function() {
+				SV.data = SV.defaultData.slice();
+				SV.animFrom = null;
+				svUpdateFormula();
+				svDraw(1);
+				svUpdateInputs();
+			};
+
+			// Init
+			var initRes = svComputeScaled(SV.data, SV.scaler);
+			SV.animFrom = initRes.scaled;
+			SV.animTo = initRes.scaled;
+			svUpdateFormula();
+			svDraw(1);
+			svUpdateInputs();
+		})();
+	</script>
 </body>
 
 </html>

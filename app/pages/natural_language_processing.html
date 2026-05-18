@@ -95,6 +95,7 @@
 						<a href="#word2vec" class="sidebar-link">Word2Vec</a>
 						<a href="#pmi" class="sidebar-link">PMI & Collocations</a>
 						<a href="#language-models" class="sidebar-link">Language Models</a>
+						<a href="#cosine-viz" class="sidebar-link">🔤 Cosine Similarity</a>
 											<a href="#quiz" class="sidebar-link" onclick="setActive(this)">Knowledge Check</a>
 					</nav>
 				</div>
@@ -205,7 +206,64 @@ for bigram, score in finder.score_ngrams(measures.pmi):
 					<p>Collocations with high PMI — like "machine learning" or "natural language" — are phrases that carry meaning together. Knowing this is crucial for tokenization and phrase detection.</p>
 				</section>
 
-				<section id="language-models" class="content-section">
+
+				<section id="cosine-viz" class="content-section">
+					<h2><i class="fa-solid fa-ruler-combined mr-3 text-indigo-500"></i> Cosine Similarity Explorer</h2>
+					<p>Drag the sliders to set two user interest vectors across 4 topics. Watch how cosine similarity changes — it measures the <em>angle</em> between vectors, not their magnitude.</p>
+					<div class="card p-6">
+						<!-- Presets -->
+						<div class="flex flex-wrap items-center gap-3 mb-5">
+							<span class="text-sm font-semibold text-gray-600">Preset:</span>
+							<select id="cs-preset" onchange="csLoadPreset(this.value)" class="text-sm border border-gray-300 rounded-lg px-3 py-1.5 focus:outline-none focus:border-indigo-400 bg-white">
+								<option value="similar">Similar users</option>
+								<option value="opposite">Opposite interests</option>
+								<option value="orthogonal">Orthogonal (sim=0)</option>
+								<option value="identical">Identical</option>
+							</select>
+						</div>
+						<!-- Sliders -->
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+							<!-- Vector A -->
+							<div>
+								<p class="font-bold text-indigo-700 text-sm mb-3"><i class="fa-solid fa-circle mr-1"></i> User A</p>
+								<div id="cs-sliders-a" class="space-y-3"></div>
+							</div>
+							<!-- Vector B -->
+							<div>
+								<p class="font-bold text-rose-600 text-sm mb-3"><i class="fa-solid fa-circle mr-1"></i> User B</p>
+								<div id="cs-sliders-b" class="space-y-3"></div>
+							</div>
+						</div>
+						<!-- Bar charts + Canvas side by side -->
+						<div class="flex flex-col md:flex-row gap-6 items-start">
+							<!-- Bar chart -->
+							<div class="flex-1 min-w-0">
+								<p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Interest Profile</p>
+								<canvas id="cs-bars" width="320" height="160" class="rounded-lg border border-gray-200 bg-gray-50 w-full" style="max-width:320px"></canvas>
+							</div>
+							<!-- 2D projection -->
+							<div class="flex-shrink-0">
+								<p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Sports vs Music Projection</p>
+								<canvas id="cs-canvas" width="220" height="220" class="rounded-lg border border-gray-200 bg-gray-50"></canvas>
+							</div>
+						</div>
+						<!-- Similarity result -->
+						<div class="mt-5 flex flex-col sm:flex-row gap-4 items-start">
+							<div class="flex-1 bg-indigo-50 border border-indigo-100 rounded-xl p-4">
+								<p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Cosine Similarity</p>
+								<p id="cs-sim-val" class="text-4xl font-extrabold mb-1">0.72</p>
+								<p id="cs-sim-desc" class="text-xs text-gray-500 mb-0"></p>
+							</div>
+							<div class="flex-1 bg-gray-50 border border-gray-200 rounded-xl p-4 font-mono text-sm text-gray-700">
+								<div id="cs-dot-disp" class="mb-1"></div>
+								<div id="cs-mag-disp"></div>
+								<div id="cs-angle-disp" class="mt-1 text-indigo-600 font-semibold"></div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+								<section id="language-models" class="content-section">
 					<h2><i class="fa-solid fa-pen-to-square mr-3 text-indigo-500"></i> Language Models</h2>
 					<p>A language model assigns a probability to a sequence of words. Given previous words, it predicts what comes next — the foundation behind autocomplete, GPT, and text generation.</p>
 
@@ -335,5 +393,232 @@ print(generate_text(model, seed="the stock market"))</code></pre>
             });
         });
     </script>
+
+	<script>
+		// ============================================================
+		// Cosine Similarity Explorer
+		// ============================================================
+		(function() {
+			var TOPICS = ['Sports', 'Music', 'Movies', 'Tech'];
+			var PRESETS = {
+				similar:    {a:[3,1,2,-1], b:[1,4,2,3]},
+				opposite:   {a:[5,1,-4,2], b:[-4,1,5,-3]},
+				orthogonal: {a:[3,0,0,4], b:[0,5,4,0]},
+				identical:  {a:[2,3,1,4], b:[2,3,1,4]}
+			};
+			var CS = {
+				a: [3,1,2,-1],
+				b: [1,4,2,3]
+			};
+
+			function dot(a,b){ return a.reduce(function(s,v,i){return s+v*b[i];},0); }
+			function mag(v){ return Math.sqrt(v.reduce(function(s,x){return s+x*x;},0)); }
+
+			function csCosSim(a,b){
+				var ma=mag(a), mb=mag(b);
+				if(ma===0||mb===0) return 0;
+				return dot(a,b)/(ma*mb);
+			}
+
+			function csBuildSliders() {
+				['a','b'].forEach(function(vec) {
+					var container = document.getElementById('cs-sliders-' + vec);
+					if (!container) return;
+					container.innerHTML = '';
+					CS[vec].forEach(function(val, i) {
+						var color = vec==='a' ? 'indigo' : 'rose';
+						var div = document.createElement('div');
+						div.innerHTML = '<div class="flex items-center gap-2">' +
+							'<span class="text-xs text-gray-500 w-14 flex-shrink-0">' + TOPICS[i] + '</span>' +
+							'<input type="range" min="-5" max="5" step="0.5" value="' + val + '" ' +
+							'class="flex-1 accent-' + color + '-500" ' +
+							'oninput="csSliderChange(\'' + vec + '\',' + i + ',parseFloat(this.value)); document.getElementById(\'cs-lbl-' + vec + '-' + i + '\').textContent=parseFloat(this.value).toFixed(1)">' +
+							'<span id="cs-lbl-' + vec + '-' + i + '" class="text-xs font-mono text-gray-700 w-8 text-right flex-shrink-0">' + val.toFixed(1) + '</span>' +
+							'</div>';
+						container.appendChild(div);
+					});
+				});
+			}
+
+			window.csSliderChange = function(vec, idx, val) {
+				CS[vec][idx] = val;
+				csUpdate();
+			};
+
+			window.csLoadPreset = function(key) {
+				var p = PRESETS[key];
+				if (!p) return;
+				CS.a = p.a.slice();
+				CS.b = p.b.slice();
+				csBuildSliders();
+				csUpdate();
+			};
+
+			function csDrawBars() {
+				var c = document.getElementById('cs-bars');
+				if (!c) return;
+				var ctx = c.getContext('2d');
+				var W = c.width, H = c.height;
+				ctx.clearRect(0, 0, W, H);
+				ctx.fillStyle = '#f9fafb';
+				ctx.fillRect(0, 0, W, H);
+
+				var n = TOPICS.length;
+				var rowH = (H - 20) / (n * 2);
+				var midX = W / 2;
+				var maxVal = 5;
+
+				ctx.font = '10px Nunito, sans-serif';
+
+				// Center line
+				ctx.beginPath();
+				ctx.strokeStyle = '#e2e8f0';
+				ctx.lineWidth = 1;
+				ctx.moveTo(midX, 0);
+				ctx.lineTo(midX, H);
+				ctx.stroke();
+
+				for (var i = 0; i < n; i++) {
+					// Label
+					ctx.fillStyle = '#64748b';
+					ctx.textAlign = 'center';
+					ctx.fillText(TOPICS[i], midX, 14 + i * rowH * 2);
+
+					// User A bar
+					var aVal = CS.a[i];
+					var aW = (Math.abs(aVal) / maxVal) * (W/2 - 10);
+					var aX = aVal >= 0 ? midX : midX - aW;
+					ctx.fillStyle = 'rgba(99,102,241,0.75)';
+					ctx.fillRect(aX, 18 + i * rowH * 2, aW, rowH - 3);
+
+					// User B bar
+					var bVal = CS.b[i];
+					var bW = (Math.abs(bVal) / maxVal) * (W/2 - 10);
+					var bX = bVal >= 0 ? midX : midX - bW;
+					ctx.fillStyle = 'rgba(225,29,72,0.65)';
+					ctx.fillRect(bX, 18 + i * rowH * 2 + rowH, bW, rowH - 3);
+				}
+
+				// Legend
+				ctx.fillStyle = 'rgba(99,102,241,0.85)';
+				ctx.fillRect(8, H - 16, 12, 8);
+				ctx.fillStyle = '#374151';
+				ctx.textAlign = 'left';
+				ctx.fillText('User A', 24, H - 8);
+				ctx.fillStyle = 'rgba(225,29,72,0.75)';
+				ctx.fillRect(75, H - 16, 12, 8);
+				ctx.fillStyle = '#374151';
+				ctx.fillText('User B', 91, H - 8);
+			}
+
+			function csDrawCanvas() {
+				var c = document.getElementById('cs-canvas');
+				if (!c) return;
+				var ctx = c.getContext('2d');
+				var W = c.width, H = c.height;
+				ctx.clearRect(0, 0, W, H);
+				ctx.fillStyle = '#f8f8ff';
+				ctx.fillRect(0, 0, W, H);
+
+				var cx = W/2, cy = H/2;
+				var scale = (W/2 - 20) / 5;
+
+				// Grid & axes
+				ctx.strokeStyle = '#e2e8f0';
+				ctx.lineWidth = 1;
+				[-4,-2,0,2,4].forEach(function(v) {
+					var px = cx + v*scale, py = cy - v*scale;
+					ctx.beginPath(); ctx.moveTo(px,10); ctx.lineTo(px,H-10); ctx.stroke();
+					ctx.beginPath(); ctx.moveTo(10,py); ctx.lineTo(W-10,py); ctx.stroke();
+				});
+
+				ctx.strokeStyle = '#94a3b8';
+				ctx.lineWidth = 1.5;
+				ctx.beginPath(); ctx.moveTo(10,cy); ctx.lineTo(W-10,cy); ctx.stroke();
+				ctx.beginPath(); ctx.moveTo(cx,10); ctx.lineTo(cx,H-10); ctx.stroke();
+
+				ctx.fillStyle = '#94a3b8';
+				ctx.font = '9px Nunito, sans-serif';
+				ctx.textAlign = 'center';
+				ctx.fillText('Sports', W-22, cy-4);
+				ctx.textAlign = 'left';
+				ctx.fillText('Music', cx+3, 18);
+
+				// Draw vectors (Sports = dim 0, Music = dim 1)
+				var aX = CS.a[0]*scale, aY = -CS.a[1]*scale;
+				var bX = CS.b[0]*scale, bY = -CS.b[1]*scale;
+
+				function drawArrow(ctx, x1,y1,x2,y2,color) {
+					ctx.beginPath();
+					ctx.strokeStyle = color;
+					ctx.lineWidth = 2.5;
+					ctx.moveTo(x1,y1);
+					ctx.lineTo(x1+x2,y1+y2);
+					ctx.stroke();
+					// arrowhead
+					var angle = Math.atan2(y2,x2);
+					var headLen = 9;
+					ctx.beginPath();
+					ctx.fillStyle = color;
+					ctx.moveTo(x1+x2, y1+y2);
+					ctx.lineTo(x1+x2-headLen*Math.cos(angle-0.4), y1+y2-headLen*Math.sin(angle-0.4));
+					ctx.lineTo(x1+x2-headLen*Math.cos(angle+0.4), y1+y2-headLen*Math.sin(angle+0.4));
+					ctx.closePath();
+					ctx.fill();
+				}
+
+				drawArrow(ctx, cx, cy, aX, aY, '#4f46e5');
+				drawArrow(ctx, cx, cy, bX, bY, '#e11d48');
+
+				// Angle arc
+				var angA = Math.atan2(-aY, aX);
+				var angB = Math.atan2(-bY, bX);
+				var r = 22;
+				ctx.beginPath();
+				ctx.arc(cx, cy, r, -angA, -angB, angA > angB);
+				ctx.strokeStyle = '#f59e0b';
+				ctx.lineWidth = 2;
+				ctx.stroke();
+
+				// Labels
+				ctx.font = 'bold 11px Nunito, sans-serif';
+				ctx.fillStyle = '#4f46e5';
+				ctx.textAlign = 'center';
+				ctx.fillText('A', cx+aX+10*Math.cos(angA), cy-aY-10*Math.sin(angA));
+				ctx.fillStyle = '#e11d48';
+				ctx.fillText('B', cx+bX+10*Math.cos(angB), cy-bY-10*Math.sin(angB));
+			}
+
+			function csUpdate() {
+				var sim = csCosSim(CS.a, CS.b);
+				var dp = dot(CS.a, CS.b);
+				var ma = mag(CS.a), mb = mag(CS.b);
+				var angle = (ma>0 && mb>0) ? Math.round(Math.acos(Math.max(-1,Math.min(1,sim))) * 180/Math.PI) : 90;
+
+				var simEl = document.getElementById('cs-sim-val');
+				var descEl = document.getElementById('cs-sim-desc');
+				if (simEl) {
+					simEl.textContent = sim.toFixed(3);
+					simEl.className = 'text-4xl font-extrabold mb-1 ' +
+						(sim > 0.7 ? 'text-green-600' : sim > 0.3 ? 'text-yellow-600' : 'text-red-500');
+					if (descEl) descEl.textContent = sim > 0.7 ? 'High similarity' : sim > 0.3 ? 'Moderate similarity' : 'Low similarity';
+				}
+
+				var dotEl = document.getElementById('cs-dot-disp');
+				var magEl = document.getElementById('cs-mag-disp');
+				var angEl = document.getElementById('cs-angle-disp');
+				if (dotEl) dotEl.innerHTML = 'A&middot;B = <strong>' + dp.toFixed(2) + '</strong>';
+				if (magEl) magEl.innerHTML = '|A| = <strong>' + ma.toFixed(2) + '</strong> &nbsp; |B| = <strong>' + mb.toFixed(2) + '</strong>';
+				if (angEl) angEl.textContent = 'θ = ' + angle + '°';
+
+				csDrawBars();
+				csDrawCanvas();
+			}
+
+			// Init
+			csBuildSliders();
+			csUpdate();
+		})();
+	</script>
 </body>
 </html>

@@ -93,6 +93,7 @@
 					<nav class="space-y-1" id="sidebar-nav">
 						<a href="#intro" class="sidebar-link active">Overview</a>
 						<a href="#convolution" class="sidebar-link">Convolution Operation</a>
+						<a href="#filter-gallery" class="sidebar-link">Filter Gallery</a>
 						<a href="#cnn-architecture" class="sidebar-link">CNN Architecture</a>
 						<a href="#image-classification" class="sidebar-link">Image Classification</a>
 						<a href="#colour-demo" class="sidebar-link">🎨 Colour Classifier</a>
@@ -166,6 +167,103 @@ kernel = np.array([
 
 feature_map = convolve2d(image, kernel, mode='valid')
 print(feature_map)</code></pre>
+
+					<!-- Demo 1: Convolution Step-by-Step Visualiser -->
+					<div class="card p-6 mt-6" id="conv-demo-card">
+						<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+							<h3 class="text-lg font-bold text-gray-800 mt-0 mb-0">Convolution Step-by-Step</h3>
+							<div class="flex items-center gap-2">
+								<label for="conv-kernel-select" class="text-sm text-gray-500 flex-shrink-0">Kernel:</label>
+								<select id="conv-kernel-select" class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-white">
+									<option value="edge">Edge Detect</option>
+									<option value="horiz">Horizontal Edge</option>
+									<option value="vert">Vertical Edge</option>
+									<option value="blur">Blur</option>
+									<option value="sharpen">Sharpen</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="flex flex-wrap items-center justify-center gap-6 mb-4">
+							<!-- Input canvas -->
+							<div class="flex flex-col items-center gap-2">
+								<span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">7×7 Input</span>
+								<canvas id="conv-input-canvas" width="280" height="280" style="cursor:pointer;border-radius:8px;border:2px solid #e5e7eb;"></canvas>
+							</div>
+
+							<!-- Kernel display -->
+							<div class="flex flex-col items-center gap-2">
+								<span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">3×3 Kernel</span>
+								<canvas id="conv-kernel-canvas" width="120" height="120" style="border-radius:8px;border:2px solid #e5e7eb;"></canvas>
+							</div>
+
+							<!-- Output canvas -->
+							<div class="flex flex-col items-center gap-2">
+								<span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">5×5 Output</span>
+								<canvas id="conv-output-canvas" width="200" height="200" style="border-radius:8px;border:2px solid #e5e7eb;"></canvas>
+							</div>
+						</div>
+
+						<!-- Computation display -->
+						<div id="conv-computation" class="bg-gray-900 text-green-400 rounded-lg px-4 py-3 text-xs font-mono mb-4 min-h-[2.5rem] whitespace-pre-wrap leading-relaxed">
+							Press Play or step through to see the dot-product computation at each position.
+						</div>
+
+						<!-- Controls -->
+						<div class="flex flex-wrap items-center justify-between gap-3">
+							<div class="flex items-center gap-2">
+								<button id="conv-prev-btn" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition">« Prev</button>
+								<button id="conv-play-btn" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium transition">▶ Play</button>
+								<button id="conv-next-btn" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition">Next »</button>
+								<button id="conv-reset-btn" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition">Reset</button>
+							</div>
+							<div id="conv-step-label" class="text-sm text-gray-400 font-mono">Step 0 / 25</div>
+						</div>
+
+						<p class="text-xs text-gray-400 mt-3 mb-0">
+							<i class="fa-solid fa-circle-info mr-1"></i>
+							Click cells to edit · Choose a kernel · Step through to see the math
+						</p>
+					</div>
+				</section>
+
+				<!-- Demo 2: Filter Effect Gallery -->
+				<section id="filter-gallery" class="content-section">
+					<h2><i class="fa-solid fa-wand-magic-sparkles mr-3 text-indigo-500"></i> Filter Effect Gallery</h2>
+					<p>Apply classic image filters to a small pixel canvas. Draw your own pattern, then see how each kernel transforms it — edge detection, blur, sharpening, and emboss.</p>
+
+					<div class="card p-6 mt-4">
+						<div class="flex flex-wrap items-center gap-3 mb-5">
+							<span class="text-sm font-semibold text-gray-600">Apply filter:</span>
+							<button class="filter-btn px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium transition" data-filter="edge">Edge</button>
+							<button class="filter-btn px-4 py-2 bg-indigo-100 hover:bg-indigo-200 text-indigo-800 rounded-lg text-sm font-medium transition" data-filter="blur">Blur</button>
+							<button class="filter-btn px-4 py-2 bg-indigo-100 hover:bg-indigo-200 text-indigo-800 rounded-lg text-sm font-medium transition" data-filter="sharpen">Sharpen</button>
+							<button class="filter-btn px-4 py-2 bg-indigo-100 hover:bg-indigo-200 text-indigo-800 rounded-lg text-sm font-medium transition" data-filter="emboss">Emboss</button>
+							<div class="flex items-center gap-2 ml-auto">
+								<label class="flex items-center gap-2 cursor-pointer text-sm text-gray-600">
+									<input type="checkbox" id="fg-draw-mode" class="accent-indigo-600 w-4 h-4" checked>
+									Draw mode
+								</label>
+								<button id="fg-clear-btn" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm font-medium transition">Clear</button>
+							</div>
+						</div>
+
+						<div class="flex flex-wrap items-start justify-center gap-8">
+							<div class="flex flex-col items-center gap-2">
+								<span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Original (12×12)</span>
+								<canvas id="fg-input-canvas" width="360" height="360" style="cursor:crosshair;border-radius:8px;border:2px solid #e5e7eb;"></canvas>
+							</div>
+							<div class="flex flex-col items-center gap-2">
+								<span id="fg-output-label" class="text-xs font-semibold text-indigo-500 uppercase tracking-wider">Edge Detect (10×10)</span>
+								<canvas id="fg-output-canvas" width="300" height="300" style="border-radius:8px;border:2px solid #c7d2fe;"></canvas>
+							</div>
+						</div>
+
+						<p class="text-xs text-gray-400 mt-4 mb-0">
+							<i class="fa-solid fa-circle-info mr-1"></i>
+							Draw mode on: drag to paint pixels · Draw mode off: click to toggle individual cells
+						</p>
+					</div>
 				</section>
 
 				<section id="cnn-architecture" class="content-section">
@@ -458,6 +556,477 @@ history = model.fit(train_gen, validation_data=val_gen,
             <p class="text-gray-500 text-sm mt-4">&copy; 2025 Python to AI.</p>
         </div>
     </footer>
+    <!-- Demo 1: Convolution Step-by-Step Visualiser -->
+    <script>
+    (function() {
+        'use strict';
+
+        // ── Kernels ──────────────────────────────────────────────────────────
+        const KERNELS = {
+            edge:    [[-1,-1,-1],[-1,8,-1],[-1,-1,-1]],
+            horiz:   [[-1,-2,-1],[0,0,0],[1,2,1]],
+            vert:    [[-1,0,1],[-2,0,2],[-1,0,1]],
+            blur:    [[1/9,1/9,1/9],[1/9,1/9,1/9],[1/9,1/9,1/9]],
+            sharpen: [[0,-1,0],[-1,5,-1],[0,-1,0]]
+        };
+        const KERNEL_LABELS = {
+            edge: 'Edge Detect', horiz: 'Horizontal Edge', vert: 'Vertical Edge',
+            blur: 'Blur (1/9)', sharpen: 'Sharpen'
+        };
+
+        // ── State ─────────────────────────────────────────────────────────────
+        const GRID = 7, KSIZE = 3, OUT = 5;
+        const CELL = 40, KCELL = 40, OCELL = 40;
+
+        // Diagonal stripe pattern: 1 on main diagonal and one adjacent diagonal
+        function makeDefaultGrid() {
+            const g = Array.from({length: GRID}, () => new Array(GRID).fill(0));
+            for (let i = 0; i < GRID; i++) {
+                g[i][i] = 1;
+                if (i + 1 < GRID) g[i][i + 1] = 1;
+            }
+            return g;
+        }
+
+        let inputGrid = makeDefaultGrid();
+        let currentKernelKey = 'edge';
+        let outputMap = [];
+        let currentStep = 0; // 0–24
+        let playInterval = null;
+        let isPlaying = false;
+
+        // ── Canvas refs ───────────────────────────────────────────────────────
+        const inputCanvas  = document.getElementById('conv-input-canvas');
+        const kernelCanvas = document.getElementById('conv-kernel-canvas');
+        const outputCanvas = document.getElementById('conv-output-canvas');
+        const compDiv      = document.getElementById('conv-computation');
+        const stepLabel    = document.getElementById('conv-step-label');
+        const playBtn      = document.getElementById('conv-play-btn');
+        const kernelSelect = document.getElementById('conv-kernel-select');
+
+        const iCtx = inputCanvas.getContext('2d');
+        const kCtx = kernelCanvas.getContext('2d');
+        const oCtx = outputCanvas.getContext('2d');
+
+        // ── Compute output ────────────────────────────────────────────────────
+        function computeOutput() {
+            const k = KERNELS[currentKernelKey];
+            outputMap = [];
+            for (let oi = 0; oi < OUT; oi++) {
+                const row = [];
+                for (let oj = 0; oj < OUT; oj++) {
+                    let sum = 0;
+                    for (let ki = 0; ki < KSIZE; ki++)
+                        for (let kj = 0; kj < KSIZE; kj++)
+                            sum += inputGrid[oi + ki][oj + kj] * k[ki][kj];
+                    row.push(sum);
+                }
+                outputMap.push(row);
+            }
+        }
+
+        // ── Draw input ────────────────────────────────────────────────────────
+        function drawInput(highlightRow, highlightCol) {
+            iCtx.clearRect(0, 0, inputCanvas.width, inputCanvas.height);
+            for (let r = 0; r < GRID; r++) {
+                for (let c = 0; c < GRID; c++) {
+                    const x = c * CELL, y = r * CELL;
+                    iCtx.fillStyle = inputGrid[r][c] ? '#f9fafb' : '#1f2937';
+                    iCtx.fillRect(x, y, CELL, CELL);
+                    iCtx.strokeStyle = '#6b7280';
+                    iCtx.lineWidth = 0.5;
+                    iCtx.strokeRect(x, y, CELL, CELL);
+                    // value label
+                    iCtx.fillStyle = inputGrid[r][c] ? '#1f2937' : '#9ca3af';
+                    iCtx.font = '11px monospace';
+                    iCtx.textAlign = 'center';
+                    iCtx.textBaseline = 'middle';
+                    iCtx.fillText(inputGrid[r][c], x + CELL / 2, y + CELL / 2);
+                }
+            }
+            // Highlight active 3×3 patch
+            if (highlightRow !== undefined) {
+                iCtx.fillStyle = 'rgba(99,102,241,0.35)';
+                iCtx.fillRect(highlightCol * CELL, highlightRow * CELL, KSIZE * CELL, KSIZE * CELL);
+                iCtx.strokeStyle = '#6366f1';
+                iCtx.lineWidth = 2.5;
+                iCtx.strokeRect(highlightCol * CELL, highlightRow * CELL, KSIZE * CELL, KSIZE * CELL);
+            }
+        }
+
+        // ── Draw kernel ───────────────────────────────────────────────────────
+        function drawKernel() {
+            const k = KERNELS[currentKernelKey];
+            // find max abs for color scaling
+            const flat = k.flat();
+            const maxAbs = Math.max(...flat.map(Math.abs)) || 1;
+            kCtx.clearRect(0, 0, kernelCanvas.width, kernelCanvas.height);
+            for (let r = 0; r < KSIZE; r++) {
+                for (let c = 0; c < KSIZE; c++) {
+                    const x = c * KCELL, y = r * KCELL;
+                    const v = k[r][c];
+                    const t = v / maxAbs; // -1..1
+                    let bg;
+                    if (t > 0) bg = `rgba(99,102,241,${t * 0.8 + 0.1})`;
+                    else if (t < 0) bg = `rgba(239,68,68,${-t * 0.8 + 0.1})`;
+                    else bg = '#f3f4f6';
+                    kCtx.fillStyle = bg;
+                    kCtx.fillRect(x, y, KCELL, KCELL);
+                    kCtx.strokeStyle = '#d1d5db';
+                    kCtx.lineWidth = 0.5;
+                    kCtx.strokeRect(x, y, KCELL, KCELL);
+                    // label
+                    kCtx.fillStyle = '#111827';
+                    kCtx.font = 'bold 10px monospace';
+                    kCtx.textAlign = 'center';
+                    kCtx.textBaseline = 'middle';
+                    const label = currentKernelKey === 'blur' ? '1/9' : (Number.isInteger(v) ? String(v) : v.toFixed(2));
+                    kCtx.fillText(label, x + KCELL / 2, y + KCELL / 2);
+                }
+            }
+        }
+
+        // ── Draw output ───────────────────────────────────────────────────────
+        function drawOutput(highlightRow, highlightCol) {
+            // find min/max for normalisation
+            const flat = outputMap.flat();
+            const minV = Math.min(...flat), maxV = Math.max(...flat);
+            const range = maxV - minV || 1;
+            oCtx.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
+            for (let r = 0; r < OUT; r++) {
+                for (let c = 0; c < OUT; c++) {
+                    const x = c * OCELL, y = r * OCELL;
+                    const t = (outputMap[r][c] - minV) / range; // 0..1
+                    oCtx.fillStyle = `rgb(${Math.round(t*220)},${Math.round(t*220)},${Math.round(t*220)})`;
+                    oCtx.fillRect(x, y, OCELL, OCELL);
+                    oCtx.strokeStyle = '#6b7280';
+                    oCtx.lineWidth = 0.5;
+                    oCtx.strokeRect(x, y, OCELL, OCELL);
+                    // value
+                    oCtx.fillStyle = t > 0.5 ? '#1f2937' : '#f9fafb';
+                    oCtx.font = '9px monospace';
+                    oCtx.textAlign = 'center';
+                    oCtx.textBaseline = 'middle';
+                    oCtx.fillText(outputMap[r][c].toFixed(1), x + OCELL / 2, y + OCELL / 2);
+                }
+            }
+            // Highlight active output cell
+            if (highlightRow !== undefined) {
+                oCtx.strokeStyle = '#6366f1';
+                oCtx.lineWidth = 3;
+                oCtx.strokeRect(highlightCol * OCELL, highlightRow * OCELL, OCELL, OCELL);
+                oCtx.fillStyle = 'rgba(99,102,241,0.25)';
+                oCtx.fillRect(highlightCol * OCELL, highlightRow * OCELL, OCELL, OCELL);
+            }
+        }
+
+        // ── Build computation string ──────────────────────────────────────────
+        function buildComputation(stepIdx) {
+            const patchRow = Math.floor(stepIdx / OUT);
+            const patchCol = stepIdx % OUT;
+            const k = KERNELS[currentKernelKey];
+            const terms = [];
+            for (let ki = 0; ki < KSIZE; ki++) {
+                for (let kj = 0; kj < KSIZE; kj++) {
+                    const iv = inputGrid[patchRow + ki][patchCol + kj];
+                    const kv = k[ki][kj];
+                    const kvLabel = currentKernelKey === 'blur' ? '(1/9)' : kv.toFixed(0);
+                    terms.push(`${iv}×${kvLabel}`);
+                }
+            }
+            const result = outputMap[patchRow][patchCol];
+            return `Position (${patchRow},${patchCol}):  ${terms.join(' + ')}\n= ${result.toFixed(2)}`;
+        }
+
+        // ── Full render at step ───────────────────────────────────────────────
+        function renderStep(step) {
+            const patchRow = Math.floor(step / OUT);
+            const patchCol = step % OUT;
+            drawInput(patchRow, patchCol);
+            drawKernel();
+            drawOutput(patchRow, patchCol);
+            compDiv.textContent = buildComputation(step);
+            stepLabel.textContent = `Step ${step + 1} / 25`;
+        }
+
+        function renderIdle() {
+            drawInput();
+            drawKernel();
+            drawOutput();
+            compDiv.textContent = 'Press Play or step through to see the dot-product computation at each position.';
+            stepLabel.textContent = 'Step 0 / 25';
+        }
+
+        // ── Full reset ────────────────────────────────────────────────────────
+        function fullReset() {
+            stopPlay();
+            currentStep = 0;
+            computeOutput();
+            renderIdle();
+        }
+
+        // ── Play/Pause ────────────────────────────────────────────────────────
+        function stopPlay() {
+            if (playInterval) { clearInterval(playInterval); playInterval = null; }
+            isPlaying = false;
+            playBtn.textContent = '▶ Play';
+            playBtn.classList.replace('bg-indigo-700', 'bg-indigo-600');
+        }
+
+        function startPlay() {
+            isPlaying = true;
+            playBtn.textContent = '⏸ Pause';
+            playBtn.classList.replace('bg-indigo-600', 'bg-indigo-700');
+            playInterval = setInterval(() => {
+                renderStep(currentStep);
+                currentStep++;
+                if (currentStep >= 25) {
+                    currentStep = 0;
+                    stopPlay();
+                }
+            }, 600);
+        }
+
+        // ── Event: input canvas click (toggle cell) ───────────────────────────
+        inputCanvas.addEventListener('click', function(e) {
+            const rect = inputCanvas.getBoundingClientRect();
+            const scaleX = inputCanvas.width / rect.width;
+            const scaleY = inputCanvas.height / rect.height;
+            const x = (e.clientX - rect.left) * scaleX;
+            const y = (e.clientY - rect.top) * scaleY;
+            const col = Math.floor(x / CELL);
+            const row = Math.floor(y / CELL);
+            if (row >= 0 && row < GRID && col >= 0 && col < GRID) {
+                inputGrid[row][col] = inputGrid[row][col] ? 0 : 1;
+                stopPlay();
+                currentStep = 0;
+                computeOutput();
+                renderIdle();
+            }
+        });
+
+        // ── Event: kernel selector ────────────────────────────────────────────
+        kernelSelect.addEventListener('change', function() {
+            currentKernelKey = this.value;
+            stopPlay();
+            currentStep = 0;
+            computeOutput();
+            renderIdle();
+        });
+
+        // ── Event: buttons ────────────────────────────────────────────────────
+        document.getElementById('conv-prev-btn').addEventListener('click', () => {
+            stopPlay();
+            if (currentStep > 0) currentStep--;
+            renderStep(currentStep);
+        });
+
+        document.getElementById('conv-next-btn').addEventListener('click', () => {
+            stopPlay();
+            if (currentStep < 24) { currentStep++; }
+            renderStep(currentStep);
+        });
+
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) { stopPlay(); }
+            else { if (currentStep >= 25) currentStep = 0; startPlay(); }
+        });
+
+        document.getElementById('conv-reset-btn').addEventListener('click', fullReset);
+
+        // ── Init ──────────────────────────────────────────────────────────────
+        computeOutput();
+        renderIdle();
+    })();
+    </script>
+
+    <!-- Demo 2: Filter Effect Gallery -->
+    <script>
+    (function() {
+        'use strict';
+
+        const FG_SIZE = 12;   // 12×12 grid
+        const FG_CELL = 30;   // cell size in pixels
+        const FG_OUT  = 10;   // output size (valid convolution 12-3+1)
+        const FG_OCELL = 30;  // output cell size
+
+        // ── Kernels ───────────────────────────────────────────────────────────
+        const FG_KERNELS = {
+            edge:    [[-1,-1,-1],[-1,8,-1],[-1,-1,-1]],
+            blur:    [[1/9,1/9,1/9],[1/9,1/9,1/9],[1/9,1/9,1/9]],
+            sharpen: [[0,-1,0],[-1,5,-1],[0,-1,0]],
+            emboss:  [[-2,-1,0],[-1,1,1],[0,1,2]]
+        };
+        const FG_FILTER_NAMES = {
+            edge: 'Edge Detect', blur: 'Blur', sharpen: 'Sharpen', emboss: 'Emboss'
+        };
+
+        // ── Smiley face default (12×12, values 0–255) ─────────────────────────
+        // 255 = white (lit), 0 = black (unlit). Encodes a simple smiley.
+        const SMILEY = [
+            [  0,  0,  0,255,255,255,255,255,255,  0,  0,  0],
+            [  0,  0,255,  0,  0,  0,  0,  0,  0,255,  0,  0],
+            [  0,255,  0,  0,255,  0,  0,255,  0,  0,255,  0],
+            [255,  0,  0,  0,255,  0,  0,255,  0,  0,  0,255],
+            [255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255],
+            [255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255],
+            [255,  0,255,  0,  0,  0,  0,  0,  0,255,  0,255],
+            [255,  0,  0,255,  0,  0,  0,  0,255,  0,  0,255],
+            [255,  0,  0,  0,255,255,255,255,  0,  0,  0,255],
+            [  0,255,  0,  0,  0,  0,  0,  0,  0,  0,255,  0],
+            [  0,  0,255,  0,  0,  0,  0,  0,  0,255,  0,  0],
+            [  0,  0,  0,255,255,255,255,255,255,  0,  0,  0],
+        ];
+
+        // ── State ─────────────────────────────────────────────────────────────
+        let fgGrid = SMILEY.map(r => [...r]);
+        let currentFilter = 'edge';
+        let drawMode = true;
+        let isMouseDown = false;
+
+        const fgInputCanvas  = document.getElementById('fg-input-canvas');
+        const fgOutputCanvas = document.getElementById('fg-output-canvas');
+        const fgOutputLabel  = document.getElementById('fg-output-label');
+        const fgDrawMode     = document.getElementById('fg-draw-mode');
+
+        const fgICtx = fgInputCanvas.getContext('2d');
+        const fgOCtx = fgOutputCanvas.getContext('2d');
+
+        // ── Draw helpers ──────────────────────────────────────────────────────
+        function drawFgInput() {
+            for (let r = 0; r < FG_SIZE; r++) {
+                for (let c = 0; c < FG_SIZE; c++) {
+                    const x = c * FG_CELL, y = r * FG_CELL;
+                    const v = fgGrid[r][c];
+                    fgICtx.fillStyle = `rgb(${v},${v},${v})`;
+                    fgICtx.fillRect(x, y, FG_CELL, FG_CELL);
+                    fgICtx.strokeStyle = 'rgba(107,114,128,0.4)';
+                    fgICtx.lineWidth = 0.5;
+                    fgICtx.strokeRect(x, y, FG_CELL, FG_CELL);
+                }
+            }
+        }
+
+        function applyFilterAndDraw() {
+            const k = FG_KERNELS[currentFilter];
+            const out = [];
+            for (let r = 0; r < FG_OUT; r++) {
+                const row = [];
+                for (let c = 0; c < FG_OUT; c++) {
+                    let sum = 0;
+                    for (let ki = 0; ki < 3; ki++)
+                        for (let kj = 0; kj < 3; kj++)
+                            sum += (fgGrid[r+ki][c+kj] / 255) * k[ki][kj];
+                    row.push(sum);
+                }
+                out.push(row);
+            }
+            // normalise 0–1
+            const flat = out.flat();
+            const minV = Math.min(...flat), maxV = Math.max(...flat);
+            const range = maxV - minV || 1;
+
+            fgOCtx.clearRect(0, 0, fgOutputCanvas.width, fgOutputCanvas.height);
+            for (let r = 0; r < FG_OUT; r++) {
+                for (let c = 0; c < FG_OUT; c++) {
+                    const x = c * FG_OCELL, y = r * FG_OCELL;
+                    const t = (out[r][c] - minV) / range;
+                    const v = Math.round(t * 255);
+                    fgOCtx.fillStyle = `rgb(${v},${v},${v})`;
+                    fgOCtx.fillRect(x, y, FG_OCELL, FG_OCELL);
+                    fgOCtx.strokeStyle = 'rgba(107,114,128,0.4)';
+                    fgOCtx.lineWidth = 0.5;
+                    fgOCtx.strokeRect(x, y, FG_OCELL, FG_OCELL);
+                }
+            }
+            fgOutputLabel.textContent = `${FG_FILTER_NAMES[currentFilter]} (${FG_OUT}×${FG_OUT})`;
+        }
+
+        function fullRedraw() {
+            drawFgInput();
+            applyFilterAndDraw();
+        }
+
+        // ── Canvas interaction ────────────────────────────────────────────────
+        function getCellFromEvent(e) {
+            const rect = fgInputCanvas.getBoundingClientRect();
+            const scaleX = fgInputCanvas.width / rect.width;
+            const scaleY = fgInputCanvas.height / rect.height;
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            const x = (clientX - rect.left) * scaleX;
+            const y = (clientY - rect.top) * scaleY;
+            return { row: Math.floor(y / FG_CELL), col: Math.floor(x / FG_CELL) };
+        }
+
+        function paintCell(row, col, forceVal) {
+            if (row < 0 || row >= FG_SIZE || col < 0 || col >= FG_SIZE) return;
+            if (forceVal !== undefined) fgGrid[row][col] = forceVal;
+            else fgGrid[row][col] = fgGrid[row][col] > 127 ? 0 : 255;
+            fullRedraw();
+        }
+
+        fgInputCanvas.addEventListener('mousedown', function(e) {
+            isMouseDown = true;
+            const {row, col} = getCellFromEvent(e);
+            if (drawMode) paintCell(row, col, 255);
+            else paintCell(row, col);
+        });
+
+        fgInputCanvas.addEventListener('mousemove', function(e) {
+            if (!isMouseDown || !drawMode) return;
+            const {row, col} = getCellFromEvent(e);
+            paintCell(row, col, 255);
+        });
+
+        document.addEventListener('mouseup', () => { isMouseDown = false; });
+
+        fgInputCanvas.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            isMouseDown = true;
+            const {row, col} = getCellFromEvent(e);
+            if (drawMode) paintCell(row, col, 255);
+            else paintCell(row, col);
+        }, {passive: false});
+
+        fgInputCanvas.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+            if (!drawMode) return;
+            const {row, col} = getCellFromEvent(e);
+            paintCell(row, col, 255);
+        }, {passive: false});
+
+        // ── Filter buttons ────────────────────────────────────────────────────
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                currentFilter = this.dataset.filter;
+                document.querySelectorAll('.filter-btn').forEach(b => {
+                    b.classList.remove('bg-indigo-600', 'text-white');
+                    b.classList.add('bg-indigo-100', 'text-indigo-800');
+                });
+                this.classList.remove('bg-indigo-100', 'text-indigo-800');
+                this.classList.add('bg-indigo-600', 'text-white');
+                applyFilterAndDraw();
+            });
+        });
+
+        // ── Draw mode toggle ──────────────────────────────────────────────────
+        fgDrawMode.addEventListener('change', function() {
+            drawMode = this.checked;
+            fgInputCanvas.style.cursor = drawMode ? 'crosshair' : 'pointer';
+        });
+
+        // ── Clear button ──────────────────────────────────────────────────────
+        document.getElementById('fg-clear-btn').addEventListener('click', function() {
+            fgGrid = SMILEY.map(r => [...r]);
+            fullRedraw();
+        });
+
+        // ── Init ──────────────────────────────────────────────────────────────
+        fullRedraw();
+    })();
+    </script>
+
     <script>
         document.getElementById('mobile-menu-btn').addEventListener('click', function () {
             const menu = document.getElementById('mobile-menu');

@@ -156,6 +156,8 @@
 						<a href="#training" class="sidebar-link" onclick="setActive(this)">Training</a>
 						<a href="#regularisation" class="sidebar-link" onclick="setActive(this)">Regularisation</a>
 						<a href="#pytorch" class="sidebar-link" onclick="setActive(this)">PyTorch Example</a>
+						<a href="#gradient-descent" class="sidebar-link" onclick="setActive(this)">📉 Gradient Descent</a>
+						<a href="#activation-viz" class="sidebar-link" onclick="setActive(this)">⚡ Activations</a>
 						<a href="#projects" class="sidebar-link" onclick="setActive(this)">Projects</a>
 											<a href="#quiz" class="sidebar-link" onclick="setActive(this)">Knowledge Check</a>
 					</nav>
@@ -416,6 +418,76 @@ for epoch in range(100):
 					</div>
 				</section>
 
+				<!-- Gradient Descent Visualizer -->
+				<section id="gradient-descent" class="content-section">
+					<h2><i class="fa-solid fa-chart-line mr-3 text-indigo-500"></i> Gradient Descent Visualizer</h2>
+					<p>See how gradient descent navigates a loss landscape. Click the curve to place the ball, adjust the learning rate, then step through the optimisation.</p>
+
+					<div class="card p-5">
+						<div class="flex flex-wrap gap-4 items-center mb-4">
+							<div class="flex items-center gap-2">
+								<label class="text-sm font-medium text-gray-700">Learning Rate:</label>
+								<input type="range" id="gd-lr" min="0.05" max="0.8" step="0.05" value="0.2" class="w-32 accent-indigo-600">
+								<span id="gd-lr-val" class="text-sm font-mono text-indigo-700 w-8">0.20</span>
+							</div>
+							<button id="gd-step-btn" class="px-4 py-1.5 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition font-medium">Step</button>
+							<button id="gd-run-btn" class="px-4 py-1.5 bg-emerald-600 text-white text-sm rounded-lg hover:bg-emerald-700 transition font-medium">Run</button>
+							<button id="gd-reset-btn" class="px-4 py-1.5 border border-gray-300 text-gray-600 text-sm rounded-lg hover:bg-gray-50 transition">Reset</button>
+						</div>
+
+						<canvas id="gd-canvas" width="500" height="280" class="w-full rounded-lg border border-gray-100 cursor-crosshair" style="max-width:500px;display:block;margin:0 auto;"></canvas>
+
+						<div class="mt-3 flex flex-wrap gap-4 items-center justify-between">
+							<div id="gd-status" class="font-mono text-sm text-gray-700 bg-gray-50 rounded-lg px-3 py-2">w = 4.50 | Loss = — | dL/dw = —</div>
+							<div id="gd-steps" class="text-sm text-gray-500">Step 0</div>
+						</div>
+						<p class="text-xs text-gray-400 mt-2 mb-0">With high learning rate, the ball overshoots. With low learning rate, it converges slowly. Click the curve to reposition.</p>
+					</div>
+				</section>
+
+				<!-- Activation Function Playground -->
+				<section id="activation-viz" class="content-section">
+					<h2><i class="fa-solid fa-bolt mr-3 text-indigo-500"></i> Activation Function Playground</h2>
+					<p>Compare activation functions side by side. Toggle functions on/off and drag the scrubber to read off exact values.</p>
+
+					<div class="card p-5">
+						<div class="flex flex-wrap gap-3 mb-4">
+							<label class="flex items-center gap-1.5 cursor-pointer text-sm font-medium select-none">
+								<input type="checkbox" id="af-relu" checked class="accent-rose-500 w-4 h-4">
+								<span class="text-rose-600">ReLU</span>
+							</label>
+							<label class="flex items-center gap-1.5 cursor-pointer text-sm font-medium select-none">
+								<input type="checkbox" id="af-sigmoid" checked class="accent-blue-500 w-4 h-4">
+								<span class="text-blue-600">Sigmoid</span>
+							</label>
+							<label class="flex items-center gap-1.5 cursor-pointer text-sm font-medium select-none">
+								<input type="checkbox" id="af-tanh" class="accent-green-500 w-4 h-4">
+								<span class="text-green-600">Tanh</span>
+							</label>
+							<label class="flex items-center gap-1.5 cursor-pointer text-sm font-medium select-none">
+								<input type="checkbox" id="af-leaky" class="accent-amber-500 w-4 h-4">
+								<span class="text-amber-600">Leaky ReLU</span>
+							</label>
+							<label class="flex items-center gap-1.5 cursor-pointer text-sm font-medium select-none">
+								<input type="checkbox" id="af-gelu" class="accent-purple-500 w-4 h-4">
+								<span class="text-purple-600">GELU</span>
+							</label>
+						</div>
+
+						<canvas id="af-canvas" width="500" height="280" class="w-full rounded-lg border border-gray-100" style="max-width:500px;display:block;margin:0 auto;"></canvas>
+
+						<div class="mt-3 flex items-center gap-3">
+							<label class="text-sm font-medium text-gray-600 whitespace-nowrap">x =</label>
+							<input type="range" id="af-scrubber" min="-4" max="4" step="0.01" value="0" class="flex-grow accent-indigo-600">
+							<span id="af-x-val" class="font-mono text-sm text-indigo-700 w-10">0.00</span>
+						</div>
+
+						<div id="af-readout" class="mt-2 font-mono text-xs text-gray-600 bg-gray-50 rounded-lg px-3 py-2 min-h-[2rem]">x = 0.00</div>
+
+						<div id="af-formulas" class="mt-3 flex flex-wrap gap-2"></div>
+					</div>
+				</section>
+
 				<!-- Projects -->
 				<section id="projects" class="content-section">
 					<h2><i class="fa-solid fa-flask mr-3 text-indigo-500"></i> Projects</h2>
@@ -526,6 +598,516 @@ for epoch in range(100):
             <p class="text-gray-500 text-sm mt-4">&copy; 2025 Python to AI.</p>
         </div>
     </footer>
+    <!-- ===== GRADIENT DESCENT VISUALIZER ===== -->
+    <script>
+    {
+        const canvas = document.getElementById('gd-canvas');
+        const ctx = canvas.getContext('2d');
+        const lrSlider = document.getElementById('gd-lr');
+        const lrVal = document.getElementById('gd-lr-val');
+        const stepBtn = document.getElementById('gd-step-btn');
+        const runBtn = document.getElementById('gd-run-btn');
+        const resetBtn = document.getElementById('gd-reset-btn');
+        const statusEl = document.getElementById('gd-status');
+        const stepsEl = document.getElementById('gd-steps');
+
+        // Canvas logical size (we scale for device pixel ratio)
+        const W = 500, H = 280;
+        const PAD = { left: 52, right: 20, top: 20, bottom: 40 };
+        const W_RANGE = [-1, 5];
+        const DEFAULT_W = 4.5;
+
+        let currentW = DEFAULT_W;
+        let prevW = DEFAULT_W;
+        let animW = DEFAULT_W;       // animated position
+        let stepCount = 0;
+        let trace = [];              // last 10 positions
+        let running = false;
+        let runInterval = null;
+        let animFrame = null;
+        let animStart = null;
+        let animDuration = 300;
+        let animFrom = DEFAULT_W;
+        let animTo = DEFAULT_W;
+        let isAnimating = false;
+
+        // Loss function and derivative
+        function loss(w) { return (w - 2) ** 2 + 0.5 * Math.sin(4 * w) + 1; }
+        function dLoss(w) { return 2 * (w - 2) + 2 * Math.cos(4 * w); }
+
+        // Map w -> canvas x
+        function wx(w) {
+            return PAD.left + (w - W_RANGE[0]) / (W_RANGE[1] - W_RANGE[0]) * (W - PAD.left - PAD.right);
+        }
+        // Map loss value -> canvas y
+        function ly(l) {
+            // Compute loss range for scale
+            return PAD.top + (1 - (l - LOSS_MIN) / (LOSS_MAX - LOSS_MIN)) * (H - PAD.top - PAD.bottom);
+        }
+
+        // Pre-compute loss range
+        let LOSS_MIN = Infinity, LOSS_MAX = -Infinity;
+        for (let i = 0; i <= 300; i++) {
+            const w = W_RANGE[0] + i / 300 * (W_RANGE[1] - W_RANGE[0]);
+            const l = loss(w);
+            if (l < LOSS_MIN) LOSS_MIN = l;
+            if (l > LOSS_MAX) LOSS_MAX = l;
+        }
+        LOSS_MIN -= 0.1; LOSS_MAX += 0.1;
+
+        // Scale canvas for retina
+        function setupCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = W * dpr;
+            canvas.height = H * dpr;
+            canvas.style.width = W + 'px';
+            canvas.style.height = H + 'px';
+            ctx.scale(dpr, dpr);
+        }
+        setupCanvas();
+
+        function drawScene(ballW) {
+            ctx.clearRect(0, 0, W, H);
+
+            // Background
+            ctx.fillStyle = '#f9fafb';
+            ctx.fillRect(0, 0, W, H);
+
+            // Grid lines (horizontal)
+            ctx.strokeStyle = '#e5e7eb';
+            ctx.lineWidth = 0.5;
+            for (let l = Math.ceil(LOSS_MIN); l <= Math.floor(LOSS_MAX); l++) {
+                const y = ly(l);
+                ctx.beginPath();
+                ctx.moveTo(PAD.left, y);
+                ctx.lineTo(W - PAD.right, y);
+                ctx.stroke();
+            }
+
+            // Axes
+            ctx.strokeStyle = '#9ca3af';
+            ctx.lineWidth = 1;
+            // Y axis
+            ctx.beginPath();
+            ctx.moveTo(PAD.left, PAD.top);
+            ctx.lineTo(PAD.left, H - PAD.bottom);
+            ctx.stroke();
+            // X axis
+            ctx.beginPath();
+            ctx.moveTo(PAD.left, H - PAD.bottom);
+            ctx.lineTo(W - PAD.right, H - PAD.bottom);
+            ctx.stroke();
+
+            // X tick marks and labels
+            ctx.fillStyle = '#6b7280';
+            ctx.font = '10px Nunito, sans-serif';
+            ctx.textAlign = 'center';
+            for (let w = Math.ceil(W_RANGE[0]); w <= Math.floor(W_RANGE[1]); w++) {
+                const x = wx(w);
+                ctx.beginPath();
+                ctx.moveTo(x, H - PAD.bottom);
+                ctx.lineTo(x, H - PAD.bottom + 4);
+                ctx.strokeStyle = '#9ca3af';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                ctx.fillText(w, x, H - PAD.bottom + 14);
+            }
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#374151';
+            ctx.font = '11px Nunito, sans-serif';
+            ctx.fillText('w (weight)', PAD.left + (W - PAD.left - PAD.right) / 2, H - 4);
+
+            // Y axis label
+            ctx.save();
+            ctx.translate(12, PAD.top + (H - PAD.top - PAD.bottom) / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillStyle = '#374151';
+            ctx.font = '11px Nunito, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('Loss', 0, 0);
+            ctx.restore();
+
+            // Loss curve
+            ctx.beginPath();
+            ctx.strokeStyle = '#6366f1';
+            ctx.lineWidth = 2.5;
+            ctx.lineJoin = 'round';
+            for (let i = 0; i <= 400; i++) {
+                const w = W_RANGE[0] + i / 400 * (W_RANGE[1] - W_RANGE[0]);
+                const x = wx(w);
+                const y = ly(loss(w));
+                i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Trace dots
+            for (let i = 0; i < trace.length; i++) {
+                const alpha = 0.15 + 0.55 * (i / trace.length);
+                ctx.beginPath();
+                ctx.arc(wx(trace[i]), ly(loss(trace[i])), 3, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(100,100,120,${alpha})`;
+                ctx.fill();
+            }
+
+            // Tangent line at ballW
+            const bx = wx(ballW);
+            const by = ly(loss(ballW));
+            const grad = dLoss(ballW);
+            const tangentLen = 1.5; // in w-units
+            const x1 = wx(ballW - tangentLen);
+            const y1 = ly(loss(ballW) - grad * tangentLen);
+            const x2 = wx(ballW + tangentLen);
+            const y2 = ly(loss(ballW) + grad * tangentLen);
+            ctx.beginPath();
+            ctx.strokeStyle = '#f97316';
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([4, 3]);
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Gradient arrow (red) showing next step direction
+            const lr = parseFloat(lrSlider.value);
+            const stepSize = -grad * lr;
+            const arrowEndW = ballW + stepSize;
+            if (arrowEndW >= W_RANGE[0] && arrowEndW <= W_RANGE[1]) {
+                const ax2 = wx(arrowEndW);
+                const ay2 = ly(loss(arrowEndW));
+                ctx.beginPath();
+                ctx.strokeStyle = '#ef4444';
+                ctx.lineWidth = 2;
+                ctx.moveTo(bx, by);
+                ctx.lineTo(ax2, ay2);
+                ctx.stroke();
+                // Arrowhead
+                const angle = Math.atan2(ay2 - by, ax2 - bx);
+                ctx.beginPath();
+                ctx.fillStyle = '#ef4444';
+                ctx.moveTo(ax2, ay2);
+                ctx.lineTo(ax2 - 8 * Math.cos(angle - 0.4), ay2 - 8 * Math.sin(angle - 0.4));
+                ctx.lineTo(ax2 - 8 * Math.cos(angle + 0.4), ay2 - 8 * Math.sin(angle + 0.4));
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            // Ball
+            ctx.beginPath();
+            ctx.arc(bx, by, 7, 0, Math.PI * 2);
+            ctx.fillStyle = '#6366f1';
+            ctx.shadowColor = 'rgba(99,102,241,0.5)';
+            ctx.shadowBlur = 8;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            updateStatus(ballW);
+        }
+
+        function updateStatus(w) {
+            const l = loss(w);
+            const g = dLoss(w);
+            statusEl.textContent = `w = ${w.toFixed(3)} | Loss = ${l.toFixed(4)} | dL/dw = ${g.toFixed(4)}`;
+            stepsEl.textContent = `Step ${stepCount}`;
+        }
+
+        function animateTo(fromW, toW, onDone) {
+            isAnimating = true;
+            animFrom = fromW;
+            animTo = toW;
+            animStart = null;
+            if (animFrame) cancelAnimationFrame(animFrame);
+            function step(ts) {
+                if (!animStart) animStart = ts;
+                const t = Math.min((ts - animStart) / animDuration, 1);
+                const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+                animW = animFrom + (animTo - animFrom) * ease;
+                drawScene(animW);
+                if (t < 1) {
+                    animFrame = requestAnimationFrame(step);
+                } else {
+                    animW = animTo;
+                    isAnimating = false;
+                    drawScene(animW);
+                    if (onDone) onDone();
+                }
+            }
+            animFrame = requestAnimationFrame(step);
+        }
+
+        function doStep() {
+            if (isAnimating) return;
+            const lr = parseFloat(lrSlider.value);
+            const grad = dLoss(currentW);
+            const newW = currentW - lr * grad;
+            const clampedW = Math.max(W_RANGE[0], Math.min(W_RANGE[1], newW));
+            trace.push(currentW);
+            if (trace.length > 10) trace.shift();
+            stepCount++;
+            const prevWVal = currentW;
+            currentW = clampedW;
+            animateTo(prevWVal, clampedW);
+        }
+
+        function startRun() {
+            if (running) return;
+            running = true;
+            runBtn.textContent = 'Stop';
+            runBtn.classList.replace('bg-emerald-600', 'bg-red-500');
+            runBtn.classList.replace('hover:bg-emerald-700', 'hover:bg-red-600');
+            runInterval = setInterval(() => {
+                if (!isAnimating) doStep();
+            }, 500);
+        }
+
+        function stopRun() {
+            running = false;
+            runBtn.textContent = 'Run';
+            runBtn.classList.replace('bg-red-500', 'bg-emerald-600');
+            runBtn.classList.replace('hover:bg-red-600', 'hover:bg-emerald-700');
+            clearInterval(runInterval);
+        }
+
+        function reset() {
+            stopRun();
+            if (animFrame) cancelAnimationFrame(animFrame);
+            isAnimating = false;
+            currentW = DEFAULT_W;
+            animW = DEFAULT_W;
+            trace = [];
+            stepCount = 0;
+            drawScene(DEFAULT_W);
+        }
+
+        // Click to reposition
+        canvas.addEventListener('click', function (e) {
+            if (isAnimating) return;
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = W / rect.width;
+            const cx = (e.clientX - rect.left) * scaleX;
+            const w = W_RANGE[0] + (cx - PAD.left) / (W - PAD.left - PAD.right) * (W_RANGE[1] - W_RANGE[0]);
+            if (w < W_RANGE[0] || w > W_RANGE[1]) return;
+            stopRun();
+            trace = [];
+            stepCount = 0;
+            currentW = w;
+            animW = w;
+            drawScene(w);
+        });
+
+        lrSlider.addEventListener('input', () => {
+            lrVal.textContent = parseFloat(lrSlider.value).toFixed(2);
+            drawScene(animW);
+        });
+
+        stepBtn.addEventListener('click', doStep);
+        runBtn.addEventListener('click', () => running ? stopRun() : startRun());
+        resetBtn.addEventListener('click', reset);
+
+        // Initial draw
+        drawScene(DEFAULT_W);
+    }
+    </script>
+
+    <!-- ===== ACTIVATION FUNCTION PLAYGROUND ===== -->
+    <script>
+    {
+        const canvas = document.getElementById('af-canvas');
+        const ctx = canvas.getContext('2d');
+        const scrubber = document.getElementById('af-scrubber');
+        const xValEl = document.getElementById('af-x-val');
+        const readoutEl = document.getElementById('af-readout');
+        const formulasEl = document.getElementById('af-formulas');
+
+        const W = 500, H = 280;
+        const PAD = { left: 44, right: 20, top: 16, bottom: 36 };
+        const X_RANGE = [-4, 4];
+        const Y_RANGE = [-1.5, 1.5];
+
+        const FUNCTIONS = [
+            {
+                id: 'af-relu', name: 'ReLU', color: '#f43f5e',
+                fn: x => Math.max(0, x),
+                formula: 'f(x) = max(0, x)'
+            },
+            {
+                id: 'af-sigmoid', name: 'Sigmoid', color: '#3b82f6',
+                fn: x => 1 / (1 + Math.exp(-x)),
+                formula: 'f(x) = 1/(1+e⁻ˣ)'
+            },
+            {
+                id: 'af-tanh', name: 'Tanh', color: '#22c55e',
+                fn: x => Math.tanh(x),
+                formula: 'f(x) = tanh(x)'
+            },
+            {
+                id: 'af-leaky', name: 'Leaky ReLU', color: '#f59e0b',
+                fn: x => x >= 0 ? x : 0.1 * x,
+                formula: 'f(x) = x≥0 ? x : 0.1x'
+            },
+            {
+                id: 'af-gelu', name: 'GELU', color: '#8b5cf6',
+                fn: x => 0.5 * x * (1 + Math.tanh(Math.sqrt(2 / Math.PI) * (x + 0.044715 * x ** 3))),
+                formula: 'f(x) ≈ 0.5x(1+tanh(√(2/π)(x+0.044715x³)))'
+            },
+        ];
+
+        function px(x) {
+            return PAD.left + (x - X_RANGE[0]) / (X_RANGE[1] - X_RANGE[0]) * (W - PAD.left - PAD.right);
+        }
+        function py(y) {
+            return PAD.top + (1 - (y - Y_RANGE[0]) / (Y_RANGE[1] - Y_RANGE[0])) * (H - PAD.top - PAD.bottom);
+        }
+
+        // Scale for retina
+        function setupCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = W * dpr;
+            canvas.height = H * dpr;
+            canvas.style.width = W + 'px';
+            canvas.style.height = H + 'px';
+            ctx.scale(dpr, dpr);
+        }
+        setupCanvas();
+
+        function getActive() {
+            return FUNCTIONS.filter(f => document.getElementById(f.id).checked);
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+
+            // Background
+            ctx.fillStyle = '#f9fafb';
+            ctx.fillRect(0, 0, W, H);
+
+            // Grid lines
+            ctx.strokeStyle = '#e5e7eb';
+            ctx.lineWidth = 0.5;
+            for (let x = Math.ceil(X_RANGE[0]); x <= Math.floor(X_RANGE[1]); x++) {
+                ctx.beginPath();
+                ctx.moveTo(px(x), PAD.top);
+                ctx.lineTo(px(x), H - PAD.bottom);
+                ctx.stroke();
+            }
+            for (let y = Math.ceil(Y_RANGE[0]); y <= Math.floor(Y_RANGE[1]); y++) {
+                ctx.beginPath();
+                ctx.moveTo(PAD.left, py(y));
+                ctx.lineTo(W - PAD.right, py(y));
+                ctx.stroke();
+            }
+
+            // Axes
+            ctx.strokeStyle = '#9ca3af';
+            ctx.lineWidth = 1.2;
+            // x=0 vertical
+            ctx.beginPath();
+            ctx.moveTo(px(0), PAD.top);
+            ctx.lineTo(px(0), H - PAD.bottom);
+            ctx.stroke();
+            // y=0 horizontal
+            ctx.beginPath();
+            ctx.moveTo(PAD.left, py(0));
+            ctx.lineTo(W - PAD.right, py(0));
+            ctx.stroke();
+
+            // Axis labels
+            ctx.fillStyle = '#6b7280';
+            ctx.font = '10px Nunito, sans-serif';
+            ctx.textAlign = 'center';
+            for (let x = X_RANGE[0]; x <= X_RANGE[1]; x += 2) {
+                ctx.fillText(x, px(x), H - PAD.bottom + 14);
+            }
+            ctx.textAlign = 'right';
+            for (let y = -1; y <= 1; y += 0.5) {
+                if (Math.abs(y) < 0.01) continue;
+                ctx.fillText(y.toFixed(1), PAD.left - 4, py(y) + 4);
+            }
+
+            const active = getActive();
+            const xInput = parseFloat(scrubber.value);
+
+            // Draw each active function
+            active.forEach(f => {
+                ctx.beginPath();
+                ctx.strokeStyle = f.color;
+                ctx.lineWidth = 2.5;
+                ctx.lineJoin = 'round';
+                for (let i = 0; i <= 400; i++) {
+                    const x = X_RANGE[0] + i / 400 * (X_RANGE[1] - X_RANGE[0]);
+                    const y = f.fn(x);
+                    const cx = px(x);
+                    const cy = py(Math.max(Y_RANGE[0], Math.min(Y_RANGE[1], y)));
+                    i === 0 ? ctx.moveTo(cx, cy) : ctx.lineTo(cx, cy);
+                }
+                ctx.stroke();
+            });
+
+            // Vertical scrubber line
+            ctx.beginPath();
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 1.2;
+            ctx.setLineDash([5, 3]);
+            ctx.moveTo(px(xInput), PAD.top);
+            ctx.lineTo(px(xInput), H - PAD.bottom);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Dots + labels at intersection
+            active.forEach(f => {
+                const yVal = f.fn(xInput);
+                const clampedY = Math.max(Y_RANGE[0], Math.min(Y_RANGE[1], yVal));
+                const dotX = px(xInput);
+                const dotY = py(clampedY);
+
+                ctx.beginPath();
+                ctx.arc(dotX, dotY, 5, 0, Math.PI * 2);
+                ctx.fillStyle = f.color;
+                ctx.fill();
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                // Value label
+                ctx.fillStyle = f.color;
+                ctx.font = 'bold 10px Nunito, sans-serif';
+                ctx.textAlign = dotX > W / 2 ? 'right' : 'left';
+                const labelX = dotX > W / 2 ? dotX - 8 : dotX + 8;
+                ctx.fillText(yVal.toFixed(3), labelX, dotY - 6);
+            });
+
+            updateReadout(xInput, active);
+            updateFormulas(active);
+        }
+
+        function updateReadout(x, active) {
+            xValEl.textContent = x.toFixed(2);
+            let parts = [`x = ${x.toFixed(2)}`];
+            active.forEach(f => {
+                parts.push(`${f.name} = ${f.fn(x).toFixed(3)}`);
+            });
+            readoutEl.textContent = parts.join(' | ');
+        }
+
+        function updateFormulas(active) {
+            formulasEl.innerHTML = active.map(f =>
+                `<span class="inline-block text-xs font-mono px-2 py-1 rounded-full border" style="color:${f.color};border-color:${f.color}22;background:${f.color}11">${f.formula}</span>`
+            ).join('');
+        }
+
+        scrubber.addEventListener('input', draw);
+        FUNCTIONS.forEach(f => {
+            document.getElementById(f.id).addEventListener('change', draw);
+        });
+
+        // Initial draw
+        draw();
+    }
+    </script>
+
     <script>
         document.getElementById('mobile-menu-btn').addEventListener('click', function () {
             const menu = document.getElementById('mobile-menu');
