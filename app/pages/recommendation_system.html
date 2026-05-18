@@ -91,6 +91,7 @@
 						<a href="#content-based" class="sidebar-link">Content-Based Filtering</a>
 						<a href="#cosine-similarity" class="sidebar-link">Cosine Similarity</a>
 						<a href="#collaborative" class="sidebar-link">Collaborative Filtering</a>
+											<a href="#quiz" class="sidebar-link" onclick="setActive(this)">Knowledge Check</a>
 					</nav>
 				</div>
 			</aside>
@@ -214,6 +215,26 @@ print(similar_movies(1))  # Movies similar to Toy Story</code></pre>
 					</div>
 				</section>
 
+					<!-- Knowledge Check -->
+					<section id="quiz" class="content-section">
+						<h2><i class="fa-solid fa-circle-question mr-3 text-indigo-500"></i> Knowledge Check</h2>
+						<p>Test your understanding — pick the best answer, then click Check.</p>
+						<div class="space-y-4 mt-4">
+							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">1. What does cosine similarity measure?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Euclidean distance between two vectors</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>The cosine of the angle between two vectors</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>The dot product scaled by vector length squared</span></label></div><div id="q1-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
+							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">2. What is the cold start problem?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>The recommendation engine is slow to initialise</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>New users or items have no interaction history for recommendations</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>The model overfits to the most popular items</span></label></div><div id="q2-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
+							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">3. What is the key difference between content-based and collaborative filtering?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Content-based uses item/user features; collaborative uses interaction patterns</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Content-based is always more accurate</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Collaborative filtering never suffers from cold start</span></label></div><div id="q3-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
+						</div>
+						<div class="flex items-center gap-4 mt-5">
+							<button onclick="checkQuiz()" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium transition">Check Answers</button>
+							<button onclick="resetQuiz()" class="px-4 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 text-sm transition">Reset</button>
+						</div>
+						<div id="quiz-score" class="hidden mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl text-indigo-800 font-semibold text-center text-lg"></div>
+					</section>
+					<script>
+						var QUIZ_DATA=[{correct:1,exp:"Cosine similarity = (A.B)/(|A||B|). It measures directional similarity regardless of magnitude — ideal for sparse user-item vectors."},{correct:1,exp:"Without ratings or behaviour data, collaborative filtering has nothing to work from. Solutions: ask preferences on signup, or fall back to content-based filtering."},{correct:0,exp:"Content-based: recommend items similar to ones you liked (needs feature data). Collaborative: recommend what similar users liked (needs interaction history)."}];
+						function checkQuiz(){var score=0;QUIZ_DATA.forEach(function(q,i){var sel=document.querySelector('input[name="q'+(i+1)+'"]:checked');var fb=document.getElementById('q'+(i+1)+'-feedback');if(!sel){fb.innerHTML='Please select an answer.';fb.className='mt-3 p-3 rounded-lg text-sm bg-yellow-50 text-yellow-800 border border-yellow-200';fb.classList.remove('hidden');return;}var val=parseInt(sel.value);if(val===q.correct){fb.innerHTML='<strong>Correct!</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-green-50 text-green-800 border border-green-200';score++;}else{fb.innerHTML='<strong>Not quite.</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-red-50 text-red-800 border border-red-200';}fb.classList.remove('hidden');});var sd=document.getElementById('quiz-score');sd.textContent='Score: '+score+' / '+QUIZ_DATA.length+'  ('+Math.round(score/QUIZ_DATA.length*100)+'%)';sd.classList.remove('hidden');}
+						function resetQuiz(){document.querySelectorAll('input[type=radio]').forEach(function(r){r.checked=false;});QUIZ_DATA.forEach(function(_,i){var fb=document.getElementById('q'+(i+1)+'-feedback');fb.className='hidden';});document.getElementById('quiz-score').classList.add('hidden');}
+					</script>
 			</main>
 		</div>
 	</div>
@@ -253,6 +274,24 @@ print(similar_movies(1))  # Movies similar to Toy Story</code></pre>
             menu.classList.toggle('hidden');
             icon.classList.toggle('fa-bars');
             icon.classList.toggle('fa-xmark');
+        });
+    </script>
+
+    <script>
+        document.querySelectorAll('pre').forEach(function(pre) {
+            var btn = document.createElement('button');
+            btn.textContent = 'Copy';
+            btn.className = 'copy-btn';
+            pre.style.position = 'relative';
+            pre.appendChild(btn);
+            btn.addEventListener('click', function() {
+                var code = pre.querySelector('code') ? pre.querySelector('code').innerText : pre.innerText;
+                navigator.clipboard.writeText(code).then(function() {
+                    btn.textContent = 'Copied!';
+                    btn.classList.add('copied');
+                    setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+                }).catch(function() { btn.textContent = 'Error'; setTimeout(function() { btn.textContent = 'Copy'; }, 2000); });
+            });
         });
     </script>
 </body>

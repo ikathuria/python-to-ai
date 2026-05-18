@@ -92,6 +92,7 @@
 						<a href="#stationarity" class="sidebar-link">Stationarity</a>
 						<a href="#arima" class="sidebar-link">ARIMA</a>
 						<a href="#lstm" class="sidebar-link">LSTM Forecasting</a>
+											<a href="#quiz" class="sidebar-link" onclick="setActive(this)">Knowledge Check</a>
 					</nav>
 				</div>
 			</aside>
@@ -250,6 +251,26 @@ model.fit(X_train, y_train, epochs=20, batch_size=32,
 preds = scaler.inverse_transform(model.predict(X_test))</code></pre>
 				</section>
 
+					<!-- Knowledge Check -->
+					<section id="quiz" class="content-section">
+						<h2><i class="fa-solid fa-circle-question mr-3 text-indigo-500"></i> Knowledge Check</h2>
+						<p>Test your understanding — pick the best answer, then click Check.</p>
+						<div class="space-y-4 mt-4">
+							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">1. What does stationarity mean in a time series?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Statistical properties (mean, variance, autocorrelation) are constant over time</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>The series has no seasonal component</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>The series values are always positive</span></label></div><div id="q1-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
+							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">2. What does the I in ARIMA stand for?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Integrated</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Intercept</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Independent</span></label></div><div id="q2-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
+							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">3. Why is differencing applied before fitting ARIMA?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>To add a seasonal component</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>To make a non-stationary series stationary</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>To smooth short-term fluctuations</span></label></div><div id="q3-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
+						</div>
+						<div class="flex items-center gap-4 mt-5">
+							<button onclick="checkQuiz()" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium transition">Check Answers</button>
+							<button onclick="resetQuiz()" class="px-4 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 text-sm transition">Reset</button>
+						</div>
+						<div id="quiz-score" class="hidden mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl text-indigo-800 font-semibold text-center text-lg"></div>
+					</section>
+					<script>
+						var QUIZ_DATA=[{correct:0,exp:"A stationary series has constant mean, variance, and autocorrelation structure. ARIMA requires stationarity; differencing is the standard fix."},{correct:0,exp:"I(d) means the series is differenced d times to achieve stationarity. AR = autoregressive, MA = moving average."},{correct:1,exp:"Differencing removes trends by subtracting consecutive values, turning a random walk into stationary noise that ARIMA can model."}];
+						function checkQuiz(){var score=0;QUIZ_DATA.forEach(function(q,i){var sel=document.querySelector('input[name="q'+(i+1)+'"]:checked');var fb=document.getElementById('q'+(i+1)+'-feedback');if(!sel){fb.innerHTML='Please select an answer.';fb.className='mt-3 p-3 rounded-lg text-sm bg-yellow-50 text-yellow-800 border border-yellow-200';fb.classList.remove('hidden');return;}var val=parseInt(sel.value);if(val===q.correct){fb.innerHTML='<strong>Correct!</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-green-50 text-green-800 border border-green-200';score++;}else{fb.innerHTML='<strong>Not quite.</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-red-50 text-red-800 border border-red-200';}fb.classList.remove('hidden');});var sd=document.getElementById('quiz-score');sd.textContent='Score: '+score+' / '+QUIZ_DATA.length+'  ('+Math.round(score/QUIZ_DATA.length*100)+'%)';sd.classList.remove('hidden');}
+						function resetQuiz(){document.querySelectorAll('input[type=radio]').forEach(function(r){r.checked=false;});QUIZ_DATA.forEach(function(_,i){var fb=document.getElementById('q'+(i+1)+'-feedback');fb.className='hidden';});document.getElementById('quiz-score').classList.add('hidden');}
+					</script>
 			</main>
 		</div>
 	</div>
@@ -289,6 +310,24 @@ preds = scaler.inverse_transform(model.predict(X_test))</code></pre>
             menu.classList.toggle('hidden');
             icon.classList.toggle('fa-bars');
             icon.classList.toggle('fa-xmark');
+        });
+    </script>
+
+    <script>
+        document.querySelectorAll('pre').forEach(function(pre) {
+            var btn = document.createElement('button');
+            btn.textContent = 'Copy';
+            btn.className = 'copy-btn';
+            pre.style.position = 'relative';
+            pre.appendChild(btn);
+            btn.addEventListener('click', function() {
+                var code = pre.querySelector('code') ? pre.querySelector('code').innerText : pre.innerText;
+                navigator.clipboard.writeText(code).then(function() {
+                    btn.textContent = 'Copied!';
+                    btn.classList.add('copied');
+                    setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+                }).catch(function() { btn.textContent = 'Error'; setTimeout(function() { btn.textContent = 'Copy'; }, 2000); });
+            });
         });
     </script>
 </body>
