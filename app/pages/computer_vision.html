@@ -317,12 +317,27 @@ history = model.fit(train_gen, validation_data=val_gen,
 		async function loadColourModel() {
 			const resultDiv = document.getElementById('colour-result');
 			const errorDiv  = document.getElementById('colour-error');
+
+			const modelUrl = new URL('../onnx_models/colour_cnn.onnx', window.location.href).href;
+			console.log('[ColourCNN] page    :', window.location.href);
+			console.log('[ColourCNN] modelUrl:', modelUrl);
+
 			try {
 				resultDiv.textContent = 'Loading model…';
-				colourSession = await ort.InferenceSession.create('../onnx_models/colour_cnn.onnx');
+
+				// Probe the file first so a 404 gives a clear message
+				const probe = await fetch(modelUrl, { method: 'HEAD' });
+				if (!probe.ok) {
+					throw new Error(`Model file returned HTTP ${probe.status} — URL: ${modelUrl}`);
+				}
+				console.log('[ColourCNN] probe OK, size:', probe.headers.get('content-length'), 'bytes');
+
+				colourSession = await ort.InferenceSession.create(modelUrl);
+				console.log('[ColourCNN] session ready, inputs:', colourSession.inputNames);
 				errorDiv.classList.add('hidden');
 				runColourCNN();
 			} catch (e) {
+				console.error('[ColourCNN] load error:', e);
 				resultDiv.textContent = '—';
 				errorDiv.textContent  = 'Failed to load model: ' + e.message;
 				errorDiv.classList.remove('hidden');
