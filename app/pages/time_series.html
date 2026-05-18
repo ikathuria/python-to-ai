@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Time Series - Python to AI</title>
+	<meta name="description" content="Learn time series analysis: stationarity, ARIMA, and LSTM-based forecasting.">
+
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+	<script>hljs.highlightAll();</script>
+
+	<style type="text/tailwindcss">
+		body { font-family: 'Nunito', sans-serif; }
+		.nav-link { @apply px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors cursor-pointer; }
+		.nav-link.active { @apply text-indigo-700 bg-indigo-50 font-bold; }
+		.sidebar-link { @apply block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-indigo-600 rounded-md transition-colors; }
+		.sidebar-link.active { @apply bg-indigo-50 text-indigo-700 font-bold border-r-4 border-indigo-600; }
+		.content-section { @apply scroll-mt-24 mb-16 border-b border-gray-100 pb-12; }
+		h2 { @apply text-2xl font-bold text-gray-800 mb-4 flex items-center; }
+		h3 { @apply text-xl font-semibold text-gray-700 mt-6 mb-3; }
+		p { @apply text-gray-600 leading-relaxed mb-4; }
+		code:not(.hljs) { @apply bg-gray-100 text-red-500 px-1 py-0.5 rounded text-sm font-mono; }
+		pre { @apply rounded-lg shadow-sm overflow-hidden my-4 border border-gray-200; }
+		.card { @apply bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden; }
+	</style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+	<nav class="bg-white shadow-sm sticky top-0 z-50">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex justify-between h-16">
+				<div class="flex-shrink-0 flex items-center">
+					<a href="../../index.html" class="flex items-center">
+						<i class="fa-solid fa-code fa-2x text-indigo-600"></i>
+						<span class="ml-2 font-bold text-xl text-gray-800">Python to AI</span>
+					</a>
+				</div>
+				<div class="hidden md:flex items-center space-x-1">
+					<a href="../../index.html" class="nav-link">Home</a>
+					<a href="python.html" class="nav-link">Python Basics</a>
+					<a href="ml_basics.html" class="nav-link">ML Basics</a>
+					<a href="supervised_learning.html" class="nav-link">Supervised</a>
+					<a href="unsupervised_learning.html" class="nav-link">Unsupervised</a>
+					<a href="recommendation_system.html" class="nav-link">Recommenders</a>
+					<a href="deep_learning.html" class="nav-link">Deep Learning</a>
+					<a href="computer_vision.html" class="nav-link">CV</a>
+					<a href="time_series.html" class="nav-link active">Time Series</a>
+					<a href="natural_language_processing.html" class="nav-link">NLP</a>
+				</div>
+				<div class="flex items-center">
+					<a href="https://github.com/ikathuria" target="_blank" class="text-gray-400 hover:text-gray-600 mx-2"><i class="fa-brands fa-github fa-lg"></i></a>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+		<div class="flex flex-col md:flex-row gap-8">
+
+			<aside class="md:w-64 flex-shrink-0">
+				<div class="sticky top-24 bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+					<h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Contents</h3>
+					<nav class="space-y-1" id="sidebar-nav">
+						<a href="#intro" class="sidebar-link active">Overview</a>
+						<a href="#components" class="sidebar-link">Components</a>
+						<a href="#stationarity" class="sidebar-link">Stationarity</a>
+						<a href="#arima" class="sidebar-link">ARIMA</a>
+						<a href="#lstm" class="sidebar-link">LSTM Forecasting</a>
+					</nav>
+				</div>
+			</aside>
+
+			<main class="flex-grow min-w-0">
+
+				<section id="intro" class="content-section">
+					<h1 class="text-4xl font-extrabold text-gray-900 mb-6">Time Series Analysis</h1>
+					<p class="text-lg text-gray-600 mb-4">
+						A <strong>time series</strong> is a sequence of data points indexed in time order — stock prices, weather readings, sensor data, sales figures. Time series analysis extracts patterns to understand the past and forecast the future.
+					</p>
+					<pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load a simple time series
+df = pd.read_csv('data.csv', parse_dates=['date'], index_col='date')
+df['value'].plot(figsize=(12, 4), title='Time Series')
+plt.show()</code></pre>
+				</section>
+
+				<section id="components" class="content-section">
+					<h2><i class="fa-solid fa-wave-square mr-3 text-indigo-500"></i> Components of a Time Series</h2>
+					<p>Every time series can be decomposed into four components:</p>
+
+					<div class="space-y-3 my-4">
+						<div class="flex gap-4 bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+							<div class="bg-blue-100 text-blue-600 rounded-lg w-10 h-10 flex items-center justify-center flex-shrink-0 font-bold">T</div>
+							<div>
+								<p class="font-bold text-gray-800 mb-1">Trend</p>
+								<p class="text-sm text-gray-500 mb-0">Long-term increase or decrease. E.g., a company's revenue growing year over year.</p>
+							</div>
+						</div>
+						<div class="flex gap-4 bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+							<div class="bg-green-100 text-green-600 rounded-lg w-10 h-10 flex items-center justify-center flex-shrink-0 font-bold">S</div>
+							<div>
+								<p class="font-bold text-gray-800 mb-1">Seasonality</p>
+								<p class="text-sm text-gray-500 mb-0">Repeating pattern within a fixed period. E.g., ice cream sales peak every summer.</p>
+							</div>
+						</div>
+						<div class="flex gap-4 bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+							<div class="bg-yellow-100 text-yellow-600 rounded-lg w-10 h-10 flex items-center justify-center flex-shrink-0 font-bold">C</div>
+							<div>
+								<p class="font-bold text-gray-800 mb-1">Cyclicality</p>
+								<p class="text-sm text-gray-500 mb-0">Long irregular fluctuations not tied to a calendar period. E.g., economic boom-bust cycles.</p>
+							</div>
+						</div>
+						<div class="flex gap-4 bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+							<div class="bg-red-100 text-red-600 rounded-lg w-10 h-10 flex items-center justify-center flex-shrink-0 font-bold">R</div>
+							<div>
+								<p class="font-bold text-gray-800 mb-1">Residual (Noise)</p>
+								<p class="text-sm text-gray-500 mb-0">Random variation left after removing trend, seasonality, and cycles.</p>
+							</div>
+						</div>
+					</div>
+
+					<pre><code class="language-python">from statsmodels.tsa.seasonal import seasonal_decompose
+
+result = seasonal_decompose(df['value'], model='additive', period=12)
+result.plot()
+plt.tight_layout()
+plt.show()
+# Plots: original, trend, seasonal, residual</code></pre>
+				</section>
+
+				<section id="stationarity" class="content-section">
+					<h2><i class="fa-solid fa-equals mr-3 text-indigo-500"></i> Stationarity</h2>
+					<p>A time series is <strong>stationary</strong> if its statistical properties (mean, variance, autocorrelation) do not change over time. Most classical forecasting models require stationary data.</p>
+					<p>The <strong>Augmented Dickey-Fuller (ADF) test</strong> checks for stationarity — a p-value below 0.05 means the series is stationary.</p>
+
+					<pre><code class="language-python">from statsmodels.tsa.stattools import adfuller
+
+def check_stationarity(series):
+    result = adfuller(series.dropna())
+    print(f'ADF Statistic : {result[0]:.4f}')
+    print(f'p-value       : {result[1]:.4f}')
+    print('Stationary ✓' if result[1] < 0.05 else 'Not stationary — try differencing')
+
+check_stationarity(df['value'])</code></pre>
+
+					<h3>Making a Series Stationary</h3>
+					<p>If the series is not stationary, <strong>differencing</strong> (subtracting the previous value) often helps:</p>
+					<pre><code class="language-python"># First-order differencing
+df['diff1'] = df['value'].diff()
+check_stationarity(df['diff1'])</code></pre>
+				</section>
+
+				<section id="arima" class="content-section">
+					<h2><i class="fa-solid fa-chart-line mr-3 text-indigo-500"></i> ARIMA</h2>
+					<p><strong>ARIMA(p, d, q)</strong> combines three components:</p>
+					<ul class="list-disc pl-6 mb-4 text-gray-600 space-y-1">
+						<li><strong>AR(p)</strong> — AutoRegressive: the value depends on its own past <em>p</em> values</li>
+						<li><strong>I(d)</strong> — Integrated: <em>d</em> rounds of differencing to make the series stationary</li>
+						<li><strong>MA(q)</strong> — Moving Average: the value depends on the past <em>q</em> forecast errors</li>
+					</ul>
+
+					<pre><code class="language-python">from statsmodels.tsa.arima.model import ARIMA
+import warnings
+warnings.filterwarnings('ignore')
+
+# Fit ARIMA(1,1,1) — a common starting point
+model = ARIMA(df['value'], order=(1, 1, 1))
+result = model.fit()
+print(result.summary())
+
+# Forecast next 12 steps
+forecast = result.forecast(steps=12)
+print(forecast)</code></pre>
+
+					<h3>Choosing p, d, q with ACF/PACF</h3>
+					<pre><code class="language-python">from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+plot_acf(df['value'].diff().dropna(), ax=axes[0])   # guides q
+plot_pacf(df['value'].diff().dropna(), ax=axes[1])  # guides p
+plt.show()</code></pre>
+				</section>
+
+				<section id="lstm" class="content-section">
+					<h2><i class="fa-solid fa-brain mr-3 text-indigo-500"></i> LSTM Forecasting</h2>
+					<p>Long Short-Term Memory (LSTM) networks are a type of RNN that can learn long-range dependencies in sequential data — making them powerful for time series forecasting when patterns are complex or non-linear.</p>
+
+					<h3>Prepare Sequences</h3>
+					<pre><code class="language-python">import numpy as np
+from sklearn.preprocessing import MinMaxScaler
+
+scaler = MinMaxScaler()
+scaled = scaler.fit_transform(df[['value']])
+
+def create_sequences(data, window=30):
+    X, y = [], []
+    for i in range(len(data) - window):
+        X.append(data[i:i+window])
+        y.append(data[i+window])
+    return np.array(X), np.array(y)
+
+X, y = create_sequences(scaled)
+split = int(len(X) * 0.8)
+X_train, X_test = X[:split], X[split:]
+y_train, y_test = y[:split], y[split:]</code></pre>
+
+					<h3>Build and Train the LSTM</h3>
+					<pre><code class="language-python">from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense, Dropout
+
+model = Sequential([
+    LSTM(64, return_sequences=True, input_shape=(30, 1)),
+    Dropout(0.2),
+    LSTM(32),
+    Dense(1)
+])
+model.compile(optimizer='adam', loss='mse')
+model.fit(X_train, y_train, epochs=20, batch_size=32,
+          validation_split=0.1, verbose=1)
+
+# Predict and inverse-transform
+preds = scaler.inverse_transform(model.predict(X_test))</code></pre>
+				</section>
+
+			</main>
+		</div>
+	</div>
+
+	<footer class="bg-gray-800 text-white py-8 mt-12">
+		<div class="max-w-7xl mx-auto px-4 text-center">
+			<p class="mb-2">Designed &amp; Built by Ishani Kathuria</p>
+			<p class="text-gray-500 text-sm">&copy; 2025 Python to AI.</p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('#sidebar-nav a').forEach(link => {
+			link.addEventListener('click', () => {
+				document.querySelectorAll('#sidebar-nav a').forEach(l => l.classList.remove('active'));
+				link.classList.add('active');
+			});
+		});
+	</script>
+
+</body>
+</html>

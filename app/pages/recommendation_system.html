@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Recommendation Systems - Python to AI</title>
+	<meta name="description" content="Learn content-based and collaborative filtering recommendation systems with cosine similarity and KNN.">
+
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+	<script>hljs.highlightAll();</script>
+
+	<style type="text/tailwindcss">
+		body { font-family: 'Nunito', sans-serif; }
+		.nav-link { @apply px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors cursor-pointer; }
+		.nav-link.active { @apply text-indigo-700 bg-indigo-50 font-bold; }
+		.sidebar-link { @apply block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-indigo-600 rounded-md transition-colors; }
+		.sidebar-link.active { @apply bg-indigo-50 text-indigo-700 font-bold border-r-4 border-indigo-600; }
+		.content-section { @apply scroll-mt-24 mb-16 border-b border-gray-100 pb-12; }
+		h2 { @apply text-2xl font-bold text-gray-800 mb-4 flex items-center; }
+		h3 { @apply text-xl font-semibold text-gray-700 mt-6 mb-3; }
+		p { @apply text-gray-600 leading-relaxed mb-4; }
+		code:not(.hljs) { @apply bg-gray-100 text-red-500 px-1 py-0.5 rounded text-sm font-mono; }
+		pre { @apply rounded-lg shadow-sm overflow-hidden my-4 border border-gray-200; }
+		.card { @apply bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden; }
+	</style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+	<nav class="bg-white shadow-sm sticky top-0 z-50">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex justify-between h-16">
+				<div class="flex-shrink-0 flex items-center">
+					<a href="../../index.html" class="flex items-center">
+						<i class="fa-solid fa-code fa-2x text-indigo-600"></i>
+						<span class="ml-2 font-bold text-xl text-gray-800">Python to AI</span>
+					</a>
+				</div>
+				<div class="hidden md:flex items-center space-x-1">
+					<a href="../../index.html" class="nav-link">Home</a>
+					<a href="python.html" class="nav-link">Python Basics</a>
+					<a href="ml_basics.html" class="nav-link">ML Basics</a>
+					<a href="supervised_learning.html" class="nav-link">Supervised</a>
+					<a href="unsupervised_learning.html" class="nav-link">Unsupervised</a>
+					<a href="recommendation_system.html" class="nav-link active">Recommenders</a>
+					<a href="deep_learning.html" class="nav-link">Deep Learning</a>
+					<a href="computer_vision.html" class="nav-link">CV</a>
+					<a href="time_series.html" class="nav-link">Time Series</a>
+					<a href="natural_language_processing.html" class="nav-link">NLP</a>
+				</div>
+				<div class="flex items-center">
+					<a href="https://github.com/ikathuria" target="_blank" class="text-gray-400 hover:text-gray-600 mx-2"><i class="fa-brands fa-github fa-lg"></i></a>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+		<div class="flex flex-col md:flex-row gap-8">
+
+			<aside class="md:w-64 flex-shrink-0">
+				<div class="sticky top-24 bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+					<h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Contents</h3>
+					<nav class="space-y-1" id="sidebar-nav">
+						<a href="#intro" class="sidebar-link active">Overview</a>
+						<a href="#content-based" class="sidebar-link">Content-Based Filtering</a>
+						<a href="#cosine-similarity" class="sidebar-link">Cosine Similarity</a>
+						<a href="#collaborative" class="sidebar-link">Collaborative Filtering</a>
+					</nav>
+				</div>
+			</aside>
+
+			<main class="flex-grow min-w-0">
+
+				<section id="intro" class="content-section">
+					<h1 class="text-4xl font-extrabold text-gray-900 mb-6">Recommendation Systems</h1>
+					<p class="text-lg text-gray-600 mb-4">
+						Recommendation systems suggest relevant items to users — powering Netflix, Spotify, and Amazon. They fall into two families: <strong>content-based filtering</strong> (recommend items similar to what you liked) and <strong>collaborative filtering</strong> (recommend what users like you enjoyed).
+					</p>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+						<div class="bg-indigo-50 rounded-xl p-5 border border-indigo-100">
+							<p class="font-bold text-indigo-700 mb-1">Content-Based</p>
+							<p class="text-sm mb-0">Uses item features (genres, keywords) to find similar items. No data from other users required.</p>
+						</div>
+						<div class="bg-purple-50 rounded-xl p-5 border border-purple-100">
+							<p class="font-bold text-purple-700 mb-1">Collaborative Filtering</p>
+							<p class="text-sm mb-0">Uses user–item ratings. Finds users with similar taste and recommends what they liked.</p>
+						</div>
+					</div>
+				</section>
+
+				<section id="content-based" class="content-section">
+					<h2><i class="fa-solid fa-film mr-3 text-indigo-500"></i> Content-Based Filtering</h2>
+					<p>Using the <strong>MovieLens dataset</strong> (9,742 movies), each movie is represented as a binary genre vector. Movies with similar genre vectors are considered similar.</p>
+
+					<h3>One-Hot Encode Genres</h3>
+					<pre><code class="language-python">import pandas as pd
+
+movies = pd.read_csv('movies.csv')  # columns: movieId, title, genres
+
+# Collect all unique genres
+all_genres = set()
+for g in movies['genres']:
+    all_genres.update(g.split('|'))
+
+# Create a binary column for each genre
+for genre in all_genres:
+    movies[genre] = movies['genres'].apply(
+        lambda x: 1 if genre in x.split('|') else 0
+    )
+
+print(movies[['title', 'Action', 'Comedy', 'Drama']].head())</code></pre>
+
+					<h3>Recommend Similar Movies</h3>
+					<pre><code class="language-python">from sklearn.metrics.pairwise import cosine_similarity
+
+genre_cols = list(all_genres)
+sim_matrix = cosine_similarity(movies[genre_cols])
+
+def get_recommendations(title, n=5):
+    idx = movies[movies['title'] == title].index[0]
+    scores = sorted(enumerate(sim_matrix[idx]), key=lambda x: x[1], reverse=True)[1:n+1]
+    return movies.iloc[[i for i, _ in scores]]['title'].tolist()
+
+print(get_recommendations('Toy Story (1995)'))</code></pre>
+				</section>
+
+				<section id="cosine-similarity" class="content-section">
+					<h2><i class="fa-solid fa-ruler mr-3 text-indigo-500"></i> Cosine Similarity</h2>
+					<p>Cosine similarity measures the angle between two vectors. A value of <strong>1</strong> = identical, <strong>0</strong> = no overlap, <strong>-1</strong> = opposite.</p>
+
+					<div class="bg-gray-800 text-white rounded-xl p-6 my-4 font-mono">
+						<p class="text-green-400 text-sm mb-1">// Formula</p>
+						<p class="text-white text-lg mb-0">cos(θ) = (A · B) / (‖A‖ × ‖B‖)</p>
+					</div>
+
+					<pre><code class="language-python">import numpy as np
+
+def cosine_sim(a, b):
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+
+# Genre vectors: [Action, Animation, Children, Comedy, Fantasy]
+toy_story = [0, 1, 1, 1, 1]
+shrek     = [0, 1, 1, 1, 1]
+die_hard  = [1, 0, 0, 0, 0]
+
+print(cosine_sim(toy_story, shrek))    # 1.0 — identical genres
+print(cosine_sim(toy_story, die_hard)) # 0.0 — no overlap</code></pre>
+				</section>
+
+				<section id="collaborative" class="content-section">
+					<h2><i class="fa-solid fa-users mr-3 text-indigo-500"></i> Collaborative Filtering</h2>
+					<p>Collaborative filtering uses a <strong>user–item rating matrix</strong>. We use KNN on 100,836 ratings from 610 users with cosine distance to find similar movies.</p>
+
+					<h3>Build the Rating Matrix</h3>
+					<pre><code class="language-python">from scipy.sparse import csr_matrix
+
+ratings = pd.read_csv('ratings.csv')  # userId, movieId, rating
+
+def create_matrix(df):
+    user_mapper  = {u: i for i, u in enumerate(df['userId'].unique())}
+    movie_mapper = {m: i for i, m in enumerate(df['movieId'].unique())}
+    movie_inv    = {v: k for k, v in movie_mapper.items()}
+
+    user_idx  = [user_mapper[u]  for u in df['userId']]
+    movie_idx = [movie_mapper[m] for m in df['movieId']]
+
+    X = csr_matrix((df['rating'], (movie_idx, user_idx)))
+    return X, movie_mapper, movie_inv
+
+X, movie_mapper, movie_inv = create_matrix(ratings)</code></pre>
+
+					<h3>KNN Movie Recommendations</h3>
+					<pre><code class="language-python">from sklearn.neighbors import NearestNeighbors
+
+knn = NearestNeighbors(n_neighbors=6, algorithm='brute', metric='cosine')
+knn.fit(X)
+
+def similar_movies(movie_id, k=5):
+    idx = movie_mapper[movie_id]
+    _, indices = knn.kneighbors(X[idx], n_neighbors=k+1)
+    return [movie_inv[i] for i in indices.flatten()[1:]]
+
+print(similar_movies(1))  # Movies similar to Toy Story</code></pre>
+
+					<div class="bg-yellow-50 border border-yellow-200 rounded-xl p-5 mt-6">
+						<p class="font-bold text-yellow-800 mb-1"><i class="fa-solid fa-lightbulb mr-2"></i>Cold Start Problem</p>
+						<p class="text-sm text-yellow-700 mb-0">Collaborative filtering fails for new users (no ratings) or new items. Content-based filtering handles this — real systems combine both (<strong>hybrid recommenders</strong>).</p>
+					</div>
+				</section>
+
+			</main>
+		</div>
+	</div>
+
+	<footer class="bg-gray-800 text-white py-8 mt-12">
+		<div class="max-w-7xl mx-auto px-4 text-center">
+			<p class="mb-2">Designed &amp; Built by Ishani Kathuria</p>
+			<p class="text-gray-500 text-sm">&copy; 2025 Python to AI.</p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('#sidebar-nav a').forEach(link => {
+			link.addEventListener('click', () => {
+				document.querySelectorAll('#sidebar-nav a').forEach(l => l.classList.remove('active'));
+				link.classList.add('active');
+			});
+		});
+	</script>
+
+</body>
+</html>

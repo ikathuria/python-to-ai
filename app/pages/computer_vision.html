@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Computer Vision - Python to AI</title>
+	<meta name="description" content="Learn Computer Vision fundamentals: CNNs, image classification, and convolutional operations.">
+
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+	<script>hljs.highlightAll();</script>
+
+	<style type="text/tailwindcss">
+		body { font-family: 'Nunito', sans-serif; }
+		.nav-link { @apply px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors cursor-pointer; }
+		.nav-link.active { @apply text-indigo-700 bg-indigo-50 font-bold; }
+		.sidebar-link { @apply block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-indigo-600 rounded-md transition-colors; }
+		.sidebar-link.active { @apply bg-indigo-50 text-indigo-700 font-bold border-r-4 border-indigo-600; }
+		.content-section { @apply scroll-mt-24 mb-16 border-b border-gray-100 pb-12; }
+		h2 { @apply text-2xl font-bold text-gray-800 mb-4 flex items-center; }
+		h3 { @apply text-xl font-semibold text-gray-700 mt-6 mb-3; }
+		p { @apply text-gray-600 leading-relaxed mb-4; }
+		code:not(.hljs) { @apply bg-gray-100 text-red-500 px-1 py-0.5 rounded text-sm font-mono; }
+		pre { @apply rounded-lg shadow-sm overflow-hidden my-4 border border-gray-200; }
+		.card { @apply bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden; }
+	</style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+	<nav class="bg-white shadow-sm sticky top-0 z-50">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex justify-between h-16">
+				<div class="flex-shrink-0 flex items-center">
+					<a href="../../index.html" class="flex items-center">
+						<i class="fa-solid fa-code fa-2x text-indigo-600"></i>
+						<span class="ml-2 font-bold text-xl text-gray-800">Python to AI</span>
+					</a>
+				</div>
+				<div class="hidden md:flex items-center space-x-1">
+					<a href="../../index.html" class="nav-link">Home</a>
+					<a href="python.html" class="nav-link">Python Basics</a>
+					<a href="ml_basics.html" class="nav-link">ML Basics</a>
+					<a href="supervised_learning.html" class="nav-link">Supervised</a>
+					<a href="unsupervised_learning.html" class="nav-link">Unsupervised</a>
+					<a href="recommendation_system.html" class="nav-link">Recommenders</a>
+					<a href="deep_learning.html" class="nav-link">Deep Learning</a>
+					<a href="computer_vision.html" class="nav-link active">CV</a>
+					<a href="time_series.html" class="nav-link">Time Series</a>
+					<a href="natural_language_processing.html" class="nav-link">NLP</a>
+				</div>
+				<div class="flex items-center">
+					<a href="https://github.com/ikathuria" target="_blank" class="text-gray-400 hover:text-gray-600 mx-2"><i class="fa-brands fa-github fa-lg"></i></a>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+		<div class="flex flex-col md:flex-row gap-8">
+
+			<aside class="md:w-64 flex-shrink-0">
+				<div class="sticky top-24 bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+					<h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Contents</h3>
+					<nav class="space-y-1" id="sidebar-nav">
+						<a href="#intro" class="sidebar-link active">Overview</a>
+						<a href="#convolution" class="sidebar-link">Convolution Operation</a>
+						<a href="#cnn-architecture" class="sidebar-link">CNN Architecture</a>
+						<a href="#image-classification" class="sidebar-link">Image Classification</a>
+					</nav>
+				</div>
+			</aside>
+
+			<main class="flex-grow min-w-0">
+
+				<section id="intro" class="content-section">
+					<h1 class="text-4xl font-extrabold text-gray-900 mb-6">Computer Vision</h1>
+					<p class="text-lg text-gray-600 mb-4">
+						Computer Vision enables machines to interpret and understand visual information from the world. At its core is the <strong>Convolutional Neural Network (CNN)</strong> — an architecture specifically designed to process grid-like data such as images.
+					</p>
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+						<div class="bg-blue-50 rounded-xl p-4 border border-blue-100 text-center">
+							<i class="fa-solid fa-magnifying-glass fa-2x text-blue-500 mb-2"></i>
+							<p class="font-bold text-blue-700 mb-1 text-sm">Detect</p>
+							<p class="text-xs text-gray-500 mb-0">Find objects and their locations in an image</p>
+						</div>
+						<div class="bg-green-50 rounded-xl p-4 border border-green-100 text-center">
+							<i class="fa-solid fa-tag fa-2x text-green-500 mb-2"></i>
+							<p class="font-bold text-green-700 mb-1 text-sm">Classify</p>
+							<p class="text-xs text-gray-500 mb-0">Assign a category label to an entire image</p>
+						</div>
+						<div class="bg-purple-50 rounded-xl p-4 border border-purple-100 text-center">
+							<i class="fa-solid fa-pen-nib fa-2x text-purple-500 mb-2"></i>
+							<p class="font-bold text-purple-700 mb-1 text-sm">Segment</p>
+							<p class="text-xs text-gray-500 mb-0">Label every pixel with a class (semantic segmentation)</p>
+						</div>
+					</div>
+				</section>
+
+				<section id="convolution" class="content-section">
+					<h2><i class="fa-solid fa-border-all mr-3 text-indigo-500"></i> The Convolution Operation</h2>
+					<p>A <strong>convolution</strong> slides a small filter (kernel) across an image, computing a dot product at each position. This produces a <strong>feature map</strong> — a compact representation that highlights edges, textures, or patterns the filter was designed to detect.</p>
+
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6 text-center text-sm font-mono">
+						<div class="bg-gray-800 text-white p-4 rounded-xl">
+							<p class="text-green-400 text-xs mb-2">Input (5×5)</p>
+							<p class="leading-8 mb-0">1 1 1 0 0<br>0 1 1 1 0<br>0 0 1 1 1<br>0 0 1 1 0<br>0 1 1 0 0</p>
+						</div>
+						<div class="bg-gray-800 text-white p-4 rounded-xl">
+							<p class="text-yellow-400 text-xs mb-2">Filter (3×3)</p>
+							<p class="leading-8 mb-0">1 0 1<br>0 1 0<br>1 0 1</p>
+						</div>
+						<div class="bg-gray-800 text-white p-4 rounded-xl">
+							<p class="text-blue-400 text-xs mb-2">Feature Map (3×3)</p>
+							<p class="leading-8 mb-0">4 3 4<br>2 4 3<br>2 3 4</p>
+						</div>
+					</div>
+
+					<pre><code class="language-python">import numpy as np
+from scipy.signal import convolve2d
+
+image = np.array([
+    [1,1,1,0,0],
+    [0,1,1,1,0],
+    [0,0,1,1,1],
+    [0,0,1,1,0],
+    [0,1,1,0,0]
+])
+
+# Edge-detection filter (Sobel-like)
+kernel = np.array([
+    [1, 0, 1],
+    [0, 1, 0],
+    [1, 0, 1]
+])
+
+feature_map = convolve2d(image, kernel, mode='valid')
+print(feature_map)</code></pre>
+				</section>
+
+				<section id="cnn-architecture" class="content-section">
+					<h2><i class="fa-solid fa-layer-group mr-3 text-indigo-500"></i> CNN Architecture</h2>
+					<p>A CNN stacks several types of layers. Each layer learns progressively more abstract features — from edges in early layers to shapes and objects in later layers.</p>
+
+					<div class="space-y-3 my-6">
+						<div class="flex items-start gap-4 bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+							<div class="bg-blue-100 text-blue-600 rounded-lg p-2 text-sm font-bold w-10 text-center flex-shrink-0">C</div>
+							<div>
+								<p class="font-bold text-gray-800 mb-1">Conv2D</p>
+								<p class="text-sm text-gray-500 mb-0">Applies learnable filters to extract local features. Defined by filter size (e.g. 3×3) and number of filters.</p>
+							</div>
+						</div>
+						<div class="flex items-start gap-4 bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+							<div class="bg-green-100 text-green-600 rounded-lg p-2 text-sm font-bold w-10 text-center flex-shrink-0">P</div>
+							<div>
+								<p class="font-bold text-gray-800 mb-1">MaxPooling2D</p>
+								<p class="text-sm text-gray-500 mb-0">Downsamples the feature map by keeping the maximum value in each window — reduces computation and adds translation invariance.</p>
+							</div>
+						</div>
+						<div class="flex items-start gap-4 bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+							<div class="bg-yellow-100 text-yellow-600 rounded-lg p-2 text-sm font-bold w-10 text-center flex-shrink-0">D</div>
+							<div>
+								<p class="font-bold text-gray-800 mb-1">Dense (Fully Connected)</p>
+								<p class="text-sm text-gray-500 mb-0">After flattening, dense layers combine all features for final classification.</p>
+							</div>
+						</div>
+						<div class="flex items-start gap-4 bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+							<div class="bg-red-100 text-red-600 rounded-lg p-2 text-sm font-bold w-10 text-center flex-shrink-0">Dr</div>
+							<div>
+								<p class="font-bold text-gray-800 mb-1">Dropout</p>
+								<p class="text-sm text-gray-500 mb-0">Randomly zeros out a fraction of neurons during training to prevent overfitting.</p>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section id="image-classification" class="content-section">
+					<h2><i class="fa-solid fa-images mr-3 text-indigo-500"></i> Image Classification — Cats vs Dogs</h2>
+					<p>A binary CNN classifier trained on 64×64 RGB images. Achieves strong accuracy on the Cats vs. Dogs dataset using data augmentation and early stopping.</p>
+
+					<h3>Build the Model</h3>
+					<pre><code class="language-python">from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import (Conv2D, MaxPool2D, BatchNormalization,
+                                     Flatten, Dense, Dropout)
+
+def build_cnn(input_shape=(64, 64, 3)):
+    model = Sequential([
+        Conv2D(32, (3,3), activation='relu', input_shape=input_shape),
+        BatchNormalization(),
+        MaxPool2D(2, 2),
+
+        Conv2D(64, (3,3), activation='relu'),
+        BatchNormalization(),
+        MaxPool2D(2, 2),
+
+        Conv2D(128, (3,3), activation='relu'),
+        MaxPool2D(2, 2),
+
+        Flatten(),
+        Dense(256, activation='relu'),
+        Dropout(0.5),
+        Dense(1, activation='sigmoid')   # binary output
+    ])
+    model.compile(optimizer='adam',
+                  loss='binary_crossentropy',
+                  metrics=['accuracy'])
+    return model
+
+model = build_cnn()
+model.summary()</code></pre>
+
+					<h3>Train with Data Augmentation</h3>
+					<pre><code class="language-python">from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.callbacks import EarlyStopping
+
+datagen = ImageDataGenerator(
+    rescale=1./255,
+    rotation_range=20,
+    horizontal_flip=True,
+    zoom_range=0.2,
+    validation_split=0.2
+)
+
+train_gen = datagen.flow_from_directory(
+    'data/', target_size=(64,64), batch_size=32,
+    class_mode='binary', subset='training'
+)
+val_gen = datagen.flow_from_directory(
+    'data/', target_size=(64,64), batch_size=32,
+    class_mode='binary', subset='validation'
+)
+
+early_stop = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
+
+history = model.fit(train_gen, validation_data=val_gen,
+                    epochs=30, callbacks=[early_stop])</code></pre>
+
+					<div class="bg-green-50 border border-green-200 rounded-xl p-5 mt-6">
+						<p class="font-bold text-green-800 mb-1"><i class="fa-solid fa-trophy mr-2"></i>94% Accuracy</p>
+						<p class="text-sm text-green-700 mb-0">A deeper version of this CNN achieves <strong>94% validation accuracy</strong> on an image classification task — see the full notebook in the <code>5 Computer Vision/</code> folder.</p>
+					</div>
+				</section>
+
+			</main>
+		</div>
+	</div>
+
+	<footer class="bg-gray-800 text-white py-8 mt-12">
+		<div class="max-w-7xl mx-auto px-4 text-center">
+			<p class="mb-2">Designed &amp; Built by Ishani Kathuria</p>
+			<p class="text-gray-500 text-sm">&copy; 2025 Python to AI.</p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('#sidebar-nav a').forEach(link => {
+			link.addEventListener('click', () => {
+				document.querySelectorAll('#sidebar-nav a').forEach(l => l.classList.remove('active'));
+				link.classList.add('active');
+			});
+		});
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Natural Language Processing - Python to AI</title>
+	<meta name="description" content="Learn NLP fundamentals: word embeddings, Word2Vec, PMI, and neural language models.">
+
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+	<script>hljs.highlightAll();</script>
+
+	<style type="text/tailwindcss">
+		body { font-family: 'Nunito', sans-serif; }
+		.nav-link { @apply px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors cursor-pointer; }
+		.nav-link.active { @apply text-indigo-700 bg-indigo-50 font-bold; }
+		.sidebar-link { @apply block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-indigo-600 rounded-md transition-colors; }
+		.sidebar-link.active { @apply bg-indigo-50 text-indigo-700 font-bold border-r-4 border-indigo-600; }
+		.content-section { @apply scroll-mt-24 mb-16 border-b border-gray-100 pb-12; }
+		h2 { @apply text-2xl font-bold text-gray-800 mb-4 flex items-center; }
+		h3 { @apply text-xl font-semibold text-gray-700 mt-6 mb-3; }
+		p { @apply text-gray-600 leading-relaxed mb-4; }
+		code:not(.hljs) { @apply bg-gray-100 text-red-500 px-1 py-0.5 rounded text-sm font-mono; }
+		pre { @apply rounded-lg shadow-sm overflow-hidden my-4 border border-gray-200; }
+		.card { @apply bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden; }
+	</style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+	<nav class="bg-white shadow-sm sticky top-0 z-50">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex justify-between h-16">
+				<div class="flex-shrink-0 flex items-center">
+					<a href="../../index.html" class="flex items-center">
+						<i class="fa-solid fa-code fa-2x text-indigo-600"></i>
+						<span class="ml-2 font-bold text-xl text-gray-800">Python to AI</span>
+					</a>
+				</div>
+				<div class="hidden md:flex items-center space-x-1">
+					<a href="../../index.html" class="nav-link">Home</a>
+					<a href="python.html" class="nav-link">Python Basics</a>
+					<a href="ml_basics.html" class="nav-link">ML Basics</a>
+					<a href="supervised_learning.html" class="nav-link">Supervised</a>
+					<a href="unsupervised_learning.html" class="nav-link">Unsupervised</a>
+					<a href="recommendation_system.html" class="nav-link">Recommenders</a>
+					<a href="deep_learning.html" class="nav-link">Deep Learning</a>
+					<a href="computer_vision.html" class="nav-link">CV</a>
+					<a href="time_series.html" class="nav-link">Time Series</a>
+					<a href="natural_language_processing.html" class="nav-link active">NLP</a>
+				</div>
+				<div class="flex items-center">
+					<a href="https://github.com/ikathuria" target="_blank" class="text-gray-400 hover:text-gray-600 mx-2"><i class="fa-brands fa-github fa-lg"></i></a>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+		<div class="flex flex-col md:flex-row gap-8">
+
+			<aside class="md:w-64 flex-shrink-0">
+				<div class="sticky top-24 bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+					<h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Contents</h3>
+					<nav class="space-y-1" id="sidebar-nav">
+						<a href="#intro" class="sidebar-link active">Overview</a>
+						<a href="#word2vec" class="sidebar-link">Word2Vec</a>
+						<a href="#pmi" class="sidebar-link">PMI & Collocations</a>
+						<a href="#language-models" class="sidebar-link">Language Models</a>
+					</nav>
+				</div>
+			</aside>
+
+			<main class="flex-grow min-w-0">
+
+				<section id="intro" class="content-section">
+					<h1 class="text-4xl font-extrabold text-gray-900 mb-6">Natural Language Processing</h1>
+					<p class="text-lg text-gray-600 mb-4">
+						NLP gives computers the ability to understand, generate, and reason about human language. It underpins search engines, chatbots, translation systems, and modern LLMs. This section covers the foundational building blocks: turning words into vectors, measuring word association, and building simple language models.
+					</p>
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+						<div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100 text-center">
+							<i class="fa-solid fa-vector-square fa-2x text-indigo-500 mb-2"></i>
+							<p class="font-bold text-indigo-700 text-sm mb-1">Word Embeddings</p>
+							<p class="text-xs text-gray-500 mb-0">Represent words as dense numerical vectors capturing semantic meaning</p>
+						</div>
+						<div class="bg-green-50 rounded-xl p-4 border border-green-100 text-center">
+							<i class="fa-solid fa-link fa-2x text-green-500 mb-2"></i>
+							<p class="font-bold text-green-700 text-sm mb-1">Word Association</p>
+							<p class="text-xs text-gray-500 mb-0">Measure how strongly two words co-occur using PMI and bigrams</p>
+						</div>
+						<div class="bg-purple-50 rounded-xl p-4 border border-purple-100 text-center">
+							<i class="fa-solid fa-comment-dots fa-2x text-purple-500 mb-2"></i>
+							<p class="font-bold text-purple-700 text-sm mb-1">Language Models</p>
+							<p class="text-xs text-gray-500 mb-0">Predict the next word given a context window (n-gram and neural)</p>
+						</div>
+					</div>
+				</section>
+
+				<section id="word2vec" class="content-section">
+					<h2><i class="fa-solid fa-arrows-to-dot mr-3 text-indigo-500"></i> Word2Vec</h2>
+					<p>Word2Vec learns dense word embeddings from raw text. The core idea: <em>"a word is known by the company it keeps."</em> Words that appear in similar contexts get similar vectors.</p>
+					<p>The <strong>skip-gram</strong> model predicts context words given a target word. Training adjusts the embedding matrix so that similar words end up close together in vector space.</p>
+
+					<h3>NumPy Implementation (Skip-gram)</h3>
+					<pre><code class="language-python">import numpy as np
+
+class Word2Vec:
+    def __init__(self, vocab_size, embed_dim=10, lr=0.01):
+        self.w1 = np.random.randn(vocab_size, embed_dim) * 0.01
+        self.w2 = np.random.randn(embed_dim, vocab_size) * 0.01
+        self.lr = lr
+
+    def softmax(self, x):
+        e = np.exp(x - x.max())
+        return e / e.sum()
+
+    def forward(self, x):
+        h = x @ self.w1          # hidden layer (embedding lookup)
+        u = h @ self.w2           # output scores
+        return self.softmax(u), h
+
+    def train_step(self, x, y_true):
+        y_pred, h = self.forward(x)
+        error = y_pred - y_true   # output error
+        # Backprop
+        dw2 = np.outer(h, error)
+        dw1 = np.outer(x, error @ self.w2.T)
+        self.w1 -= self.lr * dw1
+        self.w2 -= self.lr * dw2
+        return -np.log(y_pred[y_true.argmax()] + 1e-9)  # cross-entropy loss</code></pre>
+
+					<h3>Using Gensim (Production)</h3>
+					<pre><code class="language-python">from gensim.models import Word2Vec
+from nltk.tokenize import word_tokenize
+
+corpus = [word_tokenize(s.lower()) for s in sentences]
+
+model = Word2Vec(corpus, vector_size=100, window=5,
+                 min_count=1, workers=4, epochs=10)
+
+# Find most similar words
+print(model.wv.most_similar('machine', topn=5))
+
+# Word arithmetic: king - man + woman ≈ queen
+result = model.wv.most_similar(
+    positive=['king', 'woman'], negative=['man'], topn=1
+)
+print(result)</code></pre>
+				</section>
+
+				<section id="pmi" class="content-section">
+					<h2><i class="fa-solid fa-calculator mr-3 text-indigo-500"></i> PMI & Word Collocations</h2>
+					<p><strong>Pointwise Mutual Information (PMI)</strong> measures how much more often two words co-occur than if they were statistically independent. High PMI = strong association.</p>
+
+					<div class="bg-gray-800 text-white rounded-xl p-6 my-4 font-mono">
+						<p class="text-green-400 text-sm mb-1">// PMI Formula</p>
+						<p class="text-white text-base mb-0">PMI(x, y) = log[ P(x, y) / (P(x) × P(y)) ]</p>
+					</div>
+
+					<pre><code class="language-python">from nltk.collocations import BigramCollocationFinder, BigramAssocMeasures
+from nltk.tokenize import word_tokenize
+
+text = """natural language processing and machine learning are
+          subfields of artificial intelligence and machine learning
+          overlaps with natural language processing significantly"""
+
+tokens = word_tokenize(text.lower())
+finder = BigramCollocationFinder.from_words(tokens)
+
+# Score all bigrams by PMI
+measures = BigramAssocMeasures()
+for bigram, score in finder.score_ngrams(measures.pmi):
+    print(f"{bigram[0]} + {bigram[1]:<20} PMI = {score:.2f}")</code></pre>
+
+					<p>Collocations with high PMI — like "machine learning" or "natural language" — are phrases that carry meaning together. Knowing this is crucial for tokenization and phrase detection.</p>
+				</section>
+
+				<section id="language-models" class="content-section">
+					<h2><i class="fa-solid fa-pen-to-square mr-3 text-indigo-500"></i> Language Models</h2>
+					<p>A language model assigns a probability to a sequence of words. Given previous words, it predicts what comes next — the foundation behind autocomplete, GPT, and text generation.</p>
+
+					<h3>Trigram Language Model</h3>
+					<pre><code class="language-python">from collections import defaultdict
+import random
+
+def build_trigram_model(corpus):
+    model = defaultdict(lambda: defaultdict(float))
+    for sentence in corpus:
+        words = sentence.split()
+        for i in range(len(words) - 2):
+            w1, w2, w3 = words[i], words[i+1], words[i+2]
+            model[(w1, w2)][w3] += 1
+
+    # Convert counts to probabilities
+    for context, nexts in model.items():
+        total = sum(nexts.values())
+        for w in nexts:
+            nexts[w] /= total
+    return model
+
+def generate_text(model, seed, n=20):
+    words = seed.split()
+    for _ in range(n):
+        context = (words[-2], words[-1])
+        next_words = model.get(context)
+        if not next_words:
+            break
+        words.append(random.choices(
+            list(next_words.keys()),
+            weights=list(next_words.values())
+        )[0])
+    return ' '.join(words)
+
+model = build_trigram_model(reuters_sentences)
+print(generate_text(model, seed="the stock market"))</code></pre>
+
+					<h3>Why Trigrams Fall Short</h3>
+					<div class="bg-yellow-50 border border-yellow-200 rounded-xl p-5 mt-4">
+						<p class="font-bold text-yellow-800 mb-2"><i class="fa-solid fa-triangle-exclamation mr-2"></i>Limitations of N-gram Models</p>
+						<ul class="text-sm text-yellow-700 space-y-1 list-disc pl-4 mb-0">
+							<li><strong>Sparsity</strong> — most trigrams never appear in training data</li>
+							<li><strong>Fixed context</strong> — can't capture dependencies beyond n words</li>
+							<li><strong>No generalisation</strong> — "cat sat" and "dog sat" have completely separate entries</li>
+						</ul>
+					</div>
+					<p class="mt-4">Neural language models (LSTMs, Transformers) solve all three — they generalise across vocabulary and capture arbitrarily long context via attention.</p>
+				</section>
+
+			</main>
+		</div>
+	</div>
+
+	<footer class="bg-gray-800 text-white py-8 mt-12">
+		<div class="max-w-7xl mx-auto px-4 text-center">
+			<p class="mb-2">Designed &amp; Built by Ishani Kathuria</p>
+			<p class="text-gray-500 text-sm">&copy; 2025 Python to AI.</p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('#sidebar-nav a').forEach(link => {
+			link.addEventListener('click', () => {
+				document.querySelectorAll('#sidebar-nav a').forEach(l => l.classList.remove('active'));
+				link.classList.add('active');
+			});
+		});
+	</script>
+
+</body>
+</html>
