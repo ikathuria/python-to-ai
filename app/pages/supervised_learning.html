@@ -121,6 +121,9 @@
 						<a href="#intro" class="sidebar-link active" onclick="setActive(this)">Overview</a>
 						<a href="#naive-bayes" class="sidebar-link" onclick="setActive(this)">Naive Bayes</a>
 						<a href="#knn" class="sidebar-link" onclick="setActive(this)">K-Nearest Neighbors</a>
+						<a href="#decision-tree" class="sidebar-link" onclick="setActive(this)">Decision Tree</a>
+						<a href="#logistic-regression" class="sidebar-link" onclick="setActive(this)">Logistic Regression</a>
+						<a href="#linear-regression" class="sidebar-link" onclick="setActive(this)">Linear Regression</a>
 						<a href="#neural-networks" class="sidebar-link" onclick="setActive(this)">Neural Networks</a>
 					</nav>
 				</div>
@@ -196,11 +199,144 @@
 				<!-- KNN -->
 				<section id="knn" class="content-section">
 					<h2><i class="fa-solid fa-network-wired mr-3 text-indigo-500"></i> K-Nearest Neighbors</h2>
-					<p>KNN is a simple, versatile algorithm that stores all available cases and classifies new cases based on a similarity measure (e.g., distance functions).</p>
+					<p>KNN classifies a new point by looking at the <strong>k</strong> closest training examples and taking a majority vote. No training phase — it memorises the whole dataset.</p>
 					<pre><code class="language-python">from sklearn.neighbors import KNeighborsClassifier
-knn = KNeighborsClassifier(n_neighbors=3)
+knn = KNeighborsClassifier(n_neighbors=5)
 knn.fit(X_train, y_train)
 y_pred = knn.predict(X_test)</code></pre>
+
+					<div class="card p-6 mt-6">
+						<div class="flex items-center justify-between mb-1">
+							<h3 class="text-lg font-bold text-gray-800 mt-0 mb-0">Live Demo — Iris Species (KNN)</h3>
+							<span class="text-xs font-bold bg-green-100 text-green-800 px-2 py-1 rounded">ONNX</span>
+						</div>
+						<p class="text-sm text-gray-500 mb-4">Adjust the four Iris measurements and see the predicted species in real time.</p>
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="knn-inputs">
+							<div><label class="text-xs font-bold text-gray-500">Sepal Length (cm): <span id="knn-sl-val">5.1</span></label><input type="range" id="knn-sl" class="w-full accent-indigo-600" min="4.0" max="8.0" step="0.1" value="5.1" oninput="document.getElementById('knn-sl-val').textContent=this.value;runIrisKNN()"></div>
+							<div><label class="text-xs font-bold text-gray-500">Sepal Width (cm): <span id="knn-sw-val">3.5</span></label><input type="range" id="knn-sw" class="w-full accent-indigo-600" min="2.0" max="4.5" step="0.1" value="3.5" oninput="document.getElementById('knn-sw-val').textContent=this.value;runIrisKNN()"></div>
+							<div><label class="text-xs font-bold text-gray-500">Petal Length (cm): <span id="knn-pl-val">1.4</span></label><input type="range" id="knn-pl" class="w-full accent-indigo-600" min="1.0" max="7.0" step="0.1" value="1.4" oninput="document.getElementById('knn-pl-val').textContent=this.value;runIrisKNN()"></div>
+							<div><label class="text-xs font-bold text-gray-500">Petal Width (cm): <span id="knn-pw-val">0.2</span></label><input type="range" id="knn-pw" class="w-full accent-indigo-600" min="0.1" max="2.5" step="0.1" value="0.2" oninput="document.getElementById('knn-pw-val').textContent=this.value;runIrisKNN()"></div>
+						</div>
+						<div id="knn-result" class="mt-4 p-3 bg-indigo-50 border border-indigo-200 rounded-lg text-center font-bold text-indigo-800 hidden"></div>
+					</div>
+				</section>
+
+				<!-- Decision Tree -->
+				<section id="decision-tree" class="content-section">
+					<h2><i class="fa-solid fa-sitemap mr-3 text-indigo-500"></i> Decision Tree</h2>
+					<p>A Decision Tree splits the feature space with a series of threshold rules, forming a tree where each leaf is a class. Highly interpretable — you can follow the exact path to any prediction.</p>
+					<pre><code class="language-python">from sklearn.tree import DecisionTreeClassifier
+dt = DecisionTreeClassifier(max_depth=4, random_state=42)
+dt.fit(X_train, y_train)
+y_pred = dt.predict(X_test)</code></pre>
+
+					<div class="card p-6 mt-6">
+						<div class="flex items-center justify-between mb-1">
+							<h3 class="text-lg font-bold text-gray-800 mt-0 mb-0">Live Demo — Iris Species (Decision Tree)</h3>
+							<span class="text-xs font-bold bg-green-100 text-green-800 px-2 py-1 rounded">ONNX</span>
+						</div>
+						<p class="text-sm text-gray-500 mb-4">Same inputs as KNN — compare how the two algorithms differ on edge cases.</p>
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+							<div><label class="text-xs font-bold text-gray-500">Sepal Length (cm): <span id="dt-sl-val">5.1</span></label><input type="range" id="dt-sl" class="w-full accent-indigo-600" min="4.0" max="8.0" step="0.1" value="5.1" oninput="document.getElementById('dt-sl-val').textContent=this.value;runIrisDT()"></div>
+							<div><label class="text-xs font-bold text-gray-500">Sepal Width (cm): <span id="dt-sw-val">3.5</span></label><input type="range" id="dt-sw" class="w-full accent-indigo-600" min="2.0" max="4.5" step="0.1" value="3.5" oninput="document.getElementById('dt-sw-val').textContent=this.value;runIrisDT()"></div>
+							<div><label class="text-xs font-bold text-gray-500">Petal Length (cm): <span id="dt-pl-val">1.4</span></label><input type="range" id="dt-pl" class="w-full accent-indigo-600" min="1.0" max="7.0" step="0.1" value="1.4" oninput="document.getElementById('dt-pl-val').textContent=this.value;runIrisDT()"></div>
+							<div><label class="text-xs font-bold text-gray-500">Petal Width (cm): <span id="dt-pw-val">0.2</span></label><input type="range" id="dt-pw" class="w-full accent-indigo-600" min="0.1" max="2.5" step="0.1" value="0.2" oninput="document.getElementById('dt-pw-val').textContent=this.value;runIrisDT()"></div>
+						</div>
+						<div id="dt-result" class="mt-4 p-3 bg-indigo-50 border border-indigo-200 rounded-lg text-center font-bold text-indigo-800 hidden"></div>
+					</div>
+				</section>
+
+				<!-- Logistic Regression -->
+				<section id="logistic-regression" class="content-section">
+					<h2><i class="fa-solid fa-ship mr-3 text-indigo-500"></i> Logistic Regression</h2>
+					<p>Logistic Regression models the probability of a binary outcome using the sigmoid function. Despite the name, it's a <em>classification</em> algorithm — the output is a probability between 0 and 1.</p>
+					<pre><code class="language-python">from sklearn.linear_model import LogisticRegression
+lr = LogisticRegression(max_iter=300)
+lr.fit(X_train, y_train)
+proba = lr.predict_proba(X_test)[:, 1]  # P(survived)</code></pre>
+
+					<div class="card p-6 mt-6">
+						<div class="flex items-center justify-between mb-1">
+							<h3 class="text-lg font-bold text-gray-800 mt-0 mb-0">Live Demo — Titanic Survival</h3>
+							<span class="text-xs font-bold bg-green-100 text-green-800 px-2 py-1 rounded">ONNX</span>
+						</div>
+						<p class="text-sm text-gray-500 mb-4">Would this passenger have survived? Adjust the features and check the model's prediction.</p>
+						<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+							<div>
+								<label class="block text-xs font-bold text-gray-500 mb-1">Passenger Class</label>
+								<select id="lr-pclass" onchange="runTitanic()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+									<option value="1">1st Class</option>
+									<option value="2" selected>2nd Class</option>
+									<option value="3">3rd Class</option>
+								</select>
+							</div>
+							<div>
+								<label class="block text-xs font-bold text-gray-500 mb-1">Sex</label>
+								<select id="lr-sex" onchange="runTitanic()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+									<option value="0">Female</option>
+									<option value="1">Male</option>
+								</select>
+							</div>
+							<div>
+								<label class="block text-xs font-bold text-gray-500 mb-1">Age</label>
+								<input type="number" id="lr-age" value="30" min="1" max="80" onchange="runTitanic()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+							</div>
+							<div>
+								<label class="block text-xs font-bold text-gray-500 mb-1">Siblings/Spouses aboard</label>
+								<input type="number" id="lr-sibsp" value="0" min="0" max="8" onchange="runTitanic()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+							</div>
+							<div>
+								<label class="block text-xs font-bold text-gray-500 mb-1">Parents/Children aboard</label>
+								<input type="number" id="lr-parch" value="0" min="0" max="6" onchange="runTitanic()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+							</div>
+							<div>
+								<label class="block text-xs font-bold text-gray-500 mb-1">Fare (£)</label>
+								<input type="number" id="lr-fare" value="30" min="3" max="512" onchange="runTitanic()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+							</div>
+						</div>
+						<div id="lr-result" class="mt-4 p-3 rounded-lg text-center font-bold text-lg hidden"></div>
+					</div>
+				</section>
+
+				<!-- Linear Regression -->
+				<section id="linear-regression" class="content-section">
+					<h2><i class="fa-solid fa-chart-line mr-3 text-indigo-500"></i> Linear Regression</h2>
+					<p>Linear Regression fits a line (or hyperplane) through data to predict a continuous target. The model learns weights <strong>w</strong> and bias <strong>b</strong> such that <code>ŷ = w·x + b</code> minimises the mean squared error.</p>
+					<pre><code class="language-python">from sklearn.linear_model import LinearRegression
+lr = LinearRegression()
+lr.fit(X_train, y_train)
+predictions = lr.predict(X_test)
+print(lr.coef_, lr.intercept_)</code></pre>
+
+					<div class="card p-6 mt-6">
+						<div class="flex items-center justify-between mb-1">
+							<h3 class="text-lg font-bold text-gray-800 mt-0 mb-0">Live Demo — Insurance Cost Predictor</h3>
+							<span class="text-xs font-bold bg-green-100 text-green-800 px-2 py-1 rounded">ONNX</span>
+						</div>
+						<p class="text-sm text-gray-500 mb-4">Predicts annual medical insurance charges based on patient profile.</p>
+						<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+							<div>
+								<label class="block text-xs font-bold text-gray-500 mb-1">Age</label>
+								<input type="number" id="ins-age" value="35" min="18" max="64" onchange="runInsurance()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+							</div>
+							<div>
+								<label class="block text-xs font-bold text-gray-500 mb-1">BMI</label>
+								<input type="number" id="ins-bmi" value="28" min="15" max="55" step="0.1" onchange="runInsurance()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+							</div>
+							<div>
+								<label class="block text-xs font-bold text-gray-500 mb-1">Children</label>
+								<input type="number" id="ins-children" value="1" min="0" max="5" onchange="runInsurance()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+							</div>
+							<div>
+								<label class="block text-xs font-bold text-gray-500 mb-1">Smoker</label>
+								<select id="ins-smoker" onchange="runInsurance()" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
+									<option value="0">No</option>
+									<option value="1">Yes</option>
+								</select>
+							</div>
+						</div>
+						<div id="ins-result" class="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg text-center font-bold text-green-800 hidden"></div>
+					</div>
 				</section>
 
 				<!-- Neural Networks (Crime) -->
@@ -545,11 +681,99 @@ y_pred = knn.predict(X_test)</code></pre>
 				console.error("ONNX Runtime not loaded");
 				return;
 			}
-			// Disable multi-threading to avoid Cross-Origin Isolation warnings on simple servers
 			ort.env.wasm.numThreads = 1;
-
 			updatePredictionType();
 		});
+
+		// ── Shared Iris helper ───────────────────────────────────────────────
+		const IRIS_LABELS = ['Iris Setosa', 'Iris Versicolor', 'Iris Virginica'];
+		const IRIS_COLORS = ['text-green-700', 'text-blue-700', 'text-purple-700'];
+
+		async function runIrisModel(modelPath, sl, sw, pl, pw, resultId) {
+			const resultDiv = document.getElementById(resultId);
+			try {
+				const session = await ort.InferenceSession.create(modelPath);
+				const tensor = new ort.Tensor('float32', new Float32Array([sl, sw, pl, pw]), [1, 4]);
+				const out = await session.run({ [session.inputNames[0]]: tensor });
+				const label = (out.label ?? out.output_label).data[0];
+				const idx = Number(label);
+				resultDiv.innerHTML = `Predicted: <span class="${IRIS_COLORS[idx] || 'text-gray-800'}">${IRIS_LABELS[idx] || 'Unknown'}</span>`;
+				resultDiv.classList.remove('hidden');
+			} catch (e) {
+				resultDiv.textContent = `Error: ${e.message}`;
+				resultDiv.classList.remove('hidden');
+			}
+		}
+
+		function getIrisInputs(prefix) {
+			return [
+				parseFloat(document.getElementById(`${prefix}-sl`).value),
+				parseFloat(document.getElementById(`${prefix}-sw`).value),
+				parseFloat(document.getElementById(`${prefix}-pl`).value),
+				parseFloat(document.getElementById(`${prefix}-pw`).value),
+			];
+		}
+
+		function runIrisKNN() {
+			const [sl, sw, pl, pw] = getIrisInputs('knn');
+			runIrisModel('../onnx_models/knn_iris.onnx', sl, sw, pl, pw, 'knn-result');
+		}
+
+		function runIrisDT() {
+			const [sl, sw, pl, pw] = getIrisInputs('dt');
+			runIrisModel('../onnx_models/decision_tree_iris.onnx', sl, sw, pl, pw, 'dt-result');
+		}
+
+		// ── Titanic (Logistic Regression) ────────────────────────────────────
+		async function runTitanic() {
+			const resultDiv = document.getElementById('lr-result');
+			const pclass   = parseFloat(document.getElementById('lr-pclass').value);
+			const sex      = parseFloat(document.getElementById('lr-sex').value);
+			const age      = parseFloat(document.getElementById('lr-age').value);
+			const sibsp    = parseFloat(document.getElementById('lr-sibsp').value);
+			const parch    = parseFloat(document.getElementById('lr-parch').value);
+			const fare     = parseFloat(document.getElementById('lr-fare').value);
+			try {
+				const session = await ort.InferenceSession.create('../onnx_models/logistic_regression_titanic.onnx');
+				const tensor = new ort.Tensor('float32', new Float32Array([pclass, sex, age, sibsp, parch, fare]), [1, 6]);
+				const out = await session.run({ [session.inputNames[0]]: tensor });
+				const label = Number((out.label ?? out.output_label).data[0]);
+				if (label === 1) {
+					resultDiv.className = 'mt-4 p-3 rounded-lg text-center font-bold text-lg bg-green-50 border border-green-200 text-green-800';
+					resultDiv.textContent = '✓ Survived';
+				} else {
+					resultDiv.className = 'mt-4 p-3 rounded-lg text-center font-bold text-lg bg-red-50 border border-red-200 text-red-800';
+					resultDiv.textContent = '✗ Did not survive';
+				}
+				resultDiv.classList.remove('hidden');
+			} catch (e) {
+				resultDiv.className = 'mt-4 p-3 rounded-lg text-center font-bold bg-yellow-50 border border-yellow-200 text-yellow-800';
+				resultDiv.textContent = `Error: ${e.message}`;
+				resultDiv.classList.remove('hidden');
+			}
+		}
+
+		// ── Insurance (Linear Regression) ────────────────────────────────────
+		async function runInsurance() {
+			const resultDiv = document.getElementById('ins-result');
+			const age      = parseFloat(document.getElementById('ins-age').value);
+			const bmi      = parseFloat(document.getElementById('ins-bmi').value);
+			const children = parseFloat(document.getElementById('ins-children').value);
+			const smoker   = parseFloat(document.getElementById('ins-smoker').value);
+			try {
+				const session = await ort.InferenceSession.create('../onnx_models/linear_regression_insurance.onnx');
+				const tensor = new ort.Tensor('float32', new Float32Array([age, bmi, children, smoker]), [1, 4]);
+				const out = await session.run({ [session.inputNames[0]]: tensor });
+				const charge = out.variable ?? out.output_label ?? out[session.outputNames[0]];
+				const value = Math.max(0, Math.round(charge.data[0]));
+				resultDiv.textContent = `Estimated annual charge: $${value.toLocaleString()}`;
+				resultDiv.classList.remove('hidden');
+			} catch (e) {
+				resultDiv.className = 'mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-center font-bold text-yellow-800';
+				resultDiv.textContent = `Error: ${e.message}`;
+				resultDiv.classList.remove('hidden');
+			}
+		}
 
 	</script>
 </body>

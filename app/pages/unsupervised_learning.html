@@ -182,8 +182,32 @@ labels = kmeans.predict(X)</code></pre>
 				<!-- PCA -->
 				<section id="pca" class="content-section">
 					<h2><i class="fa-solid fa-compress-arrows-alt mr-3 text-indigo-500"></i> Principal Component Analysis (PCA)</h2>
-					<p>PCA is a dimensionality reduction technique that transforms a large set of variables into a smaller one that still contains most of the information in the large set.</p>
-					<p>It reduces the number of variables of a data set, while preserving as much information as possible.</p>
+					<p>PCA finds the directions of maximum variance in high-dimensional data and projects it onto a lower-dimensional subspace — preserving as much information as possible. It's used for visualisation, noise reduction, and speeding up downstream models.</p>
+					<pre><code class="language-python">from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)   # PCA needs normalised data
+
+pca = PCA(n_components=2)
+X_2d = pca.fit_transform(X_scaled)
+
+print(pca.explained_variance_ratio_)  # % variance per component</code></pre>
+
+					<div class="card p-6 mt-6">
+						<div class="flex items-center justify-between mb-1">
+							<h3 class="text-lg font-bold text-gray-800 mt-0 mb-0">Live Demo — Iris 4D → 2D Projection</h3>
+							<span class="text-xs font-bold bg-green-100 text-green-800 px-2 py-1 rounded">ONNX</span>
+						</div>
+						<p class="text-sm text-gray-500 mb-4">Enter all four Iris measurements and see where they land in 2D principal component space.</p>
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+							<div><label class="text-xs font-bold text-gray-500">Sepal Length (cm): <span id="pca-sl-val">5.1</span></label><input type="range" id="pca-sl" class="w-full accent-indigo-600" min="4.0" max="8.0" step="0.1" value="5.1" oninput="document.getElementById('pca-sl-val').textContent=this.value;runPCA()"></div>
+							<div><label class="text-xs font-bold text-gray-500">Sepal Width (cm): <span id="pca-sw-val">3.5</span></label><input type="range" id="pca-sw" class="w-full accent-indigo-600" min="2.0" max="4.5" step="0.1" value="3.5" oninput="document.getElementById('pca-sw-val').textContent=this.value;runPCA()"></div>
+							<div><label class="text-xs font-bold text-gray-500">Petal Length (cm): <span id="pca-pl-val">1.4</span></label><input type="range" id="pca-pl" class="w-full accent-indigo-600" min="1.0" max="7.0" step="0.1" value="1.4" oninput="document.getElementById('pca-pl-val').textContent=this.value;runPCA()"></div>
+							<div><label class="text-xs font-bold text-gray-500">Petal Width (cm): <span id="pca-pw-val">0.2</span></label><input type="range" id="pca-pw" class="w-full accent-indigo-600" min="0.1" max="2.5" step="0.1" value="0.2" oninput="document.getElementById('pca-pw-val').textContent=this.value;runPCA()"></div>
+						</div>
+						<div id="pca-result" class="mt-4 p-3 bg-indigo-50 border border-indigo-200 rounded-lg font-mono text-sm text-indigo-900 hidden"></div>
+					</div>
 				</section>
 
 				<!-- HMM -->
@@ -201,6 +225,29 @@ labels = kmeans.predict(X)</code></pre>
 		function setActive(element) {
 			document.querySelectorAll('.sidebar-link').forEach(el => el.classList.remove('active'));
 			element.classList.add('active');
+		}
+
+		// --- PCA DEMO ---
+		async function runPCA() {
+			const resultDiv = document.getElementById('pca-result');
+			const sl = parseFloat(document.getElementById('pca-sl').value);
+			const sw = parseFloat(document.getElementById('pca-sw').value);
+			const pl = parseFloat(document.getElementById('pca-pl').value);
+			const pw = parseFloat(document.getElementById('pca-pw').value);
+			try {
+				const session = await ort.InferenceSession.create('../onnx_models/pca_iris.onnx');
+				const tensor = new ort.Tensor('float32', new Float32Array([sl, sw, pl, pw]), [1, 4]);
+				const out = await session.run({ [session.inputNames[0]]: tensor });
+				const data = out[session.outputNames[0]].data;
+				const pc1 = data[0].toFixed(3);
+				const pc2 = data[1].toFixed(3);
+				resultDiv.innerHTML = `PC1 = <strong>${pc1}</strong> &nbsp;|&nbsp; PC2 = <strong>${pc2}</strong>
+					<span class="text-gray-500 font-sans font-normal ml-2">(2D position in principal component space)</span>`;
+				resultDiv.classList.remove('hidden');
+			} catch (e) {
+				resultDiv.innerHTML = `<span class="text-red-600">Error: ${e.message}</span>`;
+				resultDiv.classList.remove('hidden');
+			}
 		}
 
 		// --- IRIS MODEL LOGIC ---

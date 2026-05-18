@@ -21,9 +21,14 @@ OUT.mkdir(parents=True, exist_ok=True)
 try:
     from sklearn.cluster import KMeans
     from sklearn.datasets import load_iris, make_classification, make_regression
-    from sklearn.linear_model import Ridge
+    from sklearn.decomposition import PCA
+    from sklearn.linear_model import Ridge, LinearRegression, LogisticRegression
+    from sklearn.neighbors import KNeighborsClassifier
+    from sklearn.tree import DecisionTreeClassifier
     from sklearn.neural_network import MLPClassifier, MLPRegressor
     from sklearn.naive_bayes import GaussianNB
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.pipeline import Pipeline
     from skl2onnx import convert_sklearn
     from skl2onnx.common.data_types import FloatTensorType
 except ImportError as e:
@@ -218,6 +223,97 @@ def main():
         mix_r,
         OUT / "mix_model_Regression.onnx",
         [("float_input", FloatTensorType([None, 55]))],
+    )
+
+    # ------------------------------------------------------------------ #
+    # New models                                                          #
+    # ------------------------------------------------------------------ #
+
+    iris = load_iris()
+    X_iris_full = iris.data.astype(np.float32)   # all 4 features
+    y_iris = iris.target
+
+    # --- Decision Tree on Iris (4 features → 3 classes) ---
+    dt = DecisionTreeClassifier(max_depth=4, random_state=42)
+    dt.fit(X_iris_full, y_iris)
+    save_onnx(
+        dt,
+        OUT / "decision_tree_iris.onnx",
+        [("float_input", FloatTensorType([None, 4]))],
+        options={id(dt): {"zipmap": False}},
+    )
+
+    # --- KNN on Iris (4 features → 3 classes) ---
+    knn = KNeighborsClassifier(n_neighbors=5)
+    knn.fit(X_iris_full, y_iris)
+    save_onnx(
+        knn,
+        OUT / "knn_iris.onnx",
+        [("float_input", FloatTensorType([None, 4]))],
+        options={id(knn): {"zipmap": False}},
+    )
+
+    # --- Logistic Regression: Titanic-style binary classification ---
+    # 6 features: Pclass (1-3), Sex (0=female/1=male), Age, SibSp, Parch, Fare
+    rng2 = np.random.default_rng(99)
+    n = 1200
+    pclass  = rng2.integers(1, 4, n).astype(np.float32)
+    sex     = rng2.integers(0, 2, n).astype(np.float32)
+    age     = np.clip(rng2.normal(30, 14, n), 1, 80).astype(np.float32)
+    sibsp   = rng2.integers(0, 6, n).astype(np.float32)
+    parch   = rng2.integers(0, 5, n).astype(np.float32)
+    fare    = np.clip(rng2.exponential(32, n), 3, 512).astype(np.float32)
+    X_titanic = np.stack([pclass, sex, age, sibsp, parch, fare], axis=1)
+    # Rough survival rule: female + low pclass + young → more likely to survive
+    log_odds = -0.8*pclass + 1.4*(1-sex) - 0.01*age - 0.1*sibsp + 0.02*fare - 0.3
+    y_titanic = (rng2.random(n) < 1 / (1 + np.exp(-log_odds))).astype(int)
+
+    lr_pipe = Pipeline([
+        ("scaler", StandardScaler()),
+        ("lr", LogisticRegression(max_iter=300, random_state=42)),
+    ])
+    lr_pipe.fit(X_titanic, y_titanic)
+    save_onnx(
+        lr_pipe,
+        OUT / "logistic_regression_titanic.onnx",
+        [("float_input", FloatTensorType([None, 6]))],
+        options={id(lr_pipe): {"zipmap": False}},
+    )
+
+    # --- Linear Regression: insurance charges ---
+    # 4 features: age (18-64), bmi (15-50), children (0-5), smoker (0/1)
+    rng3 = np.random.default_rng(7)
+    n2 = 1400
+    age_ins   = rng3.integers(18, 65, n2).astype(np.float32)
+    bmi_ins   = np.clip(rng3.normal(30, 6, n2), 15, 55).astype(np.float32)
+    children  = rng3.integers(0, 6, n2).astype(np.float32)
+    smoker    = rng3.integers(0, 2, n2).astype(np.float32)
+    X_ins = np.stack([age_ins, bmi_ins, children, smoker], axis=1)
+    y_ins = (260 * age_ins + 340 * bmi_ins + 500 * children
+             + 23000 * smoker + rng3.normal(0, 2000, n2)).astype(np.float32)
+    y_ins = np.clip(y_ins, 1000, 65000)
+
+    linreg_pipe = Pipeline([
+        ("scaler", StandardScaler()),
+        ("lr", LinearRegression()),
+    ])
+    linreg_pipe.fit(X_ins, y_ins)
+    save_onnx(
+        linreg_pipe,
+        OUT / "linear_regression_insurance.onnx",
+        [("float_input", FloatTensorType([None, 4]))],
+    )
+
+    # --- PCA: Iris 4D → 2 principal components ---
+    pca_pipe = Pipeline([
+        ("scaler", StandardScaler()),
+        ("pca", PCA(n_components=2)),
+    ])
+    pca_pipe.fit(X_iris_full)
+    save_onnx(
+        pca_pipe,
+        OUT / "pca_iris.onnx",
+        [("float_input", FloatTensorType([None, 4]))],
     )
 
     print("Done. Commit app/onnx_models/*.onnx and deploy.")
