@@ -172,12 +172,13 @@ def train(epochs: int = 20, batch_size: int = 32):
 
 def export(model: "ColourCNN"):
     dummy = torch.zeros(1, 3, IMG_SIZE, IMG_SIZE)
+    # Use opset 18 — supported by onnxruntime-web >=1.17
     torch.onnx.export(
         model, dummy, str(OUT),
         input_names=["pixel_values"],
         output_names=["logits"],
         dynamic_axes={"pixel_values": {0: "batch"}, "logits": {0: "batch"}},
-        opset_version=12,
+        opset_version=18,
     )
     size_kb = OUT.stat().st_size // 1024
     print(f"Exported → {OUT}  ({size_kb} KB)")
