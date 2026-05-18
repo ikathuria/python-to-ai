@@ -18,6 +18,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
 	<script>hljs.highlightAll();</script>
+	<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
 
 	<style type="text/tailwindcss">
 		body { font-family: 'Nunito', sans-serif; }
@@ -271,14 +272,15 @@ print(similar_movies(1))  # Movies similar to Toy Story</code></pre>
 								{title:"Finding Nemo (2003)",       genres:["Animation","Children","Comedy"]}
 							];
 
-							function toVec(genres) {
-								return ALL_GENRES.map(function(g) { return genres.indexOf(g) >= 0 ? 1 : 0; });
-							}
-							function cosineSim(a, b) {
-								var dot = 0, na = 0, nb = 0;
-								for (var i = 0; i < a.length; i++) { dot += a[i]*b[i]; na += a[i]*a[i]; nb += b[i]*b[i]; }
-								if (!na || !nb) return 0;
-								return dot / (Math.sqrt(na) * Math.sqrt(nb));
+							// Lazy-load the ONNX session on first use
+							var ortSession = null;
+							var MODEL_URL = '../onnx_models/content_recommender.onnx';
+
+							async function getSession() {
+								if (ortSession) return ortSession;
+								ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/';
+								ortSession = await ort.InferenceSession.create(MODEL_URL);
+								return ortSession;
 							}
 
 							// Render checkboxes
@@ -295,39 +297,53 @@ print(similar_movies(1))  # Movies similar to Toy Story</code></pre>
 								box.appendChild(label);
 							});
 
-							window.findMovies = function() {
+							window.findMovies = async function() {
 								var selected = Array.from(document.querySelectorAll('#genre-checkboxes input:checked')).map(function(c){ return c.value; });
 								if (!selected.length) { alert('Pick at least one genre!'); return; }
-								var userVec = toVec(selected);
-								var scored = MOVIES.map(function(m) {
-									return { title: m.title, genres: m.genres, score: cosineSim(userVec, toVec(m.genres)) };
-								}).filter(function(m) { return m.score > 0; })
-								  .sort(function(a, b) { return b.score - a.score; })
-								  .slice(0, 6);
 
-								var list = document.getElementById('rec-list');
-								list.innerHTML = '';
-								if (!scored.length) {
-									list.innerHTML = '<p class="text-gray-400 text-sm">No matches found — try different genres.</p>';
-								} else {
-									scored.forEach(function(m, i) {
-										var pct = Math.round(m.score * 100);
+								var btn = document.querySelector('[onclick="findMovies()"]');
+								var origText = btn.textContent;
+								btn.disabled = true;
+								btn.textContent = 'Running model…';
+
+								try {
+									var userVec = new Float32Array(ALL_GENRES.map(function(g) {
+										return selected.indexOf(g) >= 0 ? 1 : 0;
+									}));
+									var tensor = new ort.Tensor('float32', userVec, [1, 10]);
+									var session = await getSession();
+									var results = await session.run({ user_vec: tensor });
+									var scores  = results['top_scores'].data;   // Float32Array [6]
+									var indices = results['top_indices'].data;  // BigInt64Array [6]
+
+									var list = document.getElementById('rec-list');
+									list.innerHTML = '';
+									for (var i = 0; i < indices.length; i++) {
+										var idx  = Number(indices[i]);
+										var pct  = Math.round(scores[i] * 100);
+										var movie = MOVIES[idx];
 										var row = document.createElement('div');
 										row.className = 'flex items-center justify-between bg-gray-800 rounded-lg px-4 py-3';
 										row.innerHTML = '<div class="flex items-center gap-3">'
 											+ '<span class="text-gray-500 text-xs w-4">' + (i+1) + '</span>'
 											+ '<div>'
-											+ '<p class="text-white text-sm font-semibold mb-0">' + m.title + '</p>'
-											+ '<p class="text-gray-400 text-xs mb-0">' + m.genres.join(', ') + '</p>'
+											+ '<p class="text-white text-sm font-semibold mb-0">' + movie.title + '</p>'
+											+ '<p class="text-gray-400 text-xs mb-0">' + movie.genres.join(', ') + '</p>'
 											+ '</div></div>'
 											+ '<div class="flex items-center gap-2 flex-shrink-0">'
 											+ '<div class="w-20 h-1.5 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-indigo-500 rounded-full" style="width:' + pct + '%"></div></div>'
 											+ '<span class="text-indigo-400 text-xs font-bold w-8 text-right">' + pct + '%</span>'
 											+ '</div>';
 										list.appendChild(row);
-									});
+									}
+									document.getElementById('rec-results').classList.remove('hidden');
+								} catch(err) {
+									console.error('ONNX inference failed:', err);
+									alert('Model error: ' + err.message);
+								} finally {
+									btn.disabled = false;
+									btn.textContent = origText;
 								}
-								document.getElementById('rec-results').classList.remove('hidden');
 							};
 						})();
 						</script>
