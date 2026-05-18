@@ -125,27 +125,27 @@
 
             <!-- Features Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-                <div class="card p-8 text-center hover:shadow-lg transition">
-                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600">
+                <a href="app/pages/python.html" class="card p-8 text-center hover:shadow-lg transition block group">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition">
                         <i class="fa-brands fa-python fa-2x"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Python Fundamentals</h3>
                     <p class="text-gray-500">Master the basics of effective Python programming for Data Science.</p>
-                </div>
-                <div class="card p-8 text-center hover:shadow-lg transition">
-                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-green-600">
+                </a>
+                <a href="app/pages/supervised_learning.html" class="card p-8 text-center hover:shadow-lg transition block group">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-green-600 group-hover:bg-green-600 group-hover:text-white transition">
                         <i class="fa-solid fa-chart-line fa-2x"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Machine Learning</h3>
                     <p class="text-gray-500">Understand core algorithms from regression to clustering with interactive visualizations.</p>
-                </div>
-                <div class="card p-8 text-center hover:shadow-lg transition">
-                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-purple-600">
+                </a>
+                <a href="app/pages/deep_learning.html" class="card p-8 text-center hover:shadow-lg transition block group">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition">
                         <i class="fa-solid fa-brain fa-2x"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Deep Learning</h3>
                     <p class="text-gray-500">Dive into Neural Networks, Computer Vision, and NLP implementations.</p>
-                </div>
+                </a>
             </div>
 
             <!-- Learning Path Roadmap -->
@@ -162,7 +162,7 @@
                         <!-- Row helper: odd rows left-align card, even rows right-align -->
                         <!-- 1 Python -->
                         <div class="flex md:justify-start justify-center">
-                            <a href="app/pages/python.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                            <a href="app/pages/python.html" data-done-key="p2ai_done_python" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
                                 <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">1</div>
                                 <div>
                                     <p class="font-bold text-gray-800">Python Basics</p>
@@ -173,7 +173,7 @@
                         </div>
                         <!-- 2 ML Basics -->
                         <div class="flex md:justify-end justify-center">
-                            <a href="app/pages/ml_basics.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                            <a href="app/pages/ml_basics.html" data-done-key="p2ai_done_ml_basics" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
                                 <div class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">2</div>
                                 <div>
                                     <p class="font-bold text-gray-800">ML Basics</p>
@@ -184,7 +184,7 @@
                         </div>
                         <!-- 3 Supervised -->
                         <div class="flex md:justify-start justify-center">
-                            <a href="app/pages/supervised_learning.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                            <a href="app/pages/supervised_learning.html" data-done-key="p2ai_done_supervised" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
                                 <div class="w-10 h-10 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">3</div>
                                 <div>
                                     <p class="font-bold text-gray-800">Supervised Learning</p>
@@ -195,7 +195,7 @@
                         </div>
                         <!-- 4 Unsupervised -->
                         <div class="flex md:justify-end justify-center">
-                            <a href="app/pages/unsupervised_learning.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                            <a href="app/pages/unsupervised_learning.html" data-done-key="p2ai_done_unsupervised" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
                                 <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">4</div>
                                 <div>
                                     <p class="font-bold text-gray-800">Unsupervised Learning</p>
@@ -206,7 +206,7 @@
                         </div>
                         <!-- 5 Deep Learning -->
                         <div class="flex md:justify-start justify-center">
-                            <a href="app/pages/deep_learning.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                            <a href="app/pages/deep_learning.html" data-done-key="p2ai_done_deep_learning" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
                                 <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">5</div>
                                 <div>
                                     <p class="font-bold text-gray-800">Deep Learning</p>
@@ -217,7 +217,7 @@
                         </div>
                         <!-- 6 CV -->
                         <div class="flex md:justify-end justify-center">
-                            <a href="app/pages/computer_vision.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                            <a href="app/pages/computer_vision.html" data-done-key="p2ai_done_cv" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
                                 <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">6</div>
                                 <div>
                                     <p class="font-bold text-gray-800">Computer Vision</p>
@@ -228,7 +228,7 @@
                         </div>
                         <!-- 7 NLP -->
                         <div class="flex md:justify-start justify-center">
-                            <a href="app/pages/natural_language_processing.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                            <a href="app/pages/natural_language_processing.html" data-done-key="p2ai_done_nlp" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
                                 <div class="w-10 h-10 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">7</div>
                                 <div>
                                     <p class="font-bold text-gray-800">Natural Language Processing</p>
@@ -239,7 +239,7 @@
                         </div>
                         <!-- 8 Time Series -->
                         <div class="flex md:justify-end justify-center">
-                            <a href="app/pages/time_series.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                            <a href="app/pages/time_series.html" data-done-key="p2ai_done_time_series" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
                                 <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">8</div>
                                 <div>
                                     <p class="font-bold text-gray-800">Time Series</p>
@@ -250,7 +250,7 @@
                         </div>
                         <!-- 9 Recommenders -->
                         <div class="flex md:justify-start justify-center">
-                            <a href="app/pages/recommendation_system.html" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
+                            <a href="app/pages/recommendation_system.html" data-done-key="p2ai_done_recommenders" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
                                 <div class="w-10 h-10 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">9</div>
                                 <div>
                                     <p class="font-bold text-gray-800">Recommendation Systems</p>
@@ -301,6 +301,29 @@
             icon.classList.toggle('fa-xmark');
         });
     </script>
+
+    <script>
+    (function() {
+        var links = document.querySelectorAll('a[data-done-key]');
+        links.forEach(function(a) {
+            var key = a.getAttribute('data-done-key');
+            if (localStorage.getItem(key) !== '1') return;
+            // Mark number circle green and add checkmark
+            var circle = a.querySelector('.rounded-full.font-bold');
+            if (circle) {
+                circle.classList.remove('bg-blue-100','text-blue-600','bg-green-100','text-green-600',
+                    'bg-yellow-100','text-yellow-600','bg-orange-100','text-orange-600',
+                    'bg-purple-100','text-purple-600','bg-red-100','text-red-600',
+                    'bg-teal-100','text-teal-600','bg-cyan-100','text-cyan-600','bg-pink-100','text-pink-600');
+                circle.classList.add('bg-green-500','text-white');
+                circle.innerHTML = '<i class="fa-solid fa-check text-sm"></i>';
+            }
+            // Add subtle green border to the card
+            a.classList.add('border-green-200','bg-green-50');
+        });
+    })();
+    </script>
+
 </body>
 
 </html>

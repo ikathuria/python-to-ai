@@ -526,6 +526,43 @@ print("R²:  ", r2_score(y_test, y_reg))</code></pre>
 						function checkQuiz(){var score=0;QUIZ_DATA.forEach(function(q,i){var sel=document.querySelector('input[name="q'+(i+1)+'"]:checked');var fb=document.getElementById('q'+(i+1)+'-feedback');if(!sel){fb.innerHTML='Please select an answer.';fb.className='mt-3 p-3 rounded-lg text-sm bg-yellow-50 text-yellow-800 border border-yellow-200';fb.classList.remove('hidden');return;}var val=parseInt(sel.value);if(val===q.correct){fb.innerHTML='<strong>Correct!</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-green-50 text-green-800 border border-green-200';score++;}else{fb.innerHTML='<strong>Not quite.</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-red-50 text-red-800 border border-red-200';}fb.classList.remove('hidden');});var sd=document.getElementById('quiz-score');sd.textContent='Score: '+score+' / '+QUIZ_DATA.length+'  ('+Math.round(score/QUIZ_DATA.length*100)+'%)';sd.classList.remove('hidden');}
 						function resetQuiz(){document.querySelectorAll('input[type=radio]').forEach(function(r){r.checked=false;});QUIZ_DATA.forEach(function(_,i){var fb=document.getElementById('q'+(i+1)+'-feedback');fb.className='hidden';});document.getElementById('quiz-score').classList.add('hidden');}
 					</script>
+			
+				<!-- Module Progress & Navigation -->
+				<div class="mt-12 pt-8 border-t border-gray-200">
+					<div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+						<button id="complete-btn" onclick="toggleComplete()" class="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border-2 border-gray-300 text-gray-600 hover:border-indigo-300 hover:text-indigo-600 transition">
+							<i class="fa-regular fa-circle-check text-lg"></i>
+							<span>Mark as Complete</span>
+						</button>
+						<div class="flex gap-3">
+							<a href="python.html" class="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50 hover:border-indigo-300 transition"><i class="fa-solid fa-arrow-left text-xs"></i> Python Basics</a>
+							<a href="supervised_learning.html" class="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold hover:bg-indigo-700 transition">Supervised ML <i class="fa-solid fa-arrow-right text-xs"></i></a>
+						</div>
+					</div>
+				</div>
+				<script>
+				(function() {
+					var KEY = 'p2ai_done_ml_basics';
+					function sync() {
+						var btn = document.getElementById('complete-btn');
+						if (!btn) return;
+						var done = localStorage.getItem(KEY) === '1';
+						if (done) {
+							btn.className = 'flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border-2 border-indigo-500 bg-indigo-50 text-indigo-700';
+							btn.innerHTML = '<i class=\"fa-solid fa-circle-check text-lg\"></i> <span>Completed!</span>';
+						} else {
+							btn.className = 'flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border-2 border-gray-300 text-gray-600 hover:border-indigo-300 hover:text-indigo-600 transition';
+							btn.innerHTML = '<i class=\"fa-regular fa-circle-check text-lg\"></i> <span>Mark as Complete</span>';
+						}
+					}
+					window.toggleComplete = function() {
+						var done = localStorage.getItem(KEY) === '1';
+						localStorage.setItem(KEY, done ? '0' : '1');
+						sync();
+					};
+					document.addEventListener('DOMContentLoaded', sync);
+				})();
+				</script>
 			</main>
 		</div>
 	</div>

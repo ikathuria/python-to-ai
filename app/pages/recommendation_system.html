@@ -95,7 +95,8 @@
 						<a href="#content-based" class="sidebar-link">Content-Based Filtering</a>
 						<a href="#cosine-similarity" class="sidebar-link">Cosine Similarity</a>
 						<a href="#collaborative" class="sidebar-link">Collaborative Filtering</a>
-											<a href="#quiz" class="sidebar-link" onclick="setActive(this)">Knowledge Check</a>
+						<a href="#movie-rec-demo" class="sidebar-link"><span class="mr-1">🎬</span> Movie Recommender</a>
+						<a href="#quiz" class="sidebar-link">Knowledge Check</a>
 					</nav>
 				</div>
 			</aside>
@@ -219,6 +220,119 @@ print(similar_movies(1))  # Movies similar to Toy Story</code></pre>
 					</div>
 				</section>
 
+					<!-- Interactive Movie Recommender Demo -->
+					<section id="movie-rec-demo" class="content-section">
+						<h2><i class="fa-solid fa-wand-magic-sparkles mr-3 text-indigo-500"></i> Live Demo — Genre-Based Recommender</h2>
+						<p>Select the genres you enjoy and click <strong>Find Movies</strong>. The recommender builds your preference vector and returns the top matches using cosine similarity — exactly like a real content-based system.</p>
+
+						<div class="bg-gray-900 text-white rounded-xl p-6 mt-4">
+							<div class="mb-4">
+								<p class="text-gray-300 text-sm mb-3 font-semibold uppercase tracking-wider">Your Genre Preferences</p>
+								<div id="genre-checkboxes" class="flex flex-wrap gap-2"></div>
+							</div>
+							<button onclick="findMovies()" class="mt-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg transition text-sm">Find Movies</button>
+							<div id="rec-results" class="mt-5 hidden">
+								<p class="text-gray-300 text-xs uppercase tracking-wider font-semibold mb-3">Top Recommendations</p>
+								<div id="rec-list" class="space-y-2"></div>
+							</div>
+						</div>
+
+						<script>
+						(function() {
+							var ALL_GENRES = ["Action","Animation","Children","Comedy","Drama","Fantasy","Horror","Romance","Sci-Fi","Thriller"];
+							var MOVIES = [
+								{title:"Toy Story (1995)",          genres:["Animation","Children","Comedy","Fantasy"]},
+								{title:"The Dark Knight (2008)",    genres:["Action","Thriller"]},
+								{title:"The Matrix (1999)",         genres:["Action","Sci-Fi"]},
+								{title:"Inception (2010)",          genres:["Action","Sci-Fi","Thriller"]},
+								{title:"Titanic (1997)",            genres:["Drama","Romance"]},
+								{title:"The Lion King (1994)",      genres:["Animation","Children","Drama","Fantasy"]},
+								{title:"The Shawshank Redemption (1994)", genres:["Drama"]},
+								{title:"Forrest Gump (1994)",       genres:["Comedy","Drama","Romance"]},
+								{title:"Jurassic Park (1993)",      genres:["Action","Sci-Fi","Thriller"]},
+								{title:"Home Alone (1990)",         genres:["Children","Comedy"]},
+								{title:"Schindler's List (1993)",   genres:["Drama","Thriller"]},
+								{title:"The Silence of the Lambs (1991)", genres:["Horror","Thriller"]},
+								{title:"Speed (1994)",              genres:["Action","Thriller"]},
+								{title:"Beauty and the Beast (1991)", genres:["Animation","Children","Fantasy","Romance"]},
+								{title:"Pulp Fiction (1994)",       genres:["Drama","Thriller"]},
+								{title:"Die Hard (1988)",           genres:["Action","Thriller"]},
+								{title:"Alien (1979)",              genres:["Horror","Sci-Fi"]},
+								{title:"When Harry Met Sally (1989)", genres:["Comedy","Romance"]},
+								{title:"The Truman Show (1998)",    genres:["Comedy","Drama"]},
+								{title:"A Bug's Life (1998)",       genres:["Animation","Children","Comedy"]},
+								{title:"Braveheart (1995)",         genres:["Action","Drama"]},
+								{title:"Saving Private Ryan (1998)", genres:["Action","Drama"]},
+								{title:"Star Wars: Episode IV (1977)", genres:["Action","Fantasy","Sci-Fi"]},
+								{title:"Interstellar (2014)",       genres:["Drama","Sci-Fi"]},
+								{title:"The Notebook (2004)",       genres:["Drama","Romance"]},
+								{title:"Get Out (2017)",            genres:["Horror","Thriller"]},
+								{title:"The Avengers (2012)",       genres:["Action","Sci-Fi"]},
+								{title:"Finding Nemo (2003)",       genres:["Animation","Children","Comedy"]}
+							];
+
+							function toVec(genres) {
+								return ALL_GENRES.map(function(g) { return genres.indexOf(g) >= 0 ? 1 : 0; });
+							}
+							function cosineSim(a, b) {
+								var dot = 0, na = 0, nb = 0;
+								for (var i = 0; i < a.length; i++) { dot += a[i]*b[i]; na += a[i]*a[i]; nb += b[i]*b[i]; }
+								if (!na || !nb) return 0;
+								return dot / (Math.sqrt(na) * Math.sqrt(nb));
+							}
+
+							// Render checkboxes
+							var box = document.getElementById('genre-checkboxes');
+							ALL_GENRES.forEach(function(g) {
+								var label = document.createElement('label');
+								label.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg cursor-pointer text-sm font-medium border border-gray-600 hover:border-indigo-400 text-gray-300 hover:text-white transition genre-chip';
+								label.innerHTML = '<input type="checkbox" value="' + g + '" class="accent-indigo-500"> ' + g;
+								label.querySelector('input').addEventListener('change', function() {
+									label.classList.toggle('border-indigo-400', this.checked);
+									label.classList.toggle('bg-indigo-900', this.checked);
+									label.classList.toggle('text-white', this.checked);
+								});
+								box.appendChild(label);
+							});
+
+							window.findMovies = function() {
+								var selected = Array.from(document.querySelectorAll('#genre-checkboxes input:checked')).map(function(c){ return c.value; });
+								if (!selected.length) { alert('Pick at least one genre!'); return; }
+								var userVec = toVec(selected);
+								var scored = MOVIES.map(function(m) {
+									return { title: m.title, genres: m.genres, score: cosineSim(userVec, toVec(m.genres)) };
+								}).filter(function(m) { return m.score > 0; })
+								  .sort(function(a, b) { return b.score - a.score; })
+								  .slice(0, 6);
+
+								var list = document.getElementById('rec-list');
+								list.innerHTML = '';
+								if (!scored.length) {
+									list.innerHTML = '<p class="text-gray-400 text-sm">No matches found — try different genres.</p>';
+								} else {
+									scored.forEach(function(m, i) {
+										var pct = Math.round(m.score * 100);
+										var row = document.createElement('div');
+										row.className = 'flex items-center justify-between bg-gray-800 rounded-lg px-4 py-3';
+										row.innerHTML = '<div class="flex items-center gap-3">'
+											+ '<span class="text-gray-500 text-xs w-4">' + (i+1) + '</span>'
+											+ '<div>'
+											+ '<p class="text-white text-sm font-semibold mb-0">' + m.title + '</p>'
+											+ '<p class="text-gray-400 text-xs mb-0">' + m.genres.join(', ') + '</p>'
+											+ '</div></div>'
+											+ '<div class="flex items-center gap-2 flex-shrink-0">'
+											+ '<div class="w-20 h-1.5 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-indigo-500 rounded-full" style="width:' + pct + '%"></div></div>'
+											+ '<span class="text-indigo-400 text-xs font-bold w-8 text-right">' + pct + '%</span>'
+											+ '</div>';
+										list.appendChild(row);
+									});
+								}
+								document.getElementById('rec-results').classList.remove('hidden');
+							};
+						})();
+						</script>
+					</section>
+
 					<!-- Knowledge Check -->
 					<section id="quiz" class="content-section">
 						<h2><i class="fa-solid fa-circle-question mr-3 text-indigo-500"></i> Knowledge Check</h2>
@@ -239,16 +353,46 @@ print(similar_movies(1))  # Movies similar to Toy Story</code></pre>
 						function checkQuiz(){var score=0;QUIZ_DATA.forEach(function(q,i){var sel=document.querySelector('input[name="q'+(i+1)+'"]:checked');var fb=document.getElementById('q'+(i+1)+'-feedback');if(!sel){fb.innerHTML='Please select an answer.';fb.className='mt-3 p-3 rounded-lg text-sm bg-yellow-50 text-yellow-800 border border-yellow-200';fb.classList.remove('hidden');return;}var val=parseInt(sel.value);if(val===q.correct){fb.innerHTML='<strong>Correct!</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-green-50 text-green-800 border border-green-200';score++;}else{fb.innerHTML='<strong>Not quite.</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-red-50 text-red-800 border border-red-200';}fb.classList.remove('hidden');});var sd=document.getElementById('quiz-score');sd.textContent='Score: '+score+' / '+QUIZ_DATA.length+'  ('+Math.round(score/QUIZ_DATA.length*100)+'%)';sd.classList.remove('hidden');}
 						function resetQuiz(){document.querySelectorAll('input[type=radio]').forEach(function(r){r.checked=false;});QUIZ_DATA.forEach(function(_,i){var fb=document.getElementById('q'+(i+1)+'-feedback');fb.className='hidden';});document.getElementById('quiz-score').classList.add('hidden');}
 					</script>
+			
+				<!-- Module Progress & Navigation -->
+				<div class="mt-12 pt-8 border-t border-gray-200">
+					<div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+						<button id="complete-btn" onclick="toggleComplete()" class="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border-2 border-gray-300 text-gray-600 hover:border-indigo-300 hover:text-indigo-600 transition">
+							<i class="fa-regular fa-circle-check text-lg"></i>
+							<span>Mark as Complete</span>
+						</button>
+						<div class="flex gap-3">
+							<a href="time_series.html" class="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50 hover:border-indigo-300 transition"><i class="fa-solid fa-arrow-left text-xs"></i> Time Series</a>
+							<a href="../../index.html" class="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold hover:bg-indigo-700 transition">Back to Home <i class="fa-solid fa-house text-xs"></i></a>
+						</div>
+					</div>
+				</div>
+				<script>
+				(function() {
+					var KEY = 'p2ai_done_recommenders';
+					function sync() {
+						var btn = document.getElementById('complete-btn');
+						if (!btn) return;
+						var done = localStorage.getItem(KEY) === '1';
+						if (done) {
+							btn.className = 'flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border-2 border-indigo-500 bg-indigo-50 text-indigo-700';
+							btn.innerHTML = '<i class=\"fa-solid fa-circle-check text-lg\"></i> <span>Completed!</span>';
+						} else {
+							btn.className = 'flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border-2 border-gray-300 text-gray-600 hover:border-indigo-300 hover:text-indigo-600 transition';
+							btn.innerHTML = '<i class=\"fa-regular fa-circle-check text-lg\"></i> <span>Mark as Complete</span>';
+						}
+					}
+					window.toggleComplete = function() {
+						var done = localStorage.getItem(KEY) === '1';
+						localStorage.setItem(KEY, done ? '0' : '1');
+						sync();
+					};
+					document.addEventListener('DOMContentLoaded', sync);
+				})();
+				</script>
 			</main>
 		</div>
 	</div>
-
-	<footer class="bg-gray-800 text-white py-8 mt-12">
-		<div class="max-w-7xl mx-auto px-4 text-center">
-			<p class="mb-2">Designed &amp; Built by Ishani Kathuria</p>
-			<p class="text-gray-500 text-sm">&copy; 2025 Python to AI.</p>
-		</div>
-	</footer>
 
 	<script>
 		document.querySelectorAll('#sidebar-nav a').forEach(link => {
