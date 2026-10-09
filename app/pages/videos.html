@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Videos · Python to AI</title>
+	<meta name="description" content="Watch the Python to AI videos: plain-English explainers on what AI really is, plus code walkthroughs for engineers. Free, friendly, no hype.">
+	<link rel="canonical" href="https://ikathuria.github.io/python-to-ai/app/pages/videos.html">
+	<meta property="og:title" content="Videos · Python to AI">
+	<meta property="og:description" content="Plain-English AI explainers and code walkthroughs, from the history of AI to how ChatGPT works.">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://ikathuria.github.io/python-to-ai/app/pages/videos.html">
+	<meta property="og:image" content="https://ikathuria.github.io/python-to-ai/app/images/og/videos.png">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="https://ikathuria.github.io/python-to-ai/app/images/og/videos.png">
+	<link rel="apple-touch-icon" href="../images/og/apple-touch-icon.png">
+	<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+	<link rel="stylesheet" href="../../app/styles/brand.css">
+	<link rel="stylesheet" href="../../app/styles/site.css">
+	<script src="../../app/styles/site.js"></script>
+	<style>
+		.page { max-width: var(--wide); margin: 0 auto; padding: var(--s-6) var(--s-3) 0; }
+		.page h1 { font: 800 var(--fs-h1)/1.02 var(--font-display); letter-spacing: -.025em; color: var(--title); text-shadow: var(--title-glow); margin: var(--s-2) 0 var(--s-3); }
+		.kicker { font: 700 var(--fs-label) var(--font-mono); letter-spacing: .06em; color: var(--muted); }
+		.lede { font-size: 1.1875rem; color: var(--muted); max-width: 56ch; line-height: 1.6; }
+		.series { margin-top: var(--s-7); }
+		.series h2 { font: 800 var(--fs-h2)/1.1 var(--font-display); letter-spacing: -.015em; }
+		.series .sub { color: var(--muted); margin-top: var(--s-2); max-width: 60ch; }
+		.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-4); margin-top: var(--s-4); }
+		.ep h3 { font: 800 1.125rem/1.3 var(--font-display); }
+		.ep .body { padding: var(--s-3); }
+		.ep .meta { font: 700 var(--fs-label) var(--font-mono); color: var(--muted); margin-top: 6px; display: flex; justify-content: space-between; gap: var(--s-2); }
+		.ep .meta a { color: var(--link); }
+		.screen16 { aspect-ratio: 16 / 9; background: var(--screen); position: relative; border-bottom: var(--bw) solid var(--border); overflow: hidden; }
+		.screen16 iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+		.play { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; cursor: pointer; background: var(--screen); display: block; }
+		.play img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .92; }
+		.play span { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: var(--accent); color: var(--on-accent); font: 700 15px var(--font-mono); padding: 10px 18px; border: var(--bw) solid var(--border); box-shadow: var(--shadow-pop); }
+		@media (hover: hover) { .play:hover span { transform: translate(calc(-50% - 2px), calc(-50% - 2px)); box-shadow: var(--shadow-pop-hover); } }
+		.soon { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: var(--s-3); color: var(--screen-text); font: 22px/1.3 var(--font-screen); }
+		.soon small { font: 700 var(--fs-label) var(--font-mono); opacity: .8; margin-top: 6px; }
+		.channel { margin-top: var(--s-7); }
+		.channel .window { margin-top: var(--s-4); }
+		.cta { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-4); }
+		@media (max-width: 1023px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+		@media (max-width: 639px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+	</style>
+</head>
+
+<body>
+	<a class="skip-link" href="#main">Skip to lesson</a>
+	<header class="menubar">
+		<div class="menubar-inner">
+			<a class="wordmark" href="../../index.html"><i aria-hidden="true"></i>Python to AI</a>
+			<div class="mb-desktop">
+				<a class="mb-link" href="history_of_ai.html">History</a>
+				<details>
+					<summary>Lessons ▾</summary>
+					<nav class="dropdown" aria-label="Lessons">
+					<a href="python.html"><span>00</span>Python basics</a>
+					<a href="ml_basics.html"><span>01</span>ML basics</a>
+					<a href="supervised_learning.html"><span>02</span>Supervised learning</a>
+					<a href="unsupervised_learning.html"><span>03</span>Unsupervised learning</a>
+					<a href="recommendation_system.html"><span>04</span>Recommendation systems</a>
+					<a href="deep_learning.html"><span>05</span>Deep learning</a>
+					<a href="computer_vision.html"><span>06</span>Computer vision</a>
+					<a href="time_series.html"><span>07</span>Time series</a>
+					<a href="natural_language_processing.html"><span>08</span>Language (NLP)</a>
+					</nav>
+				</details>
+				<a class="mb-link" href="videos.html" aria-current="page">Videos</a>
+				<a class="mb-link" href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener">GitHub</a>
+			</div>
+			<span class="mb-spacer"></span>
+			<button class="theme-toggle" type="button" aria-label="Toggle dark mode"><span class="when-light">◐ <span class="label">Dark</span></span><span class="when-dark">◑ <span class="label">Light</span></span></button>
+			<button class="mb-mobile-btn" type="button" aria-expanded="false" aria-controls="mobile-panel">Menu</button>
+		</div>
+		<nav id="mobile-panel" class="mobile-panel" aria-label="Site">
+		<a href="history_of_ai.html"><span>--</span>History of AI</a>
+		<a href="python.html"><span>00</span>Python basics</a>
+		<a href="ml_basics.html"><span>01</span>ML basics</a>
+		<a href="supervised_learning.html"><span>02</span>Supervised learning</a>
+		<a href="unsupervised_learning.html"><span>03</span>Unsupervised learning</a>
+		<a href="recommendation_system.html"><span>04</span>Recommendation systems</a>
+		<a href="deep_learning.html"><span>05</span>Deep learning</a>
+		<a href="computer_vision.html"><span>06</span>Computer vision</a>
+		<a href="time_series.html"><span>07</span>Time series</a>
+		<a href="natural_language_processing.html"><span>08</span>Language (NLP)</a>
+		<a href="videos.html" aria-current="page"><span>▶</span>Videos</a>
+		<a href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener"><span>{}</span>GitHub</a>
+		</nav>
+	</header>
+
+	<main id="main" class="page">
+		<div class="kicker">C:\&gt; play videos.exe</div>
+		<h1>Videos</h1>
+		<p class="lede">Two series: plain-English explainers for anyone curious about AI, and code walkthroughs for engineers who want to see how it's built. New episodes land here as they come out.</p>
+		<div class="cta">
+			<a class="btn btn-primary" href="https://www.youtube.com/@DrIshaniKathuria?sub_confirmation=1" target="_blank" rel="noopener">▶ Subscribe on YouTube</a>
+		</div>
+
+		<section class="series" aria-labelledby="s1">
+			<h2 id="s1">AI is not the Terminator</h2>
+			<p class="sub">No code, no jargon. What AI really is, where it came from, and why the robots still aren't coming.</p>
+			<div class="grid" data-series="plain"></div>
+		</section>
+
+		<section class="series" aria-labelledby="s2">
+			<h2 id="s2">Python to AI: under the hood</h2>
+			<p class="sub">Walkthroughs of the notebooks and demos on this site. Every episode links to the code.</p>
+			<div class="grid" data-series="code"></div>
+		</section>
+
+		<section class="channel" aria-labelledby="s3">
+			<h2 class="series" id="s3" style="margin-top:0;font:800 var(--fs-h2)/1.1 var(--font-display)">Latest from the channel</h2>
+			<p class="sub" style="color:var(--muted);margin-top:var(--s-2)">Everything else I've posted, including hackathon project demos.</p>
+			<div class="window">
+				<div class="window-bar"><i></i><span>uploads.playlist</span></div>
+				<div class="screen16" style="border-bottom:0">
+					<iframe loading="lazy" title="Latest uploads from Ishani Kathuria's YouTube channel"
+						src="https://www.youtube-nocookie.com/embed/videoseries?list=UU5EtzKnWSnBeBIvg7bbUAxg"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="band-thin"></div>
+		<div class="inner"><div class="row">
+			<span>&gt; built by Ishani Kathuria_</span>
+			<span class="links">
+				<a href="https://www.youtube.com/@DrIshaniKathuria" target="_blank" rel="noopener">YouTube</a>
+				<a href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener">GitHub</a>
+				<a href="https://linkedin.com/in/ishani-kathuria" target="_blank" rel="noopener">LinkedIn</a>
+				<a href="https://ishani.kathuria.net" target="_blank" rel="noopener">Website</a>
+			</span>
+		</div></div>
+	</footer>
+
+	<script>
+		// Episode list. When an episode is published, paste its YouTube ID into `id`
+		// (the part after "watch?v=" in the video URL) and it becomes a player.
+		const EPISODES = [
+			{ series: 'plain', n: '01', title: "AI is older than your grandparents' TV", page: 'history_of_ai.html', id: '' },
+			{ series: 'plain', n: '02', title: "You've used AI 50 times today", page: 'recommendation_system.html', id: '' },
+			{ series: 'plain', n: '03', title: "How a computer learns: it's just practice", page: 'supervised_learning.html', id: '' },
+			{ series: 'plain', n: '04', title: 'Sorting socks without instructions', page: 'unsupervised_learning.html', id: '' },
+			{ series: 'plain', n: '05', title: 'How computers "see"', page: 'computer_vision.html', id: '' },
+			{ series: 'plain', n: '06', title: 'What ChatGPT actually does', page: 'natural_language_processing.html', id: '' },
+			{ series: 'plain', n: '07', title: 'How to fool an AI', page: '', id: '' },
+			{ series: 'plain', n: '08', title: 'The real risks of AI', page: '', id: '' },
+			{ series: 'code', n: '00', title: "Python for people who've never coded", page: 'python.html', id: '' },
+			{ series: 'code', n: '01', title: 'NumPy, Pandas and PyTorch basics', page: 'ml_basics.html', id: '' },
+			{ series: 'code', n: '02', title: 'Supervised learning', page: 'supervised_learning.html', id: '' },
+			{ series: 'code', n: '03', title: 'Unsupervised learning', page: 'unsupervised_learning.html', id: '' },
+			{ series: 'code', n: '04', title: 'Recommendation systems', page: 'recommendation_system.html', id: '' },
+			{ series: 'code', n: '05', title: 'Neural networks from scratch', page: 'deep_learning.html', id: '' },
+			{ series: 'code', n: '06', title: 'CNNs and the colour classifier', page: 'computer_vision.html', id: '' },
+			{ series: 'code', n: '07', title: 'Time series', page: 'time_series.html', id: '' },
+			{ series: 'code', n: '08', title: 'Word2Vec to language models', page: 'natural_language_processing.html', id: '' },
+		];
+
+		function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
+
+		EPISODES.forEach(function (ep) {
+			const grid = document.querySelector('[data-series="' + ep.series + '"]');
+			const card = document.createElement('article');
+			card.className = 'window ep';
+			const screen = ep.id
+				? '<button class="play" type="button" data-id="' + esc(ep.id) + '" aria-label="Play: ' + esc(ep.title) + '">'
+					+ '<img src="https://i.ytimg.com/vi/' + esc(ep.id) + '/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span>▶ Play</span></button>'
+				: '<div class="soon">&gt; recording…<small>coming soon</small></div>';
+			const lesson = ep.page ? '<a href="' + ep.page + '">Open lesson →</a>' : '';
+			card.innerHTML = '<div class="window-bar"><i></i><span>ep' + ep.n + (ep.series === 'code' ? '.py' : '.mov') + '</span></div>'
+				+ '<div class="screen16">' + screen + '</div>'
+				+ '<div class="body"><h3>' + esc(ep.title) + '</h3><div class="meta"><span>' + (ep.id ? 'watch now' : 'coming soon') + '</span>' + lesson + '</div></div>';
+			grid.appendChild(card);
+		});
+
+		// Load the YouTube player only when someone presses play (faster page, fewer trackers).
+		document.addEventListener('click', function (e) {
+			const btn = e.target.closest('.play');
+			if (!btn) return;
+			const frame = document.createElement('iframe');
+			frame.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(btn.dataset.id) + '?autoplay=1';
+			frame.title = btn.getAttribute('aria-label').replace('Play: ', '');
+			frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+			frame.referrerPolicy = 'strict-origin-when-cross-origin';
+			frame.allowFullscreen = true;
+			btn.replaceWith(frame);
+		});
+	</script>
+</body>
+
+</html>

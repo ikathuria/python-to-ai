@@ -9,6 +9,8 @@ Two tracks per topic, linked to each other:
 
 Videos are filmed talking to camera, unscripted, with Claude Motion animations on screen. Each episode below lists **talking points to glance at, not a script**.
 
+**Publishing an episode on the site:** open [`app/pages/videos.html`](app/pages/videos.html), find the episode in the `EPISODES` list near the bottom, and paste the video's YouTube ID into `id` (the part after `watch?v=` in its URL). Its "coming soon" card becomes a player. Everything you upload also appears automatically in the "Latest from the channel" playlist on that page.
+
 **Status key:** 💡 idea · 📝 outlined · 🎬 filmed · ✂️ editing · ✅ published
 
 ---

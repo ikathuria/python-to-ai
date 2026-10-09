@@ -55,7 +55,7 @@ def menubar(prefix, pages_prefix, current):
 {items}
 \t\t\t\t\t</nav>
 \t\t\t\t</details>
-\t\t\t\t<a class="mb-link" href="{YOUTUBE}" target="_blank" rel="noopener">Videos</a>
+\t\t\t\t<a class="mb-link" href="{pages_prefix}videos.html"{cur("videos.html")}>Videos</a>
 \t\t\t\t<a class="mb-link" href="{GITHUB}" target="_blank" rel="noopener">GitHub</a>
 \t\t\t</div>
 \t\t\t<span class="mb-spacer"></span>
@@ -65,7 +65,7 @@ def menubar(prefix, pages_prefix, current):
 \t\t<nav id="mobile-panel" class="mobile-panel" aria-label="Site">
 \t\t<a href="{pages_prefix}history_of_ai.html"{cur("history_of_ai.html")}><span>--</span>History of AI</a>
 {mobile}
-\t\t<a href="{YOUTUBE}" target="_blank" rel="noopener"><span>▶</span>Videos</a>
+\t\t<a href="{pages_prefix}videos.html"{cur("videos.html")}><span>▶</span>Videos</a>
 \t\t<a href="{GITHUB}" target="_blank" rel="noopener"><span>{{}}</span>GitHub</a>
 \t\t</nav>
 \t</header>'''

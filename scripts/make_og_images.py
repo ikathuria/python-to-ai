@@ -13,6 +13,7 @@ INK, BG = "#111111", "#F4F4F1"
 PAGES = {
     "home": ("AI is older than your computer.", "Let's boot it up."),
     "history_of_ai": ("History of AI", "80 years of hype vs. reality"),
+    "videos": ("Videos", "plain-English AI explainers + code walkthroughs"),
     "python": ("Python basics", "lesson 00 · never coded? start here"),
     "ml_basics": ("ML basics", "lesson 01 · NumPy, Pandas, data"),
     "supervised_learning": ("Teach a machine", "lesson 02 · supervised learning"),
