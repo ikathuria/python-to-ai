@@ -92,5 +92,7 @@ python scripts/export_colour_cnn.py
 ## For more tutorials
 
 - Videos on [YouTube](https://www.youtube.com/@DrIshaniKathuria)
+- My website: [ishani.kathuria.net](https://ishani.kathuria.net)
+- Connect on [LinkedIn](https://linkedin.com/in/ishani-kathuria)
 - Articles on [Medium](https://medium.com/@ishani-kathuria)
 - GitHub [Wiki](https://github.com/ikathuria/python-to-ai/wiki)

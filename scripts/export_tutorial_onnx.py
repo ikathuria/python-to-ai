@@ -3,9 +3,10 @@
 Train small sklearn models and export ONNX for in-browser demos (ONNX Runtime Web).
 
 Run from repo root (requires: pip install scikit-learn skl2onnx onnx numpy):
-    python scripts/export_tutorial_onnx.py
+    python scripts/export_tutorial_onnx.py [output_dir]
 
-Outputs go to app/onnx_models/ — commit those files so GitHub Pages can serve them.
+Outputs go to app/onnx_models/ by default — commit those files so GitHub Pages can serve them.
+Pass another directory (as the tests do) to export without touching the committed models.
 """
 from __future__ import annotations
 
@@ -15,7 +16,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "app" / "onnx_models"
+OUT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else ROOT / "app" / "onnx_models"
 OUT.mkdir(parents=True, exist_ok=True)
 
 try:

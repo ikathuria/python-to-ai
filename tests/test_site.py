@@ -31,7 +31,7 @@ def test_onnx_models_present():
 def test_export_script_runs(tmp_path):
     """export_tutorial_onnx.py must exit 0 and produce all expected models."""
     result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "export_tutorial_onnx.py")],
+        [sys.executable, str(ROOT / "scripts" / "export_tutorial_onnx.py"), str(tmp_path)],
         capture_output=True, text=True,
     )
     assert result.returncode == 0, f"Export script failed:\n{result.stderr}"
@@ -45,7 +45,7 @@ def test_export_script_runs(tmp_path):
         "pca_iris.onnx",
     ]
     for name in expected:
-        assert (ONNX_DIR / name).is_file(), f"Missing {name} after export"
+        assert (tmp_path / name).is_file(), f"Missing {name} after export"
 
 
 def test_nav_links_consistent():

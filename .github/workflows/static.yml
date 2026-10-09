@@ -42,7 +42,9 @@ jobs:
           cp 404.html _site/
           cp robots.txt _site/
           cp sitemap.xml _site/
+          cp favicon.svg _site/
           cp app/pages/*.html _site/app/pages/
+          cp -R app/styles app/images _site/app/
           find app/onnx_models -maxdepth 1 -name '*.onnx' -print0 | xargs -0 -r cp -t _site/app/onnx_models/
           cp .nojekyll _site/
       - name: Upload artifact

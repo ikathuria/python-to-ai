@@ -44,44 +44,45 @@ def menubar(prefix, pages_prefix, current):
         f'\t\t<a href="{pages_prefix}{f}"{cur(f)}><span>{n}</span>{t}</a>' for n, f, t in LESSONS
     )
     return f'''<a class="skip-link" href="#main">Skip to lesson</a>
-	<header class="menubar">
-		<div class="menubar-inner">
-			<a class="wordmark" href="{prefix}index.html"><i aria-hidden="true"></i>Python to AI</a>
-			<div class="mb-desktop">
-				<a class="mb-link" href="{pages_prefix}history_of_ai.html"{cur("history_of_ai.html")}>History</a>
-				<details>
-					<summary>Lessons ▾</summary>
-					<nav class="dropdown" aria-label="Lessons">
+\t<header class="menubar">
+\t\t<div class="menubar-inner">
+\t\t\t<a class="wordmark" href="{prefix}index.html"><i aria-hidden="true"></i>Python to AI</a>
+\t\t\t<div class="mb-desktop">
+\t\t\t\t<a class="mb-link" href="{pages_prefix}history_of_ai.html"{cur("history_of_ai.html")}>History</a>
+\t\t\t\t<details>
+\t\t\t\t\t<summary>Lessons ▾</summary>
+\t\t\t\t\t<nav class="dropdown" aria-label="Lessons">
 {items}
-					</nav>
-				</details>
-				<a class="mb-link" href="{YOUTUBE}" target="_blank" rel="noopener">Videos</a>
-				<a class="mb-link" href="{GITHUB}" target="_blank" rel="noopener">GitHub</a>
-			</div>
-			<span class="mb-spacer"></span>
-			<button class="theme-toggle" type="button" aria-label="Toggle dark mode"><span class="when-light">◐ <span class="label">Dark</span></span><span class="when-dark">◑ <span class="label">Light</span></span></button>
-			<button class="mb-mobile-btn" type="button" aria-expanded="false" aria-controls="mobile-panel">Menu</button>
-		</div>
-		<nav id="mobile-panel" class="mobile-panel" aria-label="Site">
-		<a href="{pages_prefix}history_of_ai.html"{cur("history_of_ai.html")}><span>--</span>History of AI</a>
+\t\t\t\t\t</nav>
+\t\t\t\t</details>
+\t\t\t\t<a class="mb-link" href="{YOUTUBE}" target="_blank" rel="noopener">Videos</a>
+\t\t\t\t<a class="mb-link" href="{GITHUB}" target="_blank" rel="noopener">GitHub</a>
+\t\t\t</div>
+\t\t\t<span class="mb-spacer"></span>
+\t\t\t<button class="theme-toggle" type="button" aria-label="Toggle dark mode"><span class="when-light">◐ <span class="label">Dark</span></span><span class="when-dark">◑ <span class="label">Light</span></span></button>
+\t\t\t<button class="mb-mobile-btn" type="button" aria-expanded="false" aria-controls="mobile-panel">Menu</button>
+\t\t</div>
+\t\t<nav id="mobile-panel" class="mobile-panel" aria-label="Site">
+\t\t<a href="{pages_prefix}history_of_ai.html"{cur("history_of_ai.html")}><span>--</span>History of AI</a>
 {mobile}
-		<a href="{YOUTUBE}" target="_blank" rel="noopener"><span>▶</span>Videos</a>
-		<a href="{GITHUB}" target="_blank" rel="noopener"><span>{{}}</span>GitHub</a>
-		</nav>
-	</header>'''
+\t\t<a href="{YOUTUBE}" target="_blank" rel="noopener"><span>▶</span>Videos</a>
+\t\t<a href="{GITHUB}" target="_blank" rel="noopener"><span>{{}}</span>GitHub</a>
+\t\t</nav>
+\t</header>'''
 
 
 FOOTER = f'''<footer class="site-footer">
-		<div class="band-thin"></div>
-		<div class="inner"><div class="row">
-			<span>&gt; built by Ishani Kathuria_</span>
-			<span class="links">
-				<a href="{YOUTUBE}" target="_blank" rel="noopener">YouTube</a>
-				<a href="{GITHUB}" target="_blank" rel="noopener">GitHub</a>
-				<a href="https://linkedin.com/in/ishani-kathuria/" target="_blank" rel="noopener">LinkedIn</a>
-			</span>
-		</div></div>
-	</footer>'''
+\t\t<div class="band-thin"></div>
+\t\t<div class="inner"><div class="row">
+\t\t\t<span>&gt; built by Ishani Kathuria_</span>
+\t\t\t<span class="links">
+\t\t\t\t<a href="{YOUTUBE}" target="_blank" rel="noopener">YouTube</a>
+\t\t\t\t<a href="{GITHUB}" target="_blank" rel="noopener">GitHub</a>
+\t\t\t\t<a href="https://linkedin.com/in/ishani-kathuria" target="_blank" rel="noopener">LinkedIn</a>
+\t\t\t\t<a href="https://ishani.kathuria.net" target="_blank" rel="noopener">Website</a>
+\t\t\t</span>
+\t\t</div></div>
+\t</footer>'''
 
 
 def label_inputs(html):
