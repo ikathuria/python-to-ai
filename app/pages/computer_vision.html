@@ -193,19 +193,19 @@ print(feature_map)</code></pre>
 							<!-- Input canvas -->
 							<div class="flex flex-col items-center gap-2">
 								<span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">7×7 Input</span>
-								<canvas id="conv-input-canvas" width="280" height="280" style="cursor:pointer;border-radius:8px;border:2px solid #e5e7eb;"></canvas>
+								<canvas id="conv-input-canvas" width="280" height="280" style="cursor:pointer;border-radius:var(--radius-sm);border:var(--bw) solid var(--border);max-width:100%;height:auto;"></canvas>
 							</div>
 
 							<!-- Kernel display -->
 							<div class="flex flex-col items-center gap-2">
 								<span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">3×3 Kernel</span>
-								<canvas id="conv-kernel-canvas" width="120" height="120" style="border-radius:8px;border:2px solid #e5e7eb;"></canvas>
+								<canvas id="conv-kernel-canvas" width="120" height="120" style="border-radius:var(--radius-sm);border:var(--bw) solid var(--border);max-width:100%;height:auto;"></canvas>
 							</div>
 
 							<!-- Output canvas -->
 							<div class="flex flex-col items-center gap-2">
 								<span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">5×5 Output</span>
-								<canvas id="conv-output-canvas" width="200" height="200" style="border-radius:8px;border:2px solid #e5e7eb;"></canvas>
+								<canvas id="conv-output-canvas" width="200" height="200" style="border-radius:var(--radius-sm);border:var(--bw) solid var(--border);max-width:100%;height:auto;"></canvas>
 							</div>
 						</div>
 
@@ -256,11 +256,11 @@ print(feature_map)</code></pre>
 						<div class="flex flex-wrap items-start justify-center gap-8">
 							<div class="flex flex-col items-center gap-2">
 								<span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Original (12×12)</span>
-								<canvas id="fg-input-canvas" width="360" height="360" style="cursor:crosshair;border-radius:8px;border:2px solid #e5e7eb;"></canvas>
+								<canvas id="fg-input-canvas" width="360" height="360" style="cursor:crosshair;border-radius:var(--radius-sm);border:var(--bw) solid var(--border);max-width:100%;height:auto;"></canvas>
 							</div>
 							<div class="flex flex-col items-center gap-2">
 								<span id="fg-output-label" class="text-xs font-semibold text-indigo-500 uppercase tracking-wider">Edge Detect (10×10)</span>
-								<canvas id="fg-output-canvas" width="300" height="300" style="border-radius:8px;border:2px solid #c7d2fe;"></canvas>
+								<canvas id="fg-output-canvas" width="300" height="300" style="border-radius:var(--radius-sm);border:var(--bw) solid var(--border);max-width:100%;height:auto;"></canvas>
 							</div>
 						</div>
 
@@ -667,13 +667,13 @@ history = model.fit(train_gen, validation_data=val_gen,
             for (let r = 0; r < GRID; r++) {
                 for (let c = 0; c < GRID; c++) {
                     const x = c * CELL, y = r * CELL;
-                    iCtx.fillStyle = inputGrid[r][c] ? '#f9fafb' : '#1f2937';
+                    iCtx.fillStyle = inputGrid[r][c] ? brandColor('surface') : brandColor('text');
                     iCtx.fillRect(x, y, CELL, CELL);
-                    iCtx.strokeStyle = '#6b7280';
+                    iCtx.strokeStyle = brandColor('muted');
                     iCtx.lineWidth = 0.5;
                     iCtx.strokeRect(x, y, CELL, CELL);
                     // value label
-                    iCtx.fillStyle = inputGrid[r][c] ? '#1f2937' : '#9ca3af';
+                    iCtx.fillStyle = inputGrid[r][c] ? brandColor('text') : brandColor('muted');
                     iCtx.font = '11px monospace';
                     iCtx.textAlign = 'center';
                     iCtx.textBaseline = 'middle';
@@ -682,9 +682,9 @@ history = model.fit(train_gen, validation_data=val_gen,
             }
             // Highlight active 3×3 patch
             if (highlightRow !== undefined) {
-                iCtx.fillStyle = 'rgba(99,102,241,0.35)';
+                iCtx.fillStyle = brandRgba('link', 0.35);
                 iCtx.fillRect(highlightCol * CELL, highlightRow * CELL, KSIZE * CELL, KSIZE * CELL);
-                iCtx.strokeStyle = '#6366f1';
+                iCtx.strokeStyle = brandColor('link');
                 iCtx.lineWidth = 2.5;
                 iCtx.strokeRect(highlightCol * CELL, highlightRow * CELL, KSIZE * CELL, KSIZE * CELL);
             }
@@ -703,16 +703,16 @@ history = model.fit(train_gen, validation_data=val_gen,
                     const v = k[r][c];
                     const t = v / maxAbs; // -1..1
                     let bg;
-                    if (t > 0) bg = `rgba(99,102,241,${t * 0.8 + 0.1})`;
-                    else if (t < 0) bg = `rgba(239,68,68,${-t * 0.8 + 0.1})`;
-                    else bg = '#f3f4f6';
+                    if (t > 0) bg = brandRgba('link', t * 0.8 + 0.1);
+                    else if (t < 0) bg = brandRgba('rb-red', -t * 0.8 + 0.1);
+                    else bg = brandColor('line');
                     kCtx.fillStyle = bg;
                     kCtx.fillRect(x, y, KCELL, KCELL);
-                    kCtx.strokeStyle = '#d1d5db';
+                    kCtx.strokeStyle = brandColor('line');
                     kCtx.lineWidth = 0.5;
                     kCtx.strokeRect(x, y, KCELL, KCELL);
                     // label
-                    kCtx.fillStyle = '#111827';
+                    kCtx.fillStyle = brandColor('text');
                     kCtx.font = 'bold 10px monospace';
                     kCtx.textAlign = 'center';
                     kCtx.textBaseline = 'middle';
@@ -735,11 +735,11 @@ history = model.fit(train_gen, validation_data=val_gen,
                     const t = (outputMap[r][c] - minV) / range; // 0..1
                     oCtx.fillStyle = `rgb(${Math.round(t*220)},${Math.round(t*220)},${Math.round(t*220)})`;
                     oCtx.fillRect(x, y, OCELL, OCELL);
-                    oCtx.strokeStyle = '#6b7280';
+                    oCtx.strokeStyle = brandColor('muted');
                     oCtx.lineWidth = 0.5;
                     oCtx.strokeRect(x, y, OCELL, OCELL);
                     // value
-                    oCtx.fillStyle = t > 0.5 ? '#1f2937' : '#f9fafb';
+                    oCtx.fillStyle = t > 0.5 ? brandColor('text') : brandColor('surface');
                     oCtx.font = '9px monospace';
                     oCtx.textAlign = 'center';
                     oCtx.textBaseline = 'middle';
@@ -748,10 +748,10 @@ history = model.fit(train_gen, validation_data=val_gen,
             }
             // Highlight active output cell
             if (highlightRow !== undefined) {
-                oCtx.strokeStyle = '#6366f1';
+                oCtx.strokeStyle = brandColor('link');
                 oCtx.lineWidth = 3;
                 oCtx.strokeRect(highlightCol * OCELL, highlightRow * OCELL, OCELL, OCELL);
-                oCtx.fillStyle = 'rgba(99,102,241,0.25)';
+                oCtx.fillStyle = brandRgba('link', 0.25);
                 oCtx.fillRect(highlightCol * OCELL, highlightRow * OCELL, OCELL, OCELL);
             }
         }
@@ -936,7 +936,7 @@ history = model.fit(train_gen, validation_data=val_gen,
                     const v = fgGrid[r][c];
                     fgICtx.fillStyle = `rgb(${v},${v},${v})`;
                     fgICtx.fillRect(x, y, FG_CELL, FG_CELL);
-                    fgICtx.strokeStyle = 'rgba(107,114,128,0.4)';
+                    fgICtx.strokeStyle = brandRgba('muted', 0.4);
                     fgICtx.lineWidth = 0.5;
                     fgICtx.strokeRect(x, y, FG_CELL, FG_CELL);
                 }
@@ -970,7 +970,7 @@ history = model.fit(train_gen, validation_data=val_gen,
                     const v = Math.round(t * 255);
                     fgOCtx.fillStyle = `rgb(${v},${v},${v})`;
                     fgOCtx.fillRect(x, y, FG_OCELL, FG_OCELL);
-                    fgOCtx.strokeStyle = 'rgba(107,114,128,0.4)';
+                    fgOCtx.strokeStyle = brandRgba('muted', 0.4);
                     fgOCtx.lineWidth = 0.5;
                     fgOCtx.strokeRect(x, y, FG_OCELL, FG_OCELL);
                 }

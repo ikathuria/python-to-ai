@@ -507,7 +507,7 @@ preds = scaler.inverse_transform(model.predict(X_test))</code></pre>
 				var ctx = c.getContext('2d');
 				var W = c.width, H = c.height;
 				ctx.clearRect(0, 0, W, H);
-				ctx.fillStyle = '#f9fafb';
+				ctx.fillStyle = brandColor('surface');
 				ctx.fillRect(0, 0, W, H);
 
 				var padL = 36, padR = 10, padT = 14, padB = 30;
@@ -524,13 +524,13 @@ preds = scaler.inverse_transform(model.predict(X_test))</code></pre>
 				// Grid lines and Y axis ticks
 				var yTicks = 5;
 				ctx.font = '9px Nunito, sans-serif';
-				ctx.fillStyle = '#94a3b8';
+				ctx.fillStyle = brandColor('muted');
 				ctx.textAlign = 'right';
 				for (var t = 0; t <= yTicks; t++) {
 					var yv = minV + t * rng / yTicks;
 					var ypx = py(yv);
 					ctx.beginPath();
-					ctx.strokeStyle = '#e2e8f0';
+					ctx.strokeStyle = brandColor('line');
 					ctx.lineWidth = 1;
 					ctx.moveTo(padL, ypx);
 					ctx.lineTo(W - padR, ypx);
@@ -540,19 +540,19 @@ preds = scaler.inverse_transform(model.predict(X_test))</code></pre>
 
 				// X axis
 				ctx.beginPath();
-				ctx.strokeStyle = '#94a3b8';
+				ctx.strokeStyle = brandColor('muted');
 				ctx.lineWidth = 1.5;
 				ctx.moveTo(padL, H - padB);
 				ctx.lineTo(W - padR, H - padB);
 				ctx.stroke();
 
 				// X labels
-				ctx.fillStyle = '#64748b';
+				ctx.fillStyle = brandColor('muted');
 				ctx.textAlign = 'center';
 				[0, 10, 20, 30, 40, 49].forEach(function(i) {
 					var x = px(i);
 					ctx.beginPath();
-					ctx.strokeStyle = '#94a3b8';
+					ctx.strokeStyle = brandColor('muted');
 					ctx.lineWidth = 1;
 					ctx.moveTo(x, H - padB);
 					ctx.lineTo(x, H - padB + 4);
@@ -575,16 +575,16 @@ preds = scaler.inverse_transform(model.predict(X_test))</code></pre>
 					ctx.setLineDash([]);
 				}
 
-				if (showRaw)  drawLine(data, '#d1d5db', 1.2, []);
-				if (showSMA)  drawLine(sma,  '#4f46e5', 2.5, []);
-				if (showEMA)  drawLine(ema,  '#e11d48', 2,   [5, 4]);
+				if (showRaw)  drawLine(data, brandColor('line'), 1.2, []);
+				if (showSMA)  drawLine(sma,  brandColor('link'), 2.5, []);
+				if (showEMA)  drawLine(ema,  brandColor('rb-red'), 2,   [5, 4]);
 
 				// Legend
 				var lx = padL + 8, ly = padT + 8;
 				ctx.font = '10px Nunito, sans-serif';
-				if (showRaw)  { ctx.strokeStyle='#d1d5db'; ctx.lineWidth=1.5; ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(lx+18,ly); ctx.stroke(); ctx.fillStyle='#6b7280'; ctx.textAlign='left'; ctx.fillText('Raw',lx+22,ly+3); lx+=60; }
-				if (showSMA)  { ctx.strokeStyle='#4f46e5'; ctx.lineWidth=2.5; ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(lx+18,ly); ctx.stroke(); ctx.fillStyle='#4f46e5'; ctx.fillText('SMA',lx+22,ly+3); lx+=60; }
-				if (showEMA)  { ctx.strokeStyle='#e11d48'; ctx.lineWidth=2; ctx.setLineDash([4,3]); ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(lx+18,ly); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle='#e11d48'; ctx.fillText('EMA',lx+22,ly+3); }
+				if (showRaw)  { ctx.strokeStyle=brandColor('line'); ctx.lineWidth=1.5; ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(lx+18,ly); ctx.stroke(); ctx.fillStyle=brandColor('muted'); ctx.textAlign='left'; ctx.fillText('Raw',lx+22,ly+3); lx+=60; }
+				if (showSMA)  { ctx.strokeStyle=brandColor('link'); ctx.lineWidth=2.5; ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(lx+18,ly); ctx.stroke(); ctx.fillStyle=brandColor('link'); ctx.fillText('SMA',lx+22,ly+3); lx+=60; }
+				if (showEMA)  { ctx.strokeStyle=brandColor('rb-red'); ctx.lineWidth=2; ctx.setLineDash([4,3]); ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(lx+18,ly); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle=brandColor('rb-red'); ctx.fillText('EMA',lx+22,ly+3); }
 			}
 
 			window.maUpdate = function() {

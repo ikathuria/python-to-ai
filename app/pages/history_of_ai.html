@@ -384,14 +384,6 @@
 			if (e.key === 'ArrowLeft') show(idx - 1);
 		});
 		present.addEventListener('click', e => { if (e.target === present) show(idx + 1); });
-
-		document.getElementById('mobile-menu-btn').addEventListener('click', function () {
-			const menu = document.getElementById('mobile-menu');
-			const icon = document.getElementById('menu-icon');
-			menu.classList.toggle('hidden');
-			icon.classList.toggle('fa-bars');
-			icon.classList.toggle('fa-xmark');
-		});
 	</script>
 </body>
 

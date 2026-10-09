@@ -701,8 +701,9 @@ for epoch in range(100):
             const rect = canvas.getBoundingClientRect();
             canvas.width = W * dpr;
             canvas.height = H * dpr;
-            canvas.style.width = W + 'px';
-            canvas.style.height = H + 'px';
+            canvas.style.width = '100%';
+            canvas.style.height = 'auto';
+            canvas.style.aspectRatio = W + ' / ' + H;
             ctx.scale(dpr, dpr);
         }
         setupCanvas();
@@ -711,11 +712,11 @@ for epoch in range(100):
             ctx.clearRect(0, 0, W, H);
 
             // Background
-            ctx.fillStyle = '#f9fafb';
+            ctx.fillStyle = brandColor('surface');
             ctx.fillRect(0, 0, W, H);
 
             // Grid lines (horizontal)
-            ctx.strokeStyle = '#e5e7eb';
+            ctx.strokeStyle = brandColor('line');
             ctx.lineWidth = 0.5;
             for (let l = Math.ceil(LOSS_MIN); l <= Math.floor(LOSS_MAX); l++) {
                 const y = ly(l);
@@ -726,7 +727,7 @@ for epoch in range(100):
             }
 
             // Axes
-            ctx.strokeStyle = '#9ca3af';
+            ctx.strokeStyle = brandColor('muted');
             ctx.lineWidth = 1;
             // Y axis
             ctx.beginPath();
@@ -740,7 +741,7 @@ for epoch in range(100):
             ctx.stroke();
 
             // X tick marks and labels
-            ctx.fillStyle = '#6b7280';
+            ctx.fillStyle = brandColor('muted');
             ctx.font = '10px Nunito, sans-serif';
             ctx.textAlign = 'center';
             for (let w = Math.ceil(W_RANGE[0]); w <= Math.floor(W_RANGE[1]); w++) {
@@ -748,13 +749,13 @@ for epoch in range(100):
                 ctx.beginPath();
                 ctx.moveTo(x, H - PAD.bottom);
                 ctx.lineTo(x, H - PAD.bottom + 4);
-                ctx.strokeStyle = '#9ca3af';
+                ctx.strokeStyle = brandColor('muted');
                 ctx.lineWidth = 1;
                 ctx.stroke();
                 ctx.fillText(w, x, H - PAD.bottom + 14);
             }
             ctx.textAlign = 'center';
-            ctx.fillStyle = '#374151';
+            ctx.fillStyle = brandColor('text');
             ctx.font = '11px Nunito, sans-serif';
             ctx.fillText('w (weight)', PAD.left + (W - PAD.left - PAD.right) / 2, H - 4);
 
@@ -762,7 +763,7 @@ for epoch in range(100):
             ctx.save();
             ctx.translate(12, PAD.top + (H - PAD.top - PAD.bottom) / 2);
             ctx.rotate(-Math.PI / 2);
-            ctx.fillStyle = '#374151';
+            ctx.fillStyle = brandColor('text');
             ctx.font = '11px Nunito, sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText('Loss', 0, 0);
@@ -770,7 +771,7 @@ for epoch in range(100):
 
             // Loss curve
             ctx.beginPath();
-            ctx.strokeStyle = '#6366f1';
+            ctx.strokeStyle = brandColor('link');
             ctx.lineWidth = 2.5;
             ctx.lineJoin = 'round';
             for (let i = 0; i <= 400; i++) {
@@ -786,7 +787,7 @@ for epoch in range(100):
                 const alpha = 0.15 + 0.55 * (i / trace.length);
                 ctx.beginPath();
                 ctx.arc(wx(trace[i]), ly(loss(trace[i])), 3, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(100,100,120,${alpha})`;
+                ctx.fillStyle = brandRgba('muted', alpha);
                 ctx.fill();
             }
 
@@ -800,7 +801,7 @@ for epoch in range(100):
             const x2 = wx(ballW + tangentLen);
             const y2 = ly(loss(ballW) + grad * tangentLen);
             ctx.beginPath();
-            ctx.strokeStyle = '#f97316';
+            ctx.strokeStyle = brandColor('rb-orange');
             ctx.lineWidth = 1.5;
             ctx.setLineDash([4, 3]);
             ctx.moveTo(x1, y1);
@@ -816,7 +817,7 @@ for epoch in range(100):
                 const ax2 = wx(arrowEndW);
                 const ay2 = ly(loss(arrowEndW));
                 ctx.beginPath();
-                ctx.strokeStyle = '#ef4444';
+                ctx.strokeStyle = brandColor('rb-red');
                 ctx.lineWidth = 2;
                 ctx.moveTo(bx, by);
                 ctx.lineTo(ax2, ay2);
@@ -824,7 +825,7 @@ for epoch in range(100):
                 // Arrowhead
                 const angle = Math.atan2(ay2 - by, ax2 - bx);
                 ctx.beginPath();
-                ctx.fillStyle = '#ef4444';
+                ctx.fillStyle = brandColor('rb-red');
                 ctx.moveTo(ax2, ay2);
                 ctx.lineTo(ax2 - 8 * Math.cos(angle - 0.4), ay2 - 8 * Math.sin(angle - 0.4));
                 ctx.lineTo(ax2 - 8 * Math.cos(angle + 0.4), ay2 - 8 * Math.sin(angle + 0.4));
@@ -835,8 +836,8 @@ for epoch in range(100):
             // Ball
             ctx.beginPath();
             ctx.arc(bx, by, 7, 0, Math.PI * 2);
-            ctx.fillStyle = '#6366f1';
-            ctx.shadowColor = 'rgba(99,102,241,0.5)';
+            ctx.fillStyle = brandColor('link');
+            ctx.shadowColor = brandRgba('link', 0.5);
             ctx.shadowBlur = 8;
             ctx.fill();
             ctx.shadowBlur = 0;
@@ -969,27 +970,27 @@ for epoch in range(100):
 
         const FUNCTIONS = [
             {
-                id: 'af-relu', name: 'ReLU', color: '#f43f5e',
+                id: 'af-relu', name: 'ReLU', color: brandColor('rb-red'),
                 fn: x => Math.max(0, x),
                 formula: 'f(x) = max(0, x)'
             },
             {
-                id: 'af-sigmoid', name: 'Sigmoid', color: '#3b82f6',
+                id: 'af-sigmoid', name: 'Sigmoid', color: brandColor('rb-blue'),
                 fn: x => 1 / (1 + Math.exp(-x)),
                 formula: 'f(x) = 1/(1+e⁻ˣ)'
             },
             {
-                id: 'af-tanh', name: 'Tanh', color: '#22c55e',
+                id: 'af-tanh', name: 'Tanh', color: brandColor('rb-green'),
                 fn: x => Math.tanh(x),
                 formula: 'f(x) = tanh(x)'
             },
             {
-                id: 'af-leaky', name: 'Leaky ReLU', color: '#f59e0b',
+                id: 'af-leaky', name: 'Leaky ReLU', color: brandColor('rb-yellow'),
                 fn: x => x >= 0 ? x : 0.1 * x,
                 formula: 'f(x) = x≥0 ? x : 0.1x'
             },
             {
-                id: 'af-gelu', name: 'GELU', color: '#8b5cf6',
+                id: 'af-gelu', name: 'GELU', color: brandColor('rb-purple'),
                 fn: x => 0.5 * x * (1 + Math.tanh(Math.sqrt(2 / Math.PI) * (x + 0.044715 * x ** 3))),
                 formula: 'f(x) ≈ 0.5x(1+tanh(√(2/π)(x+0.044715x³)))'
             },
@@ -1007,8 +1008,9 @@ for epoch in range(100):
             const dpr = window.devicePixelRatio || 1;
             canvas.width = W * dpr;
             canvas.height = H * dpr;
-            canvas.style.width = W + 'px';
-            canvas.style.height = H + 'px';
+            canvas.style.width = '100%';
+            canvas.style.height = 'auto';
+            canvas.style.aspectRatio = W + ' / ' + H;
             ctx.scale(dpr, dpr);
         }
         setupCanvas();
@@ -1021,11 +1023,11 @@ for epoch in range(100):
             ctx.clearRect(0, 0, W, H);
 
             // Background
-            ctx.fillStyle = '#f9fafb';
+            ctx.fillStyle = brandColor('surface');
             ctx.fillRect(0, 0, W, H);
 
             // Grid lines
-            ctx.strokeStyle = '#e5e7eb';
+            ctx.strokeStyle = brandColor('line');
             ctx.lineWidth = 0.5;
             for (let x = Math.ceil(X_RANGE[0]); x <= Math.floor(X_RANGE[1]); x++) {
                 ctx.beginPath();
@@ -1041,7 +1043,7 @@ for epoch in range(100):
             }
 
             // Axes
-            ctx.strokeStyle = '#9ca3af';
+            ctx.strokeStyle = brandColor('muted');
             ctx.lineWidth = 1.2;
             // x=0 vertical
             ctx.beginPath();
@@ -1055,7 +1057,7 @@ for epoch in range(100):
             ctx.stroke();
 
             // Axis labels
-            ctx.fillStyle = '#6b7280';
+            ctx.fillStyle = brandColor('muted');
             ctx.font = '10px Nunito, sans-serif';
             ctx.textAlign = 'center';
             for (let x = X_RANGE[0]; x <= X_RANGE[1]; x += 2) {
@@ -1088,7 +1090,7 @@ for epoch in range(100):
 
             // Vertical scrubber line
             ctx.beginPath();
-            ctx.strokeStyle = '#94a3b8';
+            ctx.strokeStyle = brandColor('muted');
             ctx.lineWidth = 1.2;
             ctx.setLineDash([5, 3]);
             ctx.moveTo(px(xInput), PAD.top);

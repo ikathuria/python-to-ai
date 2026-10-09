@@ -995,8 +995,8 @@ for k in [1,3,5,7,9,11]:
 
 	// ── KNN Visualizer ───────────────────────────────────────────────────────
 	const knnViz = (() => {
-		const CLASS_COLORS   = ['#f43f5e', '#3b82f6', '#22c55e'];  // rose-500, blue-500, green-500
-		const CLASS_FADED    = ['rgba(244,63,94,0.15)', 'rgba(59,130,246,0.15)', 'rgba(34,197,94,0.15)'];
+		const CLASS_COLORS   = [brandColor('rb-red'), brandColor('rb-blue'), brandColor('rb-green')];  // rose-500, blue-500, green-500
+		const CLASS_FADED    = [brandRgba('rb-red', 0.15), brandRgba('rb-blue', 0.15), brandRgba('rb-green', 0.15)];
 		const CLASS_NAMES    = ['A', 'B', 'C'];
 		const GRID_STEP      = 8;
 
@@ -1081,7 +1081,7 @@ for k in [1,3,5,7,9,11]:
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 			// Background
-			ctx.fillStyle = '#f9fafb';
+			ctx.fillStyle = brandColor('surface');
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 			// Decision boundary
@@ -1126,7 +1126,7 @@ for k in [1,3,5,7,9,11]:
 				});
 
 				// Star for query point
-				drawStar(queryPt.x, queryPt.y, 12, '#111827');
+				drawStar(queryPt.x, queryPt.y, 12, brandColor('text'));
 
 				// Update vote panel
 				const voteEl = document.getElementById('knn-viz-votes');

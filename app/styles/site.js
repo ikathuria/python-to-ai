@@ -1,4 +1,17 @@
 // Shared behaviour: theme toggle, mobile menu, collapsible lesson contents.
+// Live brand colour for canvas charts, e.g. brandColor('muted'). Reads the current theme's token.
+window.brandColor = function (name) {
+	return getComputedStyle(document.documentElement).getPropertyValue('--' + name).trim();
+};
+
+// Same as brandColor but with transparency, e.g. brandRgba('link', 0.4).
+window.brandRgba = function (name, alpha) {
+	var hex = window.brandColor(name).replace('#', '');
+	if (hex.length === 3) hex = hex.replace(/./g, '$&$&');
+	var n = parseInt(hex, 16);
+	return 'rgba(' + (n >> 16 & 255) + ',' + (n >> 8 & 255) + ',' + (n & 255) + ',' + alpha + ')';
+};
+
 (function () {
 	var root = document.documentElement;
 	try {
@@ -21,6 +34,11 @@
 				root.setAttribute('data-theme', next);
 				toggle.setAttribute('aria-pressed', next === 'dark');
 				try { localStorage.setItem('p2ai_theme', next); } catch (e) { }
+				// Let canvas demos redraw with the new theme's colours.
+				window.dispatchEvent(new Event('resize'));
+				window.dispatchEvent(new Event('p2ai:theme'));
+				// Most demos redraw on slider input; re-fire it without changing any values.
+				document.querySelectorAll('main input[type=range]').forEach(function (r) { r.dispatchEvent(new Event('input', { bubbles: true })); });
 			});
 		}
 

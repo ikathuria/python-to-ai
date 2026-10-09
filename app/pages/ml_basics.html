@@ -643,14 +643,14 @@ print("R²:  ", r2_score(y_test, y_reg))</code></pre>
 				var ctx = c.getContext('2d');
 				var W = c.width, H = c.height;
 				ctx.clearRect(0, 0, W, H);
-				ctx.fillStyle = '#f8f8ff';
+				ctx.fillStyle = brandColor('surface');
 				ctx.fillRect(0, 0, W, H);
 
 				var padL = 30, padR = 14, axisY = H - 36;
 
 				// Axis line
 				ctx.beginPath();
-				ctx.strokeStyle = '#94a3b8';
+				ctx.strokeStyle = brandColor('muted');
 				ctx.lineWidth = 1.5;
 				ctx.moveTo(padL, axisY);
 				ctx.lineTo(W - padR, axisY);
@@ -658,26 +658,26 @@ print("R²:  ", r2_score(y_test, y_reg))</code></pre>
 
 				// Tick marks & labels
 				var tickCount = 4;
-				ctx.fillStyle = '#64748b';
+				ctx.fillStyle = brandColor('muted');
 				ctx.font = '9px Nunito, sans-serif';
 				ctx.textAlign = 'center';
 				for (var i = 0; i <= tickCount; i++) {
 					var frac = i / tickCount;
 					var tx = padL + frac * (W - padL - padR);
 					ctx.beginPath();
-					ctx.strokeStyle = '#cbd5e1';
+					ctx.strokeStyle = brandColor('line');
 					ctx.lineWidth = 1;
 					ctx.moveTo(tx, 10);
 					ctx.lineTo(tx, axisY);
 					ctx.stroke();
 					ctx.beginPath();
-					ctx.strokeStyle = '#94a3b8';
+					ctx.strokeStyle = brandColor('muted');
 					ctx.lineWidth = 1.5;
 					ctx.moveTo(tx, axisY);
 					ctx.lineTo(tx, axisY + 5);
 					ctx.stroke();
 					var tickVal = xMin + frac * (xMax - xMin);
-					ctx.fillStyle = '#64748b';
+					ctx.fillStyle = brandColor('muted');
 					ctx.fillText(tickVal.toFixed(xMax > 10 ? 0 : 2), tx, axisY + 16);
 				}
 
@@ -690,7 +690,7 @@ print("R²:  ", r2_score(y_test, y_reg))</code></pre>
 					var dy = axisY - 22 - row * 28;
 					ctx.beginPath();
 					ctx.arc(dx, dy, 6, 0, 2*Math.PI);
-					ctx.fillStyle = 'rgba(79,70,229,0.85)';
+					ctx.fillStyle = brandRgba('link', 0.85);
 					ctx.fill();
 					ctx.strokeStyle = '#fff';
 					ctx.lineWidth = 1.5;

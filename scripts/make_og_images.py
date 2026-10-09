@@ -4,8 +4,9 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "app" / "images" / "og"
-BOLD = "/System/Library/Fonts/Supplemental/Arial Bold.ttf"
-MONO = "/System/Library/Fonts/Menlo.ttc"
+FONT_DIRS = [Path.home() / "Library/Fonts", Path("/Library/Fonts")]
+FALLBACK_BOLD = "/System/Library/Fonts/Supplemental/Arial Bold.ttf"
+FALLBACK_MONO = "/System/Library/Fonts/Menlo.ttc"
 STRIPES = ["#61BB46", "#FDB827", "#F5821F", "#E03A3E", "#963D97", "#009DDC"]
 INK, BG = "#111111", "#F4F4F1"
 
@@ -22,6 +23,22 @@ PAGES = {
     "time_series": ("Predicting tomorrow", "lesson 07 · time series"),
     "natural_language_processing": ("Fancy autocomplete", "lesson 08 · language & NLP"),
 }
+
+
+def brand_font(prefix, size, weight, fallback):
+    """Use the brand font (Work Sans / Space Mono) if installed, else a system fallback."""
+    for d in FONT_DIRS:
+        for f in sorted(d.glob(prefix + "*.ttf")):
+            name = f.name.lower()
+            if "italic" in name:
+                continue
+            static = weight == 800 and "extrabold" in name or weight == 700 and name.endswith("-bold.ttf")
+            if static or "[" in f.name:
+                font = ImageFont.truetype(str(f), size)
+                if "[" in f.name:  # variable font: pick the weight axis
+                    font.set_variation_by_axes([weight])
+                return font
+    return ImageFont.truetype(fallback, size)
 
 
 def wrap(draw, text, font, width):
@@ -52,14 +69,14 @@ def og(slug, title, sub):
     d.line([0, 64, 1200, 64], fill=INK, width=3)
     d.rectangle([40, 20, 66, 46], fill=INK)
     stripes(d, 43, 23, 20, 20)
-    d.text((80, 18), "Python to AI", font=ImageFont.truetype(BOLD, 26), fill=INK)
+    d.text((80, 18), "Python to AI", font=brand_font("WorkSans", 26, 800, FALLBACK_BOLD), fill=INK)
     # Title
-    f = ImageFont.truetype(BOLD, 78)
+    f = brand_font("WorkSans", 78, 800, FALLBACK_BOLD)
     y = 120
     for line in wrap(d, title, f, 1080)[:3]:
         d.text((60, y), line, font=f, fill=INK)
         y += 90
-    d.text((60, y + 16), "> " + sub, font=ImageFont.truetype(MONO, 32), fill="#4A4A4A")
+    d.text((60, y + 16), "> " + sub, font=brand_font("SpaceMono", 32, 700, FALLBACK_MONO), fill="#4A4A4A")
     # Rainbow band
     d.line([0, 528, 1200, 528], fill=INK, width=3)
     stripes(d, 0, 530, 1200, 100)

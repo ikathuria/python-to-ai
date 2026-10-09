@@ -488,7 +488,7 @@ print(generate_text(model, seed="the stock market"))</code></pre>
 				var ctx = c.getContext('2d');
 				var W = c.width, H = c.height;
 				ctx.clearRect(0, 0, W, H);
-				ctx.fillStyle = '#f9fafb';
+				ctx.fillStyle = brandColor('surface');
 				ctx.fillRect(0, 0, W, H);
 
 				var n = TOPICS.length;
@@ -500,7 +500,7 @@ print(generate_text(model, seed="the stock market"))</code></pre>
 
 				// Center line
 				ctx.beginPath();
-				ctx.strokeStyle = '#e2e8f0';
+				ctx.strokeStyle = brandColor('line');
 				ctx.lineWidth = 1;
 				ctx.moveTo(midX, 0);
 				ctx.lineTo(midX, H);
@@ -508,7 +508,7 @@ print(generate_text(model, seed="the stock market"))</code></pre>
 
 				for (var i = 0; i < n; i++) {
 					// Label
-					ctx.fillStyle = '#64748b';
+					ctx.fillStyle = brandColor('muted');
 					ctx.textAlign = 'center';
 					ctx.fillText(TOPICS[i], midX, 14 + i * rowH * 2);
 
@@ -516,26 +516,26 @@ print(generate_text(model, seed="the stock market"))</code></pre>
 					var aVal = CS.a[i];
 					var aW = (Math.abs(aVal) / maxVal) * (W/2 - 10);
 					var aX = aVal >= 0 ? midX : midX - aW;
-					ctx.fillStyle = 'rgba(99,102,241,0.75)';
+					ctx.fillStyle = brandRgba('link', 0.75);
 					ctx.fillRect(aX, 18 + i * rowH * 2, aW, rowH - 3);
 
 					// User B bar
 					var bVal = CS.b[i];
 					var bW = (Math.abs(bVal) / maxVal) * (W/2 - 10);
 					var bX = bVal >= 0 ? midX : midX - bW;
-					ctx.fillStyle = 'rgba(225,29,72,0.65)';
+					ctx.fillStyle = brandRgba('rb-red', 0.65);
 					ctx.fillRect(bX, 18 + i * rowH * 2 + rowH, bW, rowH - 3);
 				}
 
 				// Legend
-				ctx.fillStyle = 'rgba(99,102,241,0.85)';
+				ctx.fillStyle = brandRgba('link', 0.85);
 				ctx.fillRect(8, H - 16, 12, 8);
-				ctx.fillStyle = '#374151';
+				ctx.fillStyle = brandColor('text');
 				ctx.textAlign = 'left';
 				ctx.fillText('User A', 24, H - 8);
-				ctx.fillStyle = 'rgba(225,29,72,0.75)';
+				ctx.fillStyle = brandRgba('rb-red', 0.75);
 				ctx.fillRect(75, H - 16, 12, 8);
-				ctx.fillStyle = '#374151';
+				ctx.fillStyle = brandColor('text');
 				ctx.fillText('User B', 91, H - 8);
 			}
 
@@ -545,14 +545,14 @@ print(generate_text(model, seed="the stock market"))</code></pre>
 				var ctx = c.getContext('2d');
 				var W = c.width, H = c.height;
 				ctx.clearRect(0, 0, W, H);
-				ctx.fillStyle = '#f8f8ff';
+				ctx.fillStyle = brandColor('surface');
 				ctx.fillRect(0, 0, W, H);
 
 				var cx = W/2, cy = H/2;
 				var scale = (W/2 - 20) / 5;
 
 				// Grid & axes
-				ctx.strokeStyle = '#e2e8f0';
+				ctx.strokeStyle = brandColor('line');
 				ctx.lineWidth = 1;
 				[-4,-2,0,2,4].forEach(function(v) {
 					var px = cx + v*scale, py = cy - v*scale;
@@ -560,12 +560,12 @@ print(generate_text(model, seed="the stock market"))</code></pre>
 					ctx.beginPath(); ctx.moveTo(10,py); ctx.lineTo(W-10,py); ctx.stroke();
 				});
 
-				ctx.strokeStyle = '#94a3b8';
+				ctx.strokeStyle = brandColor('muted');
 				ctx.lineWidth = 1.5;
 				ctx.beginPath(); ctx.moveTo(10,cy); ctx.lineTo(W-10,cy); ctx.stroke();
 				ctx.beginPath(); ctx.moveTo(cx,10); ctx.lineTo(cx,H-10); ctx.stroke();
 
-				ctx.fillStyle = '#94a3b8';
+				ctx.fillStyle = brandColor('muted');
 				ctx.font = '9px Nunito, sans-serif';
 				ctx.textAlign = 'center';
 				ctx.fillText('Sports', W-22, cy-4);
@@ -595,8 +595,8 @@ print(generate_text(model, seed="the stock market"))</code></pre>
 					ctx.fill();
 				}
 
-				drawArrow(ctx, cx, cy, aX, aY, '#4f46e5');
-				drawArrow(ctx, cx, cy, bX, bY, '#e11d48');
+				drawArrow(ctx, cx, cy, aX, aY, brandColor('link'));
+				drawArrow(ctx, cx, cy, bX, bY, brandColor('rb-red'));
 
 				// Angle arc
 				var angA = Math.atan2(-aY, aX);
@@ -604,16 +604,16 @@ print(generate_text(model, seed="the stock market"))</code></pre>
 				var r = 22;
 				ctx.beginPath();
 				ctx.arc(cx, cy, r, -angA, -angB, angA > angB);
-				ctx.strokeStyle = '#f59e0b';
+				ctx.strokeStyle = brandColor('rb-yellow');
 				ctx.lineWidth = 2;
 				ctx.stroke();
 
 				// Labels
 				ctx.font = 'bold 11px Nunito, sans-serif';
-				ctx.fillStyle = '#4f46e5';
+				ctx.fillStyle = brandColor('link');
 				ctx.textAlign = 'center';
 				ctx.fillText('A', cx+aX+10*Math.cos(angA), cy-aY-10*Math.sin(angA));
-				ctx.fillStyle = '#e11d48';
+				ctx.fillStyle = brandColor('rb-red');
 				ctx.fillText('B', cx+bX+10*Math.cos(angB), cy-bY-10*Math.sin(angB));
 			}
 
