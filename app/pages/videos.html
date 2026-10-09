@@ -19,6 +19,7 @@
 	<link rel="stylesheet" href="../../app/styles/brand.css">
 	<link rel="stylesheet" href="../../app/styles/site.css">
 	<script src="../../app/styles/site.js"></script>
+	<script src="../../app/styles/episodes.js"></script>
 	<style>
 		.page { max-width: var(--wide); margin: 0 auto; padding: var(--s-6) var(--s-3) 0; }
 		.page h1 { font: 800 var(--fs-h1)/1.02 var(--font-display); letter-spacing: -.025em; color: var(--title); text-shadow: var(--title-glow); margin: var(--s-2) 0 var(--s-3); }
@@ -67,6 +68,7 @@
 					<a href="computer_vision.html"><span>06</span>Computer vision</a>
 					<a href="time_series.html"><span>07</span>Time series</a>
 					<a href="natural_language_processing.html"><span>08</span>Language (NLP)</a>
+					<a href="generative_ai.html"><span>09</span>Generative AI</a>
 					</nav>
 				</details>
 				<a class="mb-link" href="videos.html" aria-current="page">Videos</a>
@@ -87,6 +89,7 @@
 		<a href="computer_vision.html"><span>06</span>Computer vision</a>
 		<a href="time_series.html"><span>07</span>Time series</a>
 		<a href="natural_language_processing.html"><span>08</span>Language (NLP)</a>
+		<a href="generative_ai.html"><span>09</span>Generative AI</a>
 		<a href="videos.html" aria-current="page"><span>▶</span>Videos</a>
 		<a href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener"><span>{}</span>GitHub</a>
 		</nav>
@@ -143,25 +146,7 @@
 	<script>
 		// Episode list. When an episode is published, paste its YouTube ID into `id`
 		// (the part after "watch?v=" in the video URL) and it becomes a player.
-		const EPISODES = [
-			{ series: 'plain', n: '01', title: "AI is older than your grandparents' TV", page: 'history_of_ai.html', id: '' },
-			{ series: 'plain', n: '02', title: "You've used AI 50 times today", page: 'recommendation_system.html', id: '' },
-			{ series: 'plain', n: '03', title: "How a computer learns: it's just practice", page: 'supervised_learning.html', id: '' },
-			{ series: 'plain', n: '04', title: 'Sorting socks without instructions', page: 'unsupervised_learning.html', id: '' },
-			{ series: 'plain', n: '05', title: 'How computers "see"', page: 'computer_vision.html', id: '' },
-			{ series: 'plain', n: '06', title: 'What ChatGPT actually does', page: 'natural_language_processing.html', id: '' },
-			{ series: 'plain', n: '07', title: 'How to fool an AI', page: '', id: '' },
-			{ series: 'plain', n: '08', title: 'The real risks of AI', page: '', id: '' },
-			{ series: 'code', n: '00', title: "Python for people who've never coded", page: 'python.html', id: '' },
-			{ series: 'code', n: '01', title: 'NumPy, Pandas and PyTorch basics', page: 'ml_basics.html', id: '' },
-			{ series: 'code', n: '02', title: 'Supervised learning', page: 'supervised_learning.html', id: '' },
-			{ series: 'code', n: '03', title: 'Unsupervised learning', page: 'unsupervised_learning.html', id: '' },
-			{ series: 'code', n: '04', title: 'Recommendation systems', page: 'recommendation_system.html', id: '' },
-			{ series: 'code', n: '05', title: 'Neural networks from scratch', page: 'deep_learning.html', id: '' },
-			{ series: 'code', n: '06', title: 'CNNs and the colour classifier', page: 'computer_vision.html', id: '' },
-			{ series: 'code', n: '07', title: 'Time series', page: 'time_series.html', id: '' },
-			{ series: 'code', n: '08', title: 'Word2Vec to language models', page: 'natural_language_processing.html', id: '' },
-		];
+		const EPISODES = window.P2AI_EPISODES;
 
 		function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
 

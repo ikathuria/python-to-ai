@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Generative AI · Python to AI</title>
+	<meta name="description" content="How generative AI works: next-token prediction, a GPT built from scratch, RAG, diffusion image models, and deepfakes.">
+    <meta property="og:title" content="Generative AI · Python to AI">
+    <meta property="og:description" content="How generative AI works: next-token prediction, a GPT built from scratch, RAG, diffusion image models, and deepfakes.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ikathuria.github.io/python-to-ai/app/pages/generative_ai.html">
+
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="../styles/tw-config.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+	<script>hljs.highlightAll();</script>
+
+	<style type="text/tailwindcss">
+		body {  }
+		.nav-link { @apply px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors cursor-pointer; }
+		.nav-link.active { @apply text-indigo-700 bg-indigo-50 font-bold; }
+		.sidebar-link { @apply block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-indigo-600 rounded-md transition-colors; }
+		.sidebar-link.active { @apply bg-indigo-50 text-indigo-700 font-bold border-r-4 border-indigo-600; }
+		.content-section { @apply scroll-mt-24 mb-16 border-b border-gray-100 pb-12; }
+		h2 { @apply text-2xl font-bold text-gray-800 mb-4 flex items-center; }
+		h3 { @apply text-xl font-semibold text-gray-700 mt-6 mb-3; }
+		p { @apply text-gray-600 leading-relaxed mb-4; }
+		code:not(.hljs) { @apply bg-gray-100 text-red-500 px-1 py-0.5 rounded text-sm font-mono; }
+		pre { @apply rounded-lg shadow-sm overflow-hidden my-4 border border-gray-200; }
+		.card { @apply bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden; }
+	</style>
+	<link rel="canonical" href="https://ikathuria.github.io/python-to-ai/app/pages/generative_ai.html">
+	<meta property="og:image" content="https://ikathuria.github.io/python-to-ai/app/images/og/generative_ai.png">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="https://ikathuria.github.io/python-to-ai/app/images/og/generative_ai.png">
+	<link rel="apple-touch-icon" href="../images/og/apple-touch-icon.png">
+	<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+	<link rel="stylesheet" href="../../app/styles/brand.css">
+	<link rel="stylesheet" href="../../app/styles/site.css">
+	<script src="../../app/styles/site.js"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+	<a class="skip-link" href="#main">Skip to lesson</a>
+	<header class="menubar">
+		<div class="menubar-inner">
+			<a class="wordmark" href="../../index.html"><i aria-hidden="true"></i>Python to AI</a>
+			<div class="mb-desktop">
+				<a class="mb-link" href="history_of_ai.html">History</a>
+				<details>
+					<summary>Lessons ▾</summary>
+					<nav class="dropdown" aria-label="Lessons">
+					<a href="python.html"><span>00</span>Python basics</a>
+					<a href="ml_basics.html"><span>01</span>ML basics</a>
+					<a href="supervised_learning.html"><span>02</span>Supervised learning</a>
+					<a href="unsupervised_learning.html"><span>03</span>Unsupervised learning</a>
+					<a href="recommendation_system.html"><span>04</span>Recommendation systems</a>
+					<a href="deep_learning.html"><span>05</span>Deep learning</a>
+					<a href="computer_vision.html"><span>06</span>Computer vision</a>
+					<a href="time_series.html"><span>07</span>Time series</a>
+					<a href="natural_language_processing.html"><span>08</span>Language (NLP)</a>
+					<a href="generative_ai.html" aria-current="page"><span>09</span>Generative AI</a>
+					</nav>
+				</details>
+				<a class="mb-link" href="videos.html">Videos</a>
+				<a class="mb-link" href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener">GitHub</a>
+			</div>
+			<span class="mb-spacer"></span>
+			<button class="theme-toggle" type="button" aria-label="Toggle dark mode"><span class="when-light">◐ <span class="label">Dark</span></span><span class="when-dark">◑ <span class="label">Light</span></span></button>
+			<button class="mb-mobile-btn" type="button" aria-expanded="false" aria-controls="mobile-panel">Menu</button>
+		</div>
+		<nav id="mobile-panel" class="mobile-panel" aria-label="Site">
+		<a href="history_of_ai.html"><span>--</span>History of AI</a>
+		<a href="python.html"><span>00</span>Python basics</a>
+		<a href="ml_basics.html"><span>01</span>ML basics</a>
+		<a href="supervised_learning.html"><span>02</span>Supervised learning</a>
+		<a href="unsupervised_learning.html"><span>03</span>Unsupervised learning</a>
+		<a href="recommendation_system.html"><span>04</span>Recommendation systems</a>
+		<a href="deep_learning.html"><span>05</span>Deep learning</a>
+		<a href="computer_vision.html"><span>06</span>Computer vision</a>
+		<a href="time_series.html"><span>07</span>Time series</a>
+		<a href="natural_language_processing.html"><span>08</span>Language (NLP)</a>
+		<a href="generative_ai.html" aria-current="page"><span>09</span>Generative AI</a>
+		<a href="videos.html"><span>▶</span>Videos</a>
+		<a href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener"><span>{}</span>GitHub</a>
+		</nav>
+	</header>
+
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+		<div class="flex flex-col md:flex-row gap-8">
+
+			<aside class="md:w-64 flex-shrink-0">
+				<div class="sticky top-24 bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+					<h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Contents</h3>
+					<nav class="space-y-1" id="sidebar-nav">
+						<a href="#intro" class="sidebar-link active">Overview</a>
+						<a href="#next-word" class="sidebar-link">Try it: next word</a>
+						<a href="#baby-gpt" class="sidebar-link">Baby GPT</a>
+						<a href="#rag" class="sidebar-link">RAG</a>
+						<a href="#diffusion" class="sidebar-link">Making images</a>
+						<a href="#risks" class="sidebar-link">Deepfakes &amp; risks</a>
+						<a href="#quiz" class="sidebar-link">Knowledge Check</a>
+					</nav>
+				</div>
+			</aside>
+
+			<main id="main" class="flex-grow min-w-0">
+
+				<section id="intro" class="content-section">
+					<h1 class="text-4xl font-extrabold text-gray-900 mb-6">Generative AI</h1>
+					<p class="text-lg text-gray-600 mb-4">
+						ChatGPT, image generators and voice clones all do the same basic thing: they learned what real text, pictures or sound <em>look like</em>, and now they produce new examples that fit the pattern. No understanding, no intentions. A chatbot is a very large version of the autocomplete from the last lesson.
+					</p>
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+						<div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100 text-center">
+							<i class="fa-solid fa-keyboard fa-2x text-indigo-500 mb-2"></i>
+							<p class="font-bold text-indigo-700 text-sm mb-1">Text: predict the next token</p>
+							<p class="text-xs text-gray-500 mb-0">GPT picks one likely next word piece, adds it, and repeats</p>
+						</div>
+						<div class="bg-green-50 rounded-xl p-4 border border-green-100 text-center">
+							<i class="fa-solid fa-book-open fa-2x text-green-500 mb-2"></i>
+							<p class="font-bold text-green-700 text-sm mb-1">RAG: look it up first</p>
+							<p class="text-xs text-gray-500 mb-0">Fetch relevant documents and hand them to the model so it answers from facts</p>
+						</div>
+						<div class="bg-purple-50 rounded-xl p-4 border border-purple-100 text-center">
+							<i class="fa-solid fa-image fa-2x text-purple-500 mb-2"></i>
+							<p class="font-bold text-purple-700 text-sm mb-1">Images: remove noise</p>
+							<p class="text-xs text-gray-500 mb-0">Diffusion models start from static and clean it up step by step</p>
+						</div>
+					</div>
+				</section>
+
+				<section id="next-word" class="content-section">
+					<h2><i class="fa-solid fa-wand-magic-sparkles mr-3 text-indigo-500"></i> Try it: be the language model</h2>
+					<p>This tiny model has read about twenty sentences of recipe instructions and counted which word tends to follow which. Click a suggestion to add it, or let it pick for you. That loop, <strong>score every possible next word, pick one, repeat</strong>, is exactly how GPT writes. GPT just reads far more context and has billions of numbers instead of a word count table.</p>
+					<div class="card p-6">
+						<div id="nw-text" class="font-mono text-lg bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4" aria-live="polite"></div>
+						<p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Next-word probabilities</p>
+						<div id="nw-bars" class="space-y-2 mb-5"></div>
+						<div class="flex flex-wrap items-center gap-4">
+							<label class="flex items-center gap-2 text-sm text-gray-600">Temperature
+								<input id="nw-temp" type="range" min="0.2" max="2" step="0.1" value="1" class="accent-indigo-500">
+								<span id="nw-temp-val" class="font-mono w-8">1.0</span>
+							</label>
+							<button id="nw-auto" type="button" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm font-medium transition">Let it pick</button>
+							<button id="nw-reset" type="button" class="px-4 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 text-sm transition">Start over</button>
+						</div>
+						<p class="text-xs text-gray-500 mt-4 mb-0"><strong>Temperature</strong> reshapes the odds before picking. Low = always the safest word (boring, repetitive). High = long shots get a real chance (creative, then nonsense). Chatbots have this same dial.</p>
+					</div>
+				</section>
+
+				<section id="baby-gpt" class="content-section">
+					<h2><i class="fa-solid fa-robot mr-3 text-indigo-500"></i> Baby GPT: a transformer from scratch</h2>
+					<p>The <code>8 Generative AI/Baby_GPT</code> notebook trains a small GPT on recipes. Three ideas do all the work:</p>
+					<ol class="list-decimal pl-6 text-gray-600 space-y-2 mb-4">
+						<li><strong>Tokens.</strong> Text is chopped into word pieces and each piece becomes an ID number.</li>
+						<li><strong>Attention.</strong> For every position, the model decides which earlier tokens matter. In "preheat the oven, then put the tray in <em>it</em>", attention links "it" back to "oven". This is what the trigram model in lesson 08 couldn't do.</li>
+						<li><strong>Next-token training.</strong> Show it a chunk of text, ask it to guess each following token, nudge the weights when it's wrong. Repeat millions of times.</li>
+					</ol>
+
+					<h3>One attention head in PyTorch</h3>
+					<pre><code class="language-python">import torch
+import torch.nn as nn
+from torch.nn import functional as F
+
+class Head(nn.Module):
+    def __init__(self, n_embd, head_size, block_size):
+        super().__init__()
+        self.key   = nn.Linear(n_embd, head_size, bias=False)
+        self.query = nn.Linear(n_embd, head_size, bias=False)
+        self.value = nn.Linear(n_embd, head_size, bias=False)
+        # Mask so a token can only look at tokens before it
+        self.register_buffer("tril", torch.tril(torch.ones(block_size, block_size)))
+
+    def forward(self, x):
+        B, T, C = x.shape
+        k, q = self.key(x), self.query(x)
+        scores = q @ k.transpose(-2, -1) * k.shape[-1] ** -0.5   # how relevant is each token?
+        scores = scores.masked_fill(self.tril[:T, :T] == 0, float("-inf"))
+        weights = F.softmax(scores, dim=-1)                       # turn scores into percentages
+        return weights @ self.value(x)                            # blend the relevant tokens</code></pre>
+
+					<h3>Generating text</h3>
+					<pre><code class="language-python">@torch.no_grad()
+def generate(model, idx, max_new_tokens, temperature=1.0):
+    for _ in range(max_new_tokens):
+        logits, _ = model(idx[:, -block_size:])        # scores for every token in the vocab
+        probs = F.softmax(logits[:, -1, :] / temperature, dim=-1)
+        next_id = torch.multinomial(probs, num_samples=1)  # roll the weighted dice
+        idx = torch.cat([idx, next_id], dim=1)           # append and go again
+    return idx</code></pre>
+					<p>That loop is the demo above, with a neural network in place of the count table.</p>
+				</section>
+
+				<section id="rag" class="content-section">
+					<h2><i class="fa-solid fa-magnifying-glass mr-3 text-indigo-500"></i> RAG: give the model an open book</h2>
+					<p>A language model only knows what was in its training data, and when it doesn't know it still produces something fluent. That's a "hallucination". <strong>Retrieval-augmented generation</strong> fixes much of this: search your own documents first, paste the best matches into the prompt, and ask the model to answer from them.</p>
+					<pre><code class="language-python">import numpy as np
+from sentence_transformers import SentenceTransformer
+
+docs = ["Our office is open 9am to 5pm, Monday to Friday.",
+        "Refunds are processed within 14 days.",
+        "The Wi-Fi password is on the fridge."]
+
+embedder = SentenceTransformer("all-MiniLM-L6-v2")
+doc_vecs = embedder.encode(docs, normalize_embeddings=True)
+
+def retrieve(question, k=1):
+    q = embedder.encode([question], normalize_embeddings=True)[0]
+    scores = doc_vecs @ q                 # cosine similarity, like lesson 08
+    return [docs[i] for i in np.argsort(scores)[::-1][:k]]
+
+question = "How long do refunds take?"
+context = "\n".join(retrieve(question))
+prompt = f"Answer using only this context:\n{context}\n\nQuestion: {question}"
+# send `prompt` to any chat model</code></pre>
+					<p>Notice the search step is the same embeddings + cosine similarity you met in lessons 04 and 08. See <code>8 Generative AI/RAG</code> for the full and LangChain versions.</p>
+				</section>
+
+				<section id="diffusion" class="content-section">
+					<h2><i class="fa-solid fa-palette mr-3 text-indigo-500"></i> Making images: diffusion</h2>
+					<p>Image generators like Stable Diffusion are trained by taking real photos, adding random noise a little at a time until they're pure static, and teaching a network to <strong>undo one step of noise</strong>. To make a new picture you start from fresh static and run the "undo" step many times. Your text prompt steers each step towards images that match the words.</p>
+					<div class="bg-gray-800 text-white rounded-xl p-6 my-4 font-mono text-sm">
+						<p class="text-green-400 mb-1">// generation, in pseudocode</p>
+						<p class="text-white mb-0">image = random_noise()<br>for step in range(50):<br>&nbsp;&nbsp;&nbsp;&nbsp;image = image - predict_noise(image, step, prompt)</p>
+					</div>
+					<p>The <code>8 Generative AI/Stable_Diffusion</code> notebooks fine-tune this on the Food-101 dataset.</p>
+				</section>
+
+				<section id="risks" class="content-section">
+					<h2><i class="fa-solid fa-shield-halved mr-3 text-indigo-500"></i> Deepfakes and real risks</h2>
+					<p>The same tools that make a fun image can fake a face or a voice. The real risks of generative AI are more ordinary than robots taking over:</p>
+					<div class="bg-yellow-50 border border-yellow-200 rounded-xl p-5 mt-4">
+						<ul class="text-sm text-yellow-700 space-y-1 list-disc pl-4 mb-0">
+							<li><strong>Confident mistakes</strong>: fluent answers that are simply wrong</li>
+							<li><strong>Deepfakes and scams</strong>: fake video, voice and images of real people</li>
+							<li><strong>Bias</strong>: models repeat the patterns, good and bad, of their training data</li>
+							<li><strong>Privacy and copyright</strong>: what went into the training data, and who agreed to it</li>
+						</ul>
+					</div>
+					<p class="mt-4">Detection is also machine learning. <code>8 Generative AI/Deepfake_Detection</code> trains a CNN (lesson 06) to spot the small artefacts generators leave behind.</p>
+				</section>
+
+				<section id="quiz" class="content-section">
+					<h2><i class="fa-solid fa-circle-question mr-3 text-indigo-500"></i> Knowledge Check</h2>
+					<p>Test your understanding — pick the best answer, then click Check.</p>
+					<div class="space-y-4 mt-4" id="quiz-questions"></div>
+					<div class="flex items-center gap-4 mt-5">
+						<button onclick="checkQuiz()" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium transition">Check Answers</button>
+						<button onclick="resetQuiz()" class="px-4 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 text-sm transition">Reset</button>
+					</div>
+					<div id="quiz-score" class="hidden mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl text-indigo-800 font-semibold text-center text-lg"></div>
+				</section>
+				<script>
+					var QUIZ_DATA=[
+						{q:"What does a GPT-style model do at each step when writing?",opts:["Looks the answer up in a database","Scores every possible next token and picks one","Writes the whole reply at once, then checks it"],correct:1,exp:"It predicts one token at a time, appends it, and repeats. Everything else is that loop."},
+						{q:"What happens when you turn temperature up?",opts:["Less likely words get picked more often","The model gets more accurate","The model reads more context"],correct:0,exp:"Temperature flattens the odds, so long shots win more often: more variety, and eventually nonsense."},
+						{q:"Why use RAG?",opts:["To make the model run faster","To train the model on new data","To give the model relevant documents so it answers from facts"],correct:2,exp:"Retrieval pastes relevant text into the prompt. No retraining needed, and fewer made-up answers."},
+						{q:"How does a diffusion model create a new image?",opts:["It stitches together pieces of training photos","It starts from random noise and removes it step by step","It draws outlines and colours them in"],correct:1,exp:"It learned to undo noise, so it starts from static and denoises towards something matching the prompt."}
+					];
+					(function(){var box=document.getElementById('quiz-questions');QUIZ_DATA.forEach(function(q,i){var n=i+1;var h='<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">'+n+'. '+q.q+'</p><div class="space-y-1">';q.opts.forEach(function(o,j){h+='<label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q'+n+'" value="'+j+'" class="mt-1 accent-indigo-600 flex-shrink-0"><span>'+o+'</span></label>';});h+='</div><div id="q'+n+'-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>';box.insertAdjacentHTML('beforeend',h);});})();
+					function checkQuiz(){var score=0;QUIZ_DATA.forEach(function(q,i){var sel=document.querySelector('input[name="q'+(i+1)+'"]:checked');var fb=document.getElementById('q'+(i+1)+'-feedback');if(!sel){fb.innerHTML='Please select an answer.';fb.className='mt-3 p-3 rounded-lg text-sm bg-yellow-50 text-yellow-800 border border-yellow-200';fb.classList.remove('hidden');return;}var val=parseInt(sel.value);if(val===q.correct){fb.innerHTML='<strong>Correct!</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-green-50 text-green-800 border border-green-200';score++;}else{fb.innerHTML='<strong>Not quite.</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-red-50 text-red-800 border border-red-200';}fb.classList.remove('hidden');});var sd=document.getElementById('quiz-score');sd.textContent='Score: '+score+' / '+QUIZ_DATA.length+'  ('+Math.round(score/QUIZ_DATA.length*100)+'%)';sd.classList.remove('hidden');}
+					function resetQuiz(){document.querySelectorAll('#quiz input[type=radio]').forEach(function(r){r.checked=false;});QUIZ_DATA.forEach(function(_,i){document.getElementById('q'+(i+1)+'-feedback').className='hidden';});document.getElementById('quiz-score').classList.add('hidden');}
+				</script>
+
+				<!-- Module Progress & Navigation -->
+				<div class="mt-12 pt-8 border-t border-gray-200">
+					<div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+						<button id="complete-btn" onclick="toggleComplete()" class="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border-2 border-gray-300 text-gray-600 hover:border-indigo-300 hover:text-indigo-600 transition">
+							<i class="fa-regular fa-circle-check text-lg"></i>
+							<span>Mark as Complete</span>
+						</button>
+						<div class="flex gap-3">
+							<a href="natural_language_processing.html" class="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50 hover:border-indigo-300 transition"><i class="fa-solid fa-arrow-left text-xs"></i> NLP</a>
+							<a href="../../index.html" class="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold hover:bg-indigo-700 transition">Back to Home <i class="fa-solid fa-house text-xs"></i></a>
+						</div>
+					</div>
+				</div>
+				<script>
+				(function() {
+					var KEY = 'p2ai_done_genai';
+					function sync() {
+						var btn = document.getElementById('complete-btn');
+						if (!btn) return;
+						var done = false;
+						try { done = localStorage.getItem(KEY) === '1'; } catch (e) { }
+						if (done) {
+							btn.className = 'flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border-2 border-indigo-500 bg-indigo-50 text-indigo-700';
+							btn.innerHTML = '<i class="fa-solid fa-circle-check text-lg"></i> <span>Completed!</span>';
+						} else {
+							btn.className = 'flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border-2 border-gray-300 text-gray-600 hover:border-indigo-300 hover:text-indigo-600 transition';
+							btn.innerHTML = '<i class="fa-regular fa-circle-check text-lg"></i> <span>Mark as Complete</span>';
+						}
+					}
+					window.toggleComplete = function() {
+						try { localStorage.setItem(KEY, localStorage.getItem(KEY) === '1' ? '0' : '1'); } catch (e) { }
+						sync();
+					};
+					document.addEventListener('DOMContentLoaded', sync);
+				})();
+				</script>
+			</main>
+		</div>
+	</div>
+
+	<script>
+		// ============================================================
+		// Next-word demo: a word-bigram model built from a tiny corpus
+		// ============================================================
+		(function () {
+			var CORPUS = [
+				"preheat the oven to 180 degrees .",
+				"mix the flour and the sugar in a large bowl .",
+				"add the eggs and mix until smooth .",
+				"pour the batter into the tin and bake for 30 minutes .",
+				"bake until golden and let it cool .",
+				"heat the oil in a large pan .",
+				"add the onions and cook until soft .",
+				"add the garlic and cook for 1 minute .",
+				"stir in the tomatoes and simmer for 20 minutes .",
+				"season with salt and pepper .",
+				"serve with rice and fresh herbs .",
+				"chop the onions and the garlic .",
+				"whisk the eggs with a pinch of salt .",
+				"pour the eggs into the pan and stir gently .",
+				"melt the butter in a small pan .",
+				"add the butter and the sugar to the bowl .",
+				"let it cool before you serve .",
+				"stir until the sugar melts .",
+				"cook the rice for 12 minutes .",
+				"serve warm with fresh bread ."
+			];
+			var counts = {};
+			CORPUS.forEach(function (s) {
+				var w = ['<start>'].concat(s.split(' '));
+				for (var i = 0; i < w.length - 1; i++) {
+					counts[w[i]] = counts[w[i]] || {};
+					counts[w[i]][w[i + 1]] = (counts[w[i]][w[i + 1]] || 0) + 1;
+				}
+			});
+
+			var words = [];
+			var textEl = document.getElementById('nw-text');
+			var barsEl = document.getElementById('nw-bars');
+			var tempEl = document.getElementById('nw-temp');
+			if (!textEl) return;
+
+			function options() {
+				var last = words.length ? words[words.length - 1] : '<start>';
+				if (last === '.') last = '<start>';
+				var next = counts[last] || counts['<start>'];
+				var t = parseFloat(tempEl.value);
+				var keys = Object.keys(next);
+				// Temperature on log-counts, then softmax
+				var logits = keys.map(function (k) { return Math.log(next[k]) / t; });
+				var m = Math.max.apply(null, logits);
+				var exps = logits.map(function (l) { return Math.exp(l - m); });
+				var sum = exps.reduce(function (a, b) { return a + b; }, 0);
+				return keys.map(function (k, i) { return { word: k, p: exps[i] / sum }; })
+					.sort(function (a, b) { return b.p - a.p; });
+			}
+
+			function render() {
+				textEl.textContent = words.length ? words.join(' ').replace(/ \./g, '.') : '…';
+				var opts = options();
+				barsEl.innerHTML = '';
+				opts.slice(0, 6).forEach(function (o) {
+					var b = document.createElement('button');
+					b.type = 'button';
+					b.className = 'w-full flex items-center gap-3 text-left text-sm rounded-lg p-1 hover:bg-gray-50';
+					b.innerHTML = '<span class="font-mono w-24 flex-shrink-0">' + (o.word === '.' ? '. (end)' : o.word) + '</span>'
+						+ '<span class="flex-1 h-4 bg-gray-100 rounded overflow-hidden"><span class="block h-full bg-indigo-500" style="width:' + (o.p * 100).toFixed(1) + '%"></span></span>'
+						+ '<span class="font-mono w-12 text-right text-gray-500">' + Math.round(o.p * 100) + '%</span>';
+					b.addEventListener('click', function () { add(o.word); });
+					barsEl.appendChild(b);
+				});
+			}
+
+			function add(w) {
+				if (words.length && words[words.length - 1] === '.') words = [];
+				words.push(w);
+				if (words.length > 40) words = words.slice(-40);
+				render();
+			}
+
+			document.getElementById('nw-auto').addEventListener('click', function () {
+				var opts = options(), r = Math.random(), acc = 0;
+				for (var i = 0; i < opts.length; i++) { acc += opts[i].p; if (r <= acc) return add(opts[i].word); }
+				add(opts[opts.length - 1].word);
+			});
+			document.getElementById('nw-reset').addEventListener('click', function () { words = []; render(); });
+			tempEl.addEventListener('input', function () {
+				document.getElementById('nw-temp-val').textContent = parseFloat(tempEl.value).toFixed(1);
+				render();
+			});
+			render();
+		})();
+	</script>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+		<div class="band-thin"></div>
+		<div class="inner"><div class="row">
+			<span>&gt; built by Ishani Kathuria_</span>
+			<span class="links">
+				<a href="https://www.youtube.com/@DrIshaniKathuria" target="_blank" rel="noopener">YouTube</a>
+				<a href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener">GitHub</a>
+				<a href="https://linkedin.com/in/ishani-kathuria" target="_blank" rel="noopener">LinkedIn</a>
+				<a href="https://ishani.kathuria.net" target="_blank" rel="noopener">Website</a>
+			</span>
+		</div></div>
+	</footer>
+    
+
+    <script>
+        document.querySelectorAll('pre').forEach(function(pre) {
+            var btn = document.createElement('button');
+            btn.textContent = 'Copy';
+            btn.className = 'copy-btn';
+            pre.style.position = 'relative';
+            pre.appendChild(btn);
+            btn.addEventListener('click', function() {
+                var code = pre.querySelector('code') ? pre.querySelector('code').innerText : pre.innerText;
+                navigator.clipboard.writeText(code).then(function() {
+                    btn.textContent = 'Copied!';
+                    btn.classList.add('copied');
+                    setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+                }).catch(function() { btn.textContent = 'Error'; setTimeout(function() { btn.textContent = 'Copy'; }, 2000); });
+            });
+        });
+    </script>
+
+        <script>
+    (function () {
+        var sections = Array.from(document.querySelectorAll("section[id]"));
+        var links    = Array.from(document.querySelectorAll(".sidebar-link[href^='#']"));
+        if (!sections.length || !links.length) return;
+        function update() {
+            var threshold = window.innerHeight * 0.3;
+            var active = sections[0];
+            for (var i = 0; i < sections.length; i++) {
+                if (sections[i].getBoundingClientRect().top <= threshold) {
+                    active = sections[i];
+                }
+            }
+            links.forEach(function (a) {
+                a.classList.toggle("active", a.getAttribute("href") === "#" + active.id);
+            });
+        }
+        window.addEventListener("scroll", update, { passive: true });
+        update();
+    })();
+    </script>
+</body>
+</html>

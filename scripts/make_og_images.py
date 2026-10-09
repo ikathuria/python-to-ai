@@ -23,6 +23,7 @@ PAGES = {
     "computer_vision": ("How computers see", "lesson 06 · computer vision"),
     "time_series": ("Predicting tomorrow", "lesson 07 · time series"),
     "natural_language_processing": ("Fancy autocomplete", "lesson 08 · language & NLP"),
+    "generative_ai": ("How ChatGPT writes", "lesson 09 · generative AI"),
 }
 
 

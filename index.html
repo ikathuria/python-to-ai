@@ -20,6 +20,7 @@
 	<link rel="stylesheet" href="app/styles/brand.css">
 	<link rel="stylesheet" href="app/styles/site.css">
 	<script src="app/styles/site.js"></script>
+	<script src="app/styles/episodes.js"></script>
 	<style>
 		.hero { max-width: var(--wide); margin: 0 auto; padding: var(--s-7) var(--s-3); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--s-6); align-items: center; }
 		.kicker { font: 700 var(--fs-label) var(--font-mono); letter-spacing: .06em; color: var(--rb-purple); }
@@ -44,7 +45,21 @@
 		.track p { color: var(--muted); }
 		.track .btn { margin-top: var(--s-3); }
 		.windows { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-4); margin-top: var(--s-5); }
-		.lesson { display: block; text-decoration: none; color: var(--text); transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+		.lesson { position: relative; color: var(--text); transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+		main .lesson h3 a, main .lesson .video-link { color: var(--text) !important; text-decoration: none; }
+		.lesson h3 a::after { content: ""; position: absolute; inset: 0; }
+		.lesson h3 a:focus-visible { outline: none; }
+		.lesson:focus-within { outline: 3px solid var(--accent); outline-offset: 2px; }
+		main .lesson .video-link { position: relative; z-index: 1; text-decoration: underline; }
+		.lesson.is-next { box-shadow: 0 0 0 3px var(--accent), var(--shadow-pop) !important; }
+		.stage { display: flex; align-items: center; gap: var(--s-2); margin-top: var(--s-6); font: 800 var(--fs-h3) var(--font-display); }
+		.stage span { font: 700 var(--fs-label) var(--font-mono); color: var(--muted); }
+		.stage + .windows { margin-top: var(--s-3); }
+		.progress { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); margin-top: var(--s-4); }
+		.progress[hidden] { display: none; }
+		.progress-text { font: 700 var(--fs-small) var(--font-mono); }
+		.progress-bar { flex: 1 1 160px; max-width: 320px; height: 14px; border: var(--bw) solid var(--border); background: var(--surface); }
+		.progress-bar i { display: block; height: 100%; width: 0; background: var(--rb-green); }
 		@media (hover: hover) { .lesson:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-pop-hover) !important; } }
 		.lesson .body { padding: var(--s-3) var(--s-3) var(--s-4); }
 		.lesson h3 { font: 800 1.25rem var(--font-display); margin-bottom: 4px; }
@@ -84,6 +99,7 @@
 					<a href="app/pages/computer_vision.html"><span>06</span>Computer vision</a>
 					<a href="app/pages/time_series.html"><span>07</span>Time series</a>
 					<a href="app/pages/natural_language_processing.html"><span>08</span>Language (NLP)</a>
+					<a href="app/pages/generative_ai.html"><span>09</span>Generative AI</a>
 					</nav>
 				</details>
 				<a class="mb-link" href="app/pages/videos.html">Videos</a>
@@ -104,6 +120,7 @@
 		<a href="app/pages/computer_vision.html"><span>06</span>Computer vision</a>
 		<a href="app/pages/time_series.html"><span>07</span>Time series</a>
 		<a href="app/pages/natural_language_processing.html"><span>08</span>Language (NLP)</a>
+		<a href="app/pages/generative_ai.html"><span>09</span>Generative AI</a>
 		<a href="app/pages/videos.html"><span>▶</span>Videos</a>
 		<a href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener"><span>{}</span>GitHub</a>
 		</nav>
@@ -168,44 +185,67 @@
 
 		<section class="section" id="lessons">
 			<h2>Open a lesson</h2>
-			<p class="sub">Nine lessons, zero to AI. Follow them in order or jump to whatever you're curious about. Finished lessons get a ✓.</p>
+			<p class="sub">From zero to AI in four stages. Follow them in order or jump to whatever you're curious about.</p>
+			<div class="progress" data-progress hidden>
+				<div class="progress-text"><strong data-progress-count></strong> <span data-progress-of></span></div>
+				<div class="progress-bar" aria-hidden="true"><i data-progress-fill></i></div>
+				<a class="btn btn-primary" data-continue href="app/pages/python.html">Start lesson 00 →</a>
+			</div>
+			<h3 class="stage"><span>01</span>Start here</h3>
 			<div class="windows">
-				<a class="window lesson" href="app/pages/python.html" data-done-key="p2ai_done_python">
+				<article class="window lesson" data-page="history_of_ai.html">
+					<div class="window-bar"><i></i><span>history.txt</span></div>
+					<div class="body"><h3><a href="app/pages/history_of_ai.html">History of AI</a></h3><p>80 years of hype vs. reality. No code, just the story.</p><div class="meta"><span>~15 min · timeline</span><span class="done-mark">✓ done</span></div></div>
+				</article>
+				<article class="window lesson" data-page="python.html" data-done-key="p2ai_done_python">
 					<div class="window-bar"><i></i><span>00_python.py</span></div>
-					<div class="body"><h3>Python basics</h3><p>Variables, lists, functions. Never coded? Start here.</p><div class="meta"><span>~45 min</span><span class="done-mark">✓ done</span></div></div>
-				</a>
-				<a class="window lesson" href="app/pages/ml_basics.html" data-done-key="p2ai_done_ml_basics">
+					<div class="body"><h3><a href="app/pages/python.html">Python basics</a></h3><p>Variables, lists, functions. Never coded? Start here.</p><div class="meta"><span>~45 min · code-along</span><span class="done-mark">✓ done</span></div></div>
+				</article>
+			</div>
+			<h3 class="stage"><span>02</span>Classic machine learning</h3>
+			<div class="windows">
+				<article class="window lesson" data-page="ml_basics.html" data-done-key="p2ai_done_ml_basics">
 					<div class="window-bar"><i></i><span>01_basics.py</span></div>
-					<div class="body"><h3>ML basics</h3><p>NumPy, Pandas and the shape of data.</p><div class="meta"><span>~40 min</span><span class="done-mark">✓ done</span></div></div>
-				</a>
-				<a class="window lesson" href="app/pages/supervised_learning.html" data-done-key="p2ai_done_supervised">
+					<div class="body"><h3><a href="app/pages/ml_basics.html">ML basics</a></h3><p>NumPy, Pandas and the shape of data.</p><div class="meta"><span>~40 min · code-along</span><span class="done-mark">✓ done</span></div></div>
+				</article>
+				<article class="window lesson" data-page="supervised_learning.html" data-done-key="p2ai_done_supervised">
 					<div class="window-bar"><i></i><span>02_supervised.py</span></div>
-					<div class="body"><h3>Teach a machine</h3><p>Supervised learning: learning from labelled examples.</p><div class="meta"><span>live demo</span><span class="done-mark">✓ done</span></div></div>
-				</a>
-				<a class="window lesson" href="app/pages/unsupervised_learning.html" data-done-key="p2ai_done_unsupervised">
+					<div class="body"><h3><a href="app/pages/supervised_learning.html">Teach a machine</a></h3><p>Supervised learning: learning from labelled examples.</p><div class="meta"><span>~50 min · live demo</span><span class="done-mark">✓ done</span></div></div>
+				</article>
+				<article class="window lesson" data-page="unsupervised_learning.html" data-done-key="p2ai_done_unsupervised">
 					<div class="window-bar"><i></i><span>03_clusters.py</span></div>
-					<div class="body"><h3>Find hidden groups</h3><p>Clustering data nobody labelled.</p><div class="meta"><span>live demo</span><span class="done-mark">✓ done</span></div></div>
-				</a>
-				<a class="window lesson" href="app/pages/recommendation_system.html" data-done-key="p2ai_done_recommenders">
+					<div class="body"><h3><a href="app/pages/unsupervised_learning.html">Find hidden groups</a></h3><p>Clustering data nobody labelled.</p><div class="meta"><span>~40 min · live demo</span><span class="done-mark">✓ done</span></div></div>
+				</article>
+				<article class="window lesson" data-page="recommendation_system.html" data-done-key="p2ai_done_recommenders">
 					<div class="window-bar"><i></i><span>04_recommend.py</span></div>
-					<div class="body"><h3>Why Netflix knows you</h3><p>How recommendation systems pick for you.</p><div class="meta"><span>live demo</span><span class="done-mark">✓ done</span></div></div>
-				</a>
-				<a class="window lesson" href="app/pages/deep_learning.html" data-done-key="p2ai_done_deep_learning">
+					<div class="body"><h3><a href="app/pages/recommendation_system.html">Why Netflix knows you</a></h3><p>How recommendation systems pick for you.</p><div class="meta"><span>~30 min · live demo</span><span class="done-mark">✓ done</span></div></div>
+				</article>
+			</div>
+			<h3 class="stage"><span>03</span>Deep learning</h3>
+			<div class="windows">
+				<article class="window lesson" data-page="deep_learning.html" data-done-key="p2ai_done_deep_learning">
 					<div class="window-bar"><i></i><span>05_neural.py</span></div>
-					<div class="body"><h3>Neural networks</h3><p>Layers of tiny maths passing notes.</p><div class="meta"><span>live demo</span><span class="done-mark">✓ done</span></div></div>
-				</a>
-				<a class="window lesson" href="app/pages/computer_vision.html" data-done-key="p2ai_done_cv">
+					<div class="body"><h3><a href="app/pages/deep_learning.html">Neural networks</a></h3><p>Layers of tiny maths passing notes.</p><div class="meta"><span>~45 min · live demo</span><span class="done-mark">✓ done</span></div></div>
+				</article>
+				<article class="window lesson" data-page="computer_vision.html" data-done-key="p2ai_done_cv">
 					<div class="window-bar"><i></i><span>06_vision.py</span></div>
-					<div class="body"><h3>How computers see</h3><p>Pictures are just numbers. Colour demo.</p><div class="meta"><span>live demo</span><span class="done-mark">✓ done</span></div></div>
-				</a>
-				<a class="window lesson" href="app/pages/time_series.html" data-done-key="p2ai_done_time_series">
+					<div class="body"><h3><a href="app/pages/computer_vision.html">How computers see</a></h3><p>Pictures are just numbers. Colour demo.</p><div class="meta"><span>~40 min · live demo</span><span class="done-mark">✓ done</span></div></div>
+				</article>
+				<article class="window lesson" data-page="time_series.html" data-done-key="p2ai_done_time_series">
 					<div class="window-bar"><i></i><span>07_forecast.py</span></div>
-					<div class="body"><h3>Predicting tomorrow</h3><p>Forecasting with time series and LSTMs.</p><div class="meta"><span>demo</span><span class="done-mark">✓ done</span></div></div>
-				</a>
-				<a class="window lesson" href="app/pages/natural_language_processing.html" data-done-key="p2ai_done_nlp">
+					<div class="body"><h3><a href="app/pages/time_series.html">Predicting tomorrow</a></h3><p>Forecasting with time series and LSTMs.</p><div class="meta"><span>~30 min · demo</span><span class="done-mark">✓ done</span></div></div>
+				</article>
+			</div>
+			<h3 class="stage"><span>04</span>Language & generative AI</h3>
+			<div class="windows">
+				<article class="window lesson" data-page="natural_language_processing.html" data-done-key="p2ai_done_nlp">
 					<div class="window-bar"><i></i><span>08_language.py</span></div>
-					<div class="body"><h3>Fancy autocomplete</h3><p>From word vectors to chatbots.</p><div class="meta"><span>notebooks</span><span class="done-mark">✓ done</span></div></div>
-				</a>
+					<div class="body"><h3><a href="app/pages/natural_language_processing.html">Fancy autocomplete</a></h3><p>From word vectors to language models.</p><div class="meta"><span>~30 min · live demo</span><span class="done-mark">✓ done</span></div></div>
+				</article>
+				<article class="window lesson" data-page="generative_ai.html" data-done-key="p2ai_done_genai">
+					<div class="window-bar"><i></i><span>09_generate.py</span></div>
+					<div class="body"><h3><a href="app/pages/generative_ai.html">How ChatGPT writes</a></h3><p>Be the language model, then build a baby GPT.</p><div class="meta"><span>~30 min · live demo</span><span class="done-mark">✓ done</span></div></div>
+				</article>
 			</div>
 		</section>
 
@@ -239,11 +279,46 @@
 	</footer>
 
 	<script>
-		// Mark finished lessons (pages set these keys when their quiz is completed).
-		document.querySelectorAll('a[data-done-key]').forEach(function (a) {
-			try {
-				if (localStorage.getItem(a.getAttribute('data-done-key')) === '1') a.classList.add('is-done');
-			} catch (e) { }
+		// Progress: mark finished lessons, count them, and point at the next one.
+		(function () {
+			function done(key) { try { return localStorage.getItem(key) === '1'; } catch (e) { return false; } }
+			var cards = Array.prototype.slice.call(document.querySelectorAll('.lesson[data-done-key]'));
+			var finished = 0, next = null;
+			cards.forEach(function (card) {
+				if (done(card.getAttribute('data-done-key'))) { card.classList.add('is-done'); finished++; }
+				else if (!next) next = card;
+			});
+			document.querySelector('[data-progress-of]').textContent = 'of ' + cards.length + ' lessons done';
+			if (!finished) return;
+			var box = document.querySelector('[data-progress]');
+			box.hidden = false;
+			document.querySelector('[data-progress-count]').textContent = finished;
+			document.querySelector('[data-progress-fill]').style.width = (finished / cards.length * 100) + '%';
+			var btn = document.querySelector('[data-continue]');
+			if (next) {
+				next.classList.add('is-next');
+				var link = next.querySelector('h3 a');
+				btn.href = link.getAttribute('href');
+				btn.textContent = 'Continue: ' + link.textContent + ' →';
+			} else {
+				btn.href = 'app/pages/videos.html';
+				btn.textContent = 'All done! Watch the videos →';
+			}
+		})();
+
+		// Add a ▶ link to lessons that have a published video (see app/styles/episodes.js).
+		(window.P2AI_EPISODES || []).forEach(function (ep) {
+			if (!ep.id || !ep.page) return;
+			var card = document.querySelector('.lesson[data-page="' + ep.page + '"]');
+			if (!card || card.querySelector('.video-link')) return;
+			var a = document.createElement('a');
+			a.className = 'video-link';
+			a.href = 'https://www.youtube.com/watch?v=' + encodeURIComponent(ep.id);
+			a.target = '_blank';
+			a.rel = 'noopener';
+			a.textContent = '▶ video';
+			a.setAttribute('aria-label', 'Watch the video: ' + ep.title);
+			card.querySelector('.meta').insertBefore(a, card.querySelector('.done-mark'));
 		});
 	</script>
 </body>

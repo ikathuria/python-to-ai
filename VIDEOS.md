@@ -9,7 +9,7 @@ Two tracks per topic, linked to each other:
 
 Videos are filmed talking to camera, unscripted, with Claude Motion animations on screen. Each episode below lists **talking points to glance at, not a script**.
 
-**Publishing an episode on the site:** open [`app/pages/videos.html`](app/pages/videos.html), find the episode in the `EPISODES` list near the bottom, and paste the video's YouTube ID into `id` (the part after `watch?v=` in its URL). Its "coming soon" card becomes a player. Everything you upload also appears automatically in the "Latest from the channel" playlist on that page.
+**Publishing an episode on the site:** open [`app/styles/episodes.js`](app/styles/episodes.js), find the episode, and paste the video's YouTube ID into `id` (the part after `watch?v=` in its URL). Its "coming soon" card becomes a player. Everything you upload also appears automatically in the "Latest from the channel" playlist on that page.
 
 **Status key:** 💡 idea · 📝 outlined · 🎬 filmed · ✂️ editing · ✅ published
 
@@ -24,7 +24,7 @@ Videos are filmed talking to camera, unscripted, with Claude Motion animations o
 | 3 | How a computer learns: it's just practice | 💡 | [Supervised ML](app/pages/supervised_learning.html) | — |
 | 4 | Sorting socks without instructions | 💡 | [Unsupervised ML](app/pages/unsupervised_learning.html) | — |
 | 5 | How computers "see" | 💡 | [Computer Vision](app/pages/computer_vision.html) | — |
-| 6 | What ChatGPT actually does | 💡 | [NLP](app/pages/natural_language_processing.html) | — |
+| 6 | What ChatGPT actually does | 💡 | [Generative AI](app/pages/generative_ai.html) | — |
 | 7 | How to fool an AI | 💡 | `9 Adversarial Threats/` (page to come) | — |
 | 8 | The real risks of AI (research episode) | 💡 | — | — |
 

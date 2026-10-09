@@ -55,6 +55,7 @@ def test_nav_links_consistent():
         "unsupervised_learning.html", "deep_learning.html",
         "computer_vision.html", "natural_language_processing.html",
         "recommendation_system.html", "time_series.html",
+        "generative_ai.html",
     ]
     content_pages = [
         PAGES_DIR / p for p in expected_links
