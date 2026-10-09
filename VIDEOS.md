@@ -25,7 +25,7 @@ Videos are filmed talking to camera, unscripted, with Claude Motion animations o
 | 4 | Sorting socks without instructions | 💡 | [Unsupervised ML](app/pages/unsupervised_learning.html) | — |
 | 5 | How computers "see" | 💡 | [Computer Vision](app/pages/computer_vision.html) | — |
 | 6 | What ChatGPT actually does | 💡 | [Generative AI](app/pages/generative_ai.html) | — |
-| 7 | How to fool an AI | 💡 | `9 Adversarial Threats/` (page to come) | — |
+| 7 | How to fool an AI | 💡 | `8 Adversarial Threats/` (page to come) | — |
 | 8 | The real risks of AI (research episode) | 💡 | — | — |
 
 ### Ep 1: AI is older than your grandparents' TV
@@ -72,8 +72,8 @@ Videos are filmed talking to camera, unscripted, with Claude Motion animations o
 | 5 | Neural networks from scratch | 💡 | [Deep Learning](app/pages/deep_learning.html) | `4 Deep Learning/` |
 | 6 | CNNs and the colour classifier | 💡 | [CV](app/pages/computer_vision.html) | `5 Computer Vision/` |
 | 7 | Time series | 💡 | [Time Series](app/pages/time_series.html) | — |
-| 8 | Word2Vec to language models | 💡 | [NLP](app/pages/natural_language_processing.html) | `7 Natural Language Processing/` |
-| 9 | Build a baby GPT, RAG | 💡 | — | `8 Generative AI/` |
-| 10 | Adversarial attacks | 💡 | — | `9 Adversarial Threats/` |
+| 8 | Word2Vec to language models | 💡 | [NLP](app/pages/natural_language_processing.html) | `6 Natural Language Processing/` |
+| 9 | Build a baby GPT, RAG | 💡 | [Generative AI](app/pages/generative_ai.html) | `7 Generative AI/` |
+| 10 | Adversarial attacks | 💡 | — | `8 Adversarial Threats/` |
 
 **Tip:** tag the commit used in each technical video (`git tag ep-05`) and link the tag in the description, so viewers see the same code even after the repo changes.

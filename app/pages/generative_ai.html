@@ -156,7 +156,7 @@
 
 				<section id="baby-gpt" class="content-section">
 					<h2><i class="fa-solid fa-robot mr-3 text-indigo-500"></i> Baby GPT: a transformer from scratch</h2>
-					<p>The <code>8 Generative AI/Baby_GPT</code> notebook trains a small GPT on recipes. Three ideas do all the work:</p>
+					<p>The <code>7 Generative AI/Baby_GPT</code> notebook trains a small GPT on recipes. Three ideas do all the work:</p>
 					<ol class="list-decimal pl-6 text-gray-600 space-y-2 mb-4">
 						<li><strong>Tokens.</strong> Text is chopped into word pieces and each piece becomes an ID number.</li>
 						<li><strong>Attention.</strong> For every position, the model decides which earlier tokens matter. In "preheat the oven, then put the tray in <em>it</em>", attention links "it" back to "oven". This is what the trigram model in lesson 08 couldn't do.</li>
@@ -219,7 +219,7 @@ question = "How long do refunds take?"
 context = "\n".join(retrieve(question))
 prompt = f"Answer using only this context:\n{context}\n\nQuestion: {question}"
 # send `prompt` to any chat model</code></pre>
-					<p>Notice the search step is the same embeddings + cosine similarity you met in lessons 04 and 08. See <code>8 Generative AI/RAG</code> for the full and LangChain versions.</p>
+					<p>Notice the search step is the same embeddings + cosine similarity you met in lessons 04 and 08. See <code>7 Generative AI/RAG</code> for the full and LangChain versions.</p>
 				</section>
 
 				<section id="diffusion" class="content-section">
@@ -229,7 +229,7 @@ prompt = f"Answer using only this context:\n{context}\n\nQuestion: {question}"
 						<p class="text-green-400 mb-1">// generation, in pseudocode</p>
 						<p class="text-white mb-0">image = random_noise()<br>for step in range(50):<br>&nbsp;&nbsp;&nbsp;&nbsp;image = image - predict_noise(image, step, prompt)</p>
 					</div>
-					<p>The <code>8 Generative AI/Stable_Diffusion</code> notebooks fine-tune this on the Food-101 dataset.</p>
+					<p>The <code>7 Generative AI/Stable_Diffusion</code> notebooks fine-tune this on the Food-101 dataset.</p>
 				</section>
 
 				<section id="risks" class="content-section">
@@ -243,7 +243,7 @@ prompt = f"Answer using only this context:\n{context}\n\nQuestion: {question}"
 							<li><strong>Privacy and copyright</strong>: what went into the training data, and who agreed to it</li>
 						</ul>
 					</div>
-					<p class="mt-4">Detection is also machine learning. <code>8 Generative AI/Deepfake_Detection</code> trains a CNN (lesson 06) to spot the small artefacts generators leave behind.</p>
+					<p class="mt-4">Detection is also machine learning. <code>7 Generative AI/Deepfake_Detection</code> trains a CNN (lesson 06) to spot the small artefacts generators leave behind.</p>
 				</section>
 
 				<section id="quiz" class="content-section">

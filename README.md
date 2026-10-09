@@ -32,7 +32,7 @@ A free, self-hostable tutorial platform taking you from Python basics to advance
 |------|--------------|
 | `index.html`, `app/pages/` | The website (static HTML, served by GitHub Pages) |
 | `app/onnx_models/` | Trained models the site runs in the browser |
-| `0 Basic_Python_Concepts/` … `9 Adversarial Threats/` | Jupyter notebooks behind each topic, for readers who want the code |
+| `0 Basic_Python_Concepts/` … `8 Adversarial Threats/` | Jupyter notebooks behind each topic, for readers who want the code |
 | `scripts/` | Train models and export them to ONNX for the site |
 | `tests/` | Site checks that run in CI |
 | `.resources/data/` | Shared datasets used by notebooks |
