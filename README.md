@@ -13,6 +13,7 @@ A free, self-hostable tutorial platform taking you from Python basics to advance
 
 | # | Module | Topics | Demo |
 |---|--------|---------|------|
+| — | [History of AI](app/pages/history_of_ai.html) | 80 years of AI, hype vs. reality (no code) | Animated timeline |
 | 0 | [Python Basics](app/pages/python.html) | Data types, structures, functions, OOP | — |
 | 1 | [ML Basics](app/pages/ml_basics.html) | NumPy, Pandas, data preprocessing | — |
 | 2 | [Supervised Learning](app/pages/supervised_learning.html) | Classification, regression, KNN, Decision Trees | Live prediction demo |
@@ -22,6 +23,22 @@ A free, self-hostable tutorial platform taking you from Python basics to advance
 | 6 | [Computer Vision](app/pages/computer_vision.html) | CNNs, convolution, image classification | 🎨 Colour classifier (ONNX) |
 | 7 | [Time Series](app/pages/time_series.html) | Stationarity, ARIMA, LSTM forecasting | — |
 | 8 | [NLP](app/pages/natural_language_processing.html) | Word2Vec, PMI, language models | — |
+
+---
+
+## Repo Map
+
+| Path | What's in it |
+|------|--------------|
+| `index.html`, `app/pages/` | The website (static HTML, served by GitHub Pages) |
+| `app/onnx_models/` | Trained models the site runs in the browser |
+| `0 Basic_Python_Concepts/` … `9 Adversarial Threats/` | Jupyter notebooks behind each topic, for readers who want the code |
+| `scripts/` | Train models and export them to ONNX for the site |
+| `tests/` | Site checks that run in CI |
+| `.resources/data/` | Shared datasets used by notebooks |
+| [`VIDEOS.md`](VIDEOS.md) | YouTube episode plan linked to each page |
+
+Some large datasets (e.g. `5 Computer Vision/dataset/`, the IMDB archive) aren't in git; download them locally as described in each notebook.
 
 ---
 
@@ -61,7 +78,7 @@ No build step, no Node.js, no dependencies needed to view the site.
 
 ## Re-training / Exporting Models
 
-The ONNX models in `app/onnx_models/` were exported from the Jupyter notebooks in the repo root. To retrain the colour CNN:
+The ONNX models in `app/onnx_models/` were exported from the Jupyter notebooks in the numbered topic folders. To retrain the colour CNN:
 
 ```bash
 pip install torch torchvision onnx onnxsim pillow numpy
@@ -72,5 +89,6 @@ python scripts/export_colour_cnn.py
 
 ## For more tutorials
 
+- Videos on [YouTube](https://www.youtube.com/@DrIshaniKathuria)
 - Articles on [Medium](https://medium.com/@ishani-kathuria)
 - GitHub [Wiki](https://github.com/ikathuria/python-to-ai/wiki)

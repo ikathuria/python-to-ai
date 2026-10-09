@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>History of AI - Python to AI</title>
+	<meta name="description" content="An animated timeline of artificial intelligence from 1943 to today: the breakthroughs, the hype, the AI winters, and why AI is much older than ChatGPT.">
+	<meta property="og:title" content="History of AI - Python to AI">
+	<meta property="og:description" content="AI has been researched since the 1940s. An animated timeline of the breakthroughs, the hype and the AI winters.">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://ikathuria.github.io/python-to-ai/app/pages/history_of_ai.html">
+
+	<!-- Tailwind CSS -->
+	<script src="https://cdn.tailwindcss.com"></script>
+
+	<!-- FontAwesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&family=Special+Elite&display=swap" rel="stylesheet">
+
+	<style type="text/tailwindcss">
+		body {
+			font-family: 'Nunito', sans-serif;
+		}
+
+		.nav-link {
+			@apply px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors cursor-pointer;
+		}
+
+		.nav-link.active {
+			@apply text-indigo-700 bg-indigo-50 font-bold;
+		}
+
+		/* Timeline */
+		.timeline {
+			position: relative;
+		}
+
+		.timeline::before {
+			content: '';
+			position: absolute;
+			left: 1.25rem;
+			top: 0;
+			bottom: 0;
+			width: 4px;
+			background: linear-gradient(#78716c, #a8a29e 40%, #6366f1 75%, #ec4899);
+			border-radius: 2px;
+		}
+
+		@media (min-width: 768px) {
+			.timeline::before {
+				left: 50%;
+				transform: translateX(-50%);
+			}
+		}
+
+		.milestone {
+			opacity: 0;
+			transform: translateY(40px);
+			transition: opacity 0.7s ease, transform 0.7s ease;
+		}
+
+		.milestone.visible {
+			opacity: 1;
+			transform: none;
+		}
+
+		.dot {
+			@apply absolute w-10 h-10 rounded-full flex items-center justify-center text-white shadow-lg z-10;
+			left: 0.1rem;
+		}
+
+		@media (min-width: 768px) {
+			.dot {
+				left: 50%;
+				transform: translateX(-50%);
+			}
+		}
+
+		/* Era styles: the cards age with the decade */
+		.era-old {
+			background: #f5f0e6;
+			border: 1px solid #d6cbb3;
+			filter: grayscale(0.6);
+		}
+
+		.era-old .year,
+		.era-old h3 {
+			font-family: 'Special Elite', monospace;
+		}
+
+		.era-mid {
+			background: #fffbea;
+			border: 1px solid #fde68a;
+		}
+
+		.era-new {
+			background: #ffffff;
+			border: 1px solid #e0e7ff;
+		}
+
+		.era-now {
+			background: linear-gradient(135deg, #eef2ff, #fdf2f8);
+			border: 1px solid #c7d2fe;
+		}
+
+		.newspaper {
+			font-family: 'Special Elite', monospace;
+			@apply bg-white border-2 border-stone-700 p-4 my-3 text-stone-800 text-sm shadow-inner;
+		}
+
+		.hype {
+			@apply bg-red-50 border-l-4 border-red-400 p-3 my-3 rounded-r text-sm text-red-900;
+		}
+
+		.reality {
+			@apply bg-green-50 border-l-4 border-green-500 p-3 my-3 rounded-r text-sm text-green-900;
+		}
+
+		/* Presentation mode (for screen recording) */
+		#present {
+			@apply fixed inset-0 z-[100] hidden items-center justify-center p-6;
+			background: #0f172a;
+		}
+
+		#present.on {
+			display: flex;
+		}
+
+		#present .slide {
+			@apply max-w-3xl w-full rounded-2xl p-8 md:p-12 shadow-2xl;
+			animation: pop 0.6s ease;
+		}
+
+		@keyframes pop {
+			from {
+				opacity: 0;
+				transform: scale(0.92) translateY(20px);
+			}
+
+			to {
+				opacity: 1;
+				transform: none;
+			}
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+
+			.milestone,
+			#present .slide {
+				transition: none;
+				animation: none;
+				opacity: 1;
+				transform: none;
+			}
+		}
+	</style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+	<!-- NAVIGATION -->
+	<nav class="bg-white shadow-sm sticky top-0 z-50">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex justify-between h-16">
+				<div class="flex">
+					<div class="flex-shrink-0 flex items-center">
+						<a href="../../index.html" class="flex items-center">
+							<i class="fa-solid fa-code fa-2x text-indigo-600"></i>
+							<span class="ml-2 font-bold text-xl text-gray-800">Python to AI</span>
+						</a>
+					</div>
+				</div>
+				<div class="hidden md:flex items-center space-x-1">
+					<a href="../../index.html" class="nav-link">Home</a>
+					<a href="history_of_ai.html" class="nav-link active">History</a>
+					<a href="python.html" class="nav-link">Python Basics</a>
+					<a href="ml_basics.html" class="nav-link">ML Basics</a>
+					<a href="supervised_learning.html" class="nav-link">Supervised ML</a>
+					<a href="unsupervised_learning.html" class="nav-link">Unsupervised</a>
+					<a href="deep_learning.html" class="nav-link">Deep Learning</a>
+					<a href="computer_vision.html" class="nav-link">CV</a>
+					<a href="time_series.html" class="nav-link">Time Series</a>
+					<a href="natural_language_processing.html" class="nav-link">NLP</a>
+					<a href="recommendation_system.html" class="nav-link">Recommenders</a>
+				</div>
+				<div class="flex items-center">
+					<button id="mobile-menu-btn" class="md:hidden text-gray-500 hover:text-gray-700 focus:outline-none mr-2" aria-label="Toggle menu">
+						<i class="fa-solid fa-bars fa-lg" id="menu-icon"></i>
+					</button>
+					<a href="https://github.com/ikathuria" target="_blank" class="text-gray-400 hover:text-gray-600 mx-2"><i class="fa-brands fa-github fa-lg"></i></a>
+				</div>
+			</div>
+		</div>
+		<div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-gray-50">
+			<div class="flex flex-col space-y-1 px-4 py-2">
+				<a href="../../index.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Home</a>
+				<a href="history_of_ai.html" class="block py-2 px-2 text-base font-bold bg-indigo-50 text-indigo-700 rounded">History of AI</a>
+				<a href="python.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Python Basics</a>
+				<a href="ml_basics.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">ML Basics</a>
+				<a href="supervised_learning.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Supervised ML</a>
+				<a href="unsupervised_learning.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Unsupervised</a>
+				<a href="deep_learning.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Deep Learning</a>
+				<a href="computer_vision.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">CV</a>
+				<a href="time_series.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Time Series</a>
+				<a href="natural_language_processing.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">NLP</a>
+				<a href="recommendation_system.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Recommenders</a>
+			</div>
+		</div>
+	</nav>
+
+	<!-- HERO -->
+	<header class="bg-gradient-to-b from-stone-200 to-gray-50 py-16 px-4 text-center">
+		<p class="text-sm font-bold tracking-widest text-stone-500 uppercase mb-3">Start here &middot; no code needed</p>
+		<h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">AI Is Older Than Your Grandparents' TV</h1>
+		<p class="max-w-2xl mx-auto text-lg text-gray-600">
+			People have been building "thinking machines" since the 1940s, and they've been predicting human-level AI
+			"within 20 years" for almost as long. Scroll through 80 years of breakthroughs, big promises, and what
+			actually happened.
+		</p>
+		<button id="present-btn" class="mt-8 px-6 py-3 rounded-lg bg-gray-900 text-white font-semibold hover:bg-gray-700 transition">
+			<i class="fa-solid fa-display mr-2"></i>Presentation mode
+		</button>
+		<p class="text-xs text-gray-400 mt-2">One milestone per screen. Use &larr; &rarr; or Space, and Esc to exit.</p>
+	</header>
+
+	<!-- TIMELINE -->
+	<main class="flex-grow max-w-5xl mx-auto w-full px-4 py-12">
+		<div class="timeline space-y-16" id="timeline"></div>
+
+		<!-- CLIFFHANGER -->
+		<section class="mt-20 text-center bg-white rounded-2xl shadow-sm border border-gray-100 p-10">
+			<h2 class="text-2xl font-bold text-gray-800 mb-3">So what <em>is</em> AI, then?</h2>
+			<p class="text-gray-600 max-w-2xl mx-auto mb-6">
+				Notice that every era above built a completely different <em>kind</em> of AI: logic rules, game-playing
+				search, learning from examples, neural networks, and language models. Chatbots are only the newest branch.
+				You've probably already used five other kinds of AI today without noticing.
+			</p>
+			<a href="ml_basics.html" class="inline-block px-6 py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition">
+				Start learning how it works <i class="fa-solid fa-arrow-right ml-1"></i>
+			</a>
+		</section>
+	</main>
+
+	<!-- PRESENTATION OVERLAY -->
+	<div id="present" role="dialog" aria-label="Presentation mode">
+		<div id="slide-host" class="w-full flex justify-center"></div>
+		<div class="absolute bottom-4 left-0 right-0 text-center text-gray-500 text-sm">
+			<span id="slide-count"></span> &middot; &larr; &rarr; to move &middot; Esc to exit
+		</div>
+	</div>
+
+	<footer class="bg-gray-800 text-white py-8 mt-12">
+		<div class="max-w-7xl mx-auto px-4 text-center">
+			<p class="mb-4">Designed &amp; Built by Ishani Kathuria</p>
+			<div class="flex justify-center space-x-6 mt-3">
+				<a href="https://linkedin.com/in/ishani-kathuria/" target="_blank" class="text-gray-400 hover:text-blue-400 transition"><i class="fa-brands fa-linkedin text-xl mr-1"></i> LinkedIn</a>
+				<a href="https://github.com/ikathuria/" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-github text-xl mr-1"></i> GitHub</a>
+			</div>
+			<p class="text-gray-500 text-sm mt-4">&copy; 2026 Python to AI.</p>
+		</div>
+	</footer>
+
+	<script>
+		// era: old | mid | new | now. hype/reality/paper are optional.
+		const MILESTONES = [
+			{
+				year: '1943', era: 'old', icon: 'fa-brain', color: 'bg-stone-600',
+				title: 'The first "artificial neuron"',
+				body: 'Warren McCulloch and Walter Pitts describe a brain cell as a tiny on/off switch made of math. Connect enough switches and, in theory, you can compute anything. Every modern neural network descends from this paper.',
+				reality: 'It was pure math on paper. There was no computer to run it on yet.'
+			},
+			{
+				year: '1950', era: 'old', icon: 'fa-chess-knight', color: 'bg-stone-600',
+				title: 'Alan Turing asks "Can machines think?"',
+				body: 'Turing proposes the "imitation game", now called the Turing Test: if you chat with a machine and can\'t tell it from a person, does it matter whether it "really" thinks?',
+				reality: 'Turing guessed machines would pass a version of his test around the year 2000. People still argue about what passing it would even prove.'
+			},
+			{
+				year: '1956', era: 'old', icon: 'fa-users', color: 'bg-stone-600',
+				title: 'The name "Artificial Intelligence" is born',
+				body: 'A summer workshop at Dartmouth College gathers a small group of researchers. John McCarthy coins the term "artificial intelligence" for their proposal.',
+				hype: 'The proposal suggested a carefully chosen group could make "a significant advance" in one summer.',
+				reality: 'That summer turned into 70 years and counting.'
+			},
+			{
+				year: '1958', era: 'old', icon: 'fa-newspaper', color: 'bg-stone-700',
+				title: 'The Perceptron makes headlines',
+				body: 'Frank Rosenblatt demonstrates the Perceptron, a machine that learns to tell simple shapes apart from examples. It is the great-grandparent of today\'s deep learning.',
+				paper: 'Newspapers reported the U.S. Navy expected the machine to eventually walk, talk, see, write, reproduce itself and be conscious of its own existence.',
+				reality: 'It could learn to tell left-side marks from right-side marks on a card. Impressive for 1958, but not exactly conscious.'
+			},
+			{
+				year: '1970s–90s', era: 'mid', icon: 'fa-snowflake', color: 'bg-sky-500',
+				title: 'The AI winters',
+				body: 'When the big promises didn\'t arrive, funding dried up, twice: in the 1970s and again in the late 1980s. Researchers even avoided the words "artificial intelligence" in grant applications.',
+				hype: 'In the 1960s, leading researchers predicted machines would be able to do any work a person can do within about 20 years.',
+				reality: 'Hype cycles are not new. AI has been "about to change everything" many times before.'
+			},
+			{
+				year: '1997', era: 'mid', icon: 'fa-chess', color: 'bg-amber-500',
+				title: 'Deep Blue beats the world chess champion',
+				body: 'IBM\'s Deep Blue defeats Garry Kasparov. It didn\'t learn chess like a human; it searched through about 200 million positions per second.',
+				hype: 'Headlines asked if this was the end of human brainpower.',
+				reality: 'The world didn\'t end, and chess got more popular. Players now use computers as training partners.'
+			},
+			{
+				year: '2012–17', era: 'new', icon: 'fa-eye', color: 'bg-indigo-500',
+				title: 'Deep learning wakes up',
+				body: 'In 2012, a neural network called AlexNet crushes an image-recognition contest, powered by gaming graphics cards and huge datasets. In 2017, Google researchers publish "Attention Is All You Need", introducing the Transformer, the design behind today\'s chatbots.',
+				reality: 'The 1943 idea finally had enough data and computing power to work at scale.'
+			},
+			{
+				year: '2022', era: 'new', icon: 'fa-comments', color: 'bg-indigo-600',
+				title: 'ChatGPT goes public',
+				body: 'For the first time, millions of people can talk to a large language model. It becomes one of the fastest-growing apps ever.',
+				reality: 'Under the hood it predicts the next word, a very powerful version of your phone\'s autocomplete. It\'s the newest chapter in an 80-year book, not the first page.'
+			},
+			{
+				year: '2026', era: 'now', icon: 'fa-wand-magic-sparkles', color: 'bg-pink-500',
+				title: 'Today: AI is a toolbox',
+				body: 'AI now runs quietly inside spam filters, maps, photo apps, recommendations, medical imaging and fraud detection, and assistants can help with multi-step tasks. Most of it isn\'t a chatbot at all.',
+				reality: 'The real questions today are practical: bias, privacy, misuse and jobs. Researchers (including me!) work on these every day.'
+			}
+		];
+
+		function cardHTML(m) {
+			return `
+				<div class="year text-3xl font-extrabold text-gray-800">${m.year}</div>
+				<h3 class="text-xl font-bold text-gray-800 mt-1 mb-3">${m.title}</h3>
+				<p class="text-gray-700 leading-relaxed">${m.body}</p>
+				${m.paper ? `<div class="newspaper"><div class="text-xs uppercase tracking-widest border-b border-stone-400 mb-2 pb-1">The papers said&hellip;</div>${m.paper}</div>` : ''}
+				${m.hype ? `<div class="hype"><strong><i class="fa-solid fa-bullhorn mr-1"></i>The hype:</strong> ${m.hype}</div>` : ''}
+				${m.reality ? `<div class="reality"><strong><i class="fa-solid fa-check mr-1"></i>What actually happened:</strong> ${m.reality}</div>` : ''}`;
+		}
+
+		// Build the scrolling timeline, alternating sides on desktop.
+		const timeline = document.getElementById('timeline');
+		MILESTONES.forEach((m, i) => {
+			const left = i % 2 === 0;
+			const row = document.createElement('div');
+			row.className = 'milestone relative pl-16 md:pl-0 md:flex ' + (left ? '' : 'md:flex-row-reverse');
+			row.innerHTML = `
+				<div class="dot ${m.color}"><i class="fa-solid ${m.icon}"></i></div>
+				<div class="md:w-1/2 ${left ? 'md:pr-12' : 'md:pl-12'}">
+					<div class="era-${m.era} rounded-xl p-6 shadow-sm">${cardHTML(m)}</div>
+				</div>`;
+			timeline.appendChild(row);
+		});
+
+		const observer = new IntersectionObserver(entries => {
+			entries.forEach(e => {
+				if (e.isIntersecting) {
+					e.target.classList.add('visible');
+					observer.unobserve(e.target);
+				}
+			});
+		}, { threshold: 0.15 });
+		document.querySelectorAll('.milestone').forEach(el => observer.observe(el));
+
+		// Presentation mode: one milestone per screen.
+		const present = document.getElementById('present');
+		const host = document.getElementById('slide-host');
+		const count = document.getElementById('slide-count');
+		let idx = 0;
+
+		function show(i) {
+			idx = Math.max(0, Math.min(MILESTONES.length - 1, i));
+			const m = MILESTONES[idx];
+			host.innerHTML = `<div class="slide era-${m.era}">${cardHTML(m)}</div>`;
+			count.textContent = `${idx + 1} / ${MILESTONES.length}`;
+		}
+
+		document.getElementById('present-btn').addEventListener('click', () => {
+			present.classList.add('on');
+			show(0);
+		});
+
+		document.addEventListener('keydown', e => {
+			if (!present.classList.contains('on')) return;
+			if (e.key === 'Escape') present.classList.remove('on');
+			if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(idx + 1); }
+			if (e.key === 'ArrowLeft') show(idx - 1);
+		});
+		present.addEventListener('click', e => { if (e.target === present) show(idx + 1); });
+
+		document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+			const menu = document.getElementById('mobile-menu');
+			const icon = document.getElementById('menu-icon');
+			menu.classList.toggle('hidden');
+			icon.classList.toggle('fa-bars');
+			icon.classList.toggle('fa-xmark');
+		});
+	</script>
+</body>
+
+</html>

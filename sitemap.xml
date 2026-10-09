@@ -6,6 +6,11 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://ikathuria.github.io/python-to-ai/app/pages/history_of_ai.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://ikathuria.github.io/python-to-ai/app/pages/python.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
