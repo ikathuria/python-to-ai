@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option 4 · Open Blueprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#123C8C;--deep:#0A2459;--paper:#F2F5FA;--line:#ffffff2e;--chalk:#EAF0FF;--signal:#FF7A3D;--muted:#B9C7EA}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:#0B1B2E;font:17px/1.6 'Inter',sans-serif}
+a{color:inherit}
+.mono{font-family:'JetBrains Mono',monospace}
+.top{background:var(--blue);color:var(--chalk);background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:32px 32px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.logo{font:700 20px 'Space Grotesk',sans-serif;text-decoration:none}
+.logo b{color:var(--signal)}
+.links{display:flex;gap:22px;font-size:15px}.links a{text-decoration:none}.links a:hover{color:var(--signal)}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;padding:64px 0 88px;align-items:center}
+.label{font-size:13px;color:var(--signal)}
+h1{font:700 clamp(44px,6.5vw,88px)/1 'Space Grotesk',sans-serif;letter-spacing:-.03em;margin:14px 0 22px}
+.lede{color:var(--muted);font-size:19px;max-width:40ch}
+.cta{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+.btn{padding:14px 22px;font:700 16px 'Space Grotesk',sans-serif;text-decoration:none;background:var(--signal);color:#1B0C03;border-radius:4px}
+.btn:hover{background:#fff}
+.btn.o{background:transparent;color:var(--chalk);border:1.5px solid var(--chalk)}
+.diagram{border:1.5px dashed var(--muted);padding:24px;border-radius:4px}
+.layer{display:flex;justify-content:space-around;margin:18px 0}
+.node{width:34px;height:34px;border-radius:50%;border:2px solid var(--chalk);background:var(--blue)}
+.node.on{background:var(--signal);border-color:var(--signal);animation:p 2.4s infinite}
+@keyframes p{50%{box-shadow:0 0 0 8px #ff7a3d33}}
+.cap{font-size:13px;color:var(--muted);text-align:center}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid #D3DCEB}
+.split>div{padding:56px 40px}
+.split .a{background:#fff}
+.split h2{font:700 30px 'Space Grotesk',sans-serif;margin:8px 0 10px}
+.split p{color:#3E4C63}
+.tag{font-size:12px;padding:3px 8px;background:#E3EAF7;color:var(--blue);border-radius:3px}
+.path{padding:72px 0}
+.path h2{font:700 44px 'Space Grotesk',sans-serif;margin-bottom:24px}
+.item{display:grid;grid-template-columns:90px 1fr 140px;padding:18px 0;border-top:1.5px solid #0B1B2E;text-decoration:none;align-items:baseline}
+.item:hover{background:#fff}.item:hover .t{color:var(--blue)}
+.item .mono{color:var(--blue);font-weight:600}
+.t{font:700 22px 'Space Grotesk',sans-serif}
+.d{color:#52627A;font-size:15px}
+.k{font-size:13px;color:#52627A;text-align:right}
+footer{padding:30px 0;font-size:14px;color:#52627A}
+@media(max-width:820px){.hero,.split{grid-template-columns:1fr}.links{display:none}.item{grid-template-columns:52px 1fr}.k{display:none}.split>div{padding:36px 24px}}
+@media(prefers-reduced-motion:reduce){.node.on{animation:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<nav><a class="logo" href="#">python<b>→</b>ai</a><div class="links mono"><a href="#">/history</a><a href="#">/lessons</a><a href="#">/videos</a><a href="#">/github</a></div></nav>
+<section class="hero">
+<div>
+<div class="label mono">// open the hood</div>
+<h1>See exactly how AI works. No mystery.</h1>
+<p class="lede">Plain-English explanations for the curious, real code for the engineers. Every model on this site runs live in your browser.</p>
+<div class="cta"><a class="btn" href="#">Start learning →</a><a class="btn o" href="#">▶ Watch on YouTube</a></div>
+</div>
+<div class="diagram" aria-hidden="true">
+<div class="layer"><span class="node on"></span><span class="node"></span><span class="node on"></span></div>
+<div class="layer"><span class="node"></span><span class="node on"></span><span class="node"></span><span class="node on"></span></div>
+<div class="layer"><span class="node on"></span></div>
+<p class="cap mono">a neural network is just numbers passing notes</p>
+</div>
+</section>
+</div></header>
+<section class="split">
+<div class="a"><span class="tag mono">for everyone</span><h2>Plain-English track</h2><p>No code, no jargon. Start with 80 years of AI history and why the robots still aren't coming.</p></div>
+<div><span class="tag mono">for engineers</span><h2>Under-the-hood track</h2><p>Notebooks, PyTorch and ONNX. Read the code behind every demo on GitHub.</p></div>
+</section>
+<div class="wrap path">
+<h2>The path</h2>
+<a class="item" href="#"><span class="mono">00</span><span><div class="t">Python basics</div><div class="d">Never coded? Start here.</div></span><span class="k mono">~45 min</span></a>
+<a class="item" href="#"><span class="mono">02</span><span><div class="t">Supervised learning</div><div class="d">Teach with labelled examples. Live demo.</div></span><span class="k mono">live demo</span></a>
+<a class="item" href="#"><span class="mono">03</span><span><div class="t">Unsupervised learning</div><div class="d">Find groups nobody labelled.</div></span><span class="k mono">live demo</span></a>
+<a class="item" href="#"><span class="mono">06</span><span><div class="t">Computer vision</div><div class="d">How a computer reads a picture.</div></span><span class="k mono">live demo</span></a>
+<a class="item" href="#"><span class="mono">08</span><span><div class="t">Language models</div><div class="d">From word vectors to chatbots.</div></span><span class="k mono">notebooks</span></a>
+<footer>Built by Ishani Kathuria · YouTube · GitHub</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option 7 · Retro Computer Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--beige:#E8E0CC;--case:#D6CCB2;--ink:#1E1E1E;--screen:#0F2A1D;--phosphor:#7CFFB2;--teal:#00796B;--rust:#C2410C;--muted:#4A463C}
+*{box-sizing:border-box;margin:0}
+body{background:var(--beige);color:var(--ink);font:17px/1.6 'Work Sans',sans-serif}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.bar{background:#fff;border-bottom:2px solid var(--ink);font:700 14px 'Space Mono',monospace}
+.bar .wrap{display:flex;gap:22px;padding:8px 24px;align-items:center}
+.bar .apple{font-size:18px}
+.bar a{text-decoration:none}.bar a:hover{background:var(--ink);color:#fff}
+.bar .r{margin-left:auto}
+.hero{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;padding:64px 0;align-items:center}
+.kick{font:700 13px 'Space Mono',monospace;color:var(--teal);letter-spacing:.06em}
+h1{font:800 clamp(42px,5.6vw,76px)/1.02 'Work Sans',sans-serif;letter-spacing:-.025em;margin:12px 0 20px}
+h1 u{text-decoration-color:var(--rust);text-decoration-thickness:6px;text-underline-offset:6px}
+.lede{font-size:19px;color:var(--muted);max-width:40ch}
+.cta{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+.btn{font:700 15px 'Space Mono',monospace;padding:12px 20px;background:#fff;border:2px solid var(--ink);border-radius:8px;box-shadow:inset -3px -3px 0 #0002;text-decoration:none}
+.btn:hover{background:var(--ink);color:#fff}
+.btn.p{background:var(--rust);color:#fff}
+.mac{background:var(--case);border:2px solid var(--ink);border-radius:18px;padding:22px 22px 36px;box-shadow:8px 8px 0 #0002}
+.screen{background:var(--screen);color:var(--phosphor);border-radius:10px;padding:22px;font:24px/1.3 'VT323',monospace;min-height:280px;border:3px solid #000;text-shadow:0 0 6px #7cffb266}
+.cursor{display:inline-block;width:12px;height:22px;background:var(--phosphor);vertical-align:middle;animation:b 1s steps(1) infinite}
+@keyframes b{50%{opacity:0}}
+.slot{height:10px;width:40%;background:var(--ink);border-radius:4px;margin:20px auto 0;opacity:.6}
+.windows{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:24px 0 64px}
+.windows h2{grid-column:1/-1;font:800 40px 'Work Sans',sans-serif}
+.win{background:#fff;border:2px solid var(--ink);border-radius:6px;text-decoration:none;box-shadow:5px 5px 0 var(--ink);transition:.12s}
+.win:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--teal)}
+.tb{border-bottom:2px solid var(--ink);padding:6px 10px;font:700 13px 'Space Mono',monospace;background:repeating-linear-gradient(#fff 0 2px,#ddd 2px 4px);display:flex;gap:8px;align-items:center}
+.tb i{width:12px;height:12px;border:2px solid var(--ink);background:#fff;display:inline-block}
+.tb span{background:#fff;padding:0 6px}
+.body{padding:18px}
+.body h3{font:800 22px 'Work Sans',sans-serif;margin-bottom:6px}
+.body p{color:var(--muted);font-size:15px}
+.teal{background:var(--teal);color:#fff;padding:56px 0;border-block:2px solid var(--ink)}
+.teal h2{font:800 clamp(32px,4.5vw,56px)/1.05 'Work Sans',sans-serif;max-width:20ch}
+.teal p{margin-top:12px;max-width:58ch}
+footer{padding:28px 0;font:14px 'Space Mono',monospace}
+@media(max-width:860px){.hero{grid-template-columns:1fr}.windows{grid-template-columns:1fr}.bar .hide{display:none}}
+@media(prefers-reduced-motion:reduce){.cursor{animation:none}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="wrap"><span class="apple" aria-hidden="true">◆</span><a href="#">Python to AI</a><a class="hide" href="#">History</a><a class="hide" href="#">Lessons</a><a href="#">Videos</a><span class="r hide">Fri 9:41</span></div></div>
+<div class="wrap">
+<section class="hero">
+<div>
+<div class="kick">C:\&gt; LOADING AI SINCE 1943…</div>
+<h1>AI is older than your <u>computer.</u> Let's boot it up.</h1>
+<p class="lede">Free, friendly lessons from your first line of Python to how AI actually works. Real models run right in your browser.</p>
+<div class="cta"><a class="btn p" href="#">▶ Run history.exe</a><a class="btn" href="#">Watch the videos</a></div>
+</div>
+<div class="mac" aria-hidden="true"><div class="screen">&gt; is_ai_going_to_take_over()<br>Checking 80 years of history…<br>1958: "will be conscious" … FALSE<br>1965: "within 20 years" … FALSE<br>1997: beats chess champion … world OK<br>Result: it's math. Relax.<br>&gt; <span class="cursor"></span></div><div class="slot"></div></div>
+</section>
+</div>
+<section class="teal"><div class="wrap"><h2>AI is a whole operating system, not one app.</h2><p>Spam filters, maps, photo apps, recommendations. Chatbots are just the newest program installed.</p></div></section>
+<div class="wrap">
+<section class="windows"><h2>Open a lesson</h2>
+<a class="win" href="#"><div class="tb"><i></i><span>00_python.py</span></div><div class="body"><h3>Python basics</h3><p>Never coded? Start here.</p></div></a>
+<a class="win" href="#"><div class="tb"><i></i><span>02_supervised.py</span></div><div class="body"><h3>Teach a machine</h3><p>Learning from examples. Live demo.</p></div></a>
+<a class="win" href="#"><div class="tb"><i></i><span>03_clusters.py</span></div><div class="body"><h3>Find hidden groups</h3><p>Clustering. Live demo.</p></div></a>
+<a class="win" href="#"><div class="tb"><i></i><span>04_recommend.py</span></div><div class="body"><h3>Why Netflix knows you</h3><p>Recommendation systems.</p></div></a>
+<a class="win" href="#"><div class="tb"><i></i><span>06_vision.py</span></div><div class="body"><h3>How computers see</h3><p>Images are numbers. Colour demo.</p></div></a>
+<a class="win" href="#"><div class="tb"><i></i><span>08_language.py</span></div><div class="body"><h3>Fancy autocomplete</h3><p>What chatbots are really doing.</p></div></a>
+</section>
+<footer>Built by Ishani Kathuria · YouTube · GitHub</footer>
+</div>
+</body>
+</html>

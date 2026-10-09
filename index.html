@@ -2,330 +2,248 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python to AI - Tutorial Platform</title>
-    <meta name="description" content="A comprehensive tutorial platform taking you from Python basics to advanced AI implementations.">
-    <meta property="og:title" content="Python to AI - Tutorial Platform">
-    <meta property="og:description" content="A comprehensive tutorial platform taking you from Python basics to advanced AI implementations.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ikathuria.github.io/python-to-ai/">
-    <meta name="author" content="Ishani Kathuria">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-    <style type="text/tailwindcss">
-        body {
-            font-family: 'Nunito', sans-serif;
-        }
-
-        .nav-link {
-            @apply px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors cursor-pointer;
-        }
-
-        .nav-link.active {
-            @apply text-indigo-700 bg-indigo-50 font-bold;
-        }
-
-        .section-container {
-            @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12;
-        }
-
-        .card {
-            @apply bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden;
-        }
-    </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Python to AI · Free, friendly lessons on how AI works</title>
+	<meta name="description" content="AI isn't magic, and it isn't new. Free, friendly lessons from your first line of Python to real AI models you can try right in your browser.">
+	<link rel="canonical" href="https://ikathuria.github.io/python-to-ai/">
+	<meta property="og:title" content="Python to AI · Free, friendly lessons on how AI works">
+	<meta property="og:description" content="AI isn't magic, and it isn't new. Learn how it really works, from your first line of Python to models running in your browser.">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://ikathuria.github.io/python-to-ai/">
+	<meta property="og:image" content="https://ikathuria.github.io/python-to-ai/app/images/og/home.png">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="https://ikathuria.github.io/python-to-ai/app/images/og/home.png">
+	<meta name="author" content="Ishani Kathuria">
+	<link rel="apple-touch-icon" href="app/images/og/apple-touch-icon.png">
+	<link rel="icon" href="favicon.svg" type="image/svg+xml">
+	<link rel="stylesheet" href="app/styles/brand.css">
+	<link rel="stylesheet" href="app/styles/site.css">
+	<script src="app/styles/site.js"></script>
+	<style>
+		.hero { max-width: var(--wide); margin: 0 auto; padding: var(--s-7) var(--s-3); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--s-6); align-items: center; }
+		.kicker { font: 700 var(--fs-label) var(--font-mono); letter-spacing: .06em; color: var(--rb-purple); }
+		:root[data-theme="dark"] .kicker { color: var(--accent); }
+		@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .kicker { color: var(--accent); } }
+		.hero h1 { font: 800 var(--fs-h1)/1.02 var(--font-display); letter-spacing: -.025em; margin: var(--s-3) 0 var(--s-4); color: var(--title); text-shadow: var(--title-glow); }
+		.hero h1 u { text-decoration-color: var(--accent); text-decoration-thickness: 6px; text-underline-offset: 8px; }
+		.lede { font-size: 1.1875rem; line-height: 1.6; color: var(--muted); max-width: 40ch; }
+		.cta { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-5); }
+		.mac { background: var(--case); border: var(--bw) solid var(--border); border-radius: var(--radius-lg); padding: var(--s-4) var(--s-4) var(--s-5); box-shadow: 8px 8px 0 var(--border); }
+		.mac .terminal { min-height: 300px; }
+		.mac .slot { height: 10px; width: 40%; background: var(--border); border-radius: 4px; margin: var(--s-4) auto 0; opacity: .5; }
+		.typed span { display: block; }
+		.section { max-width: var(--wide); margin: 0 auto; padding: var(--s-7) var(--s-3); }
+		.section h2 { font: 800 var(--fs-h2)/1.1 var(--font-display); letter-spacing: -.015em; }
+		.section .sub { color: var(--muted); margin-top: var(--s-2); max-width: 60ch; }
+		.chips { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: var(--s-4); }
+		.chips span { background: var(--surface); color: var(--text); font: 700 var(--fs-small) var(--font-mono); padding: 8px 14px; border: var(--bw) solid var(--border); border-radius: var(--radius-sm); }
+		.tracks { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); margin-top: var(--s-5); }
+		.track { padding: var(--s-4); }
+		.track h3 { font: 800 var(--fs-h3) var(--font-display); margin-bottom: var(--s-2); }
+		.track p { color: var(--muted); }
+		.track .btn { margin-top: var(--s-3); }
+		.windows { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-4); margin-top: var(--s-5); }
+		.lesson { display: block; text-decoration: none; color: var(--text); transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+		@media (hover: hover) { .lesson:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-pop-hover) !important; } }
+		.lesson .body { padding: var(--s-3) var(--s-3) var(--s-4); }
+		.lesson h3 { font: 800 1.25rem var(--font-display); margin-bottom: 4px; }
+		.lesson p { color: var(--muted); font-size: var(--fs-small); }
+		.lesson .meta { display: flex; justify-content: space-between; align-items: center; margin-top: var(--s-3); font: 700 var(--fs-label) var(--font-mono); color: var(--muted); }
+		.lesson .done-mark { display: none; color: var(--text); background: var(--rb-green); padding: 2px 8px; border: var(--bw) solid var(--border); }
+		.lesson.is-done .done-mark { display: inline-block; }
+		.about { display: flex; gap: var(--s-4); align-items: center; flex-wrap: wrap; }
+		.about img { width: 96px; height: 96px; border: var(--bw) solid var(--border); border-radius: var(--radius-sm); box-shadow: var(--shadow-pop); }
+		.about h2 { font-size: 1.75rem; }
+		.about p { color: var(--muted); max-width: 56ch; }
+		@media (max-width: 1023px) { .windows { grid-template-columns: 1fr 1fr; } }
+		@media (max-width: 859px) {
+			.hero { grid-template-columns: minmax(0, 1fr); padding-top: var(--s-5); }
+			.tracks, .windows { grid-template-columns: 1fr; }
+			.mac .terminal { font-size: 20px; min-height: 0; }
+		}
+	</style>
 </head>
 
-<body class="bg-gray-50 min-h-screen flex flex-col">
+<body>
+	<a class="skip-link" href="#main">Skip to lesson</a>
+	<header class="menubar">
+		<div class="menubar-inner">
+			<a class="wordmark" href="index.html"><i aria-hidden="true"></i>Python to AI</a>
+			<div class="mb-desktop">
+				<a class="mb-link" href="app/pages/history_of_ai.html">History</a>
+				<details>
+					<summary>Lessons ▾</summary>
+					<nav class="dropdown" aria-label="Lessons">
+					<a href="app/pages/python.html"><span>00</span>Python basics</a>
+					<a href="app/pages/ml_basics.html"><span>01</span>ML basics</a>
+					<a href="app/pages/supervised_learning.html"><span>02</span>Supervised learning</a>
+					<a href="app/pages/unsupervised_learning.html"><span>03</span>Unsupervised learning</a>
+					<a href="app/pages/recommendation_system.html"><span>04</span>Recommendation systems</a>
+					<a href="app/pages/deep_learning.html"><span>05</span>Deep learning</a>
+					<a href="app/pages/computer_vision.html"><span>06</span>Computer vision</a>
+					<a href="app/pages/time_series.html"><span>07</span>Time series</a>
+					<a href="app/pages/natural_language_processing.html"><span>08</span>Language (NLP)</a>
+					</nav>
+				</details>
+				<a class="mb-link" href="https://www.youtube.com/@DrIshaniKathuria" target="_blank" rel="noopener">Videos</a>
+				<a class="mb-link" href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener">GitHub</a>
+			</div>
+			<span class="mb-spacer"></span>
+			<button class="theme-toggle" type="button" aria-label="Toggle dark mode"><span class="when-light">◐ <span class="label">Dark</span></span><span class="when-dark">◑ <span class="label">Light</span></span></button>
+			<button class="mb-mobile-btn" type="button" aria-expanded="false" aria-controls="mobile-panel">Menu</button>
+		</div>
+		<nav id="mobile-panel" class="mobile-panel" aria-label="Site">
+		<a href="app/pages/history_of_ai.html"><span>--</span>History of AI</a>
+		<a href="app/pages/python.html"><span>00</span>Python basics</a>
+		<a href="app/pages/ml_basics.html"><span>01</span>ML basics</a>
+		<a href="app/pages/supervised_learning.html"><span>02</span>Supervised learning</a>
+		<a href="app/pages/unsupervised_learning.html"><span>03</span>Unsupervised learning</a>
+		<a href="app/pages/recommendation_system.html"><span>04</span>Recommendation systems</a>
+		<a href="app/pages/deep_learning.html"><span>05</span>Deep learning</a>
+		<a href="app/pages/computer_vision.html"><span>06</span>Computer vision</a>
+		<a href="app/pages/time_series.html"><span>07</span>Time series</a>
+		<a href="app/pages/natural_language_processing.html"><span>08</span>Language (NLP)</a>
+		<a href="https://www.youtube.com/@DrIshaniKathuria" target="_blank" rel="noopener"><span>▶</span>Videos</a>
+		<a href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener"><span>{}</span>GitHub</a>
+		</nav>
+	</header>
 
-    <!-- NAVIGATION -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <!-- Branding -->
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <i class="fa-solid fa-code fa-2x text-indigo-600"></i>
-                        <span class="ml-2 font-bold text-xl text-gray-800">Python to AI</span>
-                    </div>
-                </div>
+	<main id="main">
+		<section class="hero">
+			<div>
+				<div class="kicker">C:\&gt; LOADING AI SINCE 1943…</div>
+				<h1>AI is older than your <u>computer.</u> Let's boot it up.</h1>
+				<p class="lede">Free, friendly lessons from your first line of Python to how AI actually works. Real models run right here in your browser. No signup, no install.</p>
+				<div class="cta">
+					<a class="btn btn-primary" href="app/pages/history_of_ai.html">▶ Run history.exe</a>
+					<a class="btn" href="https://www.youtube.com/@DrIshaniKathuria" target="_blank" rel="noopener">Watch the videos</a>
+				</div>
+			</div>
+			<div class="mac" aria-hidden="true">
+				<div class="terminal typed">
+					<span>&gt; is_ai_going_to_take_over()</span>
+					<span>Checking 80 years of history…</span>
+					<span>1958: "will be conscious" … FALSE</span>
+					<span>1965: "within 20 years" … FALSE</span>
+					<span>1997: beats chess champion … world OK</span>
+					<span>Result: it's math. Relax.</span>
+					<span>&gt; <i class="cursor"></i></span>
+				</div>
+				<div class="slot"></div>
+			</div>
+		</section>
 
-                <!-- Desktop Nav -->
-                <div class="hidden md:flex items-center space-x-1">
-                    <a href="#" class="nav-link active">Home</a>
-                    <a href="app/pages/history_of_ai.html" class="nav-link">History</a>
-                    <a href="app/pages/python.html" class="nav-link">Python</a>
-                    <a href="app/pages/ml_basics.html" class="nav-link">ML Basics</a>
-                    <a href="app/pages/supervised_learning.html" class="nav-link">Supervised</a>
-                    <a href="app/pages/unsupervised_learning.html" class="nav-link">Unsupervised</a>
-                    <a href="app/pages/recommendation_system.html" class="nav-link">Recommenders</a>
-                    <a href="app/pages/deep_learning.html" class="nav-link">Deep Learning</a>
-                    <a href="app/pages/computer_vision.html" class="nav-link">CV</a>
-                    <a href="app/pages/time_series.html" class="nav-link">Time Series</a>
-                    <a href="app/pages/natural_language_processing.html" class="nav-link">NLP</a>
-                </div>
+		<section class="rainbow-band">
+			<div class="inner">
+				<h2><mark>AI is a whole operating system, not one app.</mark></h2>
+				<div class="chips">
+					<span>Spam filters</span><span>Maps</span><span>Photo tagging</span><span>Netflix picks</span><span>Fraud alerts</span><span>Autocorrect</span><span>Medical scans</span><span>Chatbots (the new kid)</span>
+				</div>
+			</div>
+		</section>
 
-                <!-- Social Icons + hamburger -->
-                <div class="flex items-center">
-                    <a href="https://github.com/ikathuria" target="_blank" class="text-gray-400 hover:text-gray-600 mx-2 hidden sm:inline"><i class="fa-brands fa-github fa-lg"></i></a>
-                    <a href="https://linkedin.com/in/ishani-kathuria/" target="_blank" class="text-gray-400 hover:text-blue-600 mx-2 hidden sm:inline"><i class="fa-brands fa-linkedin fa-lg"></i></a>
-                    <button id="mobile-menu-btn" class="md:hidden text-gray-500 hover:text-gray-700 focus:outline-none ml-2" aria-label="Toggle menu">
-                        <i class="fa-solid fa-bars fa-lg" id="menu-icon"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+		<section class="section">
+			<h2>Two ways in</h2>
+			<p class="sub">Every topic has a plain-English version and an under-the-hood version. Pick whichever fits today.</p>
+			<div class="tracks">
+				<div class="window">
+					<div class="window-bar"><i></i><span>for_everyone.txt</span></div>
+					<div class="track">
+						<h3>Plain-English track</h3>
+						<p>No code, no jargon. Start with 80 years of AI history and why the robots still aren't coming.</p>
+						<a class="btn" href="app/pages/history_of_ai.html">Start with the history</a>
+					</div>
+				</div>
+				<div class="window">
+					<div class="window-bar"><i></i><span>for_engineers.py</span></div>
+					<div class="track">
+						<h3>Under-the-hood track</h3>
+						<p>Python, NumPy, PyTorch and ONNX. Read and run the notebook behind every demo.</p>
+						<a class="btn" href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener">Browse the code</a>
+					</div>
+				</div>
+			</div>
+		</section>
 
-        <!-- Mobile Menu (hamburger toggle) -->
-        <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-gray-50">
-            <div class="flex flex-col space-y-1 px-4 py-2">
-                <a href="#" class="block py-2 px-2 text-base font-bold bg-indigo-50 text-indigo-700 rounded">Home</a>
-                <a href="app/pages/history_of_ai.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">History of AI</a>
-                <a href="app/pages/python.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">Python Basics</a>
-                <a href="app/pages/ml_basics.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">ML Basics</a>
-                <a href="app/pages/supervised_learning.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">Supervised ML</a>
-                <a href="app/pages/unsupervised_learning.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">Unsupervised ML</a>
-                <a href="app/pages/deep_learning.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">Deep Learning</a>
-                <a href="app/pages/computer_vision.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">Computer Vision</a>
-                <a href="app/pages/time_series.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">Time Series</a>
-                <a href="app/pages/natural_language_processing.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">NLP</a>
-                <a href="app/pages/recommendation_system.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded">Recommenders</a>
-            </div>
-        </div>
-    </nav>
+		<section class="section" id="lessons">
+			<h2>Open a lesson</h2>
+			<p class="sub">Nine lessons, zero to AI. Follow them in order or jump to whatever you're curious about. Finished lessons get a ✓.</p>
+			<div class="windows">
+				<a class="window lesson" href="app/pages/python.html" data-done-key="p2ai_done_python">
+					<div class="window-bar"><i></i><span>00_python.py</span></div>
+					<div class="body"><h3>Python basics</h3><p>Variables, lists, functions. Never coded? Start here.</p><div class="meta"><span>~45 min</span><span class="done-mark">✓ done</span></div></div>
+				</a>
+				<a class="window lesson" href="app/pages/ml_basics.html" data-done-key="p2ai_done_ml_basics">
+					<div class="window-bar"><i></i><span>01_basics.py</span></div>
+					<div class="body"><h3>ML basics</h3><p>NumPy, Pandas and the shape of data.</p><div class="meta"><span>~40 min</span><span class="done-mark">✓ done</span></div></div>
+				</a>
+				<a class="window lesson" href="app/pages/supervised_learning.html" data-done-key="p2ai_done_supervised">
+					<div class="window-bar"><i></i><span>02_supervised.py</span></div>
+					<div class="body"><h3>Teach a machine</h3><p>Supervised learning: learning from labelled examples.</p><div class="meta"><span>live demo</span><span class="done-mark">✓ done</span></div></div>
+				</a>
+				<a class="window lesson" href="app/pages/unsupervised_learning.html" data-done-key="p2ai_done_unsupervised">
+					<div class="window-bar"><i></i><span>03_clusters.py</span></div>
+					<div class="body"><h3>Find hidden groups</h3><p>Clustering data nobody labelled.</p><div class="meta"><span>live demo</span><span class="done-mark">✓ done</span></div></div>
+				</a>
+				<a class="window lesson" href="app/pages/recommendation_system.html" data-done-key="p2ai_done_recommenders">
+					<div class="window-bar"><i></i><span>04_recommend.py</span></div>
+					<div class="body"><h3>Why Netflix knows you</h3><p>How recommendation systems pick for you.</p><div class="meta"><span>live demo</span><span class="done-mark">✓ done</span></div></div>
+				</a>
+				<a class="window lesson" href="app/pages/deep_learning.html" data-done-key="p2ai_done_deep_learning">
+					<div class="window-bar"><i></i><span>05_neural.py</span></div>
+					<div class="body"><h3>Neural networks</h3><p>Layers of tiny maths passing notes.</p><div class="meta"><span>live demo</span><span class="done-mark">✓ done</span></div></div>
+				</a>
+				<a class="window lesson" href="app/pages/computer_vision.html" data-done-key="p2ai_done_cv">
+					<div class="window-bar"><i></i><span>06_vision.py</span></div>
+					<div class="body"><h3>How computers see</h3><p>Pictures are just numbers. Colour demo.</p><div class="meta"><span>live demo</span><span class="done-mark">✓ done</span></div></div>
+				</a>
+				<a class="window lesson" href="app/pages/time_series.html" data-done-key="p2ai_done_time_series">
+					<div class="window-bar"><i></i><span>07_forecast.py</span></div>
+					<div class="body"><h3>Predicting tomorrow</h3><p>Forecasting with time series and LSTMs.</p><div class="meta"><span>demo</span><span class="done-mark">✓ done</span></div></div>
+				</a>
+				<a class="window lesson" href="app/pages/natural_language_processing.html" data-done-key="p2ai_done_nlp">
+					<div class="window-bar"><i></i><span>08_language.py</span></div>
+					<div class="body"><h3>Fancy autocomplete</h3><p>From word vectors to chatbots.</p><div class="meta"><span>notebooks</span><span class="done-mark">✓ done</span></div></div>
+				</a>
+			</div>
+		</section>
 
-    <!-- CONTENT SECTIONS -->
-    <main class="flex-grow">
+		<section class="section">
+			<div class="about">
+				<img src="https://avatars.githubusercontent.com/u/57997976?v=4" alt="Ishani Kathuria" width="96" height="96">
+				<div>
+					<h2>Hi, I'm Ishani.</h2>
+					<p>I research AI and make videos explaining it in plain English, because understanding something is the best cure for being scared of it.</p>
+					<div class="cta">
+						<a class="btn" href="https://www.youtube.com/@DrIshaniKathuria" target="_blank" rel="noopener">YouTube</a>
+						<a class="btn" href="https://linkedin.com/in/ishani-kathuria/" target="_blank" rel="noopener">LinkedIn</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
 
-        <!-- === HERO / LANDING ==== -->
-        <section id="home-section" class="section-container">
-            <div class="text-center py-20">
-                <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 tracking-tight mb-6">
-                    Master <span class="text-indigo-600">Artificial Intelligence</span><br>
-                    <span class="text-4xl text-gray-500">One Algorithm at a Time</span>
-                </h1>
-                <p class="text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-                    Free, open-source tutorials from Python basics toward ML and deep learning—with <strong>in-browser demos</strong> on the Supervised and Unsupervised pages (ONNX models run locally in your browser on GitHub Pages).
-                </p>
-                <div class="flex justify-center space-x-4">
-                    <a href="app/pages/python.html" class="px-8 py-4 border border-transparent text-lg font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg transition transform hover:-translate-y-1">
-                        Start Learning
-                    </a>
-                    <a href="https://github.com/ikathuria/python-to-ai" target="_blank" class="px-8 py-4 border border-gray-300 text-lg font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 shadow-sm transition">
-                        View on GitHub
-                    </a>
-                </div>
-            </div>
+	<footer class="site-footer">
+		<div class="band-thin"></div>
+		<div class="inner"><div class="row">
+			<span>&gt; built by Ishani Kathuria_</span>
+			<span class="links">
+				<a href="https://www.youtube.com/@DrIshaniKathuria" target="_blank" rel="noopener">YouTube</a>
+				<a href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener">GitHub</a>
+				<a href="https://linkedin.com/in/ishani-kathuria/" target="_blank" rel="noopener">LinkedIn</a>
+			</span>
+		</div></div>
+	</footer>
 
-            <!-- Features Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-                <a href="app/pages/python.html" class="card p-8 text-center hover:shadow-lg transition block group">
-                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition">
-                        <i class="fa-brands fa-python fa-2x"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Python Fundamentals</h3>
-                    <p class="text-gray-500">Master the basics of effective Python programming for Data Science.</p>
-                </a>
-                <a href="app/pages/supervised_learning.html" class="card p-8 text-center hover:shadow-lg transition block group">
-                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-green-600 group-hover:bg-green-600 group-hover:text-white transition">
-                        <i class="fa-solid fa-chart-line fa-2x"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Machine Learning</h3>
-                    <p class="text-gray-500">Understand core algorithms from regression to clustering with interactive visualizations.</p>
-                </a>
-                <a href="app/pages/deep_learning.html" class="card p-8 text-center hover:shadow-lg transition block group">
-                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition">
-                        <i class="fa-solid fa-brain fa-2x"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Deep Learning</h3>
-                    <p class="text-gray-500">Dive into Neural Networks, Computer Vision, and NLP implementations.</p>
-                </a>
-            </div>
-
-            <!-- Learning Path Roadmap -->
-            <div class="mt-24">
-                <div class="text-center mb-10">
-                    <h2 class="text-3xl font-extrabold text-gray-900">Your Learning Path</h2>
-                    <p class="text-gray-500 mt-2">Nine modules, zero to AI — follow the path or jump to any topic.</p>
-                </div>
-                <div class="relative">
-                    <!-- Vertical connector line (desktop) -->
-                    <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-indigo-100 -translate-x-1/2"></div>
-                    <div class="space-y-6">
-
-                        <!-- Row helper: odd rows left-align card, even rows right-align -->
-                        <!-- 1 Python -->
-                        <div class="flex md:justify-start justify-center">
-                            <a href="app/pages/python.html" data-done-key="p2ai_done_python" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
-                                <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">1</div>
-                                <div>
-                                    <p class="font-bold text-gray-800">Python Basics</p>
-                                    <p class="text-sm text-gray-500">Variables, functions, OOP &amp; data structures</p>
-                                </div>
-                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
-                            </a>
-                        </div>
-                        <!-- 2 ML Basics -->
-                        <div class="flex md:justify-end justify-center">
-                            <a href="app/pages/ml_basics.html" data-done-key="p2ai_done_ml_basics" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
-                                <div class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">2</div>
-                                <div>
-                                    <p class="font-bold text-gray-800">ML Basics</p>
-                                    <p class="text-sm text-gray-500">NumPy, Pandas, Matplotlib &amp; Scikit-learn</p>
-                                </div>
-                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
-                            </a>
-                        </div>
-                        <!-- 3 Supervised -->
-                        <div class="flex md:justify-start justify-center">
-                            <a href="app/pages/supervised_learning.html" data-done-key="p2ai_done_supervised" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
-                                <div class="w-10 h-10 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">3</div>
-                                <div>
-                                    <p class="font-bold text-gray-800">Supervised Learning</p>
-                                    <p class="text-sm text-gray-500">KNN, Decision Trees, Regression — live demos</p>
-                                </div>
-                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
-                            </a>
-                        </div>
-                        <!-- 4 Unsupervised -->
-                        <div class="flex md:justify-end justify-center">
-                            <a href="app/pages/unsupervised_learning.html" data-done-key="p2ai_done_unsupervised" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
-                                <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">4</div>
-                                <div>
-                                    <p class="font-bold text-gray-800">Unsupervised Learning</p>
-                                    <p class="text-sm text-gray-500">K-Means clustering &amp; PCA dimensionality reduction</p>
-                                </div>
-                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
-                            </a>
-                        </div>
-                        <!-- 5 Deep Learning -->
-                        <div class="flex md:justify-start justify-center">
-                            <a href="app/pages/deep_learning.html" data-done-key="p2ai_done_deep_learning" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
-                                <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">5</div>
-                                <div>
-                                    <p class="font-bold text-gray-800">Deep Learning</p>
-                                    <p class="text-sm text-gray-500">Neural networks, backpropagation &amp; PyTorch</p>
-                                </div>
-                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
-                            </a>
-                        </div>
-                        <!-- 6 CV -->
-                        <div class="flex md:justify-end justify-center">
-                            <a href="app/pages/computer_vision.html" data-done-key="p2ai_done_cv" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
-                                <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">6</div>
-                                <div>
-                                    <p class="font-bold text-gray-800">Computer Vision</p>
-                                    <p class="text-sm text-gray-500">CNNs, convolution &amp; colour classifier demo</p>
-                                </div>
-                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
-                            </a>
-                        </div>
-                        <!-- 7 NLP -->
-                        <div class="flex md:justify-start justify-center">
-                            <a href="app/pages/natural_language_processing.html" data-done-key="p2ai_done_nlp" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
-                                <div class="w-10 h-10 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">7</div>
-                                <div>
-                                    <p class="font-bold text-gray-800">Natural Language Processing</p>
-                                    <p class="text-sm text-gray-500">Word2Vec, n-gram models &amp; Gensim</p>
-                                </div>
-                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
-                            </a>
-                        </div>
-                        <!-- 8 Time Series -->
-                        <div class="flex md:justify-end justify-center">
-                            <a href="app/pages/time_series.html" data-done-key="p2ai_done_time_series" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
-                                <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">8</div>
-                                <div>
-                                    <p class="font-bold text-gray-800">Time Series</p>
-                                    <p class="text-sm text-gray-500">Stationarity, ARIMA &amp; LSTM forecasting</p>
-                                </div>
-                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
-                            </a>
-                        </div>
-                        <!-- 9 Recommenders -->
-                        <div class="flex md:justify-start justify-center">
-                            <a href="app/pages/recommendation_system.html" data-done-key="p2ai_done_recommenders" class="md:w-5/12 w-full bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex items-center gap-4 hover:shadow-md hover:border-indigo-200 transition group">
-                                <div class="w-10 h-10 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center font-bold flex-shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">9</div>
-                                <div>
-                                    <p class="font-bold text-gray-800">Recommendation Systems</p>
-                                    <p class="text-sm text-gray-500">Content-based filtering &amp; collaborative KNN</p>
-                                </div>
-                                <i class="fa-solid fa-arrow-right ml-auto text-gray-300 group-hover:text-indigo-500 transition"></i>
-                            </a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- About / Profile -->
-            <div class="max-w-4xl mx-auto mt-24 border-t border-gray-200 pt-16 text-center">
-                <div class="inline-block p-1 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 mb-4">
-                    <img src="https://avatars.githubusercontent.com/u/57997976?v=4" alt="Ishani Kathuria" class="h-24 w-24 rounded-full border-4 border-white">
-                </div>
-                <h2 class="text-2xl font-bold text-gray-800">Ishani Kathuria</h2>
-                <p class="text-gray-600 mt-2">Data Science Enthusiast | AI Developer</p>
-                <div class="mt-4 flex justify-center space-x-6">
-                    <a href="https://linkedin.com/in/ishani-kathuria/" target="_blank" class="flex items-center text-gray-500 hover:text-blue-700 transition">
-                        <i class="fa-brands fa-linkedin text-xl mr-2"></i> LinkedIn
-                    </a>
-                    <a href="https://github.com/ikathuria/" target="_blank" class="flex items-center text-gray-500 hover:text-gray-900 transition">
-                        <i class="fa-brands fa-github text-xl mr-2"></i> GitHub
-                    </a>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-gray-800 text-white py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="mb-4">Designed & Built by Ishani Kathuria</p>
-            <p class="text-gray-500 text-sm mt-4">&copy; 2025 Python to AI.</p>
-        </div>
-    </footer>
-
-    <script>
-        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
-            const menu = document.getElementById('mobile-menu');
-            const icon = document.getElementById('menu-icon');
-            menu.classList.toggle('hidden');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-xmark');
-        });
-    </script>
-
-    <script>
-    (function() {
-        var links = document.querySelectorAll('a[data-done-key]');
-        links.forEach(function(a) {
-            var key = a.getAttribute('data-done-key');
-            if (localStorage.getItem(key) !== '1') return;
-            // Mark number circle green and add checkmark
-            var circle = a.querySelector('.rounded-full.font-bold');
-            if (circle) {
-                circle.classList.remove('bg-blue-100','text-blue-600','bg-green-100','text-green-600',
-                    'bg-yellow-100','text-yellow-600','bg-orange-100','text-orange-600',
-                    'bg-purple-100','text-purple-600','bg-red-100','text-red-600',
-                    'bg-teal-100','text-teal-600','bg-cyan-100','text-cyan-600','bg-pink-100','text-pink-600');
-                circle.classList.add('bg-green-500','text-white');
-                circle.innerHTML = '<i class="fa-solid fa-check text-sm"></i>';
-            }
-            // Add subtle green border to the card
-            a.classList.add('border-green-200','bg-green-50');
-        });
-    })();
-    </script>
-
+	<script>
+		// Mark finished lessons (pages set these keys when their quiz is completed).
+		document.querySelectorAll('a[data-done-key]').forEach(function (a) {
+			try {
+				if (localStorage.getItem(a.getAttribute('data-done-key')) === '1') a.classList.add('is-done');
+			} catch (e) { }
+		});
+	</script>
 </body>
 
 </html>

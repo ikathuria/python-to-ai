@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Mode Choices</title>
+<link rel="stylesheet" href="../app/styles/brand.css">
+<style>
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#1a3a1a}
+.c{background:var(--bg);padding:var(--s-5);overflow:hidden}
+.lbl{font:700 var(--fs-label) var(--font-mono);color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.lbl b{color:var(--accent)}
+h1{font:800 clamp(30px,3.6vw,48px)/1.05 var(--font-display);letter-spacing:-.02em;margin:var(--s-3) 0 var(--s-2)}
+h2{font:800 22px var(--font-display);margin:var(--s-4) 0 6px}
+p{color:var(--muted);line-height:1.6;max-width:48ch;margin:0}
+.neon h1,.neon h2{color:#39FF14}
+.glow h1{color:#39FF14;text-shadow:0 0 12px #39FF1466}
+.glow h2{color:var(--text)}
+.band{margin:var(--s-4) calc(-1*var(--s-5));padding:22px var(--s-5);border-block:2px solid var(--border)}
+.band span{font:800 24px var(--font-display)}
+.solid{background:#39FF14}.solid span{color:#050805}
+.scan{background:repeating-linear-gradient(#050805 0 3px,#39FF1438 3px 5px);box-shadow:inset 0 0 40px #39FF1422}
+.scan span{color:#39FF14;text-shadow:0 0 10px #39FF1488}
+</style>
+</head>
+<body>
+<div class="grid">
+<section class="c"><div class="lbl">Band · now: <b>solid neon</b></div><div class="band solid"><span>AI is a whole operating system.</span></div><p>A loud, flat block. Very bright on a dark screen.</p></section>
+<section class="c"><div class="lbl">Band · proposed: <b>CRT scanlines</b></div><div class="band scan"><span>AI is a whole operating system.</span></div><p>Thin neon lines on black with a soft glow. Still the loud moment, easier on the eyes.</p></section>
+<section class="c"><div class="lbl">Headings · now: <b>pale green</b></div><h1>AI is older than your computer.</h1><h2>Teach a machine</h2><p>Headings match body text. Calm, readable, neon only on buttons and links.</p></section>
+<section class="c neon"><div class="lbl">Headings · alternative: <b>all neon</b></div><h1>AI is older than your computer.</h1><h2>Teach a machine</h2><p>Every heading glows. More "hacker", but tiring on long lesson pages.</p></section>
+<section class="c glow" style="grid-column:1/-1"><div class="lbl">Headings · middle ground: <b>neon H1 only, with glow</b></div><h1>AI is older than your computer.</h1><h2>Teach a machine</h2><p>The page title gets the neon glow once; section headings stay pale. The hacker feel without the eye strain.</p></section>
+</div>
+</body>
+</html>

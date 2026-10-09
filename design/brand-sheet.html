@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Sheet · Python to AI</title>
+<link rel="stylesheet" href="../app/styles/brand.css">
+<style>
+body{margin:0;background:#777;font-family:var(--font-body)}
+.cols{display:grid;grid-template-columns:1fr 1fr}
+.mode{background:var(--bg);color:var(--text);padding:var(--s-6) var(--s-5)}
+.lbl{font:700 var(--fs-label) var(--font-mono);letter-spacing:.04em;color:var(--muted);text-transform:uppercase}
+.logo{display:flex;align-items:center;gap:10px;font:800 26px var(--font-display);margin:var(--s-2) 0 var(--s-5)}
+.logo i{width:20px;height:20px;background:var(--rainbow);display:inline-block;border:var(--bw) solid var(--border)}
+h1{font:800 var(--fs-h1)/1.02 var(--font-display);letter-spacing:-.025em;margin:var(--s-2) 0}
+h1 u{text-decoration-color:var(--accent);text-decoration-thickness:6px;text-underline-offset:6px}
+p{max-width:52ch;line-height:1.6;color:var(--muted)}
+a{color:var(--link);font-weight:600}
+.sw{display:flex;flex-wrap:wrap;gap:8px;margin:var(--s-3) 0 var(--s-5)}
+.sw div{width:76px;height:56px;border:var(--bw) solid var(--border);border-radius:var(--radius-sm);font:700 10px var(--font-mono);display:flex;align-items:flex-end;padding:4px;color:#111}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin:var(--s-4) 0}
+.btn{font:700 15px var(--font-mono);padding:12px 20px;border:var(--bw) solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);box-shadow:var(--shadow-pop);text-decoration:none;min-height:44px}
+.btn.p{background:var(--accent);color:var(--on-accent)}
+.band{height:56px;background:var(--rainbow);border-block:var(--bw) solid var(--border);margin:var(--s-4) calc(-1*var(--s-5))}
+.win{background:var(--surface);border:var(--bw) solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-pop);max-width:340px;margin-top:var(--s-4)}
+.tb{border-bottom:var(--bw) solid var(--border);padding:6px 10px;font:700 13px var(--font-mono);background:repeating-linear-gradient(var(--surface) 0 2px,var(--stripe-line) 2px 4px)}
+.tb span{background:var(--surface);padding:0 6px}
+.wb{padding:16px}.wb h3{font:800 var(--fs-h3) var(--font-display);margin:0 0 4px}
+.scr{background:var(--screen);color:var(--screen-text);font:24px/1.3 var(--font-screen);padding:18px;border-radius:var(--radius-sm);margin-top:var(--s-4);border:3px solid #000}
+.cur{display:inline-block;width:11px;height:20px;background:var(--screen-text);vertical-align:middle;animation:b 1s steps(1) infinite}
+@keyframes b{50%{opacity:0}}
+@media(max-width:860px){.cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="cols">
+<section class="mode" data-theme="light" style="color-scheme:light">
+<div class="lbl">Light · Apple rainbow</div>
+<div class="logo"><i></i>Python to AI</div>
+<h1>AI is older than your <u>computer.</u></h1>
+<p>Work Sans for reading, Space Mono for labels, VT323 for screens. <a href="#">This is a link.</a></p>
+<div class="sw"><div style="background:#61BB46">green</div><div style="background:#FDB827">yellow</div><div style="background:#F5821F">orange</div><div style="background:#E03A3E">red</div><div style="background:#963D97;color:#fff">purple</div><div style="background:#009DDC">blue</div></div>
+<div class="btns"><a class="btn p" href="#">▶ Run history.exe</a><a class="btn" href="#">Watch the videos</a></div>
+<div class="band"></div>
+<div class="win"><div class="tb"><span>02_supervised.py</span></div><div class="wb"><h3>Teach a machine</h3><p>Learning from examples. Live demo.</p></div></div>
+<div class="scr">&gt; is_ai_going_to_take_over()<br>Result: it's math. Relax.<br>&gt; <span class="cur"></span></div>
+</section>
+<section class="mode" data-theme="dark" style="color-scheme:dark">
+<div class="lbl">Dark · Hacker terminal</div>
+<div class="logo"><i></i>Python to AI</div>
+<h1>AI is older than your <u>computer.</u></h1>
+<p>Same layout and type. Everything glows neon green on black. <a href="#">This is a link.</a></p>
+<div class="sw"><div style="background:#050805;color:#C6F7C0">bg</div><div style="background:#0C140D;color:#C6F7C0">surface</div><div style="background:#C6F7C0">text</div><div style="background:#7FBF78">muted</div><div style="background:#3F8F3A">border</div><div style="background:#39FF14">neon</div></div>
+<div class="btns"><a class="btn p" href="#">▶ Run history.exe</a><a class="btn" href="#">Watch the videos</a></div>
+<div class="band"></div>
+<div class="win"><div class="tb"><span>02_supervised.py</span></div><div class="wb"><h3>Teach a machine</h3><p>Learning from examples. Live demo.</p></div></div>
+<div class="scr">&gt; is_ai_going_to_take_over()<br>Result: it's math. Relax.<br>&gt; <span class="cur"></span></div>
+</section>
+</div>
+</body>
+</html>

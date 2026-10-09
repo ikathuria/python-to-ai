@@ -1,0 +1,119 @@
+/* Python to AI brand tokens. Source of truth; BRAND.md documents how to use them.
+   Light = "Apple rainbow" (1977 personal computing). Dark = "Hacker terminal" (black + neon green). */
+
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;800&family=Space+Mono:wght@400;700&family=VT323&display=swap');
+
+:root,
+[data-theme="light"] {
+	/* Neutrals */
+	--bg: #F4F4F1;
+	--surface: #FFFFFF;
+	--case: #E9E6DD;          /* computer-case beige, secondary surfaces */
+	--text: #111111;
+	--muted: #4A4A4A;
+	--border: #111111;
+	--stripe-line: #E6E6E6;   /* window title-bar stripes */
+
+
+	/* Lesson-page helpers (mapped onto Tailwind's gray/indigo in tw-config.js) */
+	--line: #CFCBC0;          /* hairlines inside lessons */
+	--tint: #FFF4D6;          /* soft highlight background (yellow stripe, tinted) */
+	--tint-strong: #FDB827;
+	--link-strong: #00507A;
+
+	/* Status / category colours (Tailwind green, red, yellow, blue, purple families map here) */
+	--ok-bg: #EAF6E4; --ok-line: #9FD38A; --ok-solid: #2E7D32; --ok-text: #1E5A22;
+	--bad-bg: #FDECEC; --bad-line: #F2A7A9; --bad-solid: #B3261E; --bad-text: #8A1C17;
+	--warn-bg: #FFF4D6; --warn-line: #FDD27A; --warn-solid: #8A5A00; --warn-text: #6B4500;
+	--info-bg: #E3F3FB; --info-line: #8CCDEB; --info-solid: #0069A0; --info-text: #00507A;
+	--violet-bg: #F5EAF5; --violet-line: #D2A6D3; --violet-solid: #7E2F80; --violet-text: #5E2160;
+
+	/* Actions */
+	--accent: #C8282E;        /* primary buttons (white text 5.5:1) */
+	--on-accent: #FFFFFF;
+	--link: #0069A0;          /* links on bg/surface (5.4:1) */
+	--focus: #963D97;
+
+	/* The six rainbow stripes: blocks, stripes, highlights. Black text only, never body text colour. */
+	--rb-green: #61BB46;
+	--rb-yellow: #FDB827;
+	--rb-orange: #F5821F;
+	--rb-red: #E03A3E;        /* large text or no text only (4.4:1 with black) */
+	--rb-purple: #963D97;
+	--rb-blue: #009DDC;
+	--rainbow: linear-gradient(var(--rb-green) 0 16.66%, var(--rb-yellow) 0 33.33%, var(--rb-orange) 0 50%, var(--rb-red) 0 66.66%, var(--rb-purple) 0 83.33%, var(--rb-blue) 0);
+	--rainbow-h: linear-gradient(90deg, var(--rb-green) 0 16.66%, var(--rb-yellow) 0 33.33%, var(--rb-orange) 0 50%, var(--rb-red) 0 66.66%, var(--rb-purple) 0 83.33%, var(--rb-blue) 0);
+
+	/* Band headline + page title (dark mode swaps these to neon) */
+	--band-text: #111111;
+	--band-glow: none;
+	--title: #111111;
+	--title-glow: none;
+
+	/* Terminal screen (same in both modes) */
+	--screen: #111111;
+	--screen-text: #F4F4F4;
+
+	/* Type */
+	--font-display: 'Work Sans', system-ui, sans-serif;
+	--font-body: 'Work Sans', system-ui, sans-serif;
+	--font-mono: 'Space Mono', ui-monospace, monospace;
+	--font-screen: 'VT323', ui-monospace, monospace;
+	--fs-body: 1.0625rem;      /* 17px */
+	--fs-small: 0.9375rem;     /* 15px, desktop only */
+	--fs-label: 0.8125rem;     /* 13px mono labels */
+	--fs-h3: 1.375rem;
+	--fs-h2: clamp(1.75rem, 3.5vw, 2.5rem);
+	--fs-h1: clamp(2.5rem, 5.6vw, 4.75rem);
+
+	/* Space (8px base) */
+	--s-1: 4px; --s-2: 8px; --s-3: 16px; --s-4: 24px; --s-5: 32px; --s-6: 48px; --s-7: 64px; --s-8: 96px;
+	--content: 72ch;
+	--wide: 1180px;
+
+	/* Shape */
+	--radius-sm: 4px;          /* buttons, inputs, windows */
+	--radius-lg: 14px;         /* computer case only */
+	--bw: 2px;
+	--shadow-pop: 5px 5px 0 var(--border);       /* hard offset shadow, no blur */
+	--shadow-pop-hover: 7px 7px 0 var(--rb-blue);
+
+	/* Motion */
+	--ease: cubic-bezier(.2, .8, .2, 1);
+	--dur: 150ms;
+}
+
+/* Dark mode: old-school movie hacker terminal */
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme="light"]) {
+		--bg: #050805; --surface: #0C140D; --case: #0F1B10; --text: #C6F7C0; --muted: #7FBF78;
+		--border: #3F8F3A; --stripe-line: #10261a; --accent: #39FF14; --on-accent: #050805;
+		--link: #39FF14; --focus: #39FF14; --line: #1F3D1F; --tint: #0F2410; --tint-strong: #2A5A2A; --link-strong: #39FF14;
+		--ok-bg: #0F2410; --ok-line: #2A5A2A; --ok-solid: #39FF14; --ok-text: #B8FFAA;
+		--bad-bg: #2A0E0E; --bad-line: #6B2424; --bad-solid: #FF6B6B; --bad-text: #FFB3B3;
+		--warn-bg: #2A2208; --warn-line: #6B5414; --warn-solid: #FFD23F; --warn-text: #FFE38A;
+		--info-bg: #08202B; --info-line: #1E4E66; --info-solid: #5CC8FF; --info-text: #B3E6FF;
+		--violet-bg: #22102A; --violet-line: #5A2E66; --violet-solid: #E08CFF; --violet-text: #F1C9FF; --screen: #000000; --screen-text: #39FF14;
+		--shadow-pop: 5px 5px 0 #39FF1455; --shadow-pop-hover: 7px 7px 0 #39FF14;
+		--rainbow: repeating-linear-gradient(#050805 0 3px, #39FF1438 3px 5px); --rainbow-h: repeating-linear-gradient(90deg, #050805 0 3px, #39FF1438 3px 5px);
+		--band-text: #39FF14; --band-glow: 0 0 10px #39FF1488; --title: #39FF14; --title-glow: 0 0 12px #39FF1466;
+	}
+}
+:root[data-theme="dark"],
+[data-theme="dark"] {
+	--bg: #050805; --surface: #0C140D; --case: #0F1B10; --text: #C6F7C0; --muted: #7FBF78;
+	--border: #3F8F3A; --stripe-line: #10261a; --accent: #39FF14; --on-accent: #050805;
+	--link: #39FF14; --focus: #39FF14; --line: #1F3D1F; --tint: #0F2410; --tint-strong: #2A5A2A; --link-strong: #39FF14;
+		--ok-bg: #0F2410; --ok-line: #2A5A2A; --ok-solid: #39FF14; --ok-text: #B8FFAA;
+		--bad-bg: #2A0E0E; --bad-line: #6B2424; --bad-solid: #FF6B6B; --bad-text: #FFB3B3;
+		--warn-bg: #2A2208; --warn-line: #6B5414; --warn-solid: #FFD23F; --warn-text: #FFE38A;
+		--info-bg: #08202B; --info-line: #1E4E66; --info-solid: #5CC8FF; --info-text: #B3E6FF;
+		--violet-bg: #22102A; --violet-line: #5A2E66; --violet-solid: #E08CFF; --violet-text: #F1C9FF; --screen: #000000; --screen-text: #39FF14;
+	--shadow-pop: 5px 5px 0 #39FF1455; --shadow-pop-hover: 7px 7px 0 #39FF14;
+	--rainbow: repeating-linear-gradient(#050805 0 3px, #39FF1438 3px 5px); --rainbow-h: repeating-linear-gradient(90deg, #050805 0 3px, #39FF1438 3px 5px);
+		--band-text: #39FF14; --band-glow: 0 0 10px #39FF1488; --title: #39FF14; --title-glow: 0 0 12px #39FF1466;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	:root { --dur: 0ms; }
+}

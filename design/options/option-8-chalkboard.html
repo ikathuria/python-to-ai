@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option 8 · Evening Chalkboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Outfit:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--board:#1F3B33;--board2:#183029;--chalk:#F1EFE6;--muted:#B9C6BF;--yellow:#FFD866;--pink:#FF9EB5;--blue:#8FD3FF}
+*{box-sizing:border-box;margin:0}
+body{background:var(--board);color:var(--chalk);font:17px/1.65 'Outfit',sans-serif;
+background-image:radial-gradient(ellipse at 20% 10%,#ffffff0d,transparent 50%),radial-gradient(ellipse at 80% 70%,#ffffff08,transparent 50%)}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.logo{font:700 32px 'Caveat',cursive;text-decoration:none}
+.logo span{color:var(--yellow)}
+.links{display:flex;gap:22px;font-weight:500}.links a{text-decoration:none}.links a:hover{color:var(--yellow)}
+.hero{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;padding:56px 0 72px;align-items:center}
+h1{font:800 clamp(44px,6vw,82px)/1.02 'Outfit',sans-serif;letter-spacing:-.02em}
+.scrib{position:relative;display:inline-block;color:var(--yellow)}
+.scrib svg{position:absolute;left:-4%;bottom:-14px;width:108%;height:22px}
+.scrib path{stroke-dasharray:400;stroke-dashoffset:400;animation:draw 1.4s .4s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.lede{font-size:20px;color:var(--muted);max-width:40ch;margin:26px 0 30px}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.btn{padding:14px 24px;border-radius:10px;font-weight:700;text-decoration:none;background:var(--yellow);color:#1b1b1b}
+.btn:hover{background:var(--chalk)}
+.btn.o{background:transparent;color:var(--chalk);border:2px dashed var(--chalk)}
+.btn.o:hover{border-style:solid}
+.board{border:10px solid #6B4A2B;border-radius:6px;background:var(--board2);padding:28px;font:600 28px/1.25 'Caveat',cursive;box-shadow:0 14px 0 -4px #4b331d}
+.board .y{color:var(--yellow)}.board .p{color:var(--pink)}.board .b{color:var(--blue)}
+.board s{color:var(--muted)}
+.lessons{padding:24px 0 72px}
+.lessons h2{font:700 54px 'Caveat',cursive;color:var(--yellow);margin-bottom:12px}
+.list{display:grid;grid-template-columns:1fr 1fr;gap:4px 48px}
+.l{display:flex;gap:18px;padding:16px 0;border-bottom:1.5px dashed #ffffff40;text-decoration:none;align-items:baseline}
+.l:hover h3{color:var(--yellow)}
+.l .n{font:700 34px 'Caveat',cursive;color:var(--pink);min-width:34px}
+.l h3{font:700 21px 'Outfit',sans-serif}
+.l p{color:var(--muted);font-size:15px}
+.chalkband{background:var(--chalk);color:#1F3B33;padding:56px 0}
+.chalkband h2{font:800 clamp(32px,4.5vw,56px)/1.05 'Outfit',sans-serif;max-width:18ch}
+.chalkband p{margin-top:12px;max-width:56ch;color:#35514A}
+footer{padding:28px 0;color:var(--muted)}
+@media(max-width:860px){.hero,.list{grid-template-columns:1fr}.links a:not(:last-child){display:none}}
+@media(prefers-reduced-motion:reduce){.scrib path{animation:none;stroke-dashoffset:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a class="logo" href="#">Python <span>→</span> AI</a><div class="links"><a href="#">History</a><a href="#">Lessons</a><a href="#">Videos</a></div></nav>
+<section class="hero">
+<div>
+<h1>Pull up a chair. AI is <span class="scrib">less scary<svg viewBox="0 0 300 22" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C80 4 160 20 296 8" stroke="#FF9EB5" stroke-width="5" fill="none" stroke-linecap="round"/></svg></span> than you think.</h1>
+<p class="lede">A friendly evening class on how AI really works. Start from zero with Python, and try real models right here in your browser.</p>
+<div class="cta"><a class="btn" href="#">Start with the history →</a><a class="btn o" href="#">▶ Watch the lessons</a></div>
+</div>
+<div class="board" aria-hidden="true"><span class="y">Tonight's lesson:</span><br>AI = <s>evil robot</s> <span class="p">pattern matching</span><br><br>1943 → first "neuron"<br>1958 → "it'll be conscious!" <span class="b">(nope)</span><br>2022 → fancy autocomplete<br><span class="y">Homework: relax :)</span></div>
+</section>
+</div>
+<section class="chalkband"><div class="wrap"><h2>AI is a whole subject, not one chatbot.</h2><p>Spam filters, maps, photo apps, recommendations. You've used dozens of AIs today. Chatbots are just the newest chapter.</p></div></section>
+<div class="wrap lessons">
+<h2>The syllabus</h2>
+<div class="list">
+<a class="l" href="#"><span class="n">0</span><span><h3>Python basics</h3><p>Never coded? Sit in the front row.</p></span></a>
+<a class="l" href="#"><span class="n">2</span><span><h3>Teaching a machine</h3><p>Supervised learning, live demo.</p></span></a>
+<a class="l" href="#"><span class="n">3</span><span><h3>Finding hidden groups</h3><p>Clustering, live demo.</p></span></a>
+<a class="l" href="#"><span class="n">4</span><span><h3>Why Netflix knows you</h3><p>Recommendation systems.</p></span></a>
+<a class="l" href="#"><span class="n">6</span><span><h3>How computers see</h3><p>Pictures are numbers. Colour demo.</p></span></a>
+<a class="l" href="#"><span class="n">8</span><span><h3>Fancy autocomplete</h3><p>What chatbots really do.</p></span></a>
+</div>
+<footer>Taught by Ishani Kathuria · YouTube · GitHub</footer>
+</div>
+</body>
+</html>

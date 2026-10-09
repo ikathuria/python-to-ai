@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option 1 · Kitchen Table Science</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F6F1E7;--ink:#1F1A14;--muted:#5E5547;--orange:#B93C0C;--forest:#24503A;--cream:#FFFBF2;--line:#DCCFB8}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--ink);font:17px/1.6 'DM Sans',sans-serif}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
+.logo{font:800 22px 'Fraunces',serif;text-decoration:none}
+.logo span{color:var(--orange)}
+.links{display:flex;gap:22px;font-weight:500}
+.links a{text-decoration:none}
+.links a:hover{text-decoration:underline;text-decoration-color:var(--orange);text-decoration-thickness:3px}
+.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:56px;padding:72px 0 64px;align-items:center}
+.kicker{font-weight:700;color:var(--forest);letter-spacing:.08em;text-transform:uppercase;font-size:13px}
+h1{font:800 clamp(44px,6.4vw,84px)/1.0 'Fraunces',serif;letter-spacing:-.02em;margin:14px 0 22px}
+h1 em{color:var(--orange);font-style:italic;font-weight:600}
+.lede{font-size:20px;color:var(--muted);max-width:34ch}
+.cta{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+.btn{display:inline-block;padding:14px 22px;font-weight:700;text-decoration:none;border:2px solid var(--ink);border-radius:6px;box-shadow:4px 4px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.btn.primary{background:var(--orange);color:#fff;border-color:var(--ink)}
+.note{background:var(--cream);border:1px solid var(--line);padding:28px;border-radius:6px;transform:rotate(1.2deg);position:relative}
+.note:before{content:'';position:absolute;top:-12px;left:40%;width:90px;height:24px;background:#E9C46A99;transform:rotate(-4deg)}
+.note h2{font:600 26px 'Fraunces',serif;margin-bottom:12px}
+.note ol{padding-left:20px;color:var(--muted)}
+.note li{margin:6px 0}
+.band{background:var(--forest);color:#F3EFE4;padding:64px 0}
+.band h2{font:600 clamp(30px,4vw,48px)/1.1 'Fraunces',serif;max-width:20ch}
+.band p{max-width:58ch;margin-top:14px;color:#D8E2D6}
+.band a{color:#FFD8B0;font-weight:700}
+.path{padding:72px 0}
+.path h2{font:800 40px 'Fraunces',serif;margin-bottom:28px}
+.row{display:grid;grid-template-columns:70px 1fr auto;gap:20px;padding:20px 0;border-top:1px solid var(--line);align-items:baseline;text-decoration:none}
+.row:hover .t{color:var(--orange)}
+.n{font:600 34px 'Fraunces',serif;color:var(--orange)}
+.t{font:600 24px 'Fraunces',serif}
+.d{color:var(--muted)}
+.tag{font-size:13px;font-weight:700;color:var(--forest);border:1.5px solid var(--forest);padding:3px 10px;border-radius:99px}
+footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted)}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:40px}.links{display:none}.row{grid-template-columns:44px 1fr}.tag{display:none}.n{font-size:26px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a class="logo" href="#">Python <span>to</span> AI</a><div class="links"><a href="#">History</a><a href="#">Lessons</a><a href="#">Videos</a><a href="#">GitHub</a></div></nav>
+<section class="hero">
+<div>
+<div class="kicker">Free lessons · No signup · Runs in your browser</div>
+<h1>AI isn't magic, and it <em>isn't new.</em></h1>
+<p class="lede">Learn how AI really works, one plain-English idea at a time. Start from zero with Python, and play with real models right on this page.</p>
+<div class="cta"><a class="btn primary" href="#">Start with the history →</a><a class="btn" href="#">Watch on YouTube</a></div>
+</div>
+<aside class="note">
+<h2>Today on the kitchen table</h2>
+<ol><li>Why AI has been "20 years away" since 1958</li><li>Train a tiny model that guesses colours</li><li>See how Netflix-style recommendations work</li></ol>
+</aside>
+</section>
+</div>
+<section class="band"><div class="wrap">
+<h2>You've already used AI fifty times today.</h2>
+<p>Spam filters, maps, photo apps, recommendations. Chatbots are just the newest branch of an 80-year-old family tree. <a href="#">Meet the family →</a></p>
+</div></section>
+<div class="wrap path">
+<h2>The learning path</h2>
+<a class="row" href="#"><span class="n">0</span><span><div class="t">Python basics</div><div class="d">Variables, lists, functions. Never coded before? Start here.</div></span><span class="tag">Beginner</span></a>
+<a class="row" href="#"><span class="n">1</span><span><div class="t">ML basics</div><div class="d">NumPy, Pandas and the shape of data.</div></span><span class="tag">Beginner</span></a>
+<a class="row" href="#"><span class="n">2</span><span><div class="t">Supervised learning</div><div class="d">Teaching with labelled examples. Live prediction demo.</div></span><span class="tag">Live demo</span></a>
+<a class="row" href="#"><span class="n">3</span><span><div class="t">Unsupervised learning</div><div class="d">Finding groups nobody labelled. Clustering demo.</div></span><span class="tag">Live demo</span></a>
+<a class="row" href="#"><span class="n">6</span><span><div class="t">Computer vision</div><div class="d">How a computer "sees" a cat: as numbers.</div></span><span class="tag">Live demo</span></a>
+</div>
+<div class="wrap"><footer>Made by Ishani Kathuria · <a href="#">YouTube</a> · <a href="#">GitHub</a></footer></div>
+</body>
+</html>

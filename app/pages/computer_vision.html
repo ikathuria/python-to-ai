@@ -4,23 +4,23 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Computer Vision - Python to AI</title>
+	<title>Computer Vision · Python to AI</title>
 	<meta name="description" content="Learn Computer Vision fundamentals: CNNs, image classification, and convolutional operations.">
-    <meta property="og:title" content="Computer Vision - Python to AI">
+    <meta property="og:title" content="Computer Vision · Python to AI">
     <meta property="og:description" content="Learn Computer Vision fundamentals: CNNs, image classification, and convolutional operations.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ikathuria.github.io/python-to-ai/app/pages/computer_vision.html">
 
 	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="../styles/tw-config.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
 	<script>hljs.highlightAll();</script>
 
 	<style type="text/tailwindcss">
-		body { font-family: 'Nunito', sans-serif; }
+		body {  }
 		.nav-link { @apply px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors cursor-pointer; }
 		.nav-link.active { @apply text-indigo-700 bg-indigo-50 font-bold; }
 		.sidebar-link { @apply block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-indigo-600 rounded-md transition-colors; }
@@ -33,56 +33,61 @@
 		pre { @apply rounded-lg shadow-sm overflow-hidden my-4 border border-gray-200; }
 		.card { @apply bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden; }
 	</style>
+	<link rel="canonical" href="https://ikathuria.github.io/python-to-ai/app/pages/computer_vision.html">
+	<meta property="og:image" content="https://ikathuria.github.io/python-to-ai/app/images/og/computer_vision.png">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="https://ikathuria.github.io/python-to-ai/app/images/og/computer_vision.png">
+	<link rel="apple-touch-icon" href="../images/og/apple-touch-icon.png">
+	<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+	<link rel="stylesheet" href="../../app/styles/brand.css">
+	<link rel="stylesheet" href="../../app/styles/site.css">
+	<script src="../../app/styles/site.js"></script>
 </head>
 
 <body class="bg-gray-50 min-h-screen flex flex-col">
 
-	<nav class="bg-white shadow-sm sticky top-0 z-50">
-		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-			<div class="flex justify-between h-16">
-				<div class="flex-shrink-0 flex items-center">
-					<a href="../../index.html" class="flex items-center">
-						<i class="fa-solid fa-code fa-2x text-indigo-600"></i>
-						<span class="ml-2 font-bold text-xl text-gray-800">Python to AI</span>
-					</a>
-				</div>
-				<div class="hidden md:flex items-center space-x-1">
-					<a href="../../index.html" class="nav-link">Home</a>
-					<a href="python.html" class="nav-link">Python Basics</a>
-					<a href="ml_basics.html" class="nav-link">ML Basics</a>
-					<a href="supervised_learning.html" class="nav-link">Supervised</a>
-					<a href="unsupervised_learning.html" class="nav-link">Unsupervised</a>
-					<a href="recommendation_system.html" class="nav-link">Recommenders</a>
-					<a href="deep_learning.html" class="nav-link">Deep Learning</a>
-					<a href="computer_vision.html" class="nav-link active">CV</a>
-					<a href="time_series.html" class="nav-link">Time Series</a>
-					<a href="natural_language_processing.html" class="nav-link">NLP</a>
-				</div>
-				<div class="flex items-center">
-					<!-- Mobile hamburger -->
-					<button id="mobile-menu-btn" class="md:hidden text-gray-500 hover:text-gray-700 focus:outline-none mr-2" aria-label="Toggle menu">
-						<i class="fa-solid fa-bars fa-lg" id="menu-icon"></i>
-					</button>
-					<a href="https://github.com/ikathuria" target="_blank" class="text-gray-400 hover:text-gray-600 mx-2"><i class="fa-brands fa-github fa-lg"></i></a>
-				</div>
+	<a class="skip-link" href="#main">Skip to lesson</a>
+	<header class="menubar">
+		<div class="menubar-inner">
+			<a class="wordmark" href="../../index.html"><i aria-hidden="true"></i>Python to AI</a>
+			<div class="mb-desktop">
+				<a class="mb-link" href="history_of_ai.html">History</a>
+				<details>
+					<summary>Lessons ▾</summary>
+					<nav class="dropdown" aria-label="Lessons">
+					<a href="python.html"><span>00</span>Python basics</a>
+					<a href="ml_basics.html"><span>01</span>ML basics</a>
+					<a href="supervised_learning.html"><span>02</span>Supervised learning</a>
+					<a href="unsupervised_learning.html"><span>03</span>Unsupervised learning</a>
+					<a href="recommendation_system.html"><span>04</span>Recommendation systems</a>
+					<a href="deep_learning.html"><span>05</span>Deep learning</a>
+					<a href="computer_vision.html" aria-current="page"><span>06</span>Computer vision</a>
+					<a href="time_series.html"><span>07</span>Time series</a>
+					<a href="natural_language_processing.html"><span>08</span>Language (NLP)</a>
+					</nav>
+				</details>
+				<a class="mb-link" href="https://www.youtube.com/@DrIshaniKathuria" target="_blank" rel="noopener">Videos</a>
+				<a class="mb-link" href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener">GitHub</a>
 			</div>
+			<span class="mb-spacer"></span>
+			<button class="theme-toggle" type="button" aria-label="Toggle dark mode"><span class="when-light">◐ <span class="label">Dark</span></span><span class="when-dark">◑ <span class="label">Light</span></span></button>
+			<button class="mb-mobile-btn" type="button" aria-expanded="false" aria-controls="mobile-panel">Menu</button>
 		</div>
-		<!-- Mobile Menu -->
-		<div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-gray-50">
-			<div class="flex flex-col space-y-1 px-4 py-2">
-			<a href="../../index.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Home</a>
-			<a href="python.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Python Basics</a>
-			<a href="ml_basics.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">ML Basics</a>
-			<a href="supervised_learning.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Supervised ML</a>
-			<a href="unsupervised_learning.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Unsupervised</a>
-			<a href="deep_learning.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Deep Learning</a>
-			<a href="computer_vision.html" class="block py-2 px-2 text-base font-bold bg-indigo-50 text-indigo-700 rounded">CV</a>
-			<a href="time_series.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Time Series</a>
-			<a href="natural_language_processing.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">NLP</a>
-			<a href="recommendation_system.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Recommenders</a>
-			</div>
-		</div>
-	</nav>
+		<nav id="mobile-panel" class="mobile-panel" aria-label="Site">
+		<a href="history_of_ai.html"><span>--</span>History of AI</a>
+		<a href="python.html"><span>00</span>Python basics</a>
+		<a href="ml_basics.html"><span>01</span>ML basics</a>
+		<a href="supervised_learning.html"><span>02</span>Supervised learning</a>
+		<a href="unsupervised_learning.html"><span>03</span>Unsupervised learning</a>
+		<a href="recommendation_system.html"><span>04</span>Recommendation systems</a>
+		<a href="deep_learning.html"><span>05</span>Deep learning</a>
+		<a href="computer_vision.html" aria-current="page"><span>06</span>Computer vision</a>
+		<a href="time_series.html"><span>07</span>Time series</a>
+		<a href="natural_language_processing.html"><span>08</span>Language (NLP)</a>
+		<a href="https://www.youtube.com/@DrIshaniKathuria" target="_blank" rel="noopener"><span>▶</span>Videos</a>
+		<a href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener"><span>{}</span>GitHub</a>
+		</nav>
+	</header>
 
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 		<div class="flex flex-col md:flex-row gap-8">
@@ -96,13 +101,13 @@
 						<a href="#filter-gallery" class="sidebar-link">Filter Gallery</a>
 						<a href="#cnn-architecture" class="sidebar-link">CNN Architecture</a>
 						<a href="#image-classification" class="sidebar-link">Image Classification</a>
-						<a href="#colour-demo" class="sidebar-link">🎨 Colour Classifier</a>
+						<a href="#colour-demo" class="sidebar-link">Colour Classifier</a>
 											<a href="#quiz" class="sidebar-link" onclick="setActive(this)">Knowledge Check</a>
 					</nav>
 				</div>
 			</aside>
 
-			<main class="flex-grow min-w-0">
+			<main id="main" class="flex-grow min-w-0">
 
 				<section id="intro" class="content-section">
 					<h1 class="text-4xl font-extrabold text-gray-900 mb-6">Computer Vision</h1>
@@ -576,16 +581,17 @@ history = model.fit(train_gen, validation_data=val_gen,
 
 
     <!-- FOOTER -->
-    <footer class="bg-gray-800 text-white py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="mb-4">Designed &amp; Built by Ishani Kathuria</p>
-            <div class="flex justify-center space-x-6 mt-3">
-                <a href="https://linkedin.com/in/ishani-kathuria/" target="_blank" class="text-gray-400 hover:text-blue-400 transition"><i class="fa-brands fa-linkedin text-xl mr-1"></i> LinkedIn</a>
-                <a href="https://github.com/ikathuria/" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-github text-xl mr-1"></i> GitHub</a>
-            </div>
-            <p class="text-gray-500 text-sm mt-4">&copy; 2025 Python to AI.</p>
-        </div>
-    </footer>
+    <footer class="site-footer">
+		<div class="band-thin"></div>
+		<div class="inner"><div class="row">
+			<span>&gt; built by Ishani Kathuria_</span>
+			<span class="links">
+				<a href="https://www.youtube.com/@DrIshaniKathuria" target="_blank" rel="noopener">YouTube</a>
+				<a href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener">GitHub</a>
+				<a href="https://linkedin.com/in/ishani-kathuria/" target="_blank" rel="noopener">LinkedIn</a>
+			</span>
+		</div></div>
+	</footer>
     <!-- Demo 1: Convolution Step-by-Step Visualiser -->
     <script>
     (function() {
@@ -1057,15 +1063,7 @@ history = model.fit(train_gen, validation_data=val_gen,
     })();
     </script>
 
-    <script>
-        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
-            const menu = document.getElementById('mobile-menu');
-            const icon = document.getElementById('menu-icon');
-            menu.classList.toggle('hidden');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-xmark');
-        });
-    </script>
+    
 
     <script>
         document.querySelectorAll('pre').forEach(function(pre) {

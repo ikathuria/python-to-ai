@@ -37,6 +37,8 @@ A free, self-hostable tutorial platform taking you from Python basics to advance
 | `tests/` | Site checks that run in CI |
 | `.resources/data/` | Shared datasets used by notebooks |
 | [`VIDEOS.md`](VIDEOS.md) | YouTube episode plan linked to each page |
+| [`BRAND.md`](BRAND.md), `app/styles/` | Brand guidelines and the shared tokens, styles and scripts every page loads |
+| `design/` | Brand exploration: the 8 directions and the brand sheet |
 
 Some large datasets (e.g. `5 Computer Vision/dataset/`, the IMDB archive) aren't in git; download them locally as described in each notebook.
 

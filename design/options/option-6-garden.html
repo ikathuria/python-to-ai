@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option 6 · Seed to Forest</title>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F7F3EA;--soil:#2B2118;--sage:#8BA888;--moss:#2E5E3E;--terra:#C8553D;--sun:#F2B134;--muted:#5D5246}
+*{box-sizing:border-box;margin:0}
+body{background:var(--cream);color:var(--soil);font:17px/1.65 'Figtree',sans-serif}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.logo{font:400 24px 'Young Serif',serif;text-decoration:none}
+.logo span{color:var(--terra)}
+.links{display:flex;gap:24px;font-weight:600}.links a{text-decoration:none;border-bottom:2px solid transparent}.links a:hover{border-color:var(--terra)}
+.hero{background:var(--moss);color:#F3EEDF;border-radius:28px;padding:64px 56px 0;display:grid;grid-template-columns:1.2fr 1fr;gap:32px;overflow:hidden;position:relative}
+h1{font:400 clamp(44px,6vw,80px)/1.02 'Young Serif',serif}
+h1 span{color:var(--sun)}
+.lede{font-size:19px;color:#D7E2D3;max-width:40ch;margin:20px 0 28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;padding-bottom:64px}
+.btn{padding:14px 24px;border-radius:99px;font-weight:800;text-decoration:none;background:var(--sun);color:var(--soil);transition:background .2s}
+.btn:hover{background:#fff}
+.btn.o{background:transparent;color:#F3EEDF;border:2px solid #F3EEDF}
+.btn.o:hover{background:#F3EEDF;color:var(--soil)}
+.plant{align-self:end}
+.plant svg{width:100%;max-width:420px;display:block;margin-left:auto}
+.leaf{transform-origin:bottom center;animation:sway 5s ease-in-out infinite}
+@keyframes sway{50%{transform:rotate(3deg)}}
+.stages{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:56px 0;border-top:2px solid var(--soil)}
+.stage{padding:24px 20px 24px 0}
+.stage .s{font:400 15px 'Young Serif',serif;color:var(--terra)}
+.stage h3{font:400 26px 'Young Serif',serif;margin:4px 0 8px}
+.stage p{color:var(--muted);font-size:15px}
+.stage a{font-weight:800;color:var(--moss)}
+.terra{background:var(--terra);color:#FFF4EA;padding:56px;border-radius:28px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+.terra h2{font:400 clamp(32px,4vw,52px)/1.05 'Young Serif',serif}
+.terra p{font-size:18px}
+footer{padding:40px 0;color:var(--muted)}
+@media(max-width:860px){.hero{grid-template-columns:1fr;padding:40px 24px 0;border-radius:18px}.stages{grid-template-columns:1fr 1fr}.terra{grid-template-columns:1fr;padding:32px}.links a:not(:last-child){display:none}}
+@media(prefers-reduced-motion:reduce){.leaf{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a class="logo" href="#">Python <span>to</span> AI</a><div class="links"><a href="#">History</a><a href="#">Lessons</a><a href="#">Videos</a><a href="#">GitHub</a></div></nav>
+<section class="hero">
+<div>
+<h1>Grow from your first line of code to <span>real AI.</span></h1>
+<p class="lede">AI isn't a monster that appeared overnight. It grew slowly, over 80 years. You can learn it the same way: one small idea at a time.</p>
+<div class="cta"><a class="btn" href="#">Plant the first seed →</a><a class="btn o" href="#">Watch on YouTube</a></div>
+</div>
+<div class="plant" aria-hidden="true"><svg viewBox="0 0 300 260"><path d="M150 260 V110" stroke="#F2B134" stroke-width="6"/><g class="leaf"><path d="M150 170 C100 160 80 120 90 90 C130 100 150 130 150 170Z" fill="#8BA888"/><path d="M150 140 C200 130 225 95 215 60 C175 70 150 100 150 140Z" fill="#A9C4A5"/><path d="M150 112 C130 80 135 40 150 20 C165 40 170 80 150 112Z" fill="#C8E0C2"/></g><ellipse cx="150" cy="262" rx="140" ry="22" fill="#2B2118"/></svg></div>
+</section>
+<section class="stages">
+<div class="stage"><div class="s">Seed</div><h3>Python basics</h3><p>Variables, lists, functions. No experience needed.</p><a href="#">Start →</a></div>
+<div class="stage"><div class="s">Sprout</div><h3>Machine learning</h3><p>Teach computers with examples. Live demos.</p><a href="#">Explore →</a></div>
+<div class="stage"><div class="s">Sapling</div><h3>Deep learning</h3><p>Neural networks, and how computers see.</p><a href="#">Explore →</a></div>
+<div class="stage"><div class="s">Forest</div><h3>Language &amp; GenAI</h3><p>From word vectors to chatbots.</p><a href="#">Explore →</a></div>
+</section>
+<section class="terra"><h2>AI is a whole forest, not one tree.</h2><p>Spam filters, maps, Netflix picks, medical scans. Chatbots are just the newest branch. Start with the history and see how it all grew.</p></section>
+<footer>Grown by Ishani Kathuria · YouTube · GitHub</footer>
+</div>
+</body>
+</html>

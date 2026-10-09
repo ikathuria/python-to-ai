@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option 5 · Sunday Comics</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Nunito+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FFFDF6;--ink:#141414;--red:#E63946;--yellow:#FFD23F;--cyan:#3BCEAC;--muted:#3d3d3d}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--ink);font:17px/1.6 'Nunito Sans',sans-serif}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:4px solid var(--ink)}
+.logo{font:400 32px 'Bangers',cursive;letter-spacing:.04em;text-decoration:none}
+.logo span{color:var(--red)}
+.links{display:flex;gap:20px;font-weight:900}.links a{text-decoration:none}.links a:hover{color:var(--red)}
+.strip{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:16px;padding:36px 0}
+.panel{border:4px solid var(--ink);position:relative;padding:28px;min-height:320px;overflow:hidden}
+.p1{background:var(--yellow);background-image:radial-gradient(#00000022 1.5px,transparent 1.5px);background-size:10px 10px;display:flex;flex-direction:column;justify-content:flex-end}
+.p2{background:var(--cyan)}.p3{background:#fff}
+h1{font:400 clamp(48px,6.5vw,92px)/.95 'Bangers',cursive;letter-spacing:.02em}
+.cap{position:absolute;top:0;left:0;background:#fff;border-right:4px solid var(--ink);border-bottom:4px solid var(--ink);padding:6px 12px;font:700 14px 'Comic Neue',cursive;text-transform:uppercase}
+.bubble{background:#fff;border:3px solid var(--ink);border-radius:24px;padding:16px 18px;font:700 19px/1.3 'Comic Neue',cursive;position:relative;margin-top:36px}
+.bubble:after{content:'';position:absolute;bottom:-18px;left:36px;border:10px solid transparent;border-top:12px solid var(--ink)}
+.bot{font-size:64px;text-align:center;margin-top:18px}
+.bot svg{width:110px;height:110px}
+.lede{font-size:19px;max-width:44ch;margin:8px 0 22px}
+.cta{display:flex;gap:14px;flex-wrap:wrap;padding-bottom:40px}
+.btn{font:400 24px 'Bangers',cursive;letter-spacing:.05em;padding:12px 26px;border:4px solid var(--ink);text-decoration:none;background:var(--red);color:#fff;box-shadow:5px 5px 0 var(--ink);transition:.12s}
+.btn:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 var(--ink)}
+.btn.w{background:#fff;color:var(--ink)}
+.pow{background:var(--red);color:#fff;padding:56px 0;border-block:4px solid var(--ink)}
+.pow h2{font:400 clamp(40px,5vw,68px)/1 'Bangers',cursive;letter-spacing:.03em}
+.pow p{max-width:60ch;margin-top:10px;font-size:19px}
+.eps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:56px 0}
+.eps h2{grid-column:1/-1;font:400 52px 'Bangers',cursive;letter-spacing:.03em}
+.ep{border:4px solid var(--ink);padding:22px;text-decoration:none;background:#fff;transition:.12s}
+.ep:hover{background:var(--yellow);transform:rotate(-1deg)}
+.ep .no{font:400 22px 'Bangers',cursive;color:var(--red);letter-spacing:.05em}
+.ep h3{font:900 22px 'Nunito Sans',sans-serif;margin:4px 0}
+.ep p{color:var(--muted)}
+footer{padding:26px 0;border-top:4px solid var(--ink);font-weight:700}
+@media(max-width:860px){.strip{grid-template-columns:1fr}.panel{min-height:auto}.eps{grid-template-columns:1fr}.links a:not(:last-child){display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a class="logo" href="#">PYTHON <span>TO</span> AI</a><div class="links"><a href="#">History</a><a href="#">Lessons</a><a href="#">Videos</a></div></nav>
+<section class="strip">
+<div class="panel p1"><span class="cap">Meanwhile, in 2026…</span><h1>The AI apocalypse is running a little late.</h1></div>
+<div class="panel p2"><span class="cap">1958</span><div class="bubble">"This machine will walk, talk and be conscious!"</div><div class="bot" aria-hidden="true"><svg viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="50" rx="6" fill="#fff" stroke="#141414" stroke-width="5"/><circle cx="38" cy="52" r="7" fill="#141414"/><circle cx="62" cy="52" r="7" fill="#141414"/><line x1="50" y1="30" x2="50" y2="14" stroke="#141414" stroke-width="5"/><circle cx="50" cy="12" r="6" fill="#E63946" stroke="#141414" stroke-width="4"/><path d="M38 68 q12 6 24 0" stroke="#141414" stroke-width="5" fill="none"/></svg></div></div>
+<div class="panel p3"><span class="cap">What it actually did</span><div class="bubble">"I can tell… left… from right. Mostly."</div></div>
+</section>
+<p class="lede">Free, friendly lessons that show what AI really is: from your first line of Python to models you can play with in your browser.</p>
+<div class="cta"><a class="btn" href="#">Read the history!</a><a class="btn w" href="#">Watch episodes ▶</a></div>
+</div>
+<section class="pow"><div class="wrap"><h2>AI is a whole universe, not one chatbot.</h2><p>Spam filters, maps, photo apps, Netflix picks. You've met dozens of AIs today without noticing.</p></div></section>
+<div class="wrap">
+<section class="eps"><h2>Pick an episode</h2>
+<a class="ep" href="#"><div class="no">Issue #0</div><h3>Python basics</h3><p>Never coded? This is your origin story.</p></a>
+<a class="ep" href="#"><div class="no">Issue #2</div><h3>Teaching a machine</h3><p>Supervised learning with a live demo.</p></a>
+<a class="ep" href="#"><div class="no">Issue #3</div><h3>Sorting socks blindfolded</h3><p>Clustering data nobody labelled.</p></a>
+<a class="ep" href="#"><div class="no">Issue #4</div><h3>Why Netflix knows you</h3><p>Recommendation systems.</p></a>
+<a class="ep" href="#"><div class="no">Issue #6</div><h3>How computers see</h3><p>Everything is numbers. Colour demo.</p></a>
+<a class="ep" href="#"><div class="no">Issue #8</div><h3>Fancy autocomplete</h3><p>What ChatGPT is really doing.</p></a>
+</section>
+<footer>Drawn &amp; written by Ishani Kathuria · YouTube · GitHub</footer>
+</div>
+</body>
+</html>

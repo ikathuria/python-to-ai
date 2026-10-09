@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option 7 · Retro Lab palettes</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--beige:#E8E0CC;--case:#D6CCB2;--ink:#1E1E1E;--screen:#0F2A1D;--phosphor:#7CFFB2;--teal:#00796B;--rust:#C2410C;--muted:#4A463C}
+*{box-sizing:border-box;margin:0}
+body{background:var(--beige);color:var(--ink);font:17px/1.6 'Work Sans',sans-serif}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.bar{background:var(--panel);border-bottom:2px solid var(--ink);font:700 14px 'Space Mono',monospace}
+.bar .wrap{display:flex;gap:22px;padding:8px 24px;align-items:center}
+.bar .apple{font-size:18px}
+.bar a{text-decoration:none}.bar a:hover{background:var(--ink);color:#fff}
+.bar .r{margin-left:auto}
+.hero{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;padding:64px 0;align-items:center}
+.kick{font:700 13px 'Space Mono',monospace;color:var(--kick);letter-spacing:.06em}
+h1{font:800 clamp(42px,5.6vw,76px)/1.02 'Work Sans',sans-serif;letter-spacing:-.025em;margin:12px 0 20px}
+h1 u{text-decoration-color:var(--rust);text-decoration-thickness:6px;text-underline-offset:6px}
+.lede{font-size:19px;color:var(--muted);max-width:40ch}
+.cta{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+.btn{font:700 15px 'Space Mono',monospace;padding:12px 20px;background:var(--panel);border:2px solid var(--ink);border-radius:8px;box-shadow:inset -3px -3px 0 #0002;text-decoration:none}
+.btn:hover{background:var(--ink);color:#fff}
+.btn.p{background:var(--rust);color:var(--on-rust)}
+.mac{background:var(--case);border:2px solid var(--ink);border-radius:18px;padding:22px 22px 36px;box-shadow:8px 8px 0 #0002}
+.screen{background:var(--screen);color:var(--phosphor);border-radius:10px;padding:22px;font:24px/1.3 'VT323',monospace;min-height:280px;border:3px solid #000;text-shadow:0 0 6px #7cffb266}
+.cursor{display:inline-block;width:12px;height:22px;background:var(--phosphor);vertical-align:middle;animation:b 1s steps(1) infinite}
+@keyframes b{50%{opacity:0}}
+.slot{height:10px;width:40%;background:var(--ink);border-radius:4px;margin:20px auto 0;opacity:.6}
+.windows{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:24px 0 64px}
+.windows h2{grid-column:1/-1;font:800 40px 'Work Sans',sans-serif}
+.win{background:var(--panel);border:2px solid var(--ink);border-radius:6px;text-decoration:none;box-shadow:5px 5px 0 var(--ink);transition:.12s}
+.win:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--rust)}
+.tb{border-bottom:2px solid var(--ink);padding:6px 10px;font:700 13px 'Space Mono',monospace;background:repeating-linear-gradient(var(--panel) 0 2px,var(--stripe) 2px 4px);display:flex;gap:8px;align-items:center}
+.tb i{width:12px;height:12px;border:2px solid var(--ink);background:var(--panel);display:inline-block}
+.tb span{background:var(--panel);padding:0 6px}
+.body{padding:18px}
+.body h3{font:800 22px 'Work Sans',sans-serif;margin-bottom:6px}
+.body p{color:var(--muted);font-size:15px}
+.teal{background:var(--teal);color:var(--on-teal);padding:56px 0;border-block:2px solid var(--ink)}
+.teal h2{font:800 clamp(32px,4.5vw,56px)/1.05 'Work Sans',sans-serif;max-width:20ch}
+.teal p{margin-top:12px;max-width:58ch}
+footer{padding:28px 0;font:14px 'Space Mono',monospace}
+@media(max-width:860px){.hero{grid-template-columns:1fr}.windows{grid-template-columns:1fr}.bar .hide{display:none}}
+@media(prefers-reduced-motion:reduce){.cursor{animation:none}}
+
+:root{--panel:#fff;--stripe:#ddd;--on-rust:#fff;--on-teal:#fff;--kick:#00796B}
+/* A: Commodore 64 */
+[data-p=c64]{--beige:#C9C3F0;--case:#E6DFC9;--ink:#1B1440;--screen:#40318D;--phosphor:#A59CF5;--teal:#40318D;--rust:#E8D94A;--on-rust:#1B1440;--on-teal:#F2EEFF;--muted:#3B3466;--panel:#F4F1FF;--stripe:#D9D3F7;--kick:#40318D}
+/* B: Apple rainbow */
+[data-p=apple]{--beige:#F4F4F1;--case:#E9E6DD;--ink:#111;--screen:#111;--phosphor:#F4F4F4;--teal:#3C9CDB;--rust:#E2383F;--on-rust:#fff;--on-teal:#0B0B0B;--muted:#444;--panel:#fff;--stripe:#e6e6e6;--kick:#963D97}
+[data-p=apple] .teal{background:linear-gradient(#61BB46 0 16.6%,#FDB827 0 33.3%,#F5821F 0 50%,#E03A3E 0 66.6%,#963D97 0 83.3%,#009DDC 0)}
+[data-p=apple] .teal h2,[data-p=apple] .teal p{background:#fff;display:inline;padding:2px 8px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+/* C: Amber terminal */
+[data-p=amber]{--beige:#1C1A17;--case:#2B2823;--ink:#F3E9D2;--screen:#120E08;--phosphor:#FFB000;--teal:#FFB000;--rust:#FFB000;--on-rust:#1C1A17;--on-teal:#1C1A17;--muted:#C9BDA3;--panel:#26231E;--stripe:#3a352d;--kick:#FFB000}
+[data-p=amber] .mac{box-shadow:8px 8px 0 #000}
+/* D: CGA pop */
+[data-p=cga]{--beige:#FFFFFF;--case:#55FFFF;--ink:#000;--screen:#000;--phosphor:#FF55FF;--teal:#FF55FF;--rust:#000;--on-rust:#55FFFF;--on-teal:#000;--muted:#222;--panel:#fff;--stripe:#55FFFF;--kick:#AA00AA}
+.switch{position:fixed;bottom:16px;right:16px;z-index:9;background:#111;color:#fff;padding:8px;border-radius:10px;display:flex;gap:6px;font:12px system-ui;flex-wrap:wrap;max-width:calc(100vw - 32px)}
+.switch button{font:inherit;padding:8px 10px;border-radius:6px;border:0;cursor:pointer;background:#333;color:#fff;min-height:36px}
+.switch button[aria-pressed=true]{background:#fff;color:#111}
+</style>
+</head>
+<body data-p="c64">
+<div class="switch" role="group" aria-label="Palette"><button data-v="orig">Original</button><button data-v="c64" aria-pressed="true">A · Commodore 64</button><button data-v="apple">B · Apple rainbow</button><button data-v="amber">C · Amber terminal</button><button data-v="cga">D · CGA pop</button></div>
+<div class="bar"><div class="wrap"><span class="apple" aria-hidden="true">◆</span><a href="#">Python to AI</a><a class="hide" href="#">History</a><a class="hide" href="#">Lessons</a><a href="#">Videos</a><span class="r hide">Fri 9:41</span></div></div>
+<div class="wrap">
+<section class="hero">
+<div>
+<div class="kick">C:\&gt; LOADING AI SINCE 1943…</div>
+<h1>AI is older than your <u>computer.</u> Let's boot it up.</h1>
+<p class="lede">Free, friendly lessons from your first line of Python to how AI actually works. Real models run right in your browser.</p>
+<div class="cta"><a class="btn p" href="#">▶ Run history.exe</a><a class="btn" href="#">Watch the videos</a></div>
+</div>
+<div class="mac" aria-hidden="true"><div class="screen">&gt; is_ai_going_to_take_over()<br>Checking 80 years of history…<br>1958: "will be conscious" … FALSE<br>1965: "within 20 years" … FALSE<br>1997: beats chess champion … world OK<br>Result: it's math. Relax.<br>&gt; <span class="cursor"></span></div><div class="slot"></div></div>
+</section>
+</div>
+<section class="teal"><div class="wrap"><h2>AI is a whole operating system, not one app.</h2><p>Spam filters, maps, photo apps, recommendations. Chatbots are just the newest program installed.</p></div></section>
+<div class="wrap">
+<section class="windows"><h2>Open a lesson</h2>
+<a class="win" href="#"><div class="tb"><i></i><span>00_python.py</span></div><div class="body"><h3>Python basics</h3><p>Never coded? Start here.</p></div></a>
+<a class="win" href="#"><div class="tb"><i></i><span>02_supervised.py</span></div><div class="body"><h3>Teach a machine</h3><p>Learning from examples. Live demo.</p></div></a>
+<a class="win" href="#"><div class="tb"><i></i><span>03_clusters.py</span></div><div class="body"><h3>Find hidden groups</h3><p>Clustering. Live demo.</p></div></a>
+<a class="win" href="#"><div class="tb"><i></i><span>04_recommend.py</span></div><div class="body"><h3>Why Netflix knows you</h3><p>Recommendation systems.</p></div></a>
+<a class="win" href="#"><div class="tb"><i></i><span>06_vision.py</span></div><div class="body"><h3>How computers see</h3><p>Images are numbers. Colour demo.</p></div></a>
+<a class="win" href="#"><div class="tb"><i></i><span>08_language.py</span></div><div class="body"><h3>Fancy autocomplete</h3><p>What chatbots are really doing.</p></div></a>
+</section>
+<footer>Built by Ishani Kathuria · YouTube · GitHub</footer>
+</div>
+<script>
+const q=new URLSearchParams(location.search).get('p');if(q)document.body.dataset.p=q;
+document.querySelectorAll('.switch button').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.v===document.body.dataset.p);b.onclick=()=>{document.body.dataset.p=b.dataset.v;document.querySelectorAll('.switch button').forEach(x=>x.setAttribute('aria-pressed',x===b))}});
+</script>
+</body>
+</html>

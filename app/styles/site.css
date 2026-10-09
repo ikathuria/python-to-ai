@@ -1,0 +1,219 @@
+/* Shared components for every page. Values come from brand.css tokens only. */
+
+html { background: var(--bg); }
+body {
+	font-family: var(--font-body) !important;
+	font-size: var(--fs-body);
+	background: var(--bg) !important;
+	color: var(--text);
+	-webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--rb-yellow); color: #111; }
+
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.skip-link {
+	position: absolute; left: var(--s-3); top: -100px; z-index: 100;
+	background: var(--accent); color: var(--on-accent); padding: var(--s-2) var(--s-3);
+	font: 700 var(--fs-small) var(--font-mono); border: var(--bw) solid var(--border);
+}
+.skip-link:focus { top: var(--s-2); }
+
+/* ---------- Menu bar (classic Mac) ---------- */
+.menubar {
+	position: sticky; top: 0; z-index: 50;
+	background: var(--surface); border-bottom: var(--bw) solid var(--border);
+	font: 700 var(--fs-small) var(--font-mono);
+}
+.menubar-inner {
+	max-width: var(--wide); margin: 0 auto; padding: 0 var(--s-3);
+	display: flex; align-items: center; gap: var(--s-1); min-height: 48px;
+}
+.wordmark {
+	display: inline-flex; align-items: center; gap: 10px; margin-right: var(--s-3);
+	font: 800 18px var(--font-display); color: var(--text); text-decoration: none; min-height: 44px;
+}
+.wordmark i {
+	width: 16px; height: 16px; flex: none; background: var(--rainbow);
+	border: var(--bw) solid var(--border); display: inline-block;
+}
+.menubar a.mb-link, .menubar summary, .menubar button {
+	color: var(--text); text-decoration: none; padding: 0 12px; min-height: 44px;
+	display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+	background: none; border: 0; font: inherit; border-radius: 0;
+}
+@media (hover: hover) {
+	.menubar a.mb-link:hover, .menubar summary:hover, .menubar button:hover { background: var(--text); color: var(--bg); }
+}
+.menubar a.mb-link[aria-current="page"] { background: var(--text); color: var(--bg); }
+.menubar summary { list-style: none; }
+.menubar summary::-webkit-details-marker { display: none; }
+.menubar details { position: relative; }
+.menubar .dropdown {
+	position: absolute; top: 100%; left: 0; min-width: 280px;
+	background: var(--surface); border: var(--bw) solid var(--border); box-shadow: var(--shadow-pop);
+	padding: var(--s-1) 0;
+}
+.menubar .dropdown a {
+	display: flex; gap: 12px; padding: 10px 16px; color: var(--text); text-decoration: none; min-height: 44px; align-items: center;
+}
+.menubar .dropdown a span { color: var(--muted); min-width: 22px; }
+@media (hover: hover) { .menubar .dropdown a:hover { background: var(--text); color: var(--bg); } .menubar .dropdown a:hover span { color: var(--bg); } }
+.menubar .dropdown a[aria-current="page"] { background: var(--tint); }
+.mb-spacer { flex: 1; }
+.mb-desktop { display: contents; }
+.mb-mobile-btn { display: none !important; }
+.mobile-panel { display: none; border-top: var(--bw) solid var(--border); background: var(--surface); padding: var(--s-2) var(--s-3) var(--s-3); }
+.mobile-panel.open { display: block; }
+.mobile-panel a { display: flex; gap: 12px; min-height: 44px; align-items: center; color: var(--text); text-decoration: none; font: 700 16px var(--font-mono); border-bottom: 1px solid var(--line); }
+.mobile-panel a span { color: var(--muted); min-width: 26px; }
+@media (max-width: 859px) {
+	.mb-desktop { display: none; }
+	.mb-mobile-btn { display: inline-flex !important; }
+}
+
+/* ---------- Footer ---------- */
+.site-footer { margin-top: var(--s-7); }
+.site-footer .band-thin { height: 12px; background: var(--rainbow); border-top: var(--bw) solid var(--border); }
+.site-footer .inner {
+	background: var(--screen); color: var(--screen-text);
+	font: 700 var(--fs-small) var(--font-mono); padding: var(--s-5) var(--s-3);
+}
+.site-footer .row { max-width: var(--wide); margin: 0 auto; display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-5); align-items: center; justify-content: space-between; }
+.site-footer a { color: var(--screen-text); min-height: 44px; display: inline-flex; align-items: center; }
+.site-footer .links { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); }
+
+/* ---------- Buttons ---------- */
+.btn {
+	display: inline-flex; align-items: center; gap: 8px; min-height: 48px;
+	font: 700 15px var(--font-mono); padding: 12px 20px; text-decoration: none;
+	color: var(--text); background: var(--surface);
+	border: var(--bw) solid var(--border); border-radius: var(--radius-sm); box-shadow: var(--shadow-pop);
+	transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+	cursor: pointer;
+}
+.btn-primary { background: var(--accent); color: var(--on-accent); }
+@media (hover: hover) { .btn:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-pop-hover); } }
+.btn:active { transform: translate(3px, 3px); box-shadow: none; }
+
+/* ---------- Windows (lesson cards, demos) ---------- */
+.window, .card {
+	background: var(--surface) !important; border: var(--bw) solid var(--border) !important;
+	border-radius: var(--radius-sm) !important; box-shadow: var(--shadow-pop) !important;
+}
+.window-bar {
+	display: flex; align-items: center; gap: 8px; padding: 6px 10px;
+	border-bottom: var(--bw) solid var(--border);
+	background: repeating-linear-gradient(var(--surface) 0 2px, var(--stripe-line) 2px 4px);
+	font: 700 var(--fs-label) var(--font-mono);
+}
+.window-bar i { width: 12px; height: 12px; border: var(--bw) solid var(--border); background: var(--surface); flex: none; }
+.window-bar span { background: var(--surface); padding: 0 6px; }
+
+/* ---------- Rainbow band (signature move 1) ---------- */
+.rainbow-band {
+	background: var(--rainbow); border-block: var(--bw) solid var(--border);
+	padding: var(--s-7) var(--s-3);
+}
+.rainbow-band .inner { max-width: var(--wide); margin: 0 auto; }
+.rainbow-band h2 {
+	font: 800 var(--fs-h2)/1.15 var(--font-display); letter-spacing: -.015em; color: var(--band-text);
+	text-shadow: var(--band-glow);
+}
+.rainbow-band h2 mark, .rainbow-band p mark {
+	background: var(--surface); color: var(--text); padding: 2px 10px;
+	box-decoration-break: clone; -webkit-box-decoration-break: clone;
+}
+:root[data-theme="dark"] .rainbow-band mark { background: transparent; color: var(--band-text); padding: 0; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .rainbow-band mark { background: transparent; color: var(--band-text); padding: 0; } }
+
+/* ---------- Terminal (signature move 3) ---------- */
+.terminal {
+	background: var(--screen); color: var(--screen-text); border: 3px solid #000; border-radius: var(--radius-sm);
+	font: 24px/1.3 var(--font-screen); padding: var(--s-4);
+}
+.cursor { display: inline-block; width: 11px; height: 20px; background: var(--screen-text); vertical-align: middle; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
+
+/* ---------- Lesson pages ---------- */
+main h1 { color: var(--title) !important; text-shadow: var(--title-glow); font-family: var(--font-display); letter-spacing: -.025em; }
+h1, h2, h3 { font-family: var(--font-display); }
+main h2 { letter-spacing: -.015em; }
+main p, main li { max-width: var(--content); }
+main a:not(.btn):not(.window):not(.card):not([class*="bg-"]) { color: var(--link); }
+
+pre {
+	background: var(--screen) !important; border: var(--bw) solid var(--border) !important;
+	border-radius: var(--radius-sm) !important; box-shadow: var(--shadow-pop);
+	max-width: 100%; overflow-x: auto;
+}
+pre code.hljs { background: transparent !important; font-family: var(--font-mono); font-size: 14px; }
+code:not(.hljs) { font-family: var(--font-mono); }
+
+input:not([type=range]):not([type=checkbox]):not([type=radio]), select, textarea {
+	background: var(--surface) !important; color: var(--text) !important;
+	border: var(--bw) solid var(--border) !important; border-radius: var(--radius-sm) !important;
+	min-height: 44px;
+}
+input[type=range] { accent-color: var(--link); }
+button { min-height: 44px; }
+
+/* Sidebar "Contents" becomes a collapsible panel on narrow screens */
+.sidebar-link { color: var(--muted) !important; font-family: var(--font-mono); font-size: 14px; min-height: 40px; display: flex !important; align-items: center; }
+.sidebar-link.active { background: var(--tint) !important; color: var(--text) !important; border-right: 4px solid var(--text) !important; }
+.toc-toggle { display: none; }
+@media (max-width: 767px) {
+	aside { width: 100%; min-width: 0; }
+	aside > .sticky { position: static !important; }
+	.toc-toggle {
+		display: flex; width: 100%; justify-content: space-between; align-items: center;
+		font: 700 15px var(--font-mono); background: none; border: 0; color: var(--text); padding: 0; cursor: pointer;
+	}
+	aside.toc-collapsed nav, aside.toc-collapsed h3 { display: none; }
+}
+body > *, main, main section, .content-section { min-width: 0; }
+body > div { width: 100%; }
+code:not(.hljs) { overflow-wrap: anywhere; }
+canvas, img, svg, table { max-width: 100%; }
+.overflow-x-auto, table { display: block; overflow-x: auto; }
+
+/* Theme toggle */
+.theme-toggle .when-dark { display: none; }
+:root[data-theme="dark"] .theme-toggle .when-dark { display: inline; }
+:root[data-theme="dark"] .theme-toggle .when-light { display: none; }
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme="light"]) .theme-toggle .when-dark { display: inline; }
+	:root:not([data-theme="light"]) .theme-toggle .when-light { display: none; }
+}
+
+/* Demo header rows (title + badges) wrap on narrow screens */
+main .flex.justify-between { flex-wrap: wrap; gap: var(--s-2); }
+
+/* Text inside dark demo panels inherits the panel's light text colour */
+.bg-gray-800 p, .bg-gray-900 p, .bg-gray-800 li, .bg-gray-900 li, .text-white p { color: inherit; }
+
+/* Inline code and error-red text: brand colours with AA contrast */
+code:not(.hljs) { background: var(--case) !important; color: var(--text) !important; border: 1px solid var(--line); }
+
+/* Syntax highlighting: brighter comments on the terminal background */
+.hljs-comment, .hljs-quote { color: #A0A8B7 !important; }
+
+/* Terminal-style demo panels (bg-gray-900) keep screen colours in both modes */
+.bg-gray-900, .card.bg-gray-900, .bg-gray-800 { background: var(--screen) !important; color: var(--screen-text) !important; }
+.bg-gray-900 .text-white, .bg-gray-900 p, .bg-gray-800 .text-white, .bg-gray-800 p { color: var(--screen-text) !important; }
+.bg-gray-800 [class*="text-gray-"] { color: #B5B5B5 !important; }
+.bg-gray-900.text-green-400, .bg-gray-900 .text-green-400 { color: #7CFFB2 !important; }
+
+.bg-gray-900 [class*="text-gray-"] { color: #B5B5B5 !important; }
+/* Solid status badges: text uses the surface colour so it contrasts in both modes */
+.bg-red-500, .bg-red-600, .bg-green-500, .bg-green-600, .bg-emerald-600, .bg-blue-600 { color: var(--surface) !important; }
+
+/* Small phones: keep the menu bar on one line */
+.wordmark, .theme-toggle, .mb-mobile-btn { white-space: nowrap; }
+@media (max-width: 420px) {
+	.wordmark { font-size: 16px; margin-right: 0; }
+	.theme-toggle .label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+	.menubar a.mb-link, .menubar summary, .menubar button { padding: 0 8px; }
+}
+@media (max-width: 767px) { aside h3 { display: none !important; } }

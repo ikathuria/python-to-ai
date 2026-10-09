@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option 2 · Riso Zine</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFF8E7;--ink:#1A1A1A;--pink:#FF6B9D;--blue:#005A9C;--yellow:#FFE45C;--muted:#4A4A4A}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font:17px/1.6 'DM Sans',sans-serif;
+background-image:radial-gradient(#1a1a1a14 1px,transparent 1px);background-size:6px 6px}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.logo{font:800 24px 'Bricolage Grotesque',sans-serif;text-decoration:none;background:var(--yellow);padding:2px 10px;border:2.5px solid var(--ink);transform:rotate(-2deg);display:inline-block}
+.links{display:flex;gap:8px}
+.links a{text-decoration:none;font-weight:700;padding:8px 14px;border:2.5px solid transparent;border-radius:99px}
+.links a:hover{border-color:var(--ink);background:#fff}
+.hero{padding:56px 0 80px;position:relative}
+h1{font:800 clamp(52px,9vw,128px)/.92 'Bricolage Grotesque',sans-serif;letter-spacing:-.03em;max-width:11ch}
+.hl{background:var(--pink);padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.blue{color:var(--blue)}
+.lede{font-size:21px;max-width:38ch;margin-top:26px;font-weight:500}
+.sticker{position:absolute;right:4%;top:70px;width:200px;height:200px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;font:800 22px/1.1 'Bricolage Grotesque',sans-serif;transform:rotate(12deg);border:3px solid var(--ink);padding:20px;animation:wob 6s ease-in-out infinite}
+@keyframes wob{50%{transform:rotate(4deg) scale(1.03)}}
+.cta{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
+.btn{font:800 18px 'Bricolage Grotesque',sans-serif;padding:14px 24px;border:3px solid var(--ink);text-decoration:none;background:#fff;box-shadow:6px 6px 0 var(--ink);transition:.15s}
+.btn:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--ink)}
+.btn.p{background:var(--yellow)}
+.strip{background:var(--blue);color:#fff;padding:70px 0;border-block:3px solid var(--ink)}
+.strip h2{font:800 clamp(34px,5vw,64px)/1 'Bricolage Grotesque',sans-serif;max-width:16ch}
+.strip h2 span{color:var(--yellow)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chips span{background:#fff;color:var(--ink);font-weight:700;padding:8px 16px;border:2.5px solid var(--ink);border-radius:99px}
+.chips span:nth-child(3n){background:var(--pink)}.chips span:nth-child(3n+1){background:var(--yellow)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:80px 0}
+.grid h2{grid-column:1/-1;font:800 52px 'Bricolage Grotesque',sans-serif}
+.card{border:3px solid var(--ink);background:#fff;padding:24px;text-decoration:none;transition:.15s}
+.card:nth-child(4n+2){background:var(--yellow);transform:rotate(-1deg)}
+.card:nth-child(4n+3){background:#FFD3E2;transform:rotate(1deg)}
+.card:hover{transform:rotate(0) translateY(-4px);box-shadow:6px 6px 0 var(--ink)}
+.num{font:800 56px/1 'Bricolage Grotesque',sans-serif;color:var(--blue)}
+.card h3{font:800 24px 'Bricolage Grotesque',sans-serif;margin:8px 0 6px}
+.card p{color:var(--muted)}
+footer{padding:30px 0;font-weight:700;border-top:3px solid var(--ink)}
+@media(max-width:800px){.sticker{position:static;width:150px;height:150px;font-size:17px;margin-top:30px}.grid{grid-template-columns:1fr}.links a:not(:last-child){display:none}}
+@media(prefers-reduced-motion:reduce){.sticker{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a class="logo" href="#">Python→AI</a><div class="links"><a href="#">History</a><a href="#">Lessons</a><a href="#">Videos ▶</a></div></nav>
+<section class="hero">
+<h1>Robots aren't <span class="hl">coming</span> for you. <span class="blue">Let's look inside.</span></h1>
+<p class="lede">Free, friendly lessons that take you from your first line of Python to how AI really works. Real models run right here in your browser.</p>
+<div class="cta"><a class="btn p" href="#">Start the history →</a><a class="btn" href="#">Watch the videos ▶</a></div>
+<div class="sticker">AI is 80 years old. Still no robot uprising.</div>
+</section>
+</div>
+<section class="strip"><div class="wrap">
+<h2>AI is way more than <span>chatbots.</span></h2>
+<div class="chips"><span>Spam filters</span><span>Netflix picks</span><span>Maps</span><span>Photo tagging</span><span>Fraud alerts</span><span>Autocorrect</span><span>Medical scans</span><span>Chatbots (the new kid)</span></div>
+</div></section>
+<div class="wrap">
+<section class="grid">
+<h2>Pick a door.</h2>
+<a class="card" href="#"><div class="num">00</div><h3>Python basics</h3><p>Never coded? Perfect. Start here.</p></a>
+<a class="card" href="#"><div class="num">02</div><h3>Teach a machine</h3><p>Supervised learning, with a live prediction demo.</p></a>
+<a class="card" href="#"><div class="num">03</div><h3>Sort socks blindfolded</h3><p>Clustering: finding groups nobody labelled.</p></a>
+<a class="card" href="#"><div class="num">04</div><h3>Why Netflix knows you</h3><p>Recommendation systems, demystified.</p></a>
+<a class="card" href="#"><div class="num">06</div><h3>How computers see</h3><p>Spoiler: everything is numbers. Colour demo.</p></a>
+<a class="card" href="#"><div class="num">08</div><h3>What ChatGPT does</h3><p>Fancy autocomplete, explained.</p></a>
+</section>
+<footer>Made by Ishani Kathuria · YouTube · GitHub</footer>
+</div>
+</body>
+</html>

@@ -4,21 +4,21 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Supervised Learning - Python to AI</title>
+	<title>Supervised Learning · Python to AI</title>
 	<meta name="description" content="Supervised Machine Learning projects: Crime Prediction and Census Income Classification.">
-    <meta property="og:title" content="Supervised Learning - Python to AI">
+    <meta property="og:title" content="Supervised Learning · Python to AI">
     <meta property="og:description" content="Supervised Machine Learning projects: Crime Prediction and Census Income Classification.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ikathuria.github.io/python-to-ai/app/pages/supervised_learning.html">
 
 	<!-- Tailwind CSS -->
 	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="../styles/tw-config.js"></script>
 
 	<!-- FontAwesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 	<!-- Google Fonts -->
-	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 	<!-- Highlight.js -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
@@ -31,7 +31,7 @@
 
 	<style type="text/tailwindcss">
 		body {
-            font-family: 'Nunito', sans-serif;
+            
         }
 
         .nav-link {
@@ -91,59 +91,61 @@
         details.try-it > summary { list-style: none; }
         details.try-it > summary::-webkit-details-marker { display: none; }
     </style>
+	<link rel="canonical" href="https://ikathuria.github.io/python-to-ai/app/pages/supervised_learning.html">
+	<meta property="og:image" content="https://ikathuria.github.io/python-to-ai/app/images/og/supervised_learning.png">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="https://ikathuria.github.io/python-to-ai/app/images/og/supervised_learning.png">
+	<link rel="apple-touch-icon" href="../images/og/apple-touch-icon.png">
+	<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+	<link rel="stylesheet" href="../../app/styles/brand.css">
+	<link rel="stylesheet" href="../../app/styles/site.css">
+	<script src="../../app/styles/site.js"></script>
 </head>
 
 <body class="bg-gray-50 min-h-screen flex flex-col">
 
-	<!-- NAVIGATION -->
-	<nav class="bg-white shadow-sm sticky top-0 z-50">
-		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-			<div class="flex justify-between h-16">
-				<div class="flex">
-					<div class="flex-shrink-0 flex items-center">
-						<a href="../../index.html" class="flex items-center">
-							<i class="fa-solid fa-code fa-2x text-indigo-600"></i>
-							<span class="ml-2 font-bold text-xl text-gray-800">Python to AI</span>
-						</a>
-					</div>
-				</div>
-				<div class="hidden md:flex items-center space-x-1">
-					<a href="../../index.html" class="nav-link">Home</a>
-					<a href="python.html" class="nav-link">Python Basics</a>
-					<a href="ml_basics.html" class="nav-link">ML Basics</a>
-					<a href="supervised_learning.html" class="nav-link active">Supervised ML</a>
-					<a href="unsupervised_learning.html" class="nav-link">Unsupervised</a>
-					<a href="deep_learning.html" class="nav-link">Deep Learning</a>
-					<a href="computer_vision.html" class="nav-link">CV</a>
-					<a href="time_series.html" class="nav-link">Time Series</a>
-					<a href="natural_language_processing.html" class="nav-link">NLP</a>
-					<a href="recommendation_system.html" class="nav-link">Recommenders</a>
-				</div>
-				<div class="flex items-center">
-					<!-- Mobile hamburger -->
-					<button id="mobile-menu-btn" class="md:hidden text-gray-500 hover:text-gray-700 focus:outline-none mr-2" aria-label="Toggle menu">
-						<i class="fa-solid fa-bars fa-lg" id="menu-icon"></i>
-					</button>
-					<a href="https://github.com/ikathuria" target="_blank" class="text-gray-400 hover:text-gray-600 mx-2"><i class="fa-brands fa-github fa-lg"></i></a>
-				</div>
+	<a class="skip-link" href="#main">Skip to lesson</a>
+	<header class="menubar">
+		<div class="menubar-inner">
+			<a class="wordmark" href="../../index.html"><i aria-hidden="true"></i>Python to AI</a>
+			<div class="mb-desktop">
+				<a class="mb-link" href="history_of_ai.html">History</a>
+				<details>
+					<summary>Lessons ▾</summary>
+					<nav class="dropdown" aria-label="Lessons">
+					<a href="python.html"><span>00</span>Python basics</a>
+					<a href="ml_basics.html"><span>01</span>ML basics</a>
+					<a href="supervised_learning.html" aria-current="page"><span>02</span>Supervised learning</a>
+					<a href="unsupervised_learning.html"><span>03</span>Unsupervised learning</a>
+					<a href="recommendation_system.html"><span>04</span>Recommendation systems</a>
+					<a href="deep_learning.html"><span>05</span>Deep learning</a>
+					<a href="computer_vision.html"><span>06</span>Computer vision</a>
+					<a href="time_series.html"><span>07</span>Time series</a>
+					<a href="natural_language_processing.html"><span>08</span>Language (NLP)</a>
+					</nav>
+				</details>
+				<a class="mb-link" href="https://www.youtube.com/@DrIshaniKathuria" target="_blank" rel="noopener">Videos</a>
+				<a class="mb-link" href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener">GitHub</a>
 			</div>
+			<span class="mb-spacer"></span>
+			<button class="theme-toggle" type="button" aria-label="Toggle dark mode"><span class="when-light">◐ <span class="label">Dark</span></span><span class="when-dark">◑ <span class="label">Light</span></span></button>
+			<button class="mb-mobile-btn" type="button" aria-expanded="false" aria-controls="mobile-panel">Menu</button>
 		</div>
-		<!-- Mobile Menu -->
-		<div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-gray-50">
-			<div class="flex flex-col space-y-1 px-4 py-2">
-			<a href="../../index.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Home</a>
-			<a href="python.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Python Basics</a>
-			<a href="ml_basics.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">ML Basics</a>
-			<a href="supervised_learning.html" class="block py-2 px-2 text-base font-bold bg-indigo-50 text-indigo-700 rounded">Supervised ML</a>
-			<a href="unsupervised_learning.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Unsupervised</a>
-			<a href="deep_learning.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Deep Learning</a>
-			<a href="computer_vision.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">CV</a>
-			<a href="time_series.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Time Series</a>
-			<a href="natural_language_processing.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">NLP</a>
-			<a href="recommendation_system.html" class="block py-2 px-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded">Recommenders</a>
-			</div>
-		</div>
-	</nav>
+		<nav id="mobile-panel" class="mobile-panel" aria-label="Site">
+		<a href="history_of_ai.html"><span>--</span>History of AI</a>
+		<a href="python.html"><span>00</span>Python basics</a>
+		<a href="ml_basics.html"><span>01</span>ML basics</a>
+		<a href="supervised_learning.html" aria-current="page"><span>02</span>Supervised learning</a>
+		<a href="unsupervised_learning.html"><span>03</span>Unsupervised learning</a>
+		<a href="recommendation_system.html"><span>04</span>Recommendation systems</a>
+		<a href="deep_learning.html"><span>05</span>Deep learning</a>
+		<a href="computer_vision.html"><span>06</span>Computer vision</a>
+		<a href="time_series.html"><span>07</span>Time series</a>
+		<a href="natural_language_processing.html"><span>08</span>Language (NLP)</a>
+		<a href="https://www.youtube.com/@DrIshaniKathuria" target="_blank" rel="noopener"><span>▶</span>Videos</a>
+		<a href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener"><span>{}</span>GitHub</a>
+		</nav>
+	</header>
 
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 		<div class="flex flex-col md:flex-row gap-8">
@@ -156,7 +158,7 @@
 						<a href="#intro" class="sidebar-link active" onclick="setActive(this)">Overview</a>
 						<a href="#naive-bayes" class="sidebar-link" onclick="setActive(this)">Naive Bayes</a>
 						<a href="#knn" class="sidebar-link" onclick="setActive(this)">K-Nearest Neighbors</a>
-							<a href="#knn-viz" class="sidebar-link" onclick="setActive(this)">🔵 KNN Explorer</a>
+							<a href="#knn-viz" class="sidebar-link" onclick="setActive(this)"> KNN Explorer</a>
 						<a href="#decision-tree" class="sidebar-link" onclick="setActive(this)">Decision Tree</a>
 						<a href="#logistic-regression" class="sidebar-link" onclick="setActive(this)">Logistic Regression</a>
 						<a href="#linear-regression" class="sidebar-link" onclick="setActive(this)">Linear Regression</a>
@@ -167,7 +169,7 @@
 			</aside>
 
 			<!-- MAIN CONTENT -->
-			<main class="flex-grow min-w-0">
+			<main id="main" class="flex-grow min-w-0">
 
 				<!-- Introduction -->
 				<section id="intro" class="content-section">
@@ -194,18 +196,18 @@
 					<div class="card p-6">
 						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 							<div>
-								<label class="block text-xs font-bold text-gray-500 mb-1">Age</label>
+								<label for="drug-age" class="block text-xs font-bold text-gray-500 mb-1">Age</label>
 								<input type="number" id="drug-age" value="45" class="w-full border p-2 rounded focus:ring-indigo-500 focus:border-indigo-500">
 							</div>
 							<div>
-								<label class="block text-xs font-bold text-gray-500 mb-1">Sex</label>
+								<label for="drug-sex" class="block text-xs font-bold text-gray-500 mb-1">Sex</label>
 								<select id="drug-sex" class="w-full border p-2 rounded focus:ring-indigo-500 focus:border-indigo-500">
 									<option value="0">Female</option>
 									<option value="1">Male</option>
 								</select>
 							</div>
 							<div>
-								<label class="block text-xs font-bold text-gray-500 mb-1">Blood Pressure</label>
+								<label for="drug-bp" class="block text-xs font-bold text-gray-500 mb-1">Blood Pressure</label>
 								<select id="drug-bp" class="w-full border p-2 rounded focus:ring-indigo-500 focus:border-indigo-500">
 									<option value="0">HIGH</option>
 									<option value="1">LOW</option>
@@ -213,14 +215,14 @@
 								</select>
 							</div>
 							<div>
-								<label class="block text-xs font-bold text-gray-500 mb-1">Cholesterol</label>
+								<label for="drug-cholestrol" class="block text-xs font-bold text-gray-500 mb-1">Cholesterol</label>
 								<select id="drug-cholestrol" class="w-full border p-2 rounded focus:ring-indigo-500 focus:border-indigo-500">
 									<option value="0">HIGH</option>
 									<option value="1">NORMAL</option>
 								</select>
 							</div>
 							<div>
-								<label class="block text-xs font-bold text-gray-500 mb-1">Na_to_K Ratio</label>
+								<label for="drug-na_to_k" class="block text-xs font-bold text-gray-500 mb-1">Na_to_K Ratio</label>
 								<input type="number" id="drug-na_to_k" value="15.5" step="0.1" class="w-full border p-2 rounded focus:ring-indigo-500 focus:border-indigo-500">
 							</div>
 						</div>
@@ -249,10 +251,10 @@ y_pred = knn.predict(X_test)</code></pre>
 						</div>
 						<p class="text-sm text-gray-500 mb-4">Adjust the four Iris measurements and see the predicted species in real time.</p>
 						<div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="knn-inputs">
-							<div><label class="text-xs font-bold text-gray-500">Sepal Length (cm): <span id="knn-sl-val">5.1</span></label><input type="range" id="knn-sl" class="w-full accent-indigo-600" min="4.0" max="8.0" step="0.1" value="5.1" oninput="document.getElementById('knn-sl-val').textContent=this.value"></div>
-							<div><label class="text-xs font-bold text-gray-500">Sepal Width (cm): <span id="knn-sw-val">3.5</span></label><input type="range" id="knn-sw" class="w-full accent-indigo-600" min="2.0" max="4.5" step="0.1" value="3.5" oninput="document.getElementById('knn-sw-val').textContent=this.value"></div>
-							<div><label class="text-xs font-bold text-gray-500">Petal Length (cm): <span id="knn-pl-val">1.4</span></label><input type="range" id="knn-pl" class="w-full accent-indigo-600" min="1.0" max="7.0" step="0.1" value="1.4" oninput="document.getElementById('knn-pl-val').textContent=this.value"></div>
-							<div><label class="text-xs font-bold text-gray-500">Petal Width (cm): <span id="knn-pw-val">0.2</span></label><input type="range" id="knn-pw" class="w-full accent-indigo-600" min="0.1" max="2.5" step="0.1" value="0.2" oninput="document.getElementById('knn-pw-val').textContent=this.value"></div>
+							<div><label for="knn-sl" class="text-xs font-bold text-gray-500">Sepal Length (cm): <span id="knn-sl-val">5.1</span></label><input type="range" id="knn-sl" class="w-full accent-indigo-600" min="4.0" max="8.0" step="0.1" value="5.1" oninput="document.getElementById('knn-sl-val').textContent=this.value"></div>
+							<div><label for="knn-sw" class="text-xs font-bold text-gray-500">Sepal Width (cm): <span id="knn-sw-val">3.5</span></label><input type="range" id="knn-sw" class="w-full accent-indigo-600" min="2.0" max="4.5" step="0.1" value="3.5" oninput="document.getElementById('knn-sw-val').textContent=this.value"></div>
+							<div><label for="knn-pl" class="text-xs font-bold text-gray-500">Petal Length (cm): <span id="knn-pl-val">1.4</span></label><input type="range" id="knn-pl" class="w-full accent-indigo-600" min="1.0" max="7.0" step="0.1" value="1.4" oninput="document.getElementById('knn-pl-val').textContent=this.value"></div>
+							<div><label for="knn-pw" class="text-xs font-bold text-gray-500">Petal Width (cm): <span id="knn-pw-val">0.2</span></label><input type="range" id="knn-pw" class="w-full accent-indigo-600" min="0.1" max="2.5" step="0.1" value="0.2" oninput="document.getElementById('knn-pw-val').textContent=this.value"></div>
 						</div>
 						<button id="knn-run-btn" onclick="runIrisKNN()" class="mt-5 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition shadow-md disabled:opacity-50 disabled:cursor-not-allowed">Predict Species</button>
 						<div id="knn-result" class="mt-4 p-3 bg-indigo-50 border border-indigo-200 rounded-lg text-center font-bold text-indigo-800 hidden"></div>
@@ -272,7 +274,7 @@ y_pred = knn.predict(X_test)</code></pre>
 								<p class="text-sm text-gray-500 mb-0">Click anywhere to test a point. The model finds the K closest training points and takes a majority vote.</p>
 							</div>
 							<div class="flex items-center gap-3 flex-shrink-0">
-								<label class="text-sm font-bold text-gray-600 whitespace-nowrap">K = <span id="knn-viz-k-val" class="text-indigo-600">3</span></label>
+								<label for="knn-viz-k" class="text-sm font-bold text-gray-600 whitespace-nowrap">K = <span id="knn-viz-k-val" class="text-indigo-600">3</span></label>
 								<input type="range" id="knn-viz-k" min="1" max="9" step="1" value="3"
 									class="w-28 accent-indigo-600"
 									oninput="document.getElementById('knn-viz-k-val').textContent=this.value; knnViz.onKChange();">
@@ -310,7 +312,7 @@ y_pred = knn.predict(X_test)</code></pre>
 							<!-- Mode buttons -->
 							<button id="knn-viz-mode-query" onclick="knnViz.setMode('query')"
 								class="px-4 py-2 rounded-lg text-sm font-semibold bg-indigo-600 text-white shadow transition">
-								🔵 Query mode
+								 Query mode
 							</button>
 							<button id="knn-viz-mode-add" onclick="knnViz.setMode('add')"
 								class="px-4 py-2 rounded-lg text-sm font-semibold bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 transition">
@@ -360,10 +362,10 @@ y_pred = dt.predict(X_test)</code></pre>
 						</div>
 						<p class="text-sm text-gray-500 mb-4">Same inputs as KNN — compare how the two algorithms differ on edge cases.</p>
 						<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-							<div><label class="text-xs font-bold text-gray-500">Sepal Length (cm): <span id="dt-sl-val">5.1</span></label><input type="range" id="dt-sl" class="w-full accent-indigo-600" min="4.0" max="8.0" step="0.1" value="5.1" oninput="document.getElementById('dt-sl-val').textContent=this.value"></div>
-							<div><label class="text-xs font-bold text-gray-500">Sepal Width (cm): <span id="dt-sw-val">3.5</span></label><input type="range" id="dt-sw" class="w-full accent-indigo-600" min="2.0" max="4.5" step="0.1" value="3.5" oninput="document.getElementById('dt-sw-val').textContent=this.value"></div>
-							<div><label class="text-xs font-bold text-gray-500">Petal Length (cm): <span id="dt-pl-val">1.4</span></label><input type="range" id="dt-pl" class="w-full accent-indigo-600" min="1.0" max="7.0" step="0.1" value="1.4" oninput="document.getElementById('dt-pl-val').textContent=this.value"></div>
-							<div><label class="text-xs font-bold text-gray-500">Petal Width (cm): <span id="dt-pw-val">0.2</span></label><input type="range" id="dt-pw" class="w-full accent-indigo-600" min="0.1" max="2.5" step="0.1" value="0.2" oninput="document.getElementById('dt-pw-val').textContent=this.value"></div>
+							<div><label for="dt-sl" class="text-xs font-bold text-gray-500">Sepal Length (cm): <span id="dt-sl-val">5.1</span></label><input type="range" id="dt-sl" class="w-full accent-indigo-600" min="4.0" max="8.0" step="0.1" value="5.1" oninput="document.getElementById('dt-sl-val').textContent=this.value"></div>
+							<div><label for="dt-sw" class="text-xs font-bold text-gray-500">Sepal Width (cm): <span id="dt-sw-val">3.5</span></label><input type="range" id="dt-sw" class="w-full accent-indigo-600" min="2.0" max="4.5" step="0.1" value="3.5" oninput="document.getElementById('dt-sw-val').textContent=this.value"></div>
+							<div><label for="dt-pl" class="text-xs font-bold text-gray-500">Petal Length (cm): <span id="dt-pl-val">1.4</span></label><input type="range" id="dt-pl" class="w-full accent-indigo-600" min="1.0" max="7.0" step="0.1" value="1.4" oninput="document.getElementById('dt-pl-val').textContent=this.value"></div>
+							<div><label for="dt-pw" class="text-xs font-bold text-gray-500">Petal Width (cm): <span id="dt-pw-val">0.2</span></label><input type="range" id="dt-pw" class="w-full accent-indigo-600" min="0.1" max="2.5" step="0.1" value="0.2" oninput="document.getElementById('dt-pw-val').textContent=this.value"></div>
 						</div>
 						<button id="dt-run-btn" onclick="runIrisDT()" class="mt-5 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition shadow-md disabled:opacity-50 disabled:cursor-not-allowed">Predict Species</button>
 						<div id="dt-result" class="mt-4 p-3 bg-indigo-50 border border-indigo-200 rounded-lg text-center font-bold text-indigo-800 hidden"></div>
@@ -387,7 +389,7 @@ proba = lr.predict_proba(X_test)[:, 1]  # P(survived)</code></pre>
 						<p class="text-sm text-gray-500 mb-4">Would this passenger have survived? Adjust the features and check the model's prediction.</p>
 						<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 							<div>
-								<label class="block text-xs font-bold text-gray-500 mb-1">Passenger Class</label>
+								<label for="lr-pclass" class="block text-xs font-bold text-gray-500 mb-1">Passenger Class</label>
 								<select id="lr-pclass" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 									<option value="1">1st Class</option>
 									<option value="2" selected>2nd Class</option>
@@ -395,26 +397,26 @@ proba = lr.predict_proba(X_test)[:, 1]  # P(survived)</code></pre>
 								</select>
 							</div>
 							<div>
-								<label class="block text-xs font-bold text-gray-500 mb-1">Sex</label>
+								<label for="lr-sex" class="block text-xs font-bold text-gray-500 mb-1">Sex</label>
 								<select id="lr-sex" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 									<option value="0">Female</option>
 									<option value="1">Male</option>
 								</select>
 							</div>
 							<div>
-								<label class="block text-xs font-bold text-gray-500 mb-1">Age</label>
+								<label for="lr-age" class="block text-xs font-bold text-gray-500 mb-1">Age</label>
 								<input type="number" id="lr-age" value="30" min="1" max="80" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 							</div>
 							<div>
-								<label class="block text-xs font-bold text-gray-500 mb-1">Siblings/Spouses aboard</label>
+								<label for="lr-sibsp" class="block text-xs font-bold text-gray-500 mb-1">Siblings/Spouses aboard</label>
 								<input type="number" id="lr-sibsp" value="0" min="0" max="8" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 							</div>
 							<div>
-								<label class="block text-xs font-bold text-gray-500 mb-1">Parents/Children aboard</label>
+								<label for="lr-parch" class="block text-xs font-bold text-gray-500 mb-1">Parents/Children aboard</label>
 								<input type="number" id="lr-parch" value="0" min="0" max="6" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 							</div>
 							<div>
-								<label class="block text-xs font-bold text-gray-500 mb-1">Fare (£)</label>
+								<label for="lr-fare" class="block text-xs font-bold text-gray-500 mb-1">Fare (£)</label>
 								<input type="number" id="lr-fare" value="30" min="3" max="512" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 							</div>
 						</div>
@@ -441,19 +443,19 @@ print(lr.coef_, lr.intercept_)</code></pre>
 						<p class="text-sm text-gray-500 mb-4">Predicts annual medical insurance charges based on patient profile.</p>
 						<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 							<div>
-								<label class="block text-xs font-bold text-gray-500 mb-1">Age</label>
+								<label for="ins-age" class="block text-xs font-bold text-gray-500 mb-1">Age</label>
 								<input type="number" id="ins-age" value="35" min="18" max="64" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 							</div>
 							<div>
-								<label class="block text-xs font-bold text-gray-500 mb-1">BMI</label>
+								<label for="ins-bmi" class="block text-xs font-bold text-gray-500 mb-1">BMI</label>
 								<input type="number" id="ins-bmi" value="28" min="15" max="55" step="0.1" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 							</div>
 							<div>
-								<label class="block text-xs font-bold text-gray-500 mb-1">Children</label>
+								<label for="ins-children" class="block text-xs font-bold text-gray-500 mb-1">Children</label>
 								<input type="number" id="ins-children" value="1" min="0" max="5" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 							</div>
 							<div>
-								<label class="block text-xs font-bold text-gray-500 mb-1">Smoker</label>
+								<label for="ins-smoker" class="block text-xs font-bold text-gray-500 mb-1">Smoker</label>
 								<select id="ins-smoker" class="w-full border p-2 rounded text-sm focus:ring-indigo-500 focus:border-indigo-500">
 									<option value="0">No</option>
 									<option value="1">Yes</option>
@@ -532,7 +534,7 @@ for k in [1,3,5,7,9,11]:
 						<h2><i class="fa-solid fa-circle-question mr-3 text-indigo-500"></i> Knowledge Check</h2>
 						<p>Test your understanding — pick the best answer, then click Check.</p>
 						<div class="space-y-4 mt-4">
-							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">1. What is the key difference between classification and regression?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Classification predicts continuous values; regression predicts categories</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>They are the same — both predict numeric outputs</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Classification predicts discrete categories; regression predicts continuous values</span></label></div><div id="q1-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
+							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">1. What is the key difference between classification and regression?</p><div class="space-y-1"><label for="${f.id}" class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Classification predicts continuous values; regression predicts categories</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>They are the same — both predict numeric outputs</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Classification predicts discrete categories; regression predicts continuous values</span></label></div><div id="q1-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
 							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">2. In KNN, what happens as k approaches the full training set size?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>The model memorises every training point</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>The model predicts the majority class for every input</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Accuracy always improves with larger k</span></label></div><div id="q2-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
 							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">3. Which metric applies to classification but NOT regression?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Mean Squared Error</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Accuracy</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>R² Score</span></label></div><div id="q3-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
 						</div>
@@ -1236,25 +1238,18 @@ for k in [1,3,5,7,9,11]:
 	</script>
 
     <!-- FOOTER -->
-    <footer class="bg-gray-800 text-white py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="mb-4">Designed &amp; Built by Ishani Kathuria</p>
-            <div class="flex justify-center space-x-6 mt-3">
-                <a href="https://linkedin.com/in/ishani-kathuria/" target="_blank" class="text-gray-400 hover:text-blue-400 transition"><i class="fa-brands fa-linkedin text-xl mr-1"></i> LinkedIn</a>
-                <a href="https://github.com/ikathuria/" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-github text-xl mr-1"></i> GitHub</a>
-            </div>
-            <p class="text-gray-500 text-sm mt-4">&copy; 2025 Python to AI.</p>
-        </div>
-    </footer>
-    <script>
-        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
-            const menu = document.getElementById('mobile-menu');
-            const icon = document.getElementById('menu-icon');
-            menu.classList.toggle('hidden');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-xmark');
-        });
-    </script>
+    <footer class="site-footer">
+		<div class="band-thin"></div>
+		<div class="inner"><div class="row">
+			<span>&gt; built by Ishani Kathuria_</span>
+			<span class="links">
+				<a href="https://www.youtube.com/@DrIshaniKathuria" target="_blank" rel="noopener">YouTube</a>
+				<a href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener">GitHub</a>
+				<a href="https://linkedin.com/in/ishani-kathuria/" target="_blank" rel="noopener">LinkedIn</a>
+			</span>
+		</div></div>
+	</footer>
+    
 
     <script>
         document.querySelectorAll('pre').forEach(function(pre) {
