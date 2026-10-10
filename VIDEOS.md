@@ -25,7 +25,7 @@ Videos are filmed talking to camera, unscripted, with Claude Motion animations o
 | 4 | Sorting socks without instructions | 💡 | [Unsupervised ML](app/pages/unsupervised_learning.html) | — |
 | 5 | How computers "see" | 💡 | [Computer Vision](app/pages/computer_vision.html) | — |
 | 6 | What ChatGPT actually does | 💡 | [Generative AI](app/pages/generative_ai.html) | — |
-| 7 | How to fool an AI | 💡 | `8 Adversarial Threats/` (page to come) | — |
+| 7 | How to fool an AI | 💡 | [Adversarial AI](app/pages/adversarial_ai.html) | — |
 | 8 | The real risks of AI (research episode) | 💡 | — | — |
 
 ### Ep 1: AI is older than your grandparents' TV
@@ -74,6 +74,6 @@ Videos are filmed talking to camera, unscripted, with Claude Motion animations o
 | 7 | Time series | 💡 | [Time Series](app/pages/time_series.html) | — |
 | 8 | Word2Vec to language models | 💡 | [NLP](app/pages/natural_language_processing.html) | `6 Natural Language Processing/` |
 | 9 | Build a baby GPT, RAG | 💡 | [Generative AI](app/pages/generative_ai.html) | `7 Generative AI/` |
-| 10 | Adversarial attacks | 💡 | — | `8 Adversarial Threats/` |
+| 10 | Adversarial attacks | 💡 | [Adversarial AI](app/pages/adversarial_ai.html) | `8 Adversarial Threats/` |
 
 **Tip:** tag the commit used in each technical video (`git tag ep-05`) and link the tag in the description, so viewers see the same code even after the repo changes.
