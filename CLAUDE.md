@@ -19,5 +19,7 @@ Free lessons site (GitHub Pages) plus the Jupyter notebooks behind each topic.
   df = pd.read_csv(f"{path}/file.csv")
   ```
   Public datasets need no Kaggle login. Small, hand-made files (a few KB) can stay in the repo. Still local for now: Titanic `train.csv`/`test.csv` (the test set is only on the login-gated competition page) and `7 Generative AI/Baby_GPT/data/allrecipes_data.txt` (Ishani's own scrape, to be uploaded to Kaggle).
-- **Adding a lesson:** every page has its own copy of the nav, so add the new page to the nav in `index.html` and every `app/pages/*.html`, plus the prev/next buttons, `sitemap.xml`, `scripts/make_og_images.py` and `tests/test_site.py`.
+- **Adding a lesson:** add it to `scripts/lessons.py`, then run `python scripts/sync_nav.py` to rewrite the menus and previous/next links on every page (a test fails if they drift). Also add a homepage card in `index.html`, plus `sitemap.xml`, `scripts/make_og_images.py` (then run it) and the episode in `app/styles/episodes.js`. Lesson pages end with a quiz (`QUIZ_DATA`) and a completion key `p2ai_done_<name>` that the homepage card's `data-done-key` must match.
+- **Lesson styles:** lesson pages use Tailwind classes compiled into `app/styles/lessons.css` (config in `tailwind.config.js`). After adding classes that aren't used elsewhere, run `npm run build:css` and commit the result; CI fails if it's stale. Don't bring back the Tailwind CDN script. Shared, non-Tailwind styles go in `app/styles/site.css`.
 - Tests and lint match CI: `flake8 scripts/ tests/` and `pytest` with `requirements-ci.txt`.
+- `requirements.txt` must stay installable on macOS, Linux and Windows: lower-bound pins only, no platform-specific packages (e.g. `pywin32`, `tensorflow_intel`, `+cu130` builds).
