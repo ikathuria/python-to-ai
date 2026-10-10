@@ -1,3 +1,5 @@
+**Lesson on the site:** [Fancy autocomplete (NLP)](https://ikathuria.github.io/python-to-ai/app/pages/natural_language_processing.html)
+
 NLP Cheat Sheet
 =================================
 1. Tokenization

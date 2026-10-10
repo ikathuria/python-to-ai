@@ -1,5 +1,7 @@
 # Understanding Basic Python Concepts
 
+**Lesson on the site:** [Python basics](https://ikathuria.github.io/python-to-ai/app/pages/python.html)
+
 This module covers the fundamental concepts of Python programming, including data types, data structures, functions, and error handling. By the end of this module, you should have a solid understanding of the basics of Python and be able to write simple programs.
 
 ## Topics Covered
