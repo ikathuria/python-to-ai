@@ -34,3 +34,14 @@ jobs:
 
       - name: Test with pytest
         run: pytest -v
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Check lessons.css is up to date
+        run: |
+          npm ci
+          npm run build:css
+          git diff --exit-code app/styles/lessons.css || (echo "app/styles/lessons.css is stale: run npm run build:css and commit it" && exit 1)

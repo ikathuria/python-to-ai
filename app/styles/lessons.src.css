@@ -1,0 +1,5 @@
+/* Source for app/styles/lessons.css (Tailwind utilities used by the lesson pages).
+   Edit pages, then run: npm run build:css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

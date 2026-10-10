@@ -24,6 +24,7 @@ PAGES = {
     "time_series": ("Predicting tomorrow", "lesson 07 · time series"),
     "natural_language_processing": ("Fancy autocomplete", "lesson 08 · language & NLP"),
     "generative_ai": ("How ChatGPT writes", "lesson 09 · generative AI"),
+    "adversarial_ai": ("How to fool an AI", "lesson 10 · adversarial AI"),
 }
 
 

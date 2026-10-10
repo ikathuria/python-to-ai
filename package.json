@@ -1,0 +1,11 @@
+{
+  "name": "python-to-ai",
+  "private": true,
+  "description": "Builds app/styles/lessons.css for the lesson pages. Viewing the site needs no Node.js.",
+  "scripts": {
+    "build:css": "tailwindcss -c tailwind.config.js -i app/styles/lessons.src.css -o app/styles/lessons.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  }
+}

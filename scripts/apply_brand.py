@@ -6,20 +6,12 @@ from pathlib import Path
 import re
 import sys
 
+from lessons import LESSONS as ALL_LESSONS
+
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = ROOT / "app" / "pages"
 
-LESSONS = [
-    ("00", "python.html", "Python basics"),
-    ("01", "ml_basics.html", "ML basics"),
-    ("02", "supervised_learning.html", "Supervised learning"),
-    ("03", "unsupervised_learning.html", "Unsupervised learning"),
-    ("04", "recommendation_system.html", "Recommendation systems"),
-    ("05", "deep_learning.html", "Deep learning"),
-    ("06", "computer_vision.html", "Computer vision"),
-    ("07", "time_series.html", "Time series"),
-    ("08", "natural_language_processing.html", "Language (NLP)"),
-]
+LESSONS = [(n, f, label) for n, f, label, _ in ALL_LESSONS]
 YOUTUBE = "https://www.youtube.com/@DrIshaniKathuria"
 GITHUB = "https://github.com/ikathuria/python-to-ai"
 
@@ -30,6 +22,7 @@ def head_assets(prefix):
         f'\t<link rel="stylesheet" href="{prefix}app/styles/brand.css">\n'
         f'\t<link rel="stylesheet" href="{prefix}app/styles/site.css">\n'
         f'\t<script src="{prefix}app/styles/site.js"></script>\n'
+        f'\t<link rel="stylesheet" href="{prefix}app/styles/lessons.css">\n'
     )
 
 
@@ -108,13 +101,9 @@ def migrate(path):
         return False
     name = path.name
 
-    # Head: drop Nunito, add brand assets and Tailwind token mapping.
+    # Head: drop Nunito and the Tailwind CDN (lesson styles come from the built lessons.css).
     html = re.sub(r'\s*<link href="https://fonts.googleapis.com/css2\?family=Nunito[^>]*>', "", html)
-    html = html.replace(
-        '<script src="https://cdn.tailwindcss.com"></script>',
-        '<script src="https://cdn.tailwindcss.com"></script>\n\t<script src="../styles/tw-config.js"></script>',
-        1,
-    )
+    html = re.sub(r'\s*<script src="https://cdn.tailwindcss.com"></script>', "", html)
     html = html.replace("</head>", head_assets("../../") + "</head>", 1)
     html = re.sub(r"font-family: 'Nunito', sans-serif;", "", html)
 

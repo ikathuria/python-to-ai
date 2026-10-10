@@ -11,28 +11,12 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ikathuria.github.io/python-to-ai/app/pages/generative_ai.html">
 
-	<script src="https://cdn.tailwindcss.com"></script>
-	<script src="../styles/tw-config.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
 	<script>hljs.highlightAll();</script>
 
-	<style type="text/tailwindcss">
-		body {  }
-		.nav-link { @apply px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors cursor-pointer; }
-		.nav-link.active { @apply text-indigo-700 bg-indigo-50 font-bold; }
-		.sidebar-link { @apply block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-indigo-600 rounded-md transition-colors; }
-		.sidebar-link.active { @apply bg-indigo-50 text-indigo-700 font-bold border-r-4 border-indigo-600; }
-		.content-section { @apply scroll-mt-24 mb-16 border-b border-gray-100 pb-12; }
-		h2 { @apply text-2xl font-bold text-gray-800 mb-4 flex items-center; }
-		h3 { @apply text-xl font-semibold text-gray-700 mt-6 mb-3; }
-		p { @apply text-gray-600 leading-relaxed mb-4; }
-		code:not(.hljs) { @apply bg-gray-100 text-red-500 px-1 py-0.5 rounded text-sm font-mono; }
-		pre { @apply rounded-lg shadow-sm overflow-hidden my-4 border border-gray-200; }
-		.card { @apply bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden; }
-	</style>
 	<link rel="canonical" href="https://ikathuria.github.io/python-to-ai/app/pages/generative_ai.html">
 	<meta property="og:image" content="https://ikathuria.github.io/python-to-ai/app/images/og/generative_ai.png">
 	<meta name="twitter:card" content="summary_large_image">
@@ -42,6 +26,135 @@
 	<link rel="stylesheet" href="../../app/styles/brand.css">
 	<link rel="stylesheet" href="../../app/styles/site.css">
 	<script src="../../app/styles/site.js"></script>
+	<link rel="stylesheet" href="../../app/styles/lessons.css">
+	<style>
+		body {
+		}
+
+		.nav-link {
+		  cursor: pointer;
+		  border-radius: 0.375rem;
+		  padding-left: 0.75rem;
+		  padding-right: 0.75rem;
+		  padding-top: 0.5rem;
+		  padding-bottom: 0.5rem;
+		  font-size: 0.875rem;
+		  line-height: 1.25rem;
+		  font-weight: 500;
+		  color: var(--muted);
+		  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+		  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+		  transition-duration: 150ms
+		}
+
+		.nav-link:hover {
+		  background-color: var(--bg);
+		  color: var(--link)
+		}
+
+		.nav-link.active {
+		  background-color: var(--tint);
+		  font-weight: 700;
+		  color: var(--link-strong)
+		}
+
+		.sidebar-link {
+		  display: block;
+		  border-radius: 0.375rem;
+		  padding-left: 1rem;
+		  padding-right: 1rem;
+		  padding-top: 0.5rem;
+		  padding-bottom: 0.5rem;
+		  font-size: 0.875rem;
+		  line-height: 1.25rem;
+		  color: var(--muted);
+		  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+		  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+		  transition-duration: 150ms
+		}
+
+		.sidebar-link:hover {
+		  background-color: var(--case);
+		  color: var(--link)
+		}
+
+		.sidebar-link.active {
+		  border-right-width: 4px;
+		  border-color: var(--link);
+		  background-color: var(--tint);
+		  font-weight: 700;
+		  color: var(--link-strong)
+		}
+
+		.content-section {
+		  margin-bottom: 4rem;
+		  scroll-margin-top: 6rem;
+		  border-bottom-width: 1px;
+		  border-color: var(--case);
+		  padding-bottom: 3rem
+		}
+
+		h2 {
+		  margin-bottom: 1rem;
+		  display: flex;
+		  align-items: center;
+		  font-size: 1.5rem;
+		  line-height: 2rem;
+		  font-weight: 700;
+		  color: var(--text)
+		}
+
+		h3 {
+		  margin-top: 1.5rem;
+		  margin-bottom: 0.75rem;
+		  font-size: 1.25rem;
+		  line-height: 1.75rem;
+		  font-weight: 600;
+		  color: var(--muted)
+		}
+
+		p {
+		  margin-bottom: 1rem;
+		  line-height: 1.625;
+		  color: var(--muted)
+		}
+
+		code:not(.hljs) {
+		  border-radius: 0.25rem;
+		  background-color: var(--case);
+		  padding-left: 0.25rem;
+		  padding-right: 0.25rem;
+		  padding-top: 0.125rem;
+		  padding-bottom: 0.125rem;
+		  font-family: Space Mono, ui-monospace, monospace;
+		  font-size: 0.875rem;
+		  line-height: 1.25rem;
+		  color: var(--bad-solid)
+		}
+
+		pre {
+		  margin-top: 1rem;
+		  margin-bottom: 1rem;
+		  overflow: hidden;
+		  border-radius: var(--radius-sm);
+		  border-width: 1px;
+		  border-color: var(--line);
+		  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+		  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+		  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+		}
+
+		.card {
+		  overflow: hidden;
+		  border-radius: var(--radius-sm);
+		  border-width: 1px;
+		  border-color: var(--case);
+		  background-color: var(--surface);
+		  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+		  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+		  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+		}
+	</style>
 </head>
 
 <body class="bg-gray-50 min-h-screen flex flex-col">
@@ -65,6 +178,7 @@
 					<a href="time_series.html"><span>07</span>Time series</a>
 					<a href="natural_language_processing.html"><span>08</span>Language (NLP)</a>
 					<a href="generative_ai.html" aria-current="page"><span>09</span>Generative AI</a>
+					<a href="adversarial_ai.html"><span>10</span>Adversarial AI</a>
 					</nav>
 				</details>
 				<a class="mb-link" href="videos.html">Videos</a>
@@ -86,6 +200,7 @@
 		<a href="time_series.html"><span>07</span>Time series</a>
 		<a href="natural_language_processing.html"><span>08</span>Language (NLP)</a>
 		<a href="generative_ai.html" aria-current="page"><span>09</span>Generative AI</a>
+		<a href="adversarial_ai.html"><span>10</span>Adversarial AI</a>
 		<a href="videos.html"><span>▶</span>Videos</a>
 		<a href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener"><span>{}</span>GitHub</a>
 		</nav>
@@ -264,7 +379,7 @@ prompt = f"Answer using only this context:\n{context}\n\nQuestion: {question}"
 						{q:"How does a diffusion model create a new image?",opts:["It stitches together pieces of training photos","It starts from random noise and removes it step by step","It draws outlines and colours them in"],correct:1,exp:"It learned to undo noise, so it starts from static and denoises towards something matching the prompt."}
 					];
 					(function(){var box=document.getElementById('quiz-questions');QUIZ_DATA.forEach(function(q,i){var n=i+1;var h='<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">'+n+'. '+q.q+'</p><div class="space-y-1">';q.opts.forEach(function(o,j){h+='<label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q'+n+'" value="'+j+'" class="mt-1 accent-indigo-600 flex-shrink-0"><span>'+o+'</span></label>';});h+='</div><div id="q'+n+'-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>';box.insertAdjacentHTML('beforeend',h);});})();
-					function checkQuiz(){var score=0;QUIZ_DATA.forEach(function(q,i){var sel=document.querySelector('input[name="q'+(i+1)+'"]:checked');var fb=document.getElementById('q'+(i+1)+'-feedback');if(!sel){fb.innerHTML='Please select an answer.';fb.className='mt-3 p-3 rounded-lg text-sm bg-yellow-50 text-yellow-800 border border-yellow-200';fb.classList.remove('hidden');return;}var val=parseInt(sel.value);if(val===q.correct){fb.innerHTML='<strong>Correct!</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-green-50 text-green-800 border border-green-200';score++;}else{fb.innerHTML='<strong>Not quite.</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-red-50 text-red-800 border border-red-200';}fb.classList.remove('hidden');});var sd=document.getElementById('quiz-score');sd.textContent='Score: '+score+' / '+QUIZ_DATA.length+'  ('+Math.round(score/QUIZ_DATA.length*100)+'%)';sd.classList.remove('hidden');}
+					function checkQuiz(){var score=0;QUIZ_DATA.forEach(function(q,i){var sel=document.querySelector('input[name="q'+(i+1)+'"]:checked');var fb=document.getElementById('q'+(i+1)+'-feedback');if(!sel){fb.innerHTML='Please select an answer.';fb.className='mt-3 p-3 rounded-lg text-sm bg-yellow-50 text-yellow-800 border border-yellow-200';fb.classList.remove('hidden');return;}var val=parseInt(sel.value);if(val===q.correct){fb.innerHTML='<strong>Correct!</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-green-50 text-green-800 border border-green-200';score++;}else{fb.innerHTML='<strong>Not quite.</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-red-50 text-red-800 border border-red-200';}fb.classList.remove('hidden');});var sd=document.getElementById('quiz-score');sd.textContent='Score: '+score+' / '+QUIZ_DATA.length+'  ('+Math.round(score/QUIZ_DATA.length*100)+'%)';sd.classList.remove('hidden');if(score===QUIZ_DATA.length&&window.markLessonComplete){window.markLessonComplete();sd.textContent+='  · Lesson complete ✓';}}
 					function resetQuiz(){document.querySelectorAll('#quiz input[type=radio]').forEach(function(r){r.checked=false;});QUIZ_DATA.forEach(function(_,i){document.getElementById('q'+(i+1)+'-feedback').className='hidden';});document.getElementById('quiz-score').classList.add('hidden');}
 				</script>
 
@@ -277,7 +392,7 @@ prompt = f"Answer using only this context:\n{context}\n\nQuestion: {question}"
 						</button>
 						<div class="flex gap-3">
 							<a href="natural_language_processing.html" class="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50 hover:border-indigo-300 transition"><i class="fa-solid fa-arrow-left text-xs"></i> NLP</a>
-							<a href="../../index.html" class="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold hover:bg-indigo-700 transition">Back to Home <i class="fa-solid fa-house text-xs"></i></a>
+							<a href="adversarial_ai.html" class="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold hover:bg-indigo-700 transition">Adversarial AI <i class="fa-solid fa-arrow-right text-xs"></i></a>
 						</div>
 					</div>
 				</div>
@@ -297,6 +412,11 @@ prompt = f"Answer using only this context:\n{context}\n\nQuestion: {question}"
 							btn.innerHTML = '<i class="fa-regular fa-circle-check text-lg"></i> <span>Mark as Complete</span>';
 						}
 					}
+					// A perfect quiz score also marks the lesson complete.
+					window.markLessonComplete = function() {
+						try { localStorage.setItem(KEY, '1'); } catch (e) { }
+						sync();
+					};
 					window.toggleComplete = function() {
 						try { localStorage.setItem(KEY, localStorage.getItem(KEY) === '1' ? '0' : '1'); } catch (e) { }
 						sync();

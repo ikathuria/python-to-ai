@@ -12,147 +12,12 @@
 	<meta property="og:url" content="https://ikathuria.github.io/python-to-ai/app/pages/history_of_ai.html">
 
 	<!-- Tailwind CSS -->
-	<script src="https://cdn.tailwindcss.com"></script>
-	<script src="../styles/tw-config.js"></script>
 
 	<!-- FontAwesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 	<!-- Google Fonts -->
 
-	<style type="text/tailwindcss">
-		body {
-			
-		}
-
-		.nav-link {
-			@apply px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors cursor-pointer;
-		}
-
-		.nav-link.active {
-			@apply text-indigo-700 bg-indigo-50 font-bold;
-		}
-
-		/* Timeline */
-		.timeline {
-			position: relative;
-		}
-
-		.timeline::before {
-			content: '';
-			position: absolute;
-			left: 1.25rem;
-			top: 0;
-			bottom: 0;
-			width: 8px;
-			background: var(--rainbow-h);
-			border: 1px solid var(--border);
-			border-radius: 2px;
-		}
-
-		@media (min-width: 768px) {
-			.timeline::before {
-				left: 50%;
-				transform: translateX(-50%);
-			}
-		}
-
-		.milestone {
-			opacity: 0;
-			transform: translateY(40px);
-			transition: opacity 0.7s ease, transform 0.7s ease;
-		}
-
-		.milestone.visible {
-			opacity: 1;
-			transform: none;
-		}
-
-		.dot {
-			@apply absolute w-10 h-10 flex items-center justify-center z-10;
-			background: var(--surface); color: var(--text); border: var(--bw) solid var(--border); border-radius: var(--radius-sm); box-shadow: var(--shadow-pop);
-			left: 0.1rem;
-		}
-
-		@media (min-width: 768px) {
-			.dot {
-				left: 50%;
-				transform: translateX(-50%);
-			}
-		}
-
-		/* Era styles: the cards age with the decade */
-		.era-old, .era-mid, .era-new, .era-now {
-			background: var(--surface);
-			border: var(--bw) solid var(--border);
-			box-shadow: var(--shadow-pop);
-			border-radius: var(--radius-sm);
-		}
-
-		.era-old {
-			background: var(--case);
-		}
-
-		.era-old .year,
-		.era-old h3 {
-			font-family: 'Special Elite', monospace;
-		}
-
-		.era-now {
-			background: var(--tint);
-		}
-
-		.newspaper {
-			font-family: 'Special Elite', monospace;
-			background: var(--surface); border: var(--bw) solid var(--border); padding: 1rem; margin: .75rem 0; color: var(--text); font-size: .875rem;
-		}
-
-		.hype {
-			background: var(--surface); border: var(--bw) solid var(--border); border-left: 8px solid var(--rb-red); padding: .75rem; margin: .75rem 0; font-size: .9375rem; color: var(--text);
-		}
-
-		.reality {
-			background: var(--surface); border: var(--bw) solid var(--border); border-left: 8px solid var(--rb-green); padding: .75rem; margin: .75rem 0; font-size: .9375rem; color: var(--text);
-		}
-
-		/* Presentation mode (for screen recording) */
-		#present {
-			@apply fixed inset-0 z-[100] hidden items-center justify-center p-6;
-			background: var(--screen);
-		}
-
-		#present.on {
-			display: flex;
-		}
-
-		#present .slide {
-			@apply max-w-3xl w-full p-8 md:p-12;
-			animation: pop 0.6s ease;
-		}
-
-		@keyframes pop {
-			from {
-				opacity: 0;
-				transform: scale(0.92) translateY(20px);
-			}
-
-			to {
-				opacity: 1;
-				transform: none;
-			}
-		}
-
-		@media (prefers-reduced-motion: reduce) {
-
-			.milestone,
-			#present .slide {
-				transition: none;
-				animation: none;
-				opacity: 1;
-				transform: none;
-			}
-		}
-	</style>
 	<link rel="canonical" href="https://ikathuria.github.io/python-to-ai/app/pages/history_of_ai.html">
 	<meta property="og:image" content="https://ikathuria.github.io/python-to-ai/app/images/og/history_of_ai.png">
 	<meta name="twitter:card" content="summary_large_image">
@@ -162,6 +27,204 @@
 	<link rel="stylesheet" href="../../app/styles/brand.css">
 	<link rel="stylesheet" href="../../app/styles/site.css">
 	<script src="../../app/styles/site.js"></script>
+	<link rel="stylesheet" href="../../app/styles/lessons.css">
+	<style>
+		body {
+		}
+
+		.nav-link {
+		  cursor: pointer;
+		  border-radius: 0.375rem;
+		  padding-left: 0.75rem;
+		  padding-right: 0.75rem;
+		  padding-top: 0.5rem;
+		  padding-bottom: 0.5rem;
+		  font-size: 0.875rem;
+		  line-height: 1.25rem;
+		  font-weight: 500;
+		  color: var(--muted);
+		  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+		  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+		  transition-duration: 150ms;
+		}
+
+		.nav-link:hover {
+		  background-color: var(--bg);
+		  color: var(--link);
+		}
+
+		.nav-link.active {
+		  background-color: var(--tint);
+		  font-weight: 700;
+		  color: var(--link-strong);
+		}
+
+		/* Timeline */
+
+		.timeline {
+		  position: relative;
+		}
+
+		.timeline::before {
+		  content: '';
+		  position: absolute;
+		  left: 1.25rem;
+		  top: 0;
+		  bottom: 0;
+		  width: 8px;
+		  background: var(--rainbow-h);
+		  border: 1px solid var(--border);
+		  border-radius: 2px;
+		}
+
+		@media (min-width: 768px) {
+		  .timeline::before {
+		    left: 50%;
+		    transform: translateX(-50%);
+		  }
+		}
+
+		.milestone {
+		  opacity: 0;
+		  transform: translateY(40px);
+		  transition: opacity 0.7s ease, transform 0.7s ease;
+		}
+
+		.milestone.visible {
+		  opacity: 1;
+		  transform: none;
+		}
+
+		.dot {
+		  position: absolute;
+		  z-index: 10;
+		  display: flex;
+		  height: 2.5rem;
+		  width: 2.5rem;
+		  align-items: center;
+		  justify-content: center;
+		  background: var(--surface);
+		  color: var(--text);
+		  border: var(--bw) solid var(--border);
+		  border-radius: var(--radius-sm);
+		  box-shadow: var(--shadow-pop);
+		  left: 0.1rem;
+		}
+
+		@media (min-width: 768px) {
+		  .dot {
+		    left: 50%;
+		    transform: translateX(-50%);
+		  }
+		}
+
+		/* Era styles: the cards age with the decade */
+
+		.era-old, .era-mid, .era-new, .era-now {
+		  background: var(--surface);
+		  border: var(--bw) solid var(--border);
+		  box-shadow: var(--shadow-pop);
+		  border-radius: var(--radius-sm);
+		}
+
+		.era-old {
+		  background: var(--case);
+		}
+
+		.era-old .year,
+				.era-old h3 {
+		  font-family: 'Special Elite', monospace;
+		}
+
+		.era-now {
+		  background: var(--tint);
+		}
+
+		.newspaper {
+		  font-family: 'Special Elite', monospace;
+		  background: var(--surface);
+		  border: var(--bw) solid var(--border);
+		  padding: 1rem;
+		  margin: .75rem 0;
+		  color: var(--text);
+		  font-size: .875rem;
+		}
+
+		.hype {
+		  background: var(--surface);
+		  border: var(--bw) solid var(--border);
+		  border-left: 8px solid var(--rb-red);
+		  padding: .75rem;
+		  margin: .75rem 0;
+		  font-size: .9375rem;
+		  color: var(--text);
+		}
+
+		.reality {
+		  background: var(--surface);
+		  border: var(--bw) solid var(--border);
+		  border-left: 8px solid var(--rb-green);
+		  padding: .75rem;
+		  margin: .75rem 0;
+		  font-size: .9375rem;
+		  color: var(--text);
+		}
+
+		/* Presentation mode (for screen recording) */
+
+		#present {
+		  position: fixed;
+		  inset: 0px;
+		  z-index: 100;
+		  display: none;
+		  align-items: center;
+		  justify-content: center;
+		  padding: 1.5rem;
+		  background: var(--screen);
+		}
+
+		#present.on {
+		  display: flex;
+		}
+
+		#present .slide {
+		  width: 100%;
+		  max-width: 48rem;
+		  padding: 2rem;
+		}
+
+		@media (min-width: 768px) {
+		  #present .slide {
+		    padding: 3rem;
+		  }
+		}
+
+		#present .slide {
+		  animation: pop 0.6s ease;
+		}
+
+		@keyframes pop {
+		  from {
+		    opacity: 0;
+		    transform: scale(0.92) translateY(20px);
+		  }
+
+		  to {
+		    opacity: 1;
+		    transform: none;
+		  }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+		  .milestone,
+					#present .slide {
+		    transition: none;
+		    animation: none;
+		    opacity: 1;
+		    transform: none;
+		  }
+		}
+	</style>
 </head>
 
 <body class="bg-gray-50 min-h-screen flex flex-col">
@@ -185,6 +248,7 @@
 					<a href="time_series.html"><span>07</span>Time series</a>
 					<a href="natural_language_processing.html"><span>08</span>Language (NLP)</a>
 					<a href="generative_ai.html"><span>09</span>Generative AI</a>
+					<a href="adversarial_ai.html"><span>10</span>Adversarial AI</a>
 					</nav>
 				</details>
 				<a class="mb-link" href="videos.html">Videos</a>
@@ -206,6 +270,7 @@
 		<a href="time_series.html"><span>07</span>Time series</a>
 		<a href="natural_language_processing.html"><span>08</span>Language (NLP)</a>
 		<a href="generative_ai.html"><span>09</span>Generative AI</a>
+		<a href="adversarial_ai.html"><span>10</span>Adversarial AI</a>
 		<a href="videos.html"><span>▶</span>Videos</a>
 		<a href="https://github.com/ikathuria/python-to-ai" target="_blank" rel="noopener"><span>{}</span>GitHub</a>
 		</nav>

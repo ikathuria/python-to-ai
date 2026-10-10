@@ -15,7 +15,7 @@
 	--stripe-line: #E6E6E6;   /* window title-bar stripes */
 
 
-	/* Lesson-page helpers (mapped onto Tailwind's gray/indigo in tw-config.js) */
+	/* Lesson-page helpers (mapped onto Tailwind's gray/indigo in tailwind.config.js) */
 	--line: #CFCBC0;          /* hairlines inside lessons */
 	--tint: #FFF4D6;          /* soft highlight background (yellow stripe, tinted) */
 	--tint-strong: #FDB827;

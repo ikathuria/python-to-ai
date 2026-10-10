@@ -7,6 +7,9 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGES_DIR = ROOT / "app" / "pages"
 ONNX_DIR  = ROOT / "app" / "onnx_models"
 
+sys.path.insert(0, str(ROOT / "scripts"))
+from lessons import LESSONS  # noqa: E402
+
 
 def test_root_html_files_exist():
     assert (ROOT / "index.html").is_file()
@@ -49,20 +52,21 @@ def test_export_script_runs(tmp_path):
 
 
 def test_nav_links_consistent():
-    """Every content page should link to all other topic pages."""
-    expected_links = [
-        "python.html", "ml_basics.html", "supervised_learning.html",
-        "unsupervised_learning.html", "deep_learning.html",
-        "computer_vision.html", "natural_language_processing.html",
-        "recommendation_system.html", "time_series.html",
-        "generative_ai.html",
-    ]
-    content_pages = [
-        PAGES_DIR / p for p in expected_links
-        if (PAGES_DIR / p).stat().st_size > 500
-    ]
-    for page in content_pages:
+    """Every lesson page should link to all other lesson pages."""
+    expected_links = [f for _, f, _, _ in LESSONS]
+    for name in expected_links:
+        page = PAGES_DIR / name
+        assert page.is_file(), f"Missing lesson page {name}"
         html = page.read_text(encoding="utf-8", errors="ignore")
         for link in expected_links:
-            if link != page.name:
-                assert link in html, f"{page.name} is missing nav link to {link}"
+            if link != name:
+                assert link in html, f"{name} is missing nav link to {link}"
+
+
+def test_nav_in_sync():
+    """Menus and previous/next links must match scripts/lessons.py (fix: python scripts/sync_nav.py)."""
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "sync_nav.py"), "--check"],
+        capture_output=True, text=True,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
