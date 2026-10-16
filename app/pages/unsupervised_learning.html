@@ -175,6 +175,9 @@
 		  display: none;
 		}
 	</style>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]})"></script>
 </head>
 
 <body class="bg-gray-50 min-h-screen flex flex-col">
@@ -185,7 +188,7 @@
 			<a class="wordmark" href="../../index.html"><i aria-hidden="true"></i>Python to AI</a>
 			<div class="mb-desktop">
 				<a class="mb-link" href="history_of_ai.html">History</a>
-				<details>
+				<details class="is-current">
 					<summary>Lessons ▾</summary>
 					<nav class="dropdown" aria-label="Lessons">
 					<a href="python.html"><span>00</span>Python basics</a>
@@ -239,7 +242,6 @@
 						<a href="#kmeans-viz" class="sidebar-link" onclick="setActive(this)"> K-Means Playground</a>
 						<a href="#pca" class="sidebar-link" onclick="setActive(this)">PCA</a>
 						<a href="#hmm" class="sidebar-link" onclick="setActive(this)">Hidden Markov Models</a>
-											<a href="#quiz" class="sidebar-link" onclick="setActive(this)">Knowledge Check</a>
 					</nav>
 				</div>
 			</aside>
@@ -253,6 +255,12 @@
 					<p class="text-lg text-gray-600 mb-4">
 						Unsupervised learning finds hidden patterns or intrinsic structures in input data. Unlike supervised learning, there are no labeled outputs. Common tasks include clustering and dimensionality reduction.
 					</p>
+					<p class="mb-4">The main families of unsupervised learning are:</p>
+					<ul>
+						<li><strong>Clustering:</strong> grouping similar data points together (K-Means).</li>
+						<li><strong>Association:</strong> finding rules about which items tend to occur together.</li>
+						<li><strong>Dimensionality reduction:</strong> compressing many features into fewer ones while keeping the important structure (PCA).</li>
+					</ul>
 					<p class="text-sm text-gray-500">
 						The K-Means demo loads a tiny ONNX model trained on real Iris petal measurements (see <code class="text-red-500">scripts/export_tutorial_onnx.py</code>).
 					</p>
@@ -262,6 +270,15 @@
 				<section id="clustering" class="content-section">
 					<h2><i class="fa-solid fa-shapes mr-3 text-indigo-500"></i> K-Means Clustering</h2>
 					<p>K-Means groups data into 'k' non-overlapping subgroups (clusters) distinct from each other. It tries to make the intra-cluster data points as similar as possible while keeping the clusters as different as possible.</p>
+					<p>The algorithm assigns each point to its nearest centroid, then moves each centroid to the average of its points. It converges when the centroids stop moving. Each iteration has two steps.</p>
+					<h3>1. Assignment step</h3>
+					<p>Measure the distance from each data point to every centroid and assign the point to the nearest one. The usual choice is Euclidean distance between a point \(x\) and a centroid \(c\):</p>
+					$$d(x, c) = \sqrt{\sum_{i=1}^{n} (x_i - c_i)^2}$$
+					<p>Here \(x_i\) and \(c_i\) are the feature values of the point and the centroid.</p>
+					<h3>2. Update step</h3>
+					<p>Recompute each centroid as the mean of the \(N\) points assigned to it:</p>
+					$$c = \frac{1}{N} \sum_{j=1}^{N} x_j$$
+					<p>Repeat both steps until the centroids stabilise. The result is a set of clusters in which every point belongs to its nearest centroid.</p>
 
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
 						<!-- Code Snippet -->
@@ -419,28 +436,9 @@ print(pca.explained_variance_ratio_)  # % variance per component</code></pre>
 				<section id="hmm" class="content-section">
 					<h2><i class="fa-solid fa-link mr-3 text-indigo-500"></i> Hidden Markov Models</h2>
 					<p>A Hidden Markov Model (HMM) is a statistical model in which the system being modeled is assumed to be a Markov process with unobserved (hidden) states.</p>
+					<p>In other words, it is a probabilistic model for describing a random process. What you observe at each step does not directly reveal the underlying state. Instead, each hidden state produces observations according to a probability distribution, and the model works backwards from those observations to reason about the states.</p>
 				</section>
 
-					<!-- Knowledge Check -->
-					<section id="quiz" class="content-section">
-						<h2><i class="fa-solid fa-circle-question mr-3 text-indigo-500"></i> Knowledge Check</h2>
-						<p>Test your understanding — pick the best answer, then click Check.</p>
-						<div class="space-y-4 mt-4">
-							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">1. What quantity does K-Means minimise?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Number of cluster centres</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Within-cluster sum of squared distances (inertia)</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Between-cluster Euclidean distance</span></label></div><div id="q1-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
-							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">2. What does PCA's first principal component represent?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>The feature with the highest individual variance</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>The direction of maximum variance across the full dataset</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>The mean vector of the dataset</span></label></div><div id="q2-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
-							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">3. What is the elbow method used for in K-Means?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Choosing the learning rate</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Choosing the number of clusters k</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Detecting outliers before clustering</span></label></div><div id="q3-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
-						</div>
-						<div class="flex items-center gap-4 mt-5">
-							<button onclick="checkQuiz()" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium transition">Check Answers</button>
-							<button onclick="resetQuiz()" class="px-4 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 text-sm transition">Reset</button>
-						</div>
-						<div id="quiz-score" class="hidden mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl text-indigo-800 font-semibold text-center text-lg"></div>
-					</section>
-					<script>
-						var QUIZ_DATA=[{correct:1,exp:"K-Means iteratively reassigns points to the nearest centroid and moves centroids to minimise total squared intra-cluster distance."},{correct:1,exp:"PCA finds orthogonal axes that maximise captured variance. PC1 explains more variance than any other single direction."},{correct:1,exp:"Plot inertia vs k. The elbow — where inertia stops falling quickly — is a good candidate for k."}];
-						function checkQuiz(){var score=0;QUIZ_DATA.forEach(function(q,i){var sel=document.querySelector('input[name="q'+(i+1)+'"]:checked');var fb=document.getElementById('q'+(i+1)+'-feedback');if(!sel){fb.innerHTML='Please select an answer.';fb.className='mt-3 p-3 rounded-lg text-sm bg-yellow-50 text-yellow-800 border border-yellow-200';fb.classList.remove('hidden');return;}var val=parseInt(sel.value);if(val===q.correct){fb.innerHTML='<strong>Correct!</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-green-50 text-green-800 border border-green-200';score++;}else{fb.innerHTML='<strong>Not quite.</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-red-50 text-red-800 border border-red-200';}fb.classList.remove('hidden');});var sd=document.getElementById('quiz-score');sd.textContent='Score: '+score+' / '+QUIZ_DATA.length+'  ('+Math.round(score/QUIZ_DATA.length*100)+'%)';sd.classList.remove('hidden');if(score===QUIZ_DATA.length&&window.markLessonComplete){window.markLessonComplete();sd.textContent+='  · Lesson complete ✓';}}
-						function resetQuiz(){document.querySelectorAll('input[type=radio]').forEach(function(r){r.checked=false;});QUIZ_DATA.forEach(function(_,i){var fb=document.getElementById('q'+(i+1)+'-feedback');fb.className='hidden';});document.getElementById('quiz-score').classList.add('hidden');}
-					</script>
 			
 				<!-- Module Progress & Navigation -->
 				<div class="mt-12 pt-8 border-t border-gray-200">
@@ -470,7 +468,6 @@ print(pca.explained_variance_ratio_)  # % variance per component</code></pre>
 							btn.innerHTML = '<i class=\"fa-regular fa-circle-check text-lg\"></i> <span>Mark as Complete</span>';
 						}
 					}
-					// A perfect quiz score also marks the lesson complete.
 					window.markLessonComplete = function() {
 						try { localStorage.setItem(KEY, '1'); } catch (e) { }
 						sync();

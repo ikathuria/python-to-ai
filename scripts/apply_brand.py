@@ -33,6 +33,7 @@ def menubar(prefix, pages_prefix, current):
     items = "\n".join(
         f'\t\t\t\t\t<a href="{pages_prefix}{f}"{cur(f)}><span>{n}</span>{t}</a>' for n, f, t in LESSONS
     )
+    in_lessons = ' class="is-current"' if any(f == current for _, f, _ in LESSONS) else ""
     mobile = "\n".join(
         f'\t\t<a href="{pages_prefix}{f}"{cur(f)}><span>{n}</span>{t}</a>' for n, f, t in LESSONS
     )
@@ -42,7 +43,7 @@ def menubar(prefix, pages_prefix, current):
 \t\t\t<a class="wordmark" href="{prefix}index.html"><i aria-hidden="true"></i>Python to AI</a>
 \t\t\t<div class="mb-desktop">
 \t\t\t\t<a class="mb-link" href="{pages_prefix}history_of_ai.html"{cur("history_of_ai.html")}>History</a>
-\t\t\t\t<details>
+\t\t\t\t<details{in_lessons}>
 \t\t\t\t\t<summary>Lessons ▾</summary>
 \t\t\t\t\t<nav class="dropdown" aria-label="Lessons">
 {items}

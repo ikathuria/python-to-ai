@@ -165,7 +165,7 @@
 			<a class="wordmark" href="../../index.html"><i aria-hidden="true"></i>Python to AI</a>
 			<div class="mb-desktop">
 				<a class="mb-link" href="history_of_ai.html">History</a>
-				<details>
+				<details class="is-current">
 					<summary>Lessons ▾</summary>
 					<nav class="dropdown" aria-label="Lessons">
 					<a href="python.html"><span>00</span>Python basics</a>
@@ -217,9 +217,10 @@
 						<a href="#next-word" class="sidebar-link">Try it: next word</a>
 						<a href="#baby-gpt" class="sidebar-link">Baby GPT</a>
 						<a href="#rag" class="sidebar-link">RAG</a>
+						<a href="#autoencoders" class="sidebar-link">Autoencoders</a>
+						<a href="#gans" class="sidebar-link">GANs</a>
 						<a href="#diffusion" class="sidebar-link">Making images</a>
 						<a href="#risks" class="sidebar-link">Deepfakes &amp; risks</a>
-						<a href="#quiz" class="sidebar-link">Knowledge Check</a>
 					</nav>
 				</div>
 			</aside>
@@ -337,6 +338,50 @@ prompt = f"Answer using only this context:\n{context}\n\nQuestion: {question}"
 					<p>Notice the search step is the same embeddings + cosine similarity you met in lessons 04 and 08. See <code>7 Generative AI/RAG</code> for the full and LangChain versions.</p>
 				</section>
 
+				<section id="autoencoders" class="content-section">
+					<h2><i class="fa-solid fa-compress mr-3 text-indigo-500"></i> Autoencoders: compress, then rebuild</h2>
+					<p>An autoencoder is a feedforward neural network whose target output is its own input. It squeezes the input into a small <strong>code</strong> (the latent-space representation) and then rebuilds the input from that code alone. It has three parts: the <strong>encoder</strong>, the <strong>code</strong> and the <strong>decoder</strong>.</p>
+					<h3>Three key properties</h3>
+					<ul class="list-disc pl-4 space-y-1">
+						<li><strong>Data-specific:</strong> it only compresses data similar to what it was trained on. A digit autoencoder won't compress landscape photos, which is how it differs from gzip.</li>
+						<li><strong>Lossy:</strong> the output is a close but degraded copy of the input. If you need lossless compression, look elsewhere.</li>
+						<li><strong>Self-supervised:</strong> no labels needed. The training data supplies its own target.</li>
+					</ul>
+					<h3>Architecture and hyperparameters</h3>
+					<p>The encoder and decoder are usually fully connected networks, with the decoder mirroring the encoder. The mirror is a habit, not a rule: the only requirement is that input and output have the same size. Training is ordinary backpropagation. You choose four things:</p>
+					<ul class="list-disc pl-4 space-y-1">
+						<li><strong>Code size:</strong> the number of nodes in the middle layer. Smaller means more compression.</li>
+						<li><strong>Number of layers:</strong> as deep as you like.</li>
+						<li><strong>Nodes per layer:</strong> usually a "sandwich" that narrows through the encoder and widens again in the decoder (a stacked autoencoder).</li>
+						<li><strong>Loss function:</strong> binary cross-entropy if inputs lie in [0, 1], otherwise mean squared error.</li>
+					</ul>
+					<h3>Types of autoencoder</h3>
+					<ul class="list-disc pl-4 space-y-1">
+						<li><strong>Variational (VAE):</strong> the latent space is continuous and assumed to follow a distribution such as a normal. Sample from it, run the sample through the decoder, and you get brand new data. This is what makes a VAE generative.</li>
+						<li><strong>Denoising:</strong> trained to rebuild the clean input from a corrupted copy, so it learns noise-robust features. Used for image denoising and anomaly detection.</li>
+						<li><strong>Sparse:</strong> forces only a few hidden units to be active, giving a compact, more interpretable representation useful for feature learning and dimensionality reduction.</li>
+					</ul>
+				</section>
+
+				<section id="gans" class="content-section">
+					<h2><i class="fa-solid fa-masks-theater mr-3 text-indigo-500"></i> GANs: a forger and a detective</h2>
+					<p>A Generative Adversarial Network (Ian Goodfellow, 2014) is two neural networks competing against each other. <strong>Generative</strong> means it learns how data is produced. <strong>Adversarial</strong> means it trains in a contest. <strong>Networks</strong> means deep neural nets do the work.</p>
+					<h3>Why were GANs invented?</h3>
+					<p>Ordinary classifiers can be fooled by a tiny amount of noise, and they are often <em>more</em> confident in the wrong answer than in the right one. They learn from limited data, so they overfit, and their input-to-output mapping is close to linear, so a small nudge in feature space can cross a class boundary. Pitting a generator against a discriminator was a way to learn the data's real structure.</p>
+					<h3>The two players</h3>
+					<ul class="list-disc pl-4 space-y-1">
+						<li><strong>Generator:</strong> makes new samples (images, audio) and tries to fool the discriminator. It is trained while the discriminator is held fixed, using the discriminator's verdicts to improve.</li>
+						<li><strong>Discriminator:</strong> decides whether each sample is real (from the training set) or fake (from the generator). It is trained on real data and on the generator's fakes while the generator is held fixed.</li>
+					</ul>
+					<p>The two take turns, and each round both get better at their job.</p>
+					<h3>Types of GAN</h3>
+					<ul class="list-disc pl-4 space-y-1">
+						<li><strong>Vanilla GAN:</strong> the simplest kind. Both networks are plain multi-layer perceptrons, optimised with stochastic gradient descent.</li>
+						<li><strong>Conditional GAN (CGAN):</strong> adds an extra input <code>y</code> (such as a label) to the generator, and the labels also go to the discriminator, so you can ask for a specific kind of output.</li>
+						<li><strong>Deep Convolutional GAN (DCGAN):</strong> one of the most popular and successful versions. It uses ConvNets instead of MLPs, replaces max pooling with strided convolutions, and avoids fully connected layers.</li>
+					</ul>
+				</section>
+
 				<section id="diffusion" class="content-section">
 					<h2><i class="fa-solid fa-palette mr-3 text-indigo-500"></i> Making images: diffusion</h2>
 					<p>Image generators like Stable Diffusion are trained by taking real photos, adding random noise a little at a time until they're pure static, and teaching a network to <strong>undo one step of noise</strong>. To make a new picture you start from fresh static and run the "undo" step many times. Your text prompt steers each step towards images that match the words.</p>
@@ -360,28 +405,6 @@ prompt = f"Answer using only this context:\n{context}\n\nQuestion: {question}"
 					</div>
 					<p class="mt-4">Detection is also machine learning. <code>7 Generative AI/Deepfake_Detection</code> trains a CNN (lesson 06) to spot the small artefacts generators leave behind.</p>
 				</section>
-
-				<section id="quiz" class="content-section">
-					<h2><i class="fa-solid fa-circle-question mr-3 text-indigo-500"></i> Knowledge Check</h2>
-					<p>Test your understanding — pick the best answer, then click Check.</p>
-					<div class="space-y-4 mt-4" id="quiz-questions"></div>
-					<div class="flex items-center gap-4 mt-5">
-						<button onclick="checkQuiz()" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium transition">Check Answers</button>
-						<button onclick="resetQuiz()" class="px-4 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 text-sm transition">Reset</button>
-					</div>
-					<div id="quiz-score" class="hidden mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl text-indigo-800 font-semibold text-center text-lg"></div>
-				</section>
-				<script>
-					var QUIZ_DATA=[
-						{q:"What does a GPT-style model do at each step when writing?",opts:["Looks the answer up in a database","Scores every possible next token and picks one","Writes the whole reply at once, then checks it"],correct:1,exp:"It predicts one token at a time, appends it, and repeats. Everything else is that loop."},
-						{q:"What happens when you turn temperature up?",opts:["Less likely words get picked more often","The model gets more accurate","The model reads more context"],correct:0,exp:"Temperature flattens the odds, so long shots win more often: more variety, and eventually nonsense."},
-						{q:"Why use RAG?",opts:["To make the model run faster","To train the model on new data","To give the model relevant documents so it answers from facts"],correct:2,exp:"Retrieval pastes relevant text into the prompt. No retraining needed, and fewer made-up answers."},
-						{q:"How does a diffusion model create a new image?",opts:["It stitches together pieces of training photos","It starts from random noise and removes it step by step","It draws outlines and colours them in"],correct:1,exp:"It learned to undo noise, so it starts from static and denoises towards something matching the prompt."}
-					];
-					(function(){var box=document.getElementById('quiz-questions');QUIZ_DATA.forEach(function(q,i){var n=i+1;var h='<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">'+n+'. '+q.q+'</p><div class="space-y-1">';q.opts.forEach(function(o,j){h+='<label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q'+n+'" value="'+j+'" class="mt-1 accent-indigo-600 flex-shrink-0"><span>'+o+'</span></label>';});h+='</div><div id="q'+n+'-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>';box.insertAdjacentHTML('beforeend',h);});})();
-					function checkQuiz(){var score=0;QUIZ_DATA.forEach(function(q,i){var sel=document.querySelector('input[name="q'+(i+1)+'"]:checked');var fb=document.getElementById('q'+(i+1)+'-feedback');if(!sel){fb.innerHTML='Please select an answer.';fb.className='mt-3 p-3 rounded-lg text-sm bg-yellow-50 text-yellow-800 border border-yellow-200';fb.classList.remove('hidden');return;}var val=parseInt(sel.value);if(val===q.correct){fb.innerHTML='<strong>Correct!</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-green-50 text-green-800 border border-green-200';score++;}else{fb.innerHTML='<strong>Not quite.</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-red-50 text-red-800 border border-red-200';}fb.classList.remove('hidden');});var sd=document.getElementById('quiz-score');sd.textContent='Score: '+score+' / '+QUIZ_DATA.length+'  ('+Math.round(score/QUIZ_DATA.length*100)+'%)';sd.classList.remove('hidden');if(score===QUIZ_DATA.length&&window.markLessonComplete){window.markLessonComplete();sd.textContent+='  · Lesson complete ✓';}}
-					function resetQuiz(){document.querySelectorAll('#quiz input[type=radio]').forEach(function(r){r.checked=false;});QUIZ_DATA.forEach(function(_,i){document.getElementById('q'+(i+1)+'-feedback').className='hidden';});document.getElementById('quiz-score').classList.add('hidden');}
-				</script>
 
 				<!-- Module Progress & Navigation -->
 				<div class="mt-12 pt-8 border-t border-gray-200">
@@ -412,7 +435,6 @@ prompt = f"Answer using only this context:\n{context}\n\nQuestion: {question}"
 							btn.innerHTML = '<i class="fa-regular fa-circle-check text-lg"></i> <span>Mark as Complete</span>';
 						}
 					}
-					// A perfect quiz score also marks the lesson complete.
 					window.markLessonComplete = function() {
 						try { localStorage.setItem(KEY, '1'); } catch (e) { }
 						sync();

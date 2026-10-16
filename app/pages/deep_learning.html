@@ -172,6 +172,9 @@
 		  display: none;
 		}
 	</style>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]})"></script>
 </head>
 
 <body class="bg-gray-50 min-h-screen flex flex-col">
@@ -182,7 +185,7 @@
 			<a class="wordmark" href="../../index.html"><i aria-hidden="true"></i>Python to AI</a>
 			<div class="mb-desktop">
 				<a class="mb-link" href="history_of_ai.html">History</a>
-				<details>
+				<details class="is-current">
 					<summary>Lessons ▾</summary>
 					<nav class="dropdown" aria-label="Lessons">
 					<a href="python.html"><span>00</span>Python basics</a>
@@ -233,6 +236,7 @@
 					<nav class="space-y-1">
 						<a href="#intro" class="sidebar-link active" onclick="setActive(this)">Overview</a>
 						<a href="#neural-nets" class="sidebar-link" onclick="setActive(this)">Neural Networks</a>
+						<a href="#hyperparameters" class="sidebar-link" onclick="setActive(this)">Hyperparameters</a>
 						<a href="#activations" class="sidebar-link" onclick="setActive(this)">Activation Functions</a>
 						<a href="#training" class="sidebar-link" onclick="setActive(this)">Training</a>
 						<a href="#regularisation" class="sidebar-link" onclick="setActive(this)">Regularisation</a>
@@ -240,7 +244,6 @@
 						<a href="#gradient-descent" class="sidebar-link" onclick="setActive(this)">Gradient Descent</a>
 						<a href="#activation-viz" class="sidebar-link" onclick="setActive(this)">Activations</a>
 						<a href="#projects" class="sidebar-link" onclick="setActive(this)">Projects</a>
-											<a href="#quiz" class="sidebar-link" onclick="setActive(this)">Knowledge Check</a>
 					</nav>
 				</div>
 			</aside>
@@ -268,6 +271,16 @@
 					<p>
 						Stacking many such layers allows the network to learn increasingly abstract representations — edges → shapes → objects in a vision model, or tokens → phrases → semantics in a language model.
 					</p>
+
+					<p>Neural networks are loosely modelled on biological neurons and the nervous system. The architecture is a large number of simple processing nodes (<strong>neurons</strong>) organised in layers. Each node connects to several nodes in the previous and next layer: it receives inputs, processes them and passes its output on.</p>
+
+					<h3>Parts of a Neural Network</h3>
+					<ul>
+						<li><strong>Input layer:</strong> accepts the data. It has one neuron per feature your network uses to make predictions.</li>
+						<li><strong>Hidden layers:</strong> every layer between input and output.</li>
+						<li><strong>Output layer:</strong> produces the prediction. For regression it has one neuron per predicted value. For binary classification, one output neuron. For multi-class classification, one neuron per class.</li>
+					</ul>
+					<p>The number of hidden layers and neurons depends on the problem, and finding a good setup is largely trial and error. Using the same number of neurons in every hidden layer is usually enough. Sometimes a large first layer followed by smaller ones works better, because the first layer learns many low-level features that feed a few higher-order ones. As a rule of thumb, 1 to 5 hidden layers with 1 to 100 neurons each serves most problems. Start there and add capacity until the model starts to overfit. Too few layers or neurons and the model cannot learn the patterns in your data at all.</p>
 
 					<h3>The Perceptron</h3>
 					<p>The simplest unit: a single neuron with a step activation. Not learnable for non-linear problems, but the building block for everything else.</p>
@@ -308,6 +321,26 @@ y = softmax(W2 @ h + b2)           # class probabilities
 print("Probabilities:", y)          # e.g. [0.52, 0.48]</code></pre>
 				</section>
 
+				<!-- Hyperparameters -->
+				<section id="hyperparameters" class="content-section">
+					<h2><i class="fa-solid fa-sliders mr-3 text-indigo-500"></i> Hyperparameters</h2>
+					<p>Hyperparameters are settings you choose before training rather than values the network learns. Three matter in almost every project.</p>
+
+					<h3>Batch Size</h3>
+					<p>The number of training examples used in one iteration, i.e. how many samples are processed before the model parameters are updated. A dataset can be split into one or more batches:</p>
+					<ul>
+						<li><strong>Batch gradient descent:</strong> batch size equals the size of the training set.</li>
+						<li><strong>Stochastic gradient descent:</strong> batch size is 1.</li>
+						<li><strong>Mini-batch gradient descent:</strong> batch size is between 1 and the training set size. Popular choices are 32, 64 and 128.</li>
+					</ul>
+
+					<h3>Number of Epochs</h3>
+					<p>An epoch is one full pass through the training dataset, in which every sample is used to update the parameters (usually split across several batches). The learning algorithm typically runs for many epochs, often hundreds or thousands, until the error is sufficiently reduced.</p>
+
+					<h3>Learning Rate</h3>
+					<p>The learning rate sets the size of the weight adjustment at each iteration, based on the estimated error. It is the step size of training. Too high, and the model may jump to a poor solution or overshoot. Too low, and optimisation crawls or gets stuck. Pick a value that balances speed of convergence against the quality of the solution.</p>
+				</section>
+
 				<!-- Activation Functions -->
 				<section id="activations" class="content-section">
 					<h2><i class="fa-solid fa-bolt mr-3 text-indigo-500"></i> Activation Functions</h2>
@@ -336,6 +369,26 @@ print("Probabilities:", y)          # e.g. [0.52, 0.48]</code></pre>
 						</div>
 					</div>
 
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+						<div class="bg-white border border-gray-200 rounded-lg p-4">
+							<h3 class="mt-0">Leaky ReLU</h3>
+							<p class="text-sm">An attempt to fix the "dying ReLU" problem, where negative inputs become exactly zero and the neuron stops learning. Negative inputs keep a small slope, <code>f(y) = a·y</code> with a = 0.01. If a is learned or randomised, it is called Parametric or Randomised ReLU. Range: (−∞, ∞).</p>
+						</div>
+						<div class="bg-white border border-gray-200 rounded-lg p-4">
+							<h3 class="mt-0">Where each is used</h3>
+							<p class="text-sm">Sigmoid: range [0, 1], binary classification. Tanh: range [−1, 1], zero-centred. ReLU: range [0, ∞), the default for hidden layers and common in CNNs. Softmax: a generalisation of sigmoid for multi-class problems.</p>
+						</div>
+					</div>
+
+					<p>As a rough guide, hidden-layer performance tends to improve in this order, from lowest to highest: logistic, tanh, ReLU, Leaky ReLU, ELU, SELU.</p>
+
+					<h3>Output Layer Activation</h3>
+					<ul>
+						<li><strong>Regression:</strong> usually no activation, since the output can take any value. To bound the output, use tanh for [−1, 1] or sigmoid for [0, 1]. For strictly positive outputs, use softplus.</li>
+						<li><strong>Binary classification:</strong> sigmoid, so the output lies between 0 and 1.</li>
+						<li><strong>Multi-class classification:</strong> softmax, so the class probabilities sum to 1.</li>
+					</ul>
+
 					<pre><code class="language-python">import torch
 import torch.nn.functional as F
 
@@ -351,6 +404,9 @@ print("Softmax:", F.softmax(x, dim=0))</code></pre>
 				<section id="training" class="content-section">
 					<h2><i class="fa-solid fa-chart-line mr-3 text-indigo-500"></i> Training: Loss &amp; Optimisers</h2>
 					<p>Training a neural network is an optimisation problem: minimise a <strong>loss function</strong> that measures how wrong the predictions are, by adjusting weights via <strong>backpropagation</strong> and an <strong>optimiser</strong>.</p>
+
+						<h3>Loss vs Cost</h3>
+					<p>The two terms are often used interchangeably, but there is a difference. A <strong>loss</strong> is computed for a single training example. A <strong>cost</strong> is the average loss over the whole training set. Training minimises it.</p>
 
 					<h3>Common Loss Functions</h3>
 					<div class="overflow-x-auto my-4">
@@ -373,7 +429,16 @@ print("Softmax:", F.softmax(x, dim=0))</code></pre>
 					<h3>Backpropagation in One Sentence</h3>
 					<p>The chain rule of calculus applied from the loss backwards through each layer — computing <code>∂Loss/∂w</code> for every weight so the optimiser knows which direction to nudge each parameter.</p>
 
-					<h3>Optimisers</h3>
+						<h3>Optimisers</h3>
+					<p>An optimiser is the algorithm that adjusts the model's parameters to minimise the loss. The choice can noticeably affect performance.</p>
+
+					<h4 class="font-bold mt-4">Gradient Descent</h4>
+					<p>Iteratively move the parameters in the direction that reduces the loss: compute the gradient of the loss with respect to the parameters and step the opposite way. The step size is the learning rate:</p>
+					<p>$$b = a - \gamma \nabla f(a)$$</p>
+					<p>where \(b\) is the next position, \(a\) the current position, \(\gamma\) the learning rate and \(\nabla f(a)\) the gradient of the loss. If the learning rate is too high, the algorithm overshoots the minimum and oscillates around it. If it is too low, convergence is slow. Batch, mini-batch and stochastic variants trade off speed, noise and memory differently.</p>
+
+					<h4 class="font-bold mt-4">Adam</h4>
+					<p>Adam (Adaptive Moment Estimation) combines SGD with momentum and adapts the learning rate for each weight. It keeps an exponentially decaying average of past gradients to scale each parameter's step, so the learning rate adapts to the data and the model. Momentum adds a fraction of the previous update to the current one, which smooths oscillations and helps escape local minima and saddle points. The result usually converges faster and more robustly than plain SGD.</p>
 					<pre><code class="language-python">import torch.optim as optim
 
 # SGD with momentum — simple, effective, widely used
@@ -393,8 +458,17 @@ optimizer.step()        # update weights: w = w - lr * grad</code></pre>
 					<h2><i class="fa-solid fa-shield-halved mr-3 text-indigo-500"></i> Regularisation</h2>
 					<p>Deep networks easily memorise training data. Regularisation techniques force the model to generalise.</p>
 
+						<h3>L1 and L2 Regularisation</h3>
+					<p>Both add a penalty term to the loss during training, scaled by a regularisation rate \(\lambda\).</p>
+					<ul>
+						<li><strong>L1</strong> penalises the sum of the absolute values of the weights, pushing many weights towards zero.</li>
+						<li><strong>L2</strong>, also called <strong>weight decay</strong>, penalises the sum of the squared weights, encouraging smaller weights so the model does not overfit the training data.</li>
+					</ul>
+					<p>$$\text{Cost} = \text{Loss} + \frac{\lambda}{2m} \sum \lVert w \rVert$$</p>
+					<p>$$\text{Cost} = \text{Loss} + \frac{\lambda}{2m} \sum \lVert w \rVert^2$$</p>
+
 					<h3>Dropout</h3>
-					<p>Randomly zeroes a fraction of neurons during each training step. Forces redundant representations — the network can't rely on any single neuron.</p>
+					<p>Randomly zeroes a fraction of neurons during each training step. Forces redundant representations — the network can't rely on any single neuron, so knowledge is distributed across the whole network. A good rate is between 0.1 and 0.5: about 0.3 for RNNs and 0.5 for CNNs, with larger rates for bigger layers. Raising the rate reduces overfitting. Lowering it helps against underfitting.</p>
 					<pre><code class="language-python">import torch.nn as nn
 
 model = nn.Sequential(
@@ -414,7 +488,7 @@ model = nn.Sequential(
 )</code></pre>
 
 					<h3>Early Stopping</h3>
-					<p>Monitor validation loss during training and stop when it stops improving — the simplest and often most effective regulariser.</p>
+					<p>Monitor validation loss during training and stop when it stops improving — the simplest and often most effective regulariser. The number of epochs to wait before stopping is a hyperparameter to tune (called <em>patience</em> in Keras). It is often combined with weight decay and dropout.</p>
 					<pre><code class="language-python">best_val_loss = float('inf')
 patience, wait = 5, 0
 
@@ -636,26 +710,6 @@ for epoch in range(100):
 						<div class="p-5"><p class="text-gray-700 mb-3">Replace <code>optim.Adam</code> with <code>optim.SGD(lr=0.1, momentum=0.9)</code> and compare loss curves over 100 epochs.</p><details class="mt-3"><summary class="text-sm text-indigo-500 cursor-pointer hover:text-indigo-700 font-medium">Show hint</summary><div class="mt-2 p-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-700">SGD with momentum needs a higher lr than Adam but often converges to sharper minima. You should see noisier early epochs but comparable final accuracy.</div></details></div>
 					</details>
 
-					<!-- Knowledge Check -->
-					<section id="quiz" class="content-section">
-						<h2><i class="fa-solid fa-circle-question mr-3 text-indigo-500"></i> Knowledge Check</h2>
-						<p>Test your understanding — pick the best answer, then click Check.</p>
-						<div class="space-y-4 mt-4">
-							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">1. What does <code>ReLU</code> return for a negative input?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>The input unchanged</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Zero</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>A small negative value (leaky ReLU)</span></label></div><div id="q1-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
-							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">2. What does <code>optimizer.zero_grad()</code> do?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Initialises model weights to zero</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Clears gradients accumulated from the previous step</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Resets the learning rate scheduler</span></label></div><div id="q2-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
-							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">3. What does Dropout do during inference (<code>model.eval()</code>)?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Continues randomly dropping neurons</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Becomes a no-op — all neurons stay active</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Scales outputs by the dropout probability</span></label></div><div id="q3-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
-						</div>
-						<div class="flex items-center gap-4 mt-5">
-							<button onclick="checkQuiz()" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium transition">Check Answers</button>
-							<button onclick="resetQuiz()" class="px-4 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 text-sm transition">Reset</button>
-						</div>
-						<div id="quiz-score" class="hidden mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl text-indigo-800 font-semibold text-center text-lg"></div>
-					</section>
-					<script>
-						var QUIZ_DATA=[{correct:1,exp:"ReLU(x) = max(0, x). Negative values are clipped to zero, which removes them from the gradient path."},{correct:1,exp:"PyTorch accumulates gradients by default. Calling <code>zero_grad()</code> before <code>backward()</code> ensures each step uses only the current batch's gradients."},{correct:1,exp:"Dropout is disabled in eval mode so the full network is used for every prediction. The expected value is preserved by the scale-at-train-time approach."}];
-						function checkQuiz(){var score=0;QUIZ_DATA.forEach(function(q,i){var sel=document.querySelector('input[name="q'+(i+1)+'"]:checked');var fb=document.getElementById('q'+(i+1)+'-feedback');if(!sel){fb.innerHTML='Please select an answer.';fb.className='mt-3 p-3 rounded-lg text-sm bg-yellow-50 text-yellow-800 border border-yellow-200';fb.classList.remove('hidden');return;}var val=parseInt(sel.value);if(val===q.correct){fb.innerHTML='<strong>Correct!</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-green-50 text-green-800 border border-green-200';score++;}else{fb.innerHTML='<strong>Not quite.</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-red-50 text-red-800 border border-red-200';}fb.classList.remove('hidden');});var sd=document.getElementById('quiz-score');sd.textContent='Score: '+score+' / '+QUIZ_DATA.length+'  ('+Math.round(score/QUIZ_DATA.length*100)+'%)';sd.classList.remove('hidden');if(score===QUIZ_DATA.length&&window.markLessonComplete){window.markLessonComplete();sd.textContent+='  · Lesson complete ✓';}}
-						function resetQuiz(){document.querySelectorAll('input[type=radio]').forEach(function(r){r.checked=false;});QUIZ_DATA.forEach(function(_,i){var fb=document.getElementById('q'+(i+1)+'-feedback');fb.className='hidden';});document.getElementById('quiz-score').classList.add('hidden');}
-					</script>
 			
 				<!-- Module Progress & Navigation -->
 				<div class="mt-12 pt-8 border-t border-gray-200">
@@ -685,7 +739,6 @@ for epoch in range(100):
 							btn.innerHTML = '<i class=\"fa-regular fa-circle-check text-lg\"></i> <span>Mark as Complete</span>';
 						}
 					}
-					// A perfect quiz score also marks the lesson complete.
 					window.markLessonComplete = function() {
 						try { localStorage.setItem(KEY, '1'); } catch (e) { }
 						sync();

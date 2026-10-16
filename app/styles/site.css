@@ -45,7 +45,7 @@ body {
 @media (hover: hover) {
 	.menubar a.mb-link:hover, .menubar summary:hover, .menubar button:hover { background: var(--text); color: var(--bg); }
 }
-.menubar a.mb-link[aria-current="page"] { background: var(--text); color: var(--bg); }
+.menubar a.mb-link[aria-current="page"], .menubar details.is-current > summary { background: var(--text); color: var(--bg); }
 .menubar summary { list-style: none; }
 .menubar summary::-webkit-details-marker { display: none; }
 .menubar details { position: relative; }

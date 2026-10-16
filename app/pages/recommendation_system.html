@@ -156,6 +156,9 @@
 		  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
 		}
 	</style>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]})"></script>
 </head>
 
 <body class="bg-gray-50 min-h-screen flex flex-col">
@@ -166,7 +169,7 @@
 			<a class="wordmark" href="../../index.html"><i aria-hidden="true"></i>Python to AI</a>
 			<div class="mb-desktop">
 				<a class="mb-link" href="history_of_ai.html">History</a>
-				<details>
+				<details class="is-current">
 					<summary>Lessons ▾</summary>
 					<nav class="dropdown" aria-label="Lessons">
 					<a href="python.html"><span>00</span>Python basics</a>
@@ -215,11 +218,14 @@
 					<h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Contents</h3>
 					<nav class="space-y-1" id="sidebar-nav">
 						<a href="#intro" class="sidebar-link active">Overview</a>
+						<a href="#rs-basics" class="sidebar-link">Fundamentals and Types</a>
 						<a href="#content-based" class="sidebar-link">Content-Based Filtering</a>
 						<a href="#cosine-similarity" class="sidebar-link">Cosine Similarity</a>
 						<a href="#collaborative" class="sidebar-link">Collaborative Filtering</a>
+						<a href="#cf-attacks" class="sidebar-link">Attacks on CF</a>
+						<a href="#knowledge-based" class="sidebar-link">Knowledge-Based</a>
+						<a href="#hybrid" class="sidebar-link">Hybrid Systems</a>
 						<a href="#movie-rec-demo" class="sidebar-link"><span class="mr-1">🎬</span> Movie Recommender</a>
-						<a href="#quiz" class="sidebar-link">Knowledge Check</a>
 					</nav>
 				</div>
 			</aside>
@@ -243,9 +249,77 @@
 					</div>
 				</section>
 
+				<section id="rs-basics" class="content-section">
+					<h2><i class="fa-solid fa-book-open mr-3 text-indigo-500"></i> Fundamentals and Types</h2>
+					<p>A <strong>recommender system (RS)</strong> is a set of software tools and techniques that suggests useful items to a user. The suggestions support decisions such as what to buy, what music to listen to or what news to read. Some techniques are knowledge poor: they need only very simple data, such as user ratings for items.</p>
+
+					<h3>Fundamental Terms</h3>
+					<ul>
+						<li><strong>Items.</strong> The objects being recommended. Users always pay a cost: the effort of searching and, often, real money. Items range from low complexity and value (news, web pages, books, films), through mid-range (cameras, phones, PCs), to highly complex ones (insurance, investments, travel, jobs).</li>
+						<li><strong>Users.</strong> The people searching for items, with very diverse goals and characteristics.</li>
+						<li><strong>Transactions.</strong> Recorded interactions between a user and the system.</li>
+						<li><strong>Explicit feedback.</strong> Likes and dislikes, ratings, text comments. Simple, but it adds to the user's cognitive load.</li>
+						<li><strong>Implicit feedback.</strong> No active effort from the user: clicks, time spent on an item, saving an item.</li>
+						<li><strong>Ratings.</strong> Numerical (1 to 5 stars), ordinal ("strongly agree" to "strongly disagree") or binary (good or bad).</li>
+					</ul>
+
+					<h3>Types of Recommender System</h3>
+					<ol>
+						<li><strong>Content-based:</strong> recommends items similar to ones the user liked before, using item features.</li>
+						<li><strong>Collaborative filtering:</strong> recommends what users with similar tastes liked, using rating histories.</li>
+						<li><strong>Knowledge-based:</strong> uses specific domain knowledge. Either <em>case-based</em> (a similarity function matches the user's needs to solutions) or <em>constraint-based</em> (explicit rules link requirements to item features).</li>
+						<li><strong>Demographic:</strong> assumes different demographic niches need different recommendations.</li>
+						<li><strong>Community-based:</strong> uses the preferences of the user's friends or community.</li>
+						<li><strong>Hybrid:</strong> combinations of the above.</li>
+					</ol>
+
+					<h3>Why Do Providers and Users Need One?</h3>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+						<div class="bg-indigo-50 rounded-xl p-5 border border-indigo-100">
+							<p class="font-bold text-indigo-700 mb-2">Providers want to</p>
+							<ul class="text-sm mb-0">
+								<li>Sell more items</li>
+								<li>Sell more diverse items, including hard-to-find ones</li>
+								<li>Increase user satisfaction</li>
+								<li>Increase user loyalty by recognising returning customers</li>
+								<li>Better understand what users want</li>
+							</ul>
+						</div>
+						<div class="bg-purple-50 rounded-xl p-5 border border-purple-100">
+							<p class="font-bold text-purple-700 mb-2">Users want to</p>
+							<ul class="text-sm mb-0">
+								<li>Find some good items, as a ranked list with predicted ratings</li>
+								<li>Find all good items</li>
+								<li>See items annotated in context (e.g. TV show descriptions)</li>
+								<li>Get a sequence (a TV series) or a bundle (a travel plan)</li>
+								<li>Browse with no immediate intent to buy</li>
+								<li>Test how credible the recommender is, improve their profile, express themselves, help or influence others</li>
+							</ul>
+						</div>
+					</div>
+
+					<h3>Open Issues</h3>
+					<p>Scalability on real-world datasets, proactive recommendations (offered without being asked), privacy, diversity of the recommended items, combining long-term and short-term preferences, cross-domain and distributed recommenders, optimising a sequence of recommendations, and mobile contexts. Related topics include exploration versus exploitation, guided navigation, interpreting user actions and evaluating recommenders.</p>
+				</section>
+
 				<section id="content-based" class="content-section">
 					<h2><i class="fa-solid fa-film mr-3 text-indigo-500"></i> Content-Based Filtering</h2>
 					<p>Using the <strong>MovieLens dataset</strong> (9,742 movies), each movie is represented as a binary genre vector. Movies with similar genre vectors are considered similar.</p>
+
+					<h3>How a Content-Based Recommender Works</h3>
+					<p>The system has three components:</p>
+					<ul>
+						<li><strong>Content analyser.</strong> Turns unstructured item content (text, web pages, descriptions) into a structured form, for example keyword vectors, using feature extraction. This representation feeds the next two components.</li>
+						<li><strong>Profile learner.</strong> Collects data on the user's preferences and generalises it, usually with machine learning, into a user profile. For a web-page recommender it might combine the vectors of liked and disliked pages into one prototype vector that represents the user.</li>
+						<li><strong>Filtering component.</strong> Matches the user profile against item representations, for instance with cosine similarity between the prototype and each item vector. The result is a binary or continuous relevance score, which gives a ranked list.</li>
+					</ul>
+					<ol>
+						<li>Build a training set for the active user: pairs \(\langle I_k, r_k \rangle\) of an item representation and the rating the user gave it.</li>
+						<li>The profile learner applies a supervised learning algorithm to produce a predictive model, the user profile, kept in a profile repository.</li>
+						<li>The filtering component predicts how likely each new item is to interest the user, and the top-ranked items form the recommendation list.</li>
+						<li>Feedback on those recommendations is saved, the model is retrained on the new data, and the profile adapts. Repeating this cycle lets the system follow changing tastes.</li>
+					</ol>
+					<p>Common methods for learning user profiles are Naive Bayes, K-Nearest Neighbours, decision trees and K-Means.</p>
 
 					<h3>One-Hot Encode Genres</h3>
 					<pre><code class="language-python">import pandas as pd
@@ -309,6 +383,18 @@ print(cosine_sim(toy_story, die_hard)) # 0.0 — no overlap</code></pre>
 					<h2><i class="fa-solid fa-users mr-3 text-indigo-500"></i> Collaborative Filtering</h2>
 					<p>Collaborative filtering uses a <strong>user–item rating matrix</strong>. We use KNN on 100,836 ratings from 610 users with cosine distance to find similar movies.</p>
 
+					<p>The core assumption is simple: if person X and person Y reacted the same way to some items, they will probably share opinions on other items too. Unlike content-based filtering, CF ignores item features. It groups users with similar behaviour and recommends according to each group's preferences.</p>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+						<div class="bg-indigo-50 rounded-xl p-5 border border-indigo-100">
+							<p class="font-bold text-indigo-700 mb-1">User-based</p>
+							<p class="text-sm mb-0">Find users who rated many items the same way, then estimate the missing rating from their ratings.</p>
+						</div>
+						<div class="bg-purple-50 rounded-xl p-5 border border-purple-100">
+							<p class="font-bold text-purple-700 mb-1">Item-based</p>
+							<p class="text-sm mb-0">Look at relationships between pairs of items ("people who bought Y also bought Z") and estimate the missing rating from the other items this user rated. Amazon first used this in 1998. The KNN code below is item-based.</p>
+						</div>
+					</div>
+
 					<h3>Build the Rating Matrix</h3>
 					<pre><code class="language-python">from scipy.sparse import csr_matrix
 
@@ -344,6 +430,114 @@ print(similar_movies(1))  # Movies similar to Toy Story</code></pre>
 						<p class="font-bold text-yellow-800 mb-1"><i class="fa-solid fa-lightbulb mr-2"></i>Cold Start Problem</p>
 						<p class="text-sm text-yellow-700 mb-0">Collaborative filtering fails for new users (no ratings) or new items. Content-based filtering handles this — real systems combine both (<strong>hybrid recommenders</strong>).</p>
 					</div>
+				</section>
+
+				<section id="cf-attacks" class="content-section">
+					<h2><i class="fa-solid fa-user-secret mr-3 text-indigo-500"></i> Attacks on Collaborative Systems</h2>
+					<p>Collaborative recommenders learn from user-supplied ratings, so malicious users can bias their output to make particular items recommended or not. Each fake identity an attacker creates is an <strong>attack profile</strong>. The best attack gives the biggest impact for the least effort.</p>
+					<ul>
+						<li><strong>Product push:</strong> promote an item's recommendations. <strong>Product nuke:</strong> demote them.</li>
+						<li><strong>Low-knowledge attacks</strong> need only public, system-independent information. <strong>High-knowledge attacks</strong> need the rating distribution, such as each item's mean and standard deviation. An <strong>informed attack</strong> exploits knowledge of the exact algorithm in use.</li>
+					</ul>
+<div class="overflow-x-auto"><table class="w-full text-sm border-collapse border border-gray-200 rounded-lg my-4"><thead class="bg-gray-50"><tr><th class="border border-gray-200 px-4 py-2 text-left">Attack</th><th class="border border-gray-200 px-4 py-2 text-left">Knowledge</th><th class="border border-gray-200 px-4 py-2 text-left">How the profile is built</th></tr></thead><tbody>
+<tr><td class="border border-gray-200 px-4 py-2">Random</td><td class="border border-gray-200 px-4 py-2">Basic</td><td class="border border-gray-200 px-4 py-2">Filler items get random ratings around the overall mean. The target item gets \(r_{max}\) (push) or \(r_{min}\) (nuke). Needs little knowledge but is not very effective.</td></tr>
+<tr><td class="border border-gray-200 px-4 py-2">Average</td><td class="border border-gray-200 px-4 py-2">Basic</td><td class="border border-gray-200 px-4 py-2">Like random, but each filler item gets its own mean rating. More powerful, since only the filler ratings differ.</td></tr>
+<tr><td class="border border-gray-200 px-4 py-2">Bandwagon</td><td class="border border-gray-200 px-4 py-2">Low</td><td class="border border-gray-200 px-4 py-2">Include popular items rated at the maximum along with the target, so the profile resembles many users. Filler items are random.</td></tr>
+<tr><td class="border border-gray-200 px-4 py-2">Segment</td><td class="border border-gray-200 px-4 py-2">Low</td><td class="border border-gray-200 px-4 py-2">Push an item to a known audience, e.g. a horror film to horror fans. Segment items and the target get the maximum rating, fillers the minimum.</td></tr>
+<tr><td class="border border-gray-200 px-4 py-2">Love/Hate</td><td class="border border-gray-200 px-4 py-2">Nuke</td><td class="border border-gray-200 px-4 py-2">Target gets \(r_{min}\) and every filler item gets \(r_{max}\).</td></tr>
+<tr><td class="border border-gray-200 px-4 py-2">Reverse bandwagon</td><td class="border border-gray-200 px-4 py-2">Nuke</td><td class="border border-gray-200 px-4 py-2">Pair the target with widely disliked items, all rated low, so the system predicts a low rating for it.</td></tr>
+<tr><td class="border border-gray-200 px-4 py-2">Popular</td><td class="border border-gray-200 px-4 py-2">Informed</td><td class="border border-gray-200 px-4 py-2">Use popular items as fillers, rated \(r_{min}+1\) or \(r_{min}\) depending on whether the item is above or below average. Can also nuke.</td></tr>
+<tr><td class="border border-gray-200 px-4 py-2">Probe</td><td class="border border-gray-200 px-4 py-2">Informed</td><td class="border border-gray-200 px-4 py-2">Create a seed profile and read the recommendations it gets. Those come from real neighbours, so the attacker incrementally learns the rating distribution.</td></tr>
+</tbody></table></div>
+					<h3>Countermeasures</h3>
+					<ul>
+						<li>Use <strong>model-based or hybrid algorithms</strong>: comparable accuracy and less vulnerable.</li>
+						<li><strong>Raise the cost</strong> of injecting profiles, for example with captchas.</li>
+						<li><strong>Detect attacks statistically:</strong> look for groups of users pushing or nuking the same items, and watch changes in an item's average rating, rating entropy and bulk-rating timing. ML can also flag fake profiles.</li>
+					</ul>
+				</section>
+
+				<section id="knowledge-based" class="content-section">
+					<h2><i class="fa-solid fa-lightbulb mr-3 text-indigo-500"></i> Knowledge-Based Recommenders</h2>
+					<p>Some items, such as apartments, are bought rarely, so there are few ratings for any one item, and years-old preferences would not satisfy users anyway. Knowledge-based recommenders handle this by using explicit user requirements and deep knowledge of the product domain.</p>
+					<p>They have <strong>no cold-start problem</strong>, because requirements are elicited during the session. Their weakness is the <strong>knowledge acquisition bottleneck</strong>: engineers must convert domain experts' knowledge into formal, executable rules.</p>
+					<h3>Limitations</h3>
+					<ul>
+						<li>Knowledge acquisition is costly, both from experts (rules and constraints) and from users (requirements).</li>
+						<li>Very fine-grained preference models need many interaction cycles.</li>
+						<li>Preferences are not always independent of each other, which challenges the usual assumption.</li>
+					</ul>
+
+					<h3>Constraint-Based Recommenders</h3>
+					<p>These use predefined knowledge bases with explicit rules that relate customer requirements to item features. The problem is modelled as a <strong>constraint satisfaction problem</strong>, a tuple \((V, D, C)\):</p>
+					<ul>
+						<li>\(V\) is a set of variables: customer requirements \(V_C\) and item features \(V_{PROD}\), so \(V = V_C \cup V_{PROD}\).</li>
+						<li>\(D\) is the finite domain of each variable.</li>
+						<li>\(C\) is a set of constraints on which value combinations are allowed: <em>filter</em> constraints \(C_F\) ("if the user requires A, the item must have feature B"), <em>compatibility</em> constraints \(C_R\) between requirements, and <em>product</em> constraints \(C_{PROD}\) that define the available assortment.</li>
+					</ul>
+					<p>The customer's query (REQ) is encoded as a constraint over these variables, and the task is to find the products (RES) that match it. Strategies include:</p>
+					<ul>
+						<li>If no item matches, ask the user which requirements to relax or change so that some item exists.</li>
+						<li>Find the items that satisfy the largest weighted set of constraints.</li>
+						<li>Rank items by the ratio of constraints they fulfil.</li>
+					</ul>
+					<p>A <em>conjunctive query</em> combines the filter conditions \(C_F\) with the user requirements.</p>
+
+					<h3>Defaults</h3>
+					<p>Users are often unsure which options to pick or lack the technical detail, so the system proposes defaults:</p>
+					<ul>
+						<li><strong>Static:</strong> one default per user property.</li>
+						<li><strong>Dependent:</strong> depends on the combination of requirements given.</li>
+						<li><strong>Derived:</strong> learned from earlier interactions, by 1-nearest-neighbour (copy the most similar earlier entry) or a weighted majority vote among similar items.</li>
+					</ul>
+
+					<h3>When Requirements Cannot Be Met</h3>
+					<p>Rank items with <strong>Multi-Attribute Utility Theory (MAUT)</strong>. Each item is scored on a fixed set of dimensions; for digital cameras, say, <em>quality</em> and <em>economy</em>. An item priced at or below 250 might score quality 5 and economy 10. The user's interest in each dimension weights the item's contribution:</p>
+					$$utility(p)=\sum_{j=1}^{n} interest(j) \cdot contribution(p,j)$$
+
+					<h3>Case-Based Recommenders</h3>
+					<p>These retrieve items using similarity measures that describe how well item properties match user requirements. Early versions were <strong>query-based</strong>: the customer states requirements and the system returns similar items. The drawback is that customers often do not know what they want, which led to <strong>browsing-based</strong> navigation. The state of the art, <strong>critique-based</strong> recommenders, combines both, so users can change preferences without stating exact attribute values.</p>
+					<p>Similarity of a product \(p\) to the requirements is a weighted average over requirements \(r\), where \(w_r\) is the importance of \(r\):</p>
+					$$similarity(p,REQ)=\frac{\sum_{r\in REQ} w_r \cdot sim(p,r)}{\sum_{r\in REQ} w_r}$$
+					<p>The local similarity \(sim(p,r)\) depends on the attribute, where \(\phi_r(p)\) is the item's value:</p>
+					<ul>
+						<li><strong>More is better</strong> (camera resolution): \(sim(p,r)=\frac{\phi_r(p)-\min(r)}{\max(r)-\min(r)}\)</li>
+						<li><strong>Less is better</strong> (price): \(sim(p,r)=\frac{\max(r)-\phi_r(p)}{\max(r)-\min(r)}\)</li>
+						<li><strong>Closest to the requested value</strong> (run time, monitor size): \(sim(p,r)=1-\frac{|\phi_r(p)-r|}{\max(r)-\min(r)}\)</li>
+					</ul>
+
+					<h3>Critiquing</h3>
+					<p>In critiquing, customers say what is wrong with the current item ("cheaper", "more pixels"). The goal is to save time while matching the recommendation quality of query-based approaches. Critiquing several properties at once (<em>compound critiques</em>) shortens the dialogue and moves faster through the item space. A candidate item \(c_i\) is scored on its similarity to REQ and its compatibility with the selected compound critique \(CC_U\):</p>
+					$$compatibility(c_i,CC_U)=\frac{|\{cc_i\in CC_U : satisfies(cc_i,c_i)\}|}{|CC_U|}$$
+					$$quality(c_i,REQ,CC_U)=compatibility(c_i,CC_U)\cdot similarity(c_i,REQ)$$
+				</section>
+
+				<section id="hybrid" class="content-section">
+					<h2><i class="fa-solid fa-code-merge mr-3 text-indigo-500"></i> Hybrid Recommender Systems</h2>
+					<p>Each base technique answers a different question. <strong>Collaborative:</strong> "tell me what's popular among my peers". <strong>Content-based:</strong> "show me more of what I've liked". <strong>Knowledge-based:</strong> "tell me what fits my needs". A good sales assistant uses all three at different stages, but each has shortcomings such as cold start. A <em>hybrid</em> (from the Latin <em>hybrida</em>, an object made by combining two different things) crosses two or more techniques to avoid some of those shortcomings and gain properties the parents lack.</p>
+					<p>There are three design families: <strong>monolithic</strong>, <strong>parallel</strong> and <strong>pipelined</strong>.</p>
+
+					<h3>Monolithic: One Component, Several Feature Sources</h3>
+					<p>A single recommendation component integrates multiple algorithms or knowledge sources as input.</p>
+					<ul>
+						<li><strong>Feature combination.</strong> Mix collaborative features (movies the user liked) with content features (genres) to build hybrid features such as "user likes many mystery books". In a small example, pure collaborative filtering finds that User1 and User2 are similar to Alice. With feature combination, User2 behaves quite differently and only User1 stays similar to Alice, because both like many mystery books.</li>
+						<li><strong>Feature augmentation.</strong> One recommender produces features that enrich the knowledge source of the main one. In <em>content-boosted collaborative filtering</em>, a content-based classifier trained on the user's likes and dislikes rates unrated items, those ratings fill the user's profile, and collaborative filtering then runs again on the denser profile.</li>
+					</ul>
+
+					<h3>Parallel: Combine the Outputs of Several Systems</h3>
+					<ul>
+						<li><strong>Weighted.</strong> Combine \(n\) recommenders \(rec_k\) with weights \(\beta_k\) that sum to 1:
+						$$rec_{weighted}(u,i)=\sum_{k=1}^{n} \beta_k \cdot rec_k(u,i), \quad \sum_{k=1}^{n}\beta_k=1$$
+						Weights can be found by empirical bootstrapping (try weightings on historic data and keep the best) or adjusted dynamically: start uniform, then adapt per user to minimise the prediction error (MAE). The recommenders must produce comparable scores, which may need a transformation, and stable weights need many user ratings.</li>
+						<li><strong>Switching.</strong> A mediator picks one recommender depending on the situation. This is dynamic weighting where all weights but one are 0. For a new user, use knowledge-based first, then collaborative; for a new item, use content-based first, then collaborative.</li>
+						<li><strong>Mixed.</strong> Show the results of all recommenders side by side in the interface.</li>
+					</ul>
+
+					<h3>Pipelined: Recommenders Build on Each Other</h3>
+					<ul>
+						<li><strong>Cascade.</strong> Each stage refines the list from the one before. Later stages can only reorder or exclude items, never add new ones, so results are precise but the list keeps shrinking and may end up empty. Combine it with switching to guarantee enough recommendations. The first recommender only produces a list; the next scores items or drops them.</li>
+						<li><strong>Meta-level.</strong> The first recommender builds a model (for example a user model) that the main recommender then uses instead of raw data to make its predictions.</li>
+					</ul>
 				</section>
 
 					<!-- Interactive Movie Recommender Demo -->
@@ -480,26 +674,6 @@ print(similar_movies(1))  # Movies similar to Toy Story</code></pre>
 						</script>
 					</section>
 
-					<!-- Knowledge Check -->
-					<section id="quiz" class="content-section">
-						<h2><i class="fa-solid fa-circle-question mr-3 text-indigo-500"></i> Knowledge Check</h2>
-						<p>Test your understanding — pick the best answer, then click Check.</p>
-						<div class="space-y-4 mt-4">
-							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">1. What does cosine similarity measure?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Euclidean distance between two vectors</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>The cosine of the angle between two vectors</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>The dot product scaled by vector length squared</span></label></div><div id="q1-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
-							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">2. What is the cold start problem?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>The recommendation engine is slow to initialise</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>New users or items have no interaction history for recommendations</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>The model overfits to the most popular items</span></label></div><div id="q2-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
-							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">3. What is the key difference between content-based and collaborative filtering?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Content-based uses item/user features; collaborative uses interaction patterns</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Content-based is always more accurate</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Collaborative filtering never suffers from cold start</span></label></div><div id="q3-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
-						</div>
-						<div class="flex items-center gap-4 mt-5">
-							<button onclick="checkQuiz()" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium transition">Check Answers</button>
-							<button onclick="resetQuiz()" class="px-4 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 text-sm transition">Reset</button>
-						</div>
-						<div id="quiz-score" class="hidden mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl text-indigo-800 font-semibold text-center text-lg"></div>
-					</section>
-					<script>
-						var QUIZ_DATA=[{correct:1,exp:"Cosine similarity = (A.B)/(|A||B|). It measures directional similarity regardless of magnitude — ideal for sparse user-item vectors."},{correct:1,exp:"Without ratings or behaviour data, collaborative filtering has nothing to work from. Solutions: ask preferences on signup, or fall back to content-based filtering."},{correct:0,exp:"Content-based: recommend items similar to ones you liked (needs feature data). Collaborative: recommend what similar users liked (needs interaction history)."}];
-						function checkQuiz(){var score=0;QUIZ_DATA.forEach(function(q,i){var sel=document.querySelector('input[name="q'+(i+1)+'"]:checked');var fb=document.getElementById('q'+(i+1)+'-feedback');if(!sel){fb.innerHTML='Please select an answer.';fb.className='mt-3 p-3 rounded-lg text-sm bg-yellow-50 text-yellow-800 border border-yellow-200';fb.classList.remove('hidden');return;}var val=parseInt(sel.value);if(val===q.correct){fb.innerHTML='<strong>Correct!</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-green-50 text-green-800 border border-green-200';score++;}else{fb.innerHTML='<strong>Not quite.</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-red-50 text-red-800 border border-red-200';}fb.classList.remove('hidden');});var sd=document.getElementById('quiz-score');sd.textContent='Score: '+score+' / '+QUIZ_DATA.length+'  ('+Math.round(score/QUIZ_DATA.length*100)+'%)';sd.classList.remove('hidden');if(score===QUIZ_DATA.length&&window.markLessonComplete){window.markLessonComplete();sd.textContent+='  · Lesson complete ✓';}}
-						function resetQuiz(){document.querySelectorAll('input[type=radio]').forEach(function(r){r.checked=false;});QUIZ_DATA.forEach(function(_,i){var fb=document.getElementById('q'+(i+1)+'-feedback');fb.className='hidden';});document.getElementById('quiz-score').classList.add('hidden');}
-					</script>
 			
 				<!-- Module Progress & Navigation -->
 				<div class="mt-12 pt-8 border-t border-gray-200">
@@ -529,7 +703,6 @@ print(similar_movies(1))  # Movies similar to Toy Story</code></pre>
 							btn.innerHTML = '<i class=\"fa-regular fa-circle-check text-lg\"></i> <span>Mark as Complete</span>';
 						}
 					}
-					// A perfect quiz score also marks the lesson complete.
 					window.markLessonComplete = function() {
 						try { localStorage.setItem(KEY, '1'); } catch (e) { }
 						sync();

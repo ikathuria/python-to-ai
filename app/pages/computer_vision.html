@@ -165,7 +165,7 @@
 			<a class="wordmark" href="../../index.html"><i aria-hidden="true"></i>Python to AI</a>
 			<div class="mb-desktop">
 				<a class="mb-link" href="history_of_ai.html">History</a>
-				<details>
+				<details class="is-current">
 					<summary>Lessons ▾</summary>
 					<nav class="dropdown" aria-label="Lessons">
 					<a href="python.html"><span>00</span>Python basics</a>
@@ -217,9 +217,9 @@
 						<a href="#convolution" class="sidebar-link">Convolution Operation</a>
 						<a href="#filter-gallery" class="sidebar-link">Filter Gallery</a>
 						<a href="#cnn-architecture" class="sidebar-link">CNN Architecture</a>
+						<a href="#cnn-properties" class="sidebar-link">Invariance &amp; Equivariance</a>
 						<a href="#image-classification" class="sidebar-link">Image Classification</a>
 						<a href="#colour-demo" class="sidebar-link">Colour Classifier</a>
-											<a href="#quiz" class="sidebar-link" onclick="setActive(this)">Knowledge Check</a>
 					</nav>
 				</div>
 			</aside>
@@ -347,6 +347,22 @@ print(feature_map)</code></pre>
 							Click cells to edit · Choose a kernel · Step through to see the math
 						</p>
 					</div>
+
+					<h3>How a convolution layer works</h3>
+					<p>A convolution layer needs three things: input data, a filter and a feature map. The filter (also called a kernel or feature detector) is a small 2-D array of weights that represents part of the image. It is usually 3×3, which also sets the size of the receptive field. The filter is applied to one area of the image, a dot product is taken between the input pixels and the filter, and the result goes into an output array. The filter then shifts by a <strong>stride</strong> and repeats until it has swept the whole image. The final output is the feature map (also called an activation map or convolved feature).</p>
+					<p>Three hyperparameters set the size of the output and must be chosen before training:</p>
+					<ul>
+						<li><strong>Number of filters</strong> sets the depth of the output. Three distinct filters give three feature maps, so a depth of three.</li>
+						<li><strong>Stride</strong> is the number of pixels the kernel moves each step. Values of two or more are rare, and a larger stride gives a smaller output.</li>
+						<li><strong>Zero-padding</strong> is used when the filter does not fit the image, by treating everything outside the input as zero. There are three types:
+							<ul>
+								<li><strong>Valid</strong> (no padding): the last convolution is dropped if the dimensions do not line up.</li>
+								<li><strong>Same</strong>: the output has the same size as the input.</li>
+								<li><strong>Full</strong>: zeros are added around the border, so the output is larger than the input.</li>
+							</ul>
+						</li>
+					</ul>
+					<p>After each convolution, a CNN applies a ReLU transformation to the feature map, which adds non-linearity. Because an output value does not depend on every input pixel, convolutional and pooling layers are called "partially connected". In effect, the convolution layer turns the image into numbers the network can interpret and extract patterns from.</p>
 				</section>
 
 				<!-- Demo 2: Filter Effect Gallery -->
@@ -422,6 +438,46 @@ print(feature_map)</code></pre>
 							</div>
 						</div>
 					</div>
+
+					<h3>Pooling layers in more detail</h3>
+					<p>Pooling (downsampling) reduces dimensionality and so the number of parameters. Like a convolution, the pooling filter sweeps across the input, but it has no weights. It applies an aggregation function to the values in its receptive field instead.</p>
+					<ul>
+						<li><strong>Max pooling</strong> sends the largest value in each window to the output. It is used more often than average pooling.</li>
+						<li><strong>Average pooling</strong> sends the mean of each window.</li>
+					</ul>
+					<p>A lot of information is lost in pooling, but it reduces complexity, improves efficiency and limits the risk of overfitting.</p>
+
+					<h3>The fully connected layer</h3>
+					<p>In the partially connected layers, output values are not linked directly to every input pixel. In the fully connected layer, every output node connects to every node in the previous layer. This layer does the classification, using the features extracted by the earlier layers and their different filters. Convolution and pooling layers tend to use ReLU, whereas the fully connected layer usually uses softmax, which gives a probability between 0 and 1 for each class.</p>
+				</section>
+
+				<section id="cnn-properties" class="content-section">
+					<h2><i class="fa-solid fa-arrows-up-down-left-right mr-3 text-indigo-500"></i> Invariance and Equivariance</h2>
+					<h3>Invariance</h3>
+					<p>A function is <strong>invariant</strong> if its output stays unchanged when the input is perturbed. For images this takes a few forms:</p>
+					<ul>
+						<li><strong>Translation invariance</strong>: ignoring shifts in where the target sits in the image.</li>
+						<li><strong>Rotation invariance</strong>: the predicted class does not change when the input is tilted.</li>
+						<li><strong>Robustness to noise</strong>: performance stays high on corrupted inputs.</li>
+					</ul>
+					<p>A cat is still a cat in the top or bottom half of the image, rotated, flipped or noisy. CNNs have built-in translation invariance, which is why they suit images better than ordinary networks. It comes from combining the two layer types: the convolution reduces the image to a set of features and their positions, then max pooling lowers the resolution by keeping only the maximum of each grid and discarding where in the grid it was.</p>
+
+					<h3>The downside of max pooling</h3>
+					<ul>
+						<li>The network does not learn the spatial relationship between features, so it can give a false positive when all the features are present but in the wrong arrangement.</li>
+						<li>Pooling is applied to each filter separately, so much of the relative position between features is lost. The next layer only knows which features are present.</li>
+						<li>The effect compounds: deeper layers keep less and less spatial information.</li>
+						<li>Data augmentation is a common remedy. It is a form of regularisation that distorts the training data (shifts, rotations, flips) so the model learns to be robust to those distortions.</li>
+					</ul>
+
+					<h3>Equivariance</h3>
+					<p>Equivariance is often confused with invariance. An <strong>equivariant</strong> function responds to a change in the input with a matching change in the output. This is what you want in segmentation: if you rotate the image, the segmentation map should rotate with it.</p>
+
+					<h3>Capsule networks</h3>
+					<p>Pooling throws away a lot of information and gives invariance rather than equivariance. CNNs therefore struggle to relate features to each other. The "Picasso problem" shows this: a face with the mouth and eye swapped is still classified as a face. Capsule networks address this and can also be used in the deeper layers of a CNN. A capsule is a set of neurons that encodes both the orientation of a feature and its probability. They generally need much less training data, but their training procedure differs from standard backpropagation and takes much longer.</p>
+
+					<h3>Harmonic networks</h3>
+					<p>Harmonic networks build patch-wise 360-degree rotational equivariance into the representation by constraining filters to the family of circular harmonics. These are steerable filters, so every rotated version of a filter can be written as a finite linear combination of steering bases. This avoids learning many rotated copies of the same filter, guarantees rotational equivariance, and gives feature maps that transform predictably when the input rotates.</p>
 				</section>
 
 				<section id="image-classification" class="content-section">
@@ -524,26 +580,6 @@ history = model.fit(train_gen, validation_data=val_gen,
 					</div>
 				</section>
 
-					<!-- Knowledge Check -->
-					<section id="quiz" class="content-section">
-						<h2><i class="fa-solid fa-circle-question mr-3 text-indigo-500"></i> Knowledge Check</h2>
-						<p>Test your understanding — pick the best answer, then click Check.</p>
-						<div class="space-y-4 mt-4">
-							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">1. What does a MaxPool layer do?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Averages all values in the pooling window</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Takes the maximum value in each pooling window</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q1" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>Applies a learnable filter to the input</span></label></div><div id="q1-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
-							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">2. Why do CNNs outperform fully-connected networks on images?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>CNNs share weights across spatial locations, drastically reducing parameters</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>CNNs have more neurons per layer</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q2" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>CNNs always train faster on GPUs</span></label></div><div id="q2-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
-							<div class="bg-white border border-gray-200 rounded-xl p-5"><p class="font-semibold text-gray-800 mb-3">3. What is the purpose of padding in a convolution?</p><div class="space-y-1"><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="0" class="mt-1 accent-indigo-600 flex-shrink-0"><span>To speed up the computation</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="1" class="mt-1 accent-indigo-600 flex-shrink-0"><span>To preserve the spatial dimensions of the feature map</span></label><label class="flex items-start gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-lg"><input type="radio" name="q3" value="2" class="mt-1 accent-indigo-600 flex-shrink-0"><span>To reduce the number of filters needed</span></label></div><div id="q3-feedback" class="hidden mt-3 p-3 rounded-lg text-sm"></div></div>
-						</div>
-						<div class="flex items-center gap-4 mt-5">
-							<button onclick="checkQuiz()" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium transition">Check Answers</button>
-							<button onclick="resetQuiz()" class="px-4 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 text-sm transition">Reset</button>
-						</div>
-						<div id="quiz-score" class="hidden mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl text-indigo-800 font-semibold text-center text-lg"></div>
-					</section>
-					<script>
-						var QUIZ_DATA=[{correct:1,exp:"MaxPooling downsamples the feature map by retaining the strongest activation per region, providing translation invariance."},{correct:0,exp:"Weight sharing means a filter detecting an edge works anywhere in the image — a massive parameter reduction vs a dense layer per pixel."},{correct:1,exp:"Without padding, each convolution shrinks the output. Same padding keeps height and width constant, which is important for deep architectures."}];
-						function checkQuiz(){var score=0;QUIZ_DATA.forEach(function(q,i){var sel=document.querySelector('input[name="q'+(i+1)+'"]:checked');var fb=document.getElementById('q'+(i+1)+'-feedback');if(!sel){fb.innerHTML='Please select an answer.';fb.className='mt-3 p-3 rounded-lg text-sm bg-yellow-50 text-yellow-800 border border-yellow-200';fb.classList.remove('hidden');return;}var val=parseInt(sel.value);if(val===q.correct){fb.innerHTML='<strong>Correct!</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-green-50 text-green-800 border border-green-200';score++;}else{fb.innerHTML='<strong>Not quite.</strong> '+q.exp;fb.className='mt-3 p-3 rounded-lg text-sm bg-red-50 text-red-800 border border-red-200';}fb.classList.remove('hidden');});var sd=document.getElementById('quiz-score');sd.textContent='Score: '+score+' / '+QUIZ_DATA.length+'  ('+Math.round(score/QUIZ_DATA.length*100)+'%)';sd.classList.remove('hidden');if(score===QUIZ_DATA.length&&window.markLessonComplete){window.markLessonComplete();sd.textContent+='  · Lesson complete ✓';}}
-						function resetQuiz(){document.querySelectorAll('input[type=radio]').forEach(function(r){r.checked=false;});QUIZ_DATA.forEach(function(_,i){var fb=document.getElementById('q'+(i+1)+'-feedback');fb.className='hidden';});document.getElementById('quiz-score').classList.add('hidden');}
-					</script>
 			
 				<!-- Module Progress & Navigation -->
 				<div class="mt-12 pt-8 border-t border-gray-200">
@@ -573,7 +609,6 @@ history = model.fit(train_gen, validation_data=val_gen,
 							btn.innerHTML = '<i class=\"fa-regular fa-circle-check text-lg\"></i> <span>Mark as Complete</span>';
 						}
 					}
-					// A perfect quiz score also marks the lesson complete.
 					window.markLessonComplete = function() {
 						try { localStorage.setItem(KEY, '1'); } catch (e) { }
 						sync();
